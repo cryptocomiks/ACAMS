@@ -307,6 +307,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     "id": "D3-013",
+    "changed": "FinCEN CDD relief order FIN-2026-R001 (2026): beneficial owners identified at the first account opening only",
     "domain": 3,
     "topic": "Beneficial ownership",
     "hy": true,
@@ -806,6 +807,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     "id": "D3-033",
+    "changed": "FinCEN SAR FAQs, Oct 2025: continuing-activity reviews are optional",
     "domain": 3,
     "topic": "Continuing activity SARs",
     "hy": true,

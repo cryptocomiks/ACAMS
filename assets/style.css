@@ -352,3 +352,5 @@ body.quiz .footer { border-top: 0; }
   .video-ctrl { width: 34px; height: 34px; right: 10px; bottom: 10px; }
   .video-ctrl.play { right: 50px; }
 }
+.changed { margin-top: 10px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+.changed .tag { margin-right: 4px; }

@@ -68,6 +68,11 @@
     return s === t;
   }
   function isMulti(q) { return q.answer.length > 1; }
+  function changedHtml(q) {
+    if (!q.changed) return "";
+    return '<div class="changed"><span class="tag hy">Rule changed recently</span> ' + esc(q.changed) +
+      ". ACAMS study materials (July 2025) may still reflect the previous rule.</div>";
+  }
   function sourcesHtml(q) {
     var list = Array.isArray(q.source) ? q.source.filter(function (s) { return s && /^https:\/\//.test(s.url); }) : [];
     if (!list.length) return "";
@@ -430,7 +435,7 @@
       var correctLetters = item.order.map(function (orig, i) { return q.answer.indexOf(orig) >= 0 ? LETTERS[i] : null; })
         .filter(Boolean).join(", ");
       html += '<div class="explain ' + (ok ? "good" : "bad") + '"><div class="verdict">' +
-        (ok ? "✓ Correct" : "✗ Incorrect — correct answer: " + correctLetters) + "</div>" + esc(q.explanation) + sourcesHtml(q) + "</div>";
+        (ok ? "✓ Correct" : "✗ Incorrect — correct answer: " + correctLetters) + "</div>" + esc(q.explanation) + changedHtml(q) + sourcesHtml(q) + "</div>";
     }
 
     html += '<div class="actions">';
@@ -648,7 +653,7 @@
         html += '<button class="' + cls + '" disabled><span class="letter">' + LETTERS[i] + "</span><span>" + esc(q.options[orig]) +
           (sel ? ' <span class="muted small">— your answer</span>' : "") + "</span></button>";
       });
-      html += '<div class="explain ' + (ok ? "good" : "bad") + '">' + esc(q.explanation) + sourcesHtml(q) + "</div></div>";
+      html += '<div class="explain ' + (ok ? "good" : "bad") + '">' + esc(q.explanation) + changedHtml(q) + sourcesHtml(q) + "</div></div>";
     });
     html += "</div>";
 

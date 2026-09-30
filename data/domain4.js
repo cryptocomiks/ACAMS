@@ -38,6 +38,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "D4-003",
+    changed: "SR 26-2 (April 2026) excludes deterministic rule-based processes from the model definition",
     domain: 4,
     topic: "Alert tuning governance",
     hy: false,
@@ -57,6 +58,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "D4-004",
+    changed: "SR 26-2 (April 2026) replaced SR 11-7 and the 2021 BSA/AML model risk statement",
     domain: 4,
     topic: "Model validation components",
     hy: false,
@@ -77,6 +79,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "D4-005",
+    changed: "SR 26-2 (April 2026) replaced SR 11-7 and the 2021 BSA/AML model risk statement",
     domain: 4,
     topic: "Vendor model validation",
     hy: false,
@@ -359,6 +362,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "D4-020",
+    changed: "FinCEN SAR FAQs, Oct 2025: documenting a no-SAR decision is not required",
     domain: 4,
     topic: "Investigation workflow",
     hy: true,
@@ -397,6 +401,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "D4-022",
+    changed: "FinCEN SAR FAQs, Oct 2025: documenting a no-SAR decision is not required",
     domain: 4,
     topic: "Case documentation: no-file decisions",
     hy: true,
