@@ -24,6 +24,8 @@
   window.CAMSAccount = {
     enabled: enabled,
     user: function () { return user; },
+    client: function () { return client; },
+    name: function () { return displayName(); },
     open: function (view) { openModal(view || "signup"); }
   };
 
@@ -217,6 +219,7 @@
       .then(function (r) {
         if (r.error) throw r.error;
         setState("saved");
+        if (window.CAMSLeaderboard) window.CAMSLeaderboard.schedule();
       })
       .catch(function () {
         dirty = true;

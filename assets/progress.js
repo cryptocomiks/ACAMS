@@ -1,4 +1,5 @@
-/* CAMS Exam Trainer — learning progress: XP, levels, streaks, daily goal, badges, spaced repetition.
+/* CAMS Exam Trainer — learning progress: XP, levels, streaks (with freezes), daily goal and quests,
+ * records, badges, spaced repetition (questions and flashcards), lessons read, exam readiness.
  * Works fully offline (localStorage). account.js syncs the same data to Supabase when signed in. */
 (function () {
   "use strict";
@@ -6,16 +7,20 @@
   var KEYS = {
     stats: "cams.stats.v1",     // { qid: { seen, right, wrong, last } }
     history: "cams.history.v1", // [ { date, mode, score, total, scope } ]
-    gam: "cams.gam.v1",         // { xp, days: { "YYYY-MM-DD": answers }, goalDays: { date: true }, goal, badges: { id: ts }, reviews, updated }
-    srs: "cams.srs.v1"          // { qid: { box, due, last } }
+    gam: "cams.gam.v1",         // gamification state, see gam()
+    srs: "cams.srs.v1",         // { qid: { box, due, last } }
+    cards: "cams.cards.v1",     // { cardId: { box, due, last } }
+    learn: "cams.learn.v1"      // { moduleId: firstReadTimestamp }
   };
-  var SYNCED = [KEYS.stats, KEYS.history, KEYS.gam, KEYS.srs];
+  var SYNCED = [KEYS.stats, KEYS.history, KEYS.gam, KEYS.srs, KEYS.cards, KEYS.learn];
 
   // Leitner boxes: days until the next review for each box.
   var INTERVALS = [0, 1, 3, 7, 16, 35];
   var MASTERED_BOX = 4;
-  var XP = { right: 10, wrong: 2, reviewRight: 12, testDone: 20, examPass: 50, goal: 30 };
+  var XP = { right: 10, wrong: 2, reviewRight: 12, testDone: 20, examPass: 50, goal: 30, lesson: 15, card: 1, chest: 50 };
   var GOALS = [10, 20, 30, 50];
+  var WEIGHTS = { 1: 0.3, 2: 0.2, 3: 0.3, 4: 0.2 };
+  var MAX_FREEZES = 2;
 
   var listeners = [];
 
@@ -34,15 +39,36 @@
     return d.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (day < 10 ? "0" : "") + day;
   }
   function addDays(d, n) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() + n); return x; }
+  function fromKey(k) { var p = k.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function weekKey(d) {
+    d = d || new Date();
+    var t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    var dow = t.getUTCDay() || 7;
+    t.setUTCDate(t.getUTCDate() + 4 - dow);
+    var y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
+    var wk = Math.ceil(((t - y0) / 864e5 + 1) / 7);
+    return t.getUTCFullYear() + "-W" + (wk < 10 ? "0" : "") + wk;
+  }
+  function hash(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function seeded(seed) { var s = seed >>> 0 || 1; return function () { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
 
   function gam() {
     var g = load(KEYS.gam, null) || {};
     g.xp = g.xp || 0;
-    g.days = g.days || {};
+    g.days = g.days || {};          // answers per day
+    g.act = g.act || {};            // any activity per day (answers, cards, sprint, lessons)
+    g.xpDays = g.xpDays || {};      // XP earned per day
     g.goalDays = g.goalDays || {};
     g.goal = GOALS.indexOf(g.goal) >= 0 ? g.goal : 20;
     g.badges = g.badges || {};
     g.reviews = g.reviews || 0;
+    g.quests = g.quests || {};      // { date: { ids: [..], p: {id: n}, done: {id: true}, chest: bool } }
+    g.freezes = g.freezes || 0;
+    g.frozen = g.frozen || {};      // { date: true } days covered by a streak freeze
+    g.freezeAt = g.freezeAt || 0;   // streak length at which the last freeze was awarded
+    g.records = g.records || {};    // { key: best value }
+    g.daily = g.daily || {};        // { date: { score, total, ms } } first attempt of the daily challenge
+    g.counts = g.counts || {};      // { cards, lightning, survival, sprint, chests }
     return g;
   }
   function saveGam(g) { g.updated = Date.now(); save(KEYS.gam, g); }
@@ -57,32 +83,184 @@
   var TITLES = ["Trainee", "Analyst", "Investigator", "Senior Analyst", "Compliance Officer", "MLRO", "Head of FCC", "CAMS Master"];
   function titleFor(level) { return TITLES[Math.min(TITLES.length - 1, Math.floor((level - 1) / 2))]; }
 
-  // ---------- Streak ----------
+  // ---------- Streak (any activity counts; freezes cover missed days) ----------
+  function activeOn(g, k) { return !!(g.days[k] || g.act[k] || g.frozen[k]); }
   function streak(g) {
     g = g || gam();
     var today = new Date();
-    var d = g.days[dayKey(today)] ? today : addDays(today, -1);
+    var d = activeOn(g, dayKey(today)) ? today : addDays(today, -1);
     var n = 0;
-    while (g.days[dayKey(d)]) { n++; d = addDays(d, -1); }
-    var best = 0, run = 0;
-    Object.keys(g.days).sort().forEach(function (k, i, arr) {
-      if (i > 0 && dayKey(addDays(new Date(arr[i - 1] + "T12:00:00"), 1)) === k) run++; else run = 1;
+    while (activeOn(g, dayKey(d))) { n++; d = addDays(d, -1); }
+    var keys = {};
+    Object.keys(g.days).concat(Object.keys(g.act), Object.keys(g.frozen)).forEach(function (k) { keys[k] = 1; });
+    var best = 0, run = 0, prev = null;
+    Object.keys(keys).sort().forEach(function (k) {
+      run = prev && dayKey(addDays(fromKey(prev), 1)) === k ? run + 1 : 1;
       best = Math.max(best, run);
+      prev = k;
     });
-    return { current: n, best: Math.max(best, n), activeToday: !!g.days[dayKey(today)] };
+    return { current: n, best: Math.max(best, n), activeToday: !!(g.days[dayKey(today)] || g.act[dayKey(today)]), freezes: g.freezes };
+  }
+  // Called on app start: spend freezes to bridge missed days since the last activity.
+  function applyFreezes() {
+    var g = gam();
+    if (!g.freezes) return 0;
+    var today = new Date(), y = addDays(today, -1);
+    if (activeOn(g, dayKey(y))) return 0;
+    var gap = 0, d = y;
+    while (!activeOn(g, dayKey(d)) && gap < 60) { gap++; d = addDays(d, -1); }
+    if (gap >= 60 || gap > g.freezes) return 0;          // nothing to save, or not enough freezes
+    for (var i = 1; i <= gap; i++) g.frozen[dayKey(addDays(today, -i))] = true;
+    g.freezes -= gap;
+    saveGam(g);
+    emit({ type: "freezeUsed", used: gap, left: g.freezes });
+    return gap;
+  }
+  function maybeAwardFreeze(g) {
+    var st = streak(g);
+    if (st.current > 0 && st.current % 7 === 0 && g.freezeAt !== st.current && g.freezes < MAX_FREEZES) {
+      g.freezes++;
+      g.freezeAt = st.current;
+      emit({ type: "freezeEarned", freezes: g.freezes });
+    }
+  }
+
+  // ---------- XP ----------
+  function addXp(g, n) {
+    if (!n) return;
+    var before = levelFor(g.xp).level;
+    g.xp += n;
+    var k = dayKey();
+    g.xpDays[k] = (g.xpDays[k] || 0) + n;
+    var after = levelFor(g.xp).level;
+    if (after > before) emit({ type: "level", level: after, title: titleFor(after) });
+  }
+  function weekXp(g) {
+    g = g || gam();
+    var wk = weekKey(), sum = 0;
+    Object.keys(g.xpDays).forEach(function (k) { if (weekKey(fromKey(k)) === wk) sum += g.xpDays[k]; });
+    return sum;
+  }
+  function markActive(g) {
+    var k = dayKey(), was = !!(g.days[k] || g.act[k]);
+    g.act[k] = true;
+    if (!was) {
+      var st = streak(g);
+      if (st.current > 1) emit({ type: "streak", days: st.current });
+      maybeAwardFreeze(g);
+    }
+  }
+
+  // ---------- Daily quests ----------
+  var QUESTS = [
+    { id: "answer", icon: "🎯", text: function (g) { return "Answer " + g.goal + " questions"; }, target: function (g) { return g.goal; }, xp: 30, mode: "sum" },
+    { id: "combo", icon: "🔥", text: "Get 5 right in a row", target: 5, xp: 30, mode: "max" },
+    { id: "daily", icon: "📅", text: "Complete the daily challenge", target: 1, xp: 40, mode: "sum" },
+    { id: "review", icon: "🔁", text: "Answer 10 review questions", target: 10, xp: 30, mode: "sum", needsDue: true },
+    { id: "card", icon: "🃏", text: "Flip 15 flashcards", target: 15, xp: 25, mode: "sum", needsCourse: true },
+    { id: "lesson", icon: "📖", text: "Read a lesson", target: 1, xp: 25, mode: "sum", needsCourse: true },
+    { id: "lightning", icon: "⏳", text: "Finish a Lightning round", target: 1, xp: 30, mode: "sum" },
+    { id: "sprint", icon: "🔢", text: "Score 8+ in Numbers sprint", target: 8, xp: 30, mode: "max", needsCourse: true },
+    { id: "score", icon: "🎓", text: "Score 80%+ on a test of 10+ questions", target: 1, xp: 40, mode: "max" },
+    { id: "survive", icon: "❤️", text: "Reach 10 correct in Survival", target: 10, xp: 30, mode: "max" }
+  ];
+  var QBY = {};
+  QUESTS.forEach(function (q) { QBY[q.id] = q; });
+  function questTarget(q, g) { return typeof q.target === "function" ? q.target(g) : q.target; }
+  function questText(q, g) { return typeof q.text === "function" ? q.text(g) : q.text; }
+
+  function questCtx(ctx) {
+    ctx = ctx || {};
+    if (ctx.hasCourse == null) ctx.hasCourse = !!(window.CAMS_COURSE && window.CAMS_COURSE.length);
+    if (ctx.hasDue == null) ctx.hasDue = dueIds().length > 0;
+    return ctx;
+  }
+  function ensureQuests(g, ctx) {
+    var k = dayKey(), t = g.quests[k];
+    if (!t || !t.ids) {
+      ctx = questCtx(ctx);
+      var r = seeded(hash("quests" + k));
+      var pool = QUESTS.filter(function (q) {
+        if (q.id === "answer") return false;
+        if (q.needsDue && !ctx.hasDue) return false;
+        if (q.needsCourse && !ctx.hasCourse) return false;
+        return true;
+      });
+      var ids = ["answer"];
+      while (ids.length < 3 && pool.length) ids.push(pool.splice(Math.floor(r() * pool.length), 1)[0].id);
+      t = g.quests[k] = { ids: ids, p: {}, done: {}, chest: false };
+      // keep only the last 14 days of quest state
+      Object.keys(g.quests).sort().slice(0, -14).forEach(function (old) { delete g.quests[old]; });
+      return true;
+    }
+    return false;
+  }
+  function todayQuests(ctx) {
+    var g = gam(), k = dayKey();
+    if (ensureQuests(g, ctx)) saveGam(g);
+    var t = g.quests[k];
+    return t.ids.map(function (id) {
+      var q = QBY[id];
+      var target = questTarget(q, g);
+      var p = Math.min(target, t.p[id] || 0);
+      return { id: id, icon: q.icon, text: questText(q, g), target: target, progress: p, done: !!t.done[id], xp: q.xp };
+    });
+  }
+  function questEvent(type, value, g0) {
+    var g = g0 || gam(), k = dayKey();
+    var created = ensureQuests(g);
+    var t = g.quests[k];
+    if (t.ids.indexOf(type) < 0) { if (created && !g0) saveGam(g); return; }
+    var q = QBY[type];
+    var v = value == null ? 1 : value;
+    t.p[type] = q.mode === "max" ? Math.max(t.p[type] || 0, v) : (t.p[type] || 0) + v;
+    if (!t.done[type] && t.p[type] >= questTarget(q, g)) {
+      t.done[type] = true;
+      addXp(g, q.xp);
+      emit({ type: "quest", quest: { id: type, icon: q.icon, text: questText(q, g), xp: q.xp } });
+      if (!t.chest && t.ids.every(function (id) { return t.done[id]; })) {
+        t.chest = true;
+        g.counts.chests = (g.counts.chests || 0) + 1;
+        addXp(g, XP.chest);
+        emit({ type: "chest", xp: XP.chest });
+      }
+    }
+    if (!g0) saveGam(g);
+  }
+
+  // ---------- Records ----------
+  var RECORDS = {
+    exam: { label: "Best mock exam", unit: "%" },
+    lightning: { label: "Best Lightning round", unit: "/15" },
+    survival: { label: "Longest Survival run", unit: "" },
+    sprint: { label: "Best Numbers sprint", unit: "" },
+    daily: { label: "Best daily challenge", unit: "/10" },
+    combo: { label: "Longest combo", unit: "" },
+    day: { label: "Most answers in a day", unit: "" }
+  };
+  var SILENT = { combo: 1, day: 1 };
+  function record(key, value, g0) {
+    var g = g0 || gam();
+    var prev = g.records[key];
+    if (value > 0 && (prev == null || value > prev)) {
+      g.records[key] = value;
+      if (!g0) saveGam(g);
+      if (prev != null && !SILENT[key]) emit({ type: "record", key: key, label: RECORDS[key] ? RECORDS[key].label : key, value: value, prev: prev });
+      return true;
+    }
+    return false;
   }
 
   // ---------- Spaced repetition ----------
+  function srsNext(c, ok) {
+    var now = Date.now();
+    var box = !c ? (ok ? 2 : 1) : (ok ? Math.min(INTERVALS.length - 1, c.box + 1) : 1);
+    var due = ok ? now + INTERVALS[box] * 864e5 - 36e5 : now + 10 * 6e4;
+    return { box: box, due: due, last: now };
+  }
   function srsUpdate(qid, ok) {
     var srs = load(KEYS.srs, {});
-    var c = srs[qid];
-    var now = Date.now();
-    var box;
-    if (!c) box = ok ? 2 : 1;
-    else box = ok ? Math.min(INTERVALS.length - 1, c.box + 1) : 1;
-    // Missed: back in 10 minutes. Right: 1, 3, 7, 16 then 35 days (minus an hour so "tomorrow" means tomorrow).
-    var due = ok ? now + INTERVALS[box] * 864e5 - 36e5 : now + 10 * 6e4;
-    srs[qid] = { box: box, due: due, last: now };
+    srs[qid] = srsNext(srs[qid], ok);
     save(KEYS.srs, srs);
     return srs[qid];
   }
@@ -96,6 +274,46 @@
     return Object.keys(srs).filter(function (id) { return srs[id].box >= MASTERED_BOX && (!validIds || validIds[id]); }).length;
   }
 
+  // Flashcards: same Leitner schedule, separate store.
+  function cardUpdate(cardId, ok) {
+    var c = load(KEYS.cards, {});
+    c[cardId] = srsNext(c[cardId], ok);
+    save(KEYS.cards, c);
+    var g = gam();
+    g.counts.cards = (g.counts.cards || 0) + 1;
+    addXp(g, XP.card);
+    markActive(g);
+    questEvent("card", 1, g);
+    saveGam(g);
+    return c[cardId];
+  }
+  function cardState() { return load(KEYS.cards, {}); }
+  // Order a deck: due cards first (oldest due), then new cards, then not-yet-due cards.
+  function orderDeck(ids) {
+    var c = load(KEYS.cards, {}), now = Date.now();
+    var due = [], fresh = [], later = [];
+    ids.forEach(function (id) { var s = c[id]; if (!s) fresh.push(id); else if (s.due <= now) due.push(id); else later.push(id); });
+    due.sort(function (a, b) { return c[a].due - c[b].due; });
+    later.sort(function (a, b) { return c[a].due - c[b].due; });
+    return { order: due.concat(fresh, later), due: due.length, fresh: fresh.length };
+  }
+
+  // ---------- Lessons ----------
+  function lessonRead(id) {
+    var l = load(KEYS.learn, {});
+    if (l[id]) return false;
+    l[id] = Date.now();
+    save(KEYS.learn, l);
+    var g = gam();
+    addXp(g, XP.lesson);
+    markActive(g);
+    questEvent("lesson", 1, g);
+    saveGam(g);
+    emit({ type: "lesson", id: id, xp: XP.lesson });
+    return true;
+  }
+  function lessons() { return load(KEYS.learn, {}); }
+
   // ---------- Badges ----------
   var BADGES = [
     { id: "first_test", icon: "🎬", name: "First steps", desc: "Finish your first test" },
@@ -107,10 +325,18 @@
     { id: "streak7", icon: "📅", name: "One week strong", desc: "7-day streak" },
     { id: "streak30", icon: "🏆", name: "Unstoppable", desc: "30-day streak" },
     { id: "goal5", icon: "🎯", name: "Goal getter", desc: "Hit your daily goal on 5 days" },
+    { id: "quests5", icon: "🎁", name: "Quest master", desc: "Complete all daily quests on 5 days" },
+    { id: "daily7", icon: "🗓️", name: "Daily devotee", desc: "Complete 7 daily challenges" },
     { id: "exam_pass", icon: "✅", name: "Exam ready", desc: "Pass a mock exam" },
     { id: "exam80", icon: "🎓", name: "Distinction", desc: "Score 80%+ on a mock exam" },
     { id: "perfect", icon: "💎", name: "Flawless", desc: "Score 100% on a test" },
     { id: "hard70", icon: "🧗", name: "Iron mind", desc: "Score 70%+ on a Hard-only test" },
+    { id: "combo10", icon: "⚡", name: "Hot streak", desc: "10 correct answers in a row" },
+    { id: "lightning12", icon: "⏳", name: "Speed demon", desc: "12+ in a Lightning round" },
+    { id: "survivor25", icon: "❤️", name: "Survivor", desc: "25 correct in one Survival run" },
+    { id: "sprint15", icon: "🔢", name: "Human calculator", desc: "15+ in a Numbers sprint" },
+    { id: "cards100", icon: "🃏", name: "Card shark", desc: "Review 100 flashcards" },
+    { id: "bookworm", icon: "📖", name: "Bookworm", desc: "Read every lesson" },
     { id: "review50", icon: "🔁", name: "Reviewer", desc: "Answer 50 review questions" },
     { id: "master50", icon: "🧠", name: "Scholar", desc: "Master 50 questions" },
     { id: "allround", icon: "🌐", name: "All-rounder", desc: "75%+ in every domain (20+ answers each)" },
@@ -128,9 +354,11 @@
     ctx = ctx || {};
     var g = gam(), stats = load(KEYS.stats, {}), t = totals(stats), st = streak(g);
     var bank = ctx.bank || [];
+    var course = window.CAMS_COURSE || [];
     var byDomain = domainAccuracy(bank, stats);
     var have = g.badges, fresh = [];
     var history = load(KEYS.history, []);
+    var read = lessons();
     var cond = {
       first_test: history.length > 0,
       q50: t.answers >= 50,
@@ -141,10 +369,18 @@
       streak7: st.current >= 7,
       streak30: st.current >= 30,
       goal5: Object.keys(g.goalDays).length >= 5,
-      exam_pass: history.some(function (h) { return h.mode === "exam" && h.score / h.total >= 75 / 120; }),
-      exam80: history.some(function (h) { return h.mode === "exam" && h.score / h.total >= 0.8; }),
+      quests5: (g.counts.chests || 0) >= 5,
+      daily7: Object.keys(g.daily).length >= 7,
+      exam_pass: history.some(function (h) { return h.mode === "exam" && h.total >= 10 && h.score / h.total >= 75 / 120; }),
+      exam80: history.some(function (h) { return h.mode === "exam" && h.total >= 10 && h.score / h.total >= 0.8; }),
       perfect: history.some(function (h) { return h.total >= 10 && h.score === h.total; }),
       hard70: history.some(function (h) { return /Hard/.test(h.scope || "") && h.total >= 10 && h.score / h.total >= 0.7; }),
+      combo10: (g.records.combo || 0) >= 10,
+      lightning12: (g.records.lightning || 0) >= 12,
+      survivor25: (g.records.survival || 0) >= 25,
+      sprint15: (g.records.sprint || 0) >= 15,
+      cards100: (g.counts.cards || 0) >= 100,
+      bookworm: course.length > 0 && course.every(function (m) { return read[m.id]; }),
       review50: g.reviews >= 50,
       master50: masteredCount() >= 50,
       allround: [1, 2, 3, 4].every(function (d) { var b = byDomain[d]; return b && b.n >= 20 && b.ok / b.n >= 0.75; }),
@@ -162,79 +398,117 @@
   }
 
   // ---------- Events from the quiz ----------
-  function addXp(g, n) {
-    var before = levelFor(g.xp).level;
-    g.xp += n;
-    var after = levelFor(g.xp).level;
-    if (after > before) emit({ type: "level", level: after, title: titleFor(after) });
-  }
-
+  // opts: { review: bool, combo: current streak of correct answers incl. this one, speedBonus: xp }
   function onAnswer(qid, ok, opts) {
     opts = opts || {};
     var g = gam();
     var k = dayKey();
-    var wasActive = !!g.days[k];
     g.days[k] = (g.days[k] || 0) + 1;
-    var gain = ok ? (opts.review ? XP.reviewRight : XP.right) : XP.wrong;
-    if (opts.review) g.reviews++;
+    var gain = opts.noXp ? 0 : ok ? (opts.review ? XP.reviewRight : XP.right) : XP.wrong;
+    if (ok && opts.combo >= 3) gain += Math.min(opts.combo - 2, 5) * 2;
+    if (ok && opts.speedBonus) gain += opts.speedBonus;
+    if (opts.review) { g.reviews++; questEvent("review", 1, g); }
     addXp(g, gain);
+    questEvent("answer", 1, g);
+    if (ok && opts.combo) { questEvent("combo", opts.combo, g); record("combo", opts.combo, g); }
+    record("day", g.days[k], g);
     if (g.days[k] >= g.goal && !g.goalDays[k]) {
       g.goalDays[k] = true;
       addXp(g, XP.goal);
       emit({ type: "goal", goal: g.goal, bonus: XP.goal });
     }
+    markActive(g);
     saveGam(g);
     srsUpdate(qid, ok);
-    if (!wasActive) {
-      var st = streak(g);
-      if (st.current > 1) emit({ type: "streak", days: st.current });
-    }
     return gain;
   }
 
+  // summary: { mode, score, total, variant }
   function onFinish(summary) {
     var g = gam();
     var bonus = XP.testDone;
-    if (summary.mode === "exam" && summary.score / summary.total >= 75 / 120) bonus += XP.examPass;
+    var pctv = summary.total ? summary.score / summary.total : 0;
+    if (summary.mode === "exam" && pctv >= 75 / 120) bonus += XP.examPass;
     addXp(g, bonus);
+    if (summary.mode === "exam" && summary.total >= 10) record("exam", Math.round(pctv * 100), g);
+    if (summary.mode === "lightning") { g.counts.lightning = (g.counts.lightning || 0) + 1; questEvent("lightning", 1, g); record("lightning", summary.score, g); }
+    if (summary.mode === "survival") { questEvent("survive", summary.score, g); record("survival", summary.score, g); }
+    if (summary.mode === "daily") record("daily", summary.score, g);
+    if (summary.total >= 10 && pctv >= 0.8) questEvent("score", 1, g);
     saveGam(g);
     return bonus;
   }
 
+  function onSprint(score) {
+    var g = gam();
+    g.counts.sprint = (g.counts.sprint || 0) + 1;
+    addXp(g, score * 2);
+    markActive(g);
+    questEvent("sprint", score, g);
+    var rec = record("sprint", score, g);
+    saveGam(g);
+    return { xp: score * 2, record: rec };
+  }
+
+  // Daily challenge: only the first attempt of the day counts.
+  function dailyResult(k) { return gam().daily[k || dayKey()] || null; }
+  function saveDaily(score, total, ms) {
+    var g = gam(), k = dayKey();
+    if (g.daily[k]) return false;
+    g.daily[k] = { score: score, total: total, ms: ms };
+    questEvent("daily", 1, g);
+    saveGam(g);
+    return true;
+  }
+  // Same 10 questions for everyone on a given day.
+  function dailyIds(bank, k) {
+    var ids = bank.map(function (q) { return q.id; }).sort();
+    var r = seeded(hash("daily" + (k || dayKey())));
+    for (var i = ids.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = ids[i]; ids[i] = ids[j]; ids[j] = t; }
+    return ids.slice(0, 10);
+  }
+
   function setGoal(n) { var g = gam(); if (GOALS.indexOf(n) >= 0) { g.goal = n; saveGam(g); } }
 
-  // ---------- Analytics for the dashboard ----------
+  // ---------- Analytics ----------
   function domainAccuracy(bank, stats) {
     stats = stats || load(KEYS.stats, {});
     var out = {};
     bank.forEach(function (q) {
+      var d = out[q.domain] = out[q.domain] || { n: 0, ok: 0, seen: 0, total: 0 };
+      d.total++;
       var s = stats[q.id];
       if (!s) return;
-      var d = out[q.domain] = out[q.domain] || { n: 0, ok: 0, seen: 0, total: 0 };
       d.n += s.seen || 0;
       d.ok += s.right || 0;
       d.seen++;
     });
-    bank.forEach(function (q) { var d = out[q.domain] = out[q.domain] || { n: 0, ok: 0, seen: 0, total: 0 }; d.total++; });
     return out;
   }
 
-  function weakTopics(bank, limit) {
+  function topicKey(q) { return (q.topic || "").split(/\s[-–:]\s|:\s/)[0].trim(); }
+  function topicStats(bank) {
     var stats = load(KEYS.stats, {});
     var topics = {};
     bank.forEach(function (q) {
       var s = stats[q.id];
       if (!s || !q.topic) return;
-      var key = q.topic.split(/\s[-–:]\s|:\s/)[0].trim();
+      var key = topicKey(q);
       var t = topics[key] = topics[key] || { topic: key, n: 0, wrong: 0, ids: [], domain: q.domain };
       t.n += s.seen || 0;
       t.wrong += s.wrong || 0;
       t.ids.push(q.id);
     });
-    return Object.keys(topics).map(function (k) { return topics[k]; })
-      .filter(function (t) { return t.wrong > 0; })
-      .map(function (t) { t.acc = t.n ? (t.n - t.wrong) / t.n : 0; return t; })
+    return Object.keys(topics).map(function (k) { var t = topics[k]; t.acc = t.n ? (t.n - t.wrong) / t.n : 0; return t; });
+  }
+  function weakTopics(bank, limit) {
+    return topicStats(bank).filter(function (t) { return t.wrong > 0; })
       .sort(function (a, b) { return a.acc - b.acc || b.wrong - a.wrong; })
+      .slice(0, limit || 6);
+  }
+  function strongTopics(bank, limit) {
+    return topicStats(bank).filter(function (t) { return t.n >= 2 && t.acc >= 0.75; })
+      .sort(function (a, b) { return b.acc - a.acc || b.n - a.n; })
       .slice(0, limit || 6);
   }
 
@@ -243,25 +517,71 @@
     var today = new Date();
     var start = addDays(today, -(weeks * 7 - 1) - today.getDay()); // start on a Sunday
     var cells = [];
-    for (var d = start; d <= today; d = addDays(d, 1)) cells.push({ key: dayKey(d), n: g.days[dayKey(d)] || 0, dow: d.getDay() });
+    for (var d = start; d <= today; d = addDays(d, 1)) {
+      var k = dayKey(d);
+      cells.push({ key: k, n: g.days[k] || 0, frozen: !!g.frozen[k], active: !!g.act[k], dow: d.getDay() });
+    }
     return { cells: cells, goal: g.goal };
+  }
+  function lastDays(n) {
+    var g = gam(), out = [], today = new Date();
+    for (var i = n - 1; i >= 0; i--) {
+      var d = addDays(today, -i), k = dayKey(d);
+      out.push({ key: k, date: d, answers: g.days[k] || 0, xp: g.xpDays[k] || 0 });
+    }
+    return out;
+  }
+
+  // Exam readiness: blends exam-weighted accuracy, coverage, mastery and recent mock exams.
+  function readiness(bank) {
+    var stats = load(KEYS.stats, {});
+    var acc = domainAccuracy(bank, stats);
+    var A = 0, answers = 0;
+    [1, 2, 3, 4].forEach(function (d) {
+      var b = acc[d] || { n: 0, ok: 0 };
+      answers += b.n;
+      A += WEIGHTS[d] * ((b.ok + 1) / (b.n + 2));        // Laplace-smoothed accuracy
+    });
+    var valid = {};
+    bank.forEach(function (q) { valid[q.id] = 1; });
+    var seen = Object.keys(stats).filter(function (k) { return valid[k]; }).length;
+    var C = bank.length ? seen / bank.length : 0;
+    var M = bank.length ? masteredCount(valid) / bank.length : 0;
+    var exams = load(KEYS.history, []).filter(function (h) { return h.mode === "exam" && h.total >= 10; }).slice(-3);
+    var E = exams.length ? exams.reduce(function (s, h) { return s + h.score / h.total; }, 0) / exams.length : A;
+    var score = Math.round(100 * Math.min(1, 0.55 * A + 0.15 * C + 0.1 * M + 0.2 * E));
+    var predictedPct = 0.6 * A + 0.4 * E;
+    var predicted = Math.round(120 * predictedPct);
+    return {
+      score: answers ? score : 0, accuracy: A, coverage: C, mastery: M, examAvg: exams.length ? E : null,
+      predicted: answers ? predicted : null, predictedPct: predictedPct, answers: answers,
+      confidence: answers < 100 ? "low" : answers < 300 ? "medium" : "high",
+      verdict: !answers ? "Start practising" : answers < 60 ? "Early days" : predicted >= 90 ? "On track" : predicted >= 75 ? "Borderline" : "Not yet"
+    };
   }
 
   // ---------- Import / export / merge (used by sync) ----------
   function exportAll() {
-    return { v: 1, stats: load(KEYS.stats, {}), history: load(KEYS.history, []), gam: load(KEYS.gam, {}), srs: load(KEYS.srs, {}) };
+    return { v: 2, stats: load(KEYS.stats, {}), history: load(KEYS.history, []), gam: load(KEYS.gam, {}), srs: load(KEYS.srs, {}),
+      cards: load(KEYS.cards, {}), learn: load(KEYS.learn, {}) };
   }
   function isEmpty(d) {
     return !d || (!Object.keys(d.stats || {}).length && !(d.history || []).length && !(d.gam && d.gam.xp));
   }
+  function mergeMap(xa, xb, pick) {
+    var r = {};
+    xa = xa || {}; xb = xb || {};
+    Object.keys(xa).concat(Object.keys(xb)).forEach(function (k) {
+      var va = xa[k], vb = xb[k];
+      r[k] = va == null ? vb : vb == null ? va : pick(va, vb, k);
+    });
+    return r;
+  }
+  function newer(x, y) { return (y.last || 0) > (x.last || 0) ? y : x; }
   function merge(a, b) {
     a = a || {}; b = b || {};
-    var out = { v: 1, stats: {}, history: [], gam: {}, srs: {} };
-    var sa = a.stats || {}, sb = b.stats || {};
-    Object.keys(sa).concat(Object.keys(sb)).forEach(function (k) {
-      var x = sa[k], y = sb[k];
-      out.stats[k] = !x ? y : !y ? x : ((y.seen || 0) > (x.seen || 0) ? y : x);
-    });
+    var out = { v: 2, history: [], gam: {} };
+    out.stats = mergeMap(a.stats, b.stats, function (x, y) { return (y.seen || 0) > (x.seen || 0) ? y : x; });
     var seen = {};
     (a.history || []).concat(b.history || []).forEach(function (h) {
       var key = h.date + "|" + h.mode + "|" + h.score;
@@ -270,25 +590,31 @@
     out.history.sort(function (x, y) { return x.date - y.date; });
     out.history = out.history.slice(-100);
     var ga = a.gam || {}, gb = b.gam || {};
-    out.gam.xp = Math.max(ga.xp || 0, gb.xp || 0);
-    out.gam.reviews = Math.max(ga.reviews || 0, gb.reviews || 0);
-    out.gam.goal = (gb.updated || 0) > (ga.updated || 0) ? (gb.goal || ga.goal) : (ga.goal || gb.goal);
-    ["days", "goalDays", "badges"].forEach(function (f) {
-      var r = {}, xa = ga[f] || {}, xb = gb[f] || {};
-      Object.keys(xa).concat(Object.keys(xb)).forEach(function (k) {
-        var va = xa[k], vb = xb[k];
-        if (f === "days") r[k] = Math.max(va || 0, vb || 0);
-        else if (f === "badges") r[k] = va && vb ? Math.min(va, vb) : (va || vb);
-        else r[k] = va || vb;
-      });
-      out.gam[f] = r;
+    var max = function (x, y) { return Math.max(x || 0, y || 0); };
+    var any = function (x, y) { return x || y; };
+    var G = out.gam;
+    G.xp = max(ga.xp, gb.xp);
+    G.reviews = max(ga.reviews, gb.reviews);
+    G.goal = (gb.updated || 0) > (ga.updated || 0) ? (gb.goal || ga.goal) : (ga.goal || gb.goal);
+    G.freezes = (gb.updated || 0) > (ga.updated || 0) ? (gb.freezes || 0) : (ga.freezes || 0);
+    G.freezeAt = max(ga.freezeAt, gb.freezeAt);
+    G.days = mergeMap(ga.days, gb.days, max);
+    G.xpDays = mergeMap(ga.xpDays, gb.xpDays, max);
+    G.act = mergeMap(ga.act, gb.act, any);
+    G.goalDays = mergeMap(ga.goalDays, gb.goalDays, any);
+    G.frozen = mergeMap(ga.frozen, gb.frozen, any);
+    G.badges = mergeMap(ga.badges, gb.badges, function (x, y) { return Math.min(x, y); });
+    G.records = mergeMap(ga.records, gb.records, max);
+    G.counts = mergeMap(ga.counts, gb.counts, max);
+    G.daily = mergeMap(ga.daily, gb.daily, function (x) { return x; });   // first attempt wins either way
+    G.quests = mergeMap(ga.quests, gb.quests, function (x, y) {
+      var r = { ids: x.ids || y.ids, p: mergeMap(x.p, y.p, max), done: mergeMap(x.done, y.done, any), chest: !!(x.chest || y.chest) };
+      return r;
     });
-    out.gam.updated = Math.max(ga.updated || 0, gb.updated || 0);
-    var ra = a.srs || {}, rb = b.srs || {};
-    Object.keys(ra).concat(Object.keys(rb)).forEach(function (k) {
-      var x = ra[k], y = rb[k];
-      out.srs[k] = !x ? y : !y ? x : ((y.last || 0) > (x.last || 0) ? y : x);
-    });
+    G.updated = max(ga.updated, gb.updated);
+    out.srs = mergeMap(a.srs, b.srs, newer);
+    out.cards = mergeMap(a.cards, b.cards, newer);
+    out.learn = mergeMap(a.learn, b.learn, function (x, y) { return Math.min(x, y); });
     return out;
   }
   function importAll(d) {
@@ -297,6 +623,8 @@
       localStorage.setItem(KEYS.history, JSON.stringify(d.history || []));
       localStorage.setItem(KEYS.gam, JSON.stringify(d.gam || {}));
       localStorage.setItem(KEYS.srs, JSON.stringify(d.srs || {}));
+      localStorage.setItem(KEYS.cards, JSON.stringify(d.cards || {}));
+      localStorage.setItem(KEYS.learn, JSON.stringify(d.learn || {}));
     } catch (e) { /* ignore */ }
   }
   function clearAll() {
@@ -304,11 +632,15 @@
   }
 
   window.CAMSProgress = {
-    KEYS: KEYS, SYNCED: SYNCED, GOALS: GOALS, BADGES: BADGES, XP: XP, MASTERED_BOX: MASTERED_BOX,
+    KEYS: KEYS, SYNCED: SYNCED, GOALS: GOALS, BADGES: BADGES, XP: XP, MASTERED_BOX: MASTERED_BOX, RECORDS: RECORDS, WEIGHTS: WEIGHTS,
     on: function (fn) { listeners.push(fn); },
-    gam: gam, levelFor: levelFor, titleFor: titleFor, streak: streak, dayKey: dayKey,
-    onAnswer: onAnswer, onFinish: onFinish, setGoal: setGoal, checkBadges: checkBadges,
-    dueIds: dueIds, masteredCount: masteredCount, domainAccuracy: domainAccuracy, weakTopics: weakTopics, heat: heat,
+    gam: gam, levelFor: levelFor, titleFor: titleFor, streak: streak, applyFreezes: applyFreezes, dayKey: dayKey, weekKey: weekKey, weekXp: weekXp,
+    onAnswer: onAnswer, onFinish: onFinish, onSprint: onSprint, setGoal: setGoal, checkBadges: checkBadges,
+    todayQuests: todayQuests, questEvent: questEvent, record: record,
+    dailyResult: dailyResult, saveDaily: saveDaily, dailyIds: dailyIds,
+    cardUpdate: cardUpdate, cardState: cardState, orderDeck: orderDeck, lessonRead: lessonRead, lessons: lessons,
+    dueIds: dueIds, masteredCount: masteredCount, domainAccuracy: domainAccuracy, weakTopics: weakTopics, strongTopics: strongTopics,
+    topicKey: topicKey, heat: heat, lastDays: lastDays, readiness: readiness, seeded: seeded, hash: hash,
     srs: function () { return load(KEYS.srs, {}); },
     exportAll: exportAll, importAll: importAll, merge: merge, isEmpty: isEmpty, clearAll: clearAll, save: save
   };

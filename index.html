@@ -13,12 +13,24 @@
 </head>
 <body>
   <header class="topbar">
-    <a href="#" class="brand" id="brand">
+    <a href="#/" class="brand" id="brand">
       <span class="logo">✓</span>
       <span>CAMS Exam Trainer</span>
     </a>
-    <div class="topbar-right"><div id="topbarRight" class="topbar-right"></div><div id="account"></div></div>
+    <nav class="tabs" aria-label="Main">
+      <a class="navlink tab" data-route="home" href="#/"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
+      <a class="navlink tab" data-route="learn" href="#/learn"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg><span>Learn</span></a>
+      <a class="navlink tab" data-route="progress" href="#/progress"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Progress</span></a>
+      <a class="navlink tab" data-route="ranks" href="#/ranks"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/></svg><span>Ranks</span></a>
+    </nav>
+    <div class="topbar-right"><div id="topbarRight" class="topbar-right"></div><button class="icon-btn" id="soundBtn" type="button"></button><div id="account"></div></div>
   </header>
+  <nav class="tabbar" aria-label="Main">
+      <a class="navlink bar" data-route="home" href="#/"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
+      <a class="navlink bar" data-route="learn" href="#/learn"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg><span>Learn</span></a>
+      <a class="navlink bar" data-route="progress" href="#/progress"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Progress</span></a>
+      <a class="navlink bar" data-route="ranks" href="#/ranks"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/></svg><span>Ranks</span></a>
+  </nav>
 
   <main id="app" class="container wide"></main>
 
@@ -38,9 +50,14 @@
   <script src="data/extra-kyc.js"></script>
   <script src="data/extra-investigations.js"></script>
   <script src="data/extra-sanctions.js"></script>
+  <!--COURSE-->
   <script src="assets/config.js"></script>
+  <script src="assets/fx.js"></script>
+  <script src="assets/charts.js"></script>
   <script src="assets/progress.js"></script>
   <script src="assets/app.js"></script>
+  <script src="assets/learn.js"></script>
+  <script src="assets/leaderboard.js"></script>
   <script src="assets/account.js"></script>
 
   <!-- Vercel Web Analytics (cookieless). Only loaded when served over http(s), not on localhost. -->
