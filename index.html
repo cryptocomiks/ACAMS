@@ -31,5 +31,16 @@
   <script src="data/domain3.js"></script>
   <script src="data/domain4.js"></script>
   <script src="assets/app.js"></script>
+
+  <!-- Vercel Web Analytics (cookieless). Only loaded when served over http(s), not on localhost. -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    if (/^https?:$/.test(location.protocol) && !/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+      var s = document.createElement("script");
+      s.defer = true;
+      s.src = "/_vercel/insights/script.js";
+      document.head.appendChild(s);
+    }
+  </script>
 </body>
 </html>
