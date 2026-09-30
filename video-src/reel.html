@@ -1,0 +1,411 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: "Inter"; src: url("../assets/fonts/InterVariable.woff2") format("woff2"); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+body { font-family: "Inter", sans-serif; color: #f5f5f7; -webkit-font-smoothing: antialiased; letter-spacing: -0.03em; font-feature-settings: "ss01", "cv11"; }
+.layer { position: absolute; inset: 0; }
+.center { position: absolute; left: 50%; top: 50%; }
+#aurora .blob { position: absolute; border-radius: 50%; will-change: transform; }
+.scene { position: absolute; inset: 0; display: none; }
+.ch { display: inline-block; white-space: pre; will-change: transform, filter, opacity; }
+.grad { background: linear-gradient(90deg, #0a84ff 0%, #5e5ce6 45%, #bf5af2 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* S1 */
+#s1 .l1 { position: absolute; width: 100%; text-align: center; top: 420px; font-size: 132px; font-weight: 700; letter-spacing: -0.045em; }
+#s1 .l2 { position: absolute; width: 100%; text-align: center; top: 590px; font-size: 64px; font-weight: 600; color: #86868b; letter-spacing: -0.03em; }
+
+/* S2 tunnel */
+#s2 { perspective: 900px; perspective-origin: 960px 540px; }
+#s2 .term { position: absolute; left: 960px; top: 540px; white-space: nowrap; font-weight: 700; letter-spacing: -0.03em; transform-origin: 0 0; }
+#s2 .streak { position: absolute; left: 960px; top: 540px; height: 2px; width: 260px; transform-origin: 0 50%;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(160,170,255,.9)); border-radius: 2px; }
+#dot { position: absolute; left: 960px; top: 540px; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: #fff;
+  box-shadow: 0 0 40px 18px rgba(140,150,255,.8), 0 0 140px 60px rgba(94,92,230,.45); }
+
+/* S3 logo */
+#logo { position: absolute; left: 960px; top: 540px; width: 240px; height: 240px; margin: -120px 0 0 -120px; border-radius: 58px;
+  background: linear-gradient(135deg, #0a84ff 0%, #5e5ce6 50%, #bf5af2 100%);
+  box-shadow: 0 30px 90px rgba(94, 92, 230, .55), inset 0 2px 0 rgba(255,255,255,.35); }
+#logo svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.shock { position: absolute; left: 960px; top: 540px; border-radius: 50%; border: 2px solid rgba(170,175,255,.9); }
+#word { position: absolute; left: 870px; top: 470px; font-size: 104px; font-weight: 700; letter-spacing: -0.045em; white-space: nowrap; }
+#tagline { position: absolute; left: 874px; top: 600px; font-size: 40px; font-weight: 500; color: #a1a1a6; letter-spacing: -0.025em; white-space: nowrap; }
+
+/* S4 card */
+#s4 { perspective: 1800px; perspective-origin: 960px 480px; }
+#cam4 { position: absolute; inset: 0; transform-origin: 960px 540px; }
+#card { position: absolute; left: 400px; top: 150px; width: 1120px; background: #fff; color: #1d1d1f; border-radius: 40px; padding: 52px 60px 50px;
+  box-shadow: 0 60px 140px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06); transform-origin: 50% 60%; }
+#card .head { display: flex; justify-content: space-between; align-items: center; font-size: 22px; font-weight: 600; color: #6e6e73; letter-spacing: -0.015em; }
+#card .head b { color: #1d1d1f; }
+.tags { display: flex; gap: 10px; }
+.tag { font-size: 17px; font-weight: 600; padding: 6px 14px; border-radius: 999px; background: rgba(118,118,128,.12); color: #6e6e73; letter-spacing: -0.01em; }
+.tag.blue { background: rgba(0,113,227,.1); color: #0071e3; }
+.tag.hy { background: rgba(255,149,0,.14); color: #b25000; }
+.pbar { height: 6px; border-radius: 6px; background: rgba(118,118,128,.16); margin: 22px 0 30px; overflow: hidden; }
+.pbar i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #0a84ff, #5e5ce6, #bf5af2); }
+#card .q { font-size: 38px; line-height: 1.24; font-weight: 600; letter-spacing: -0.03em; margin-bottom: 28px; }
+.opt { position: relative; display: flex; align-items: center; gap: 18px; padding: 20px 24px; border-radius: 20px; background: #f5f5f7; margin-bottom: 12px;
+  font-size: 25px; letter-spacing: -0.02em; border: 2px solid transparent; overflow: hidden; }
+.opt .L { flex: 0 0 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-size: 19px; font-weight: 700; background: #fff; box-shadow: inset 0 0 0 1.5px #d2d2d7; }
+.ripple { position: absolute; border-radius: 50%; background: rgba(52,199,89,.35); pointer-events: none; }
+#explain { overflow: hidden; border-radius: 20px; background: #f5f5f7; margin-top: 16px; }
+#explain .in { padding: 22px 26px; font-size: 22px; line-height: 1.45; color: #1d1d1f; letter-spacing: -0.015em; }
+#explain .v { color: #1a8a3a; font-weight: 700; font-size: 24px; margin-bottom: 6px; }
+#explain .src { margin-top: 10px; color: #0066cc; font-size: 20px; font-weight: 500; position: relative; display: inline-block; }
+#explain .src u { position: absolute; left: 0; bottom: -2px; height: 2px; background: #0066cc; text-decoration: none; }
+#cursor { position: absolute; width: 44px; height: 44px; left: 0; top: 0; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
+.pill { position: absolute; display: flex; align-items: center; gap: 14px; padding: 18px 28px; border-radius: 999px; font-size: 28px; font-weight: 600; letter-spacing: -0.02em;
+  color: #fff; background: rgba(60,60,70,.45); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 20px 50px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.25), inset 0 0 0 1px rgba(255,255,255,.12); white-space: nowrap; }
+.pill .ic { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-size: 22px; }
+
+/* S5 tiles */
+#s5 h2 { position: absolute; width: 100%; top: 88px; text-align: center; font-size: 76px; font-weight: 700; letter-spacing: -0.045em; }
+.tile { position: absolute; top: 250px; width: 800px; height: 560px; border-radius: 44px; padding: 56px 60px; overflow: hidden; }
+#t1 { left: 140px; background: #f5f5f7; color: #1d1d1f; }
+#t2 { left: 980px; background: #141416; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+.tile .eb { font-size: 26px; font-weight: 600; margin-bottom: 10px; }
+.tile .h { font-size: 62px; line-height: 1.05; font-weight: 700; letter-spacing: -0.045em; }
+.tile .li { display: flex; align-items: center; gap: 16px; font-size: 27px; margin-top: 22px; letter-spacing: -0.02em; }
+.tile .li i { width: 30px; height: 30px; border-radius: 50%; background: #0071e3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.3l2.6 2.6L13 6.5' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/30px no-repeat; }
+#timer { font-size: 72px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin-top: 34px; }
+#timer small { font-size: 24px; font-weight: 500; color: #86868b; margin-left: 12px; letter-spacing: -0.01em; }
+#ringwrap { position: absolute; right: 60px; bottom: 56px; width: 250px; height: 250px; }
+#ringwrap svg { width: 100%; height: 100%; }
+#ringnum { position: absolute; inset: 0; display: grid; place-items: center; font-size: 64px; font-weight: 700; letter-spacing: -0.04em; }
+#passtag { position: absolute; left: 60px; bottom: 64px; font-size: 26px; font-weight: 700; padding: 10px 22px; border-radius: 999px; background: rgba(48,209,88,.16); color: #30d158; }
+.bars { position: absolute; left: 140px; right: 140px; top: 860px; display: grid; grid-template-columns: 30fr 20fr 30fr 20fr; gap: 14px; }
+.bars div { height: 110px; }
+.bars .bt { font-size: 22px; font-weight: 600; color: #a1a1a6; margin-bottom: 12px; letter-spacing: -0.01em; display: flex; justify-content: space-between; }
+.bars .bt b { color: #f5f5f7; }
+.bars .track { height: 10px; border-radius: 10px; background: rgba(255,255,255,.1); overflow: hidden; }
+.bars .fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #0a84ff, #5e5ce6, #bf5af2); }
+
+/* S6 final */
+#white { position: absolute; inset: 0; background: #fff; display: none; }
+#s6 { color: #1d1d1f; }
+#s6 .l1, #s6 .l2 { position: absolute; width: 100%; text-align: center; font-size: 168px; font-weight: 700; letter-spacing: -0.05em; line-height: 1; }
+#s6 .l1 { top: 250px; }
+#s6 .l2 { top: 430px; }
+#s6 .l2 span { display: inline-block; padding: 0 10px 20px; }
+#s6 .sub { position: absolute; width: 100%; top: 660px; text-align: center; font-size: 44px; font-weight: 500; color: #6e6e73; letter-spacing: -0.03em; }
+#lock { position: absolute; left: 50%; top: 850px; display: flex; align-items: center; gap: 22px; transform: translateX(-50%); white-space: nowrap; }
+#lock .lg { width: 76px; height: 76px; border-radius: 19px; background: linear-gradient(135deg, #0a84ff, #5e5ce6 50%, #bf5af2); display: grid; place-items: center; }
+#lock span { font-size: 44px; font-weight: 700; letter-spacing: -0.035em; }
+</style>
+</head>
+<body>
+<div id="aurora" class="layer">
+  <div class="blob" id="b1"></div><div class="blob" id="b2"></div><div class="blob" id="b3"></div>
+</div>
+
+<div class="scene" id="s1"><div class="l1" id="s1l1"></div><div class="l2" id="s1l2">is a lot to learn.</div></div>
+
+<div class="scene" id="s2"><div id="dot"></div></div>
+
+<div class="scene" id="s3">
+  <div class="shock" id="sh1"></div><div class="shock" id="sh2"></div>
+  <div id="logo"><svg viewBox="0 0 240 240"><path id="check" d="M72 126 L104 158 L170 86" stroke="#fff" stroke-width="24" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div id="word">CAMS Exam Trainer</div>
+  <div id="tagline">Your exam, rehearsed.</div>
+</div>
+
+<div class="scene" id="s4">
+  <div id="cam4">
+    <div id="card">
+      <div class="head"><div><b>Question 7</b> of 30</div><div class="tags"><span class="tag blue">Domain 2</span><span class="tag">PEPs</span><span class="tag hy">Frequently tested</span></div></div>
+      <div class="pbar"><i id="pfill"></i></div>
+      <div class="q">A foreign minister applies for a private banking account. Under FATF R.12, what is required on top of normal CDD?</div>
+      <div id="opts">
+        <div class="opt"><span class="L">A</span><span>A currency transaction report for each deposit</span></div>
+        <div class="opt"><span class="L">B</span><span>Simplified due diligence, as the client is a public official</span></div>
+        <div class="opt" id="optC"><span class="L">C</span><span>Senior management approval to open the relationship</span><div class="ripple" id="ripple"></div></div>
+        <div class="opt"><span class="L">D</span><span>Prior approval from the country's financial intelligence unit</span></div>
+      </div>
+      <div id="explain"><div class="in">
+        <div class="v">✓ Correct</div>
+        Foreign PEPs need senior management approval, source of wealth and funds checks, and enhanced ongoing monitoring.
+        <div><span class="src">Source: FATF Recommendation 12 ↗<u id="srcline"></u></span></div>
+      </div></div>
+    </div>
+    <svg id="cursor" viewBox="0 0 28 28"><path d="M6 3 L6 22 L10.8 17.6 L14 25 L17.4 23.6 L14.3 16.4 L21 16.4 Z" fill="#fff" stroke="#000" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    <div class="pill" id="pill1"><span class="ic" style="background:#ff9f0a">⚡</span>Instant feedback</div>
+    <div class="pill" id="pill2"><span class="ic" style="background:#0a84ff">↗</span>Every answer sourced</div>
+  </div>
+</div>
+
+<div class="scene" id="s5">
+  <h2 id="s5h">Two ways to train.</h2>
+  <div class="tile" id="t1">
+    <div class="eb" style="color:#0071e3">Practice</div>
+    <div class="h">Learn every<br>answer.</div>
+    <div class="li"><i></i>Instant feedback</div>
+    <div class="li"><i></i>Sourced explanations</div>
+    <div class="li"><i></i>Review your mistakes</div>
+  </div>
+  <div class="tile" id="t2">
+    <div class="eb" style="color:#bf5af2">Mock exam</div>
+    <div class="h">Sit it for real.</div>
+    <div id="timer">53:00<small>left</small></div>
+    <div id="passtag">PASS</div>
+    <div id="ringwrap">
+      <svg viewBox="0 0 250 250"><circle cx="125" cy="125" r="104" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="18"/>
+        <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a84ff"/><stop offset=".5" stop-color="#5e5ce6"/><stop offset="1" stop-color="#bf5af2"/></linearGradient></defs>
+        <circle id="ring" cx="125" cy="125" r="104" fill="none" stroke="url(#rg)" stroke-width="18" stroke-linecap="round" transform="rotate(-90 125 125)"/></svg>
+      <div id="ringnum">0%</div>
+    </div>
+  </div>
+  <div class="bars" id="bars"></div>
+</div>
+
+<div id="white"></div>
+<div class="scene" id="s6">
+  <div class="l1" id="s6l1"></div>
+  <div class="l2"><span class="grad" id="s6l2">With confidence.</span></div>
+  <div class="sub" id="s6sub">150 questions. Every answer verified at the source.</div>
+  <div id="lock"><div class="lg"><svg width="46" height="46" viewBox="0 0 240 240"><path d="M72 126 L104 158 L170 86" stroke="#fff" stroke-width="26" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>CAMS Exam Trainer</span></div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, x) => a + (b - a) * x;
+const E = {
+  out: (x) => 1 - Math.pow(1 - x, 3),
+  out5: (x) => 1 - Math.pow(1 - x, 5),
+  in: (x) => x * x * x,
+  inOut: (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2),
+  expo: (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x)),
+  back: (x) => { const c1 = 2.0, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
+  spring: (x) => (x <= 0 ? 0 : 1 - Math.exp(-6.5 * x) * Math.cos(11 * x)),
+};
+function rng(seed) { let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
+function split(el, text) {
+  el.innerHTML = "";
+  return [...text].map((c) => { const s = document.createElement("span"); s.className = "ch"; s.textContent = c; el.appendChild(s); return s; });
+}
+function show(id, on) { $(id).style.display = on ? "block" : "none"; }
+function css(el, o) { for (const k in o) el.style[k] = o[k]; }
+
+// ---------- Build ----------
+const s1chars = split($("s1l1"), "Anti-financial crime");
+const s6chars = split($("s6l1"), "Pass CAMS.");
+
+const TERMS = ["FATF", "FinCEN", "OFAC", "SAR", "PEPs", "KYC", "EDD", "Wolfsberg", "Egmont", "Basel", "Travel Rule", "50% rule",
+  "Beneficial owner", "Placement", "Layering", "Integration", "Smurfing", "TBML", "Hawala", "Sanctions", "AMLA", "Nested accounts",
+  "CTR", "314(b)", "Tipping-off", "Shell banks", "Mixers", "Correspondent banking", "Risk-based approach", "Proliferation financing",
+  "Structuring", "UNSCR 1373", "POCA", "FCPA", "Bribery Act", "R.16", "Source of wealth", "Funnel accounts"];
+const r = rng(7);
+const terms = TERMS.map((txt, k) => {
+  const el = document.createElement("div");
+  el.className = "term";
+  el.textContent = txt;
+  const hue = r();
+  el.style.color = hue < 0.2 ? "#bf5af2" : hue < 0.4 ? "#64d2ff" : hue < 0.52 ? "#5e5ce6" : "#f5f5f7";
+  const size = 38 + r() * 46;
+  el.style.fontSize = size + "px";
+  $("s2").appendChild(el);
+  const th = r() * Math.PI * 2;
+  const rad = 380 + r() * 560;
+  return { el, x: Math.cos(th) * rad * 1.25, y: Math.sin(th) * rad * 0.62, z0: -2900 + (k / TERMS.length) * 2600 - r() * 300, w: 0 };
+});
+const streaks = Array.from({ length: 46 }, () => {
+  const el = document.createElement("div");
+  el.className = "streak";
+  $("s2").appendChild(el);
+  return { el, th: r() * Math.PI * 2, r0: 180 + r() * 300, off: r(), sp: 0.7 + r() * 0.8 };
+});
+
+const DOM = [["D1", "Risks & methods", 30], ["D2", "Frameworks", 20], ["D3", "Programs", 30], ["D4", "Tools", 20]];
+$("bars").innerHTML = DOM.map((d) => `<div><div class="bt"><span><b>${d[0]}</b> ${d[1]}</span><span>${d[2]}%</span></div><div class="track"><div class="fill"></div></div></div>`).join("");
+const fills = [...document.querySelectorAll(".bars .fill")];
+const barRows = [...document.querySelectorAll(".bars > div")];
+const opts = [...document.querySelectorAll("#opts .opt")];
+const check = $("check");
+const checkLen = check.getTotalLength();
+check.style.strokeDasharray = checkLen;
+const ring = $("ring");
+const ringC = 2 * Math.PI * 104;
+ring.style.strokeDasharray = `0 ${ringC}`;
+
+// ---------- Render ----------
+window.renderAt = function (t) {
+  // Aurora background (always on, intensity by scene)
+  const auroraI = t < 2.3 ? lerp(0.0, 0.35, P(t, 0, 2.3)) : t < 4.6 ? 0.25 : t < 6.6 ? lerp(0.25, 0.8, P(t, 4.6, 5.4)) : 0.85;
+  const blobs = [
+    { id: "b1", c: "rgba(10,132,255,", x: 560 + Math.sin(t * 0.7) * 160, y: 360 + Math.cos(t * 0.5) * 90, s: 900 },
+    { id: "b2", c: "rgba(94,92,230,", x: 1300 + Math.cos(t * 0.6) * 180, y: 700 + Math.sin(t * 0.8) * 100, s: 1000 },
+    { id: "b3", c: "rgba(191,90,242,", x: 1500 + Math.sin(t * 0.45 + 1) * 140, y: 250 + Math.cos(t * 0.55) * 120, s: 760 },
+  ];
+  blobs.forEach((b) => {
+    css($(b.id), { width: b.s + "px", height: b.s + "px", left: b.x - b.s / 2 + "px", top: b.y - b.s / 2 + "px",
+      background: `radial-gradient(circle, ${b.c}${0.5 * auroraI}) 0%, ${b.c}${0.18 * auroraI}) 35%, ${b.c}0) 70%)` });
+  });
+
+  // ---- S1: typographic intro (0 - 2.6)
+  show("s1", t < 2.6);
+  if (t < 2.6) {
+    const tighten = E.out(P(t, 0.2, 1.8));
+    $("s1l1").style.letterSpacing = lerp(0.06, -0.045, tighten) + "em";
+    s1chars.forEach((c, i) => {
+      const st = 0.22 + i * 0.03;
+      const k = E.out5(P(t, st, st + 0.75));
+      css(c, { opacity: k, transform: `translateY(${(1 - k) * 46}px) scale(${lerp(1.25, 1, k)})`, filter: `blur(${(1 - k) * 14}px)` });
+    });
+    const k2 = E.out(P(t, 1.2, 1.9));
+    css($("s1l2"), { opacity: k2, transform: `translateY(${(1 - k2) * 24}px)`, filter: `blur(${(1 - k2) * 10}px)` });
+    const q = E.in(P(t, 1.95, 2.45));
+    css($("s1"), { transform: `scale(${1 + q * 2.6})`, opacity: 1 - q, filter: `blur(${q * 18}px)`, transformOrigin: "960px 540px" });
+  }
+
+  // ---- S2: tunnel of AFC terms (2.2 - 4.8)
+  show("s2", t >= 2.2 && t < 4.85);
+  if (t >= 2.2 && t < 4.85) {
+    const lt = t - 2.2;
+    const conv = E.in(P(t, 4.05, 4.62));
+    const speed = 1350 + 900 * E.in(P(t, 2.2, 4.0));
+    terms.forEach((o) => {
+      let z = o.z0 + lt * speed;
+      const vis = clamp((z + 1700) / 800) * clamp((520 - z) / 380);
+      let x = o.x, y = o.y;
+      x *= 1 - conv; y *= 1 - conv; z = lerp(z, -600, conv);
+      const sc = 1 - conv * 0.9;
+      css(o.el, { transform: `translate3d(${x - (o.w * sc) / 2}px, ${y}px, ${z}px) scale(${sc})`, opacity: vis * (1 - conv * 0.4) * E.out(P(t, 2.4, 2.9)) });
+    });
+    streaks.forEach((s) => {
+      const ph = (s.off + lt * s.sp) % 1;
+      const rr = s.r0 + ph * 900;
+      const len = 120 + ph * 520;
+      const op = Math.sin(ph * Math.PI) * 0.55 * (1 - conv) * P(t, 2.4, 2.9);
+      css(s.el, { transform: `rotate(${s.th}rad) translateX(${rr}px) scaleX(${len / 260})`, opacity: op });
+    });
+    const d = P(t, 4.35, 4.62);
+    css($("dot"), { opacity: d, transform: `scale(${lerp(0.2, 1.4, E.out(d))})` });
+  }
+
+  // ---- S3: logo reveal (4.55 - 6.85)
+  show("s3", t >= 4.55 && t < 6.85);
+  if (t >= 4.55 && t < 6.85) {
+    const pop = E.spring(P(t, 4.58, 5.55));
+    const move = E.inOut(P(t, 5.45, 6.05));
+    const lx = lerp(0, -420, move), ls = lerp(1, 0.72, move);
+    css($("logo"), { transform: `translateX(${lx}px) scale(${Math.max(0.001, pop * ls)}) rotate(${(1 - pop) * -25}deg)` });
+    check.style.strokeDashoffset = checkLen * (1 - E.out(P(t, 4.95, 5.4)));
+    [["sh1", 4.6, 1.0], ["sh2", 4.75, 1.2]].forEach(([id, st, dur]) => {
+      const k = P(t, st, st + dur);
+      const rad = E.expo(k) * 1100;
+      css($(id), { width: rad * 2 + "px", height: rad * 2 + "px", marginLeft: -rad + "px", marginTop: -rad + "px", opacity: k > 0 && k < 1 ? (1 - k) * 0.9 : 0, borderWidth: lerp(6, 1, k) + "px" });
+    });
+    const w = E.out5(P(t, 5.65, 6.25));
+    css($("word"), { clipPath: `inset(-20px ${(1 - w) * 100}% -20px 0)`, transform: `translateX(${(1 - w) * -60 + 20}px)`, opacity: w > 0 ? 1 : 0 });
+    const tg = E.out(P(t, 5.95, 6.4));
+    css($("tagline"), { opacity: tg, transform: `translate(${20}px, ${(1 - tg) * 18}px)` });
+    const ex = E.in(P(t, 6.45, 6.85));
+    css($("s3"), { transform: `translateY(${-ex * 160}px) scale(${1 - ex * 0.08})`, opacity: 1 - ex, filter: `blur(${ex * 14}px)` });
+  }
+
+  // ---- S4: product card demo (6.5 - 9.95)
+  show("s4", t >= 6.5 && t < 9.95);
+  if (t >= 6.5 && t < 9.95) {
+    const inK = E.out5(P(t, 6.5, 7.45));
+    const exK = E.in(P(t, 9.5, 9.95));
+    const rx = lerp(32, 6, inK) - 3 * P(t, 7.45, 9.5);
+    const ry = lerp(-18, -7, inK) + 5 * P(t, 7.45, 9.5) + exK * 60;
+    css($("card"), { transform: `translate3d(${exK * -900}px, ${(1 - inK) * 760}px, ${(1 - inK) * -300}px) rotateX(${rx}deg) rotateY(${ry}deg)`, opacity: 1 - exK });
+    css($("cam4"), { transform: `scale(${lerp(1, 1.06, E.inOut(P(t, 7.4, 9.6)))})` });
+    $("pfill").style.width = lerp(20, 23.3, E.out(P(t, 8.0, 8.6))) + "%";
+    opts.forEach((o, i) => {
+      const k = E.out(P(t, 6.95 + i * 0.08, 7.5 + i * 0.08));
+      const dim = i !== 2 ? lerp(1, 0.42, E.out(P(t, 8.0, 8.35))) : 1;
+      css(o, { opacity: k * dim, transform: `translateY(${(1 - k) * 30}px)` });
+    });
+    const hit = P(t, 7.95, 8.15);
+    const C = $("optC");
+    if (hit > 0) {
+      css(C, { background: "rgba(52,199,89,.13)", borderColor: "#34c759" });
+      css(C.querySelector(".L"), { background: "#1a8a3a", color: "#fff", boxShadow: "none" });
+      C.querySelector(".L").textContent = "✓";
+    } else {
+      css(C, { background: "#f5f5f7", borderColor: "transparent" });
+      css(C.querySelector(".L"), { background: "#fff", color: "#1d1d1f", boxShadow: "inset 0 0 0 1.5px #d2d2d7" });
+      C.querySelector(".L").textContent = "C";
+    }
+    const rp = P(t, 7.92, 8.6);
+    const rr = E.out(rp) * 900;
+    css($("ripple"), { width: rr * 2 + "px", height: rr * 2 + "px", left: 300 - rr + "px", top: 36 - rr + "px", opacity: rp > 0 ? (1 - rp) : 0 });
+    const eh = E.out5(P(t, 8.1, 8.75));
+    css($("explain"), { height: eh * 172 + "px", opacity: clamp(eh * 1.5) });
+    $("srcline").style.width = E.inOut(P(t, 8.75, 9.15)) * 100 + "%";
+    // cursor path (card-space: cam4 coords)
+    const cm = E.inOut(P(t, 7.25, 7.88));
+    const cx = lerp(1500, 860, cm) + Math.sin(cm * Math.PI) * 60;
+    const cy = lerp(980, 720, cm);
+    const press = P(t, 7.88, 7.96) - P(t, 7.96, 8.1);
+    const cOut = E.in(P(t, 8.4, 8.9));
+    css($("cursor"), { transform: `translate(${cx + cOut * 200}px, ${cy + cOut * 260}px) scale(${1 - press * 0.18})`, opacity: P(t, 7.1, 7.35) * (1 - cOut) * (1 - exK) });
+    const p1 = E.spring(P(t, 8.35, 9.1)), p2 = E.spring(P(t, 8.6, 9.35));
+    css($("pill1"), { left: "1330px", top: "96px", transform: `translate(${exK * -900}px, ${(1 - p1) * 40}px) scale(${Math.max(0.001, p1)})`, opacity: clamp(P(t, 8.35, 8.55)) * (1 - exK) });
+    css($("pill2"), { left: "250px", top: "900px", transform: `translate(${exK * -900}px, ${(1 - p2) * 40}px) scale(${Math.max(0.001, p2)})`, opacity: clamp(P(t, 8.6, 8.8)) * (1 - exK) });
+  }
+
+  // ---- S5: two modes + score (9.7 - 12.9)
+  show("s5", t >= 9.7 && t < 12.9);
+  if (t >= 9.7 && t < 12.9) {
+    const h = E.out(P(t, 9.72, 10.25));
+    css($("s5h"), { opacity: h, transform: `translateY(${(1 - h) * 30}px)`, filter: `blur(${(1 - h) * 10}px)` });
+    [["t1", 9.85], ["t2", 10.02]].forEach(([id, st]) => {
+      const k = E.spring(P(t, st, st + 1.0));
+      css($(id), { transform: `translateY(${(1 - k) * 220}px) scale(${lerp(0.92, 1, clamp(k))})`, opacity: clamp(P(t, st, st + 0.3)) });
+    });
+    [...$("t1").querySelectorAll(".li")].forEach((li, i) => {
+      const k = E.out(P(t, 10.35 + i * 0.14, 10.8 + i * 0.14));
+      css(li, { opacity: k, transform: `translateX(${(1 - k) * -24}px)` });
+    });
+    const rem = Math.max(0, 3180 - Math.max(0, t - 10.2) * 520);
+    $("timer").firstChild.nodeValue = String(Math.floor(rem / 60)).padStart(2, "0") + ":" + String(Math.floor(rem % 60)).padStart(2, "0");
+    const rk = E.inOut(P(t, 10.45, 11.55));
+    ring.style.strokeDasharray = `${ringC * 0.82 * rk} ${ringC}`;
+    $("ringnum").textContent = Math.round(82 * rk) + "%";
+    const pt = E.spring(P(t, 11.55, 12.2));
+    css($("passtag"), { transform: `scale(${Math.max(0.001, pt)})`, opacity: clamp(P(t, 11.55, 11.7)) });
+    barRows.forEach((b, i) => {
+      const k = E.out(P(t, 10.6 + i * 0.1, 11.1 + i * 0.1));
+      css(b, { opacity: k, transform: `translateY(${(1 - k) * 20}px)` });
+      fills[i].style.width = E.out(P(t, 10.8 + i * 0.1, 11.7 + i * 0.1)) * 100 + "%";
+    });
+    const drift = E.inOut(P(t, 12.05, 12.9));
+    css($("s5"), { transform: `scale(${1 + drift * 0.06})`, transformOrigin: "1665px 717px" });
+  }
+
+  // ---- White circle wipe from the score ring, S6 finale (12.1 - 15)
+  const wipe = E.inOut(P(t, 12.12, 12.8));
+  show("white", t >= 12.12);
+  if (t >= 12.12) $("white").style.clipPath = `circle(${wipe * 2300}px at 1665px 717px)`;
+  show("s6", t >= 12.4);
+  if (t >= 12.4) {
+    s6chars.forEach((c, i) => {
+      const st = 12.55 + i * 0.045;
+      const k = E.out5(P(t, st, st + 0.8));
+      css(c, { opacity: k, transform: `translateY(${(1 - k) * 60}px)`, filter: `blur(${(1 - k) * 16}px)` });
+    });
+    const l2 = E.out5(P(t, 13.0, 13.9));
+    css($("s6l2"), { clipPath: `inset(-40px ${(1 - l2) * 100}% -40px 0)`, transform: `translateX(${(1 - l2) * -30}px)`, filter: `blur(${(1 - l2) * 8}px)` });
+    const sb = E.out(P(t, 13.55, 14.15));
+    css($("s6sub"), { opacity: sb, transform: `translateY(${(1 - sb) * 20}px)` });
+    const lk = E.spring(P(t, 13.9, 14.8));
+    css($("lock"), { opacity: clamp(P(t, 13.9, 14.15)), transform: `translateX(-50%) translateY(${(1 - lk) * 40}px)` });
+    const z = lerp(1.05, 1, E.out(P(t, 12.4, 15)));
+    css($("s6"), { transform: `scale(${z})`, transformOrigin: "960px 540px" });
+  }
+};
+window.renderAt(0);
+window.ready = document.fonts.ready.then(() => { show("s2", true); terms.forEach((o) => (o.w = o.el.offsetWidth)); show("s2", false); window.renderAt(0); return true; });
+</script>
+</body>
+</html>

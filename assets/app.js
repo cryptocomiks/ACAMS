@@ -25,6 +25,7 @@
   var session = null;
   var timerHandle = null;
   var reviewFilter = "all";
+  var lastRendered = -1;
 
   // ---------- Storage (fails silently) ----------
   function load(key, fallback) {
@@ -144,6 +145,7 @@
         return { qid: q.id, order: shuffle(range(q.options.length)), selected: [], submitted: false, flagged: false };
       })
     };
+    lastRendered = -1;
     persist();
     renderQuiz();
   }
@@ -199,86 +201,118 @@
     var mistakes = Object.keys(stats).filter(function (k) { return BY_ID[k] && stats[k].last === false; }).length;
     var hyCount = BANK.filter(function (q) { return q.hy; }).length;
 
+    var prefs0 = { domain: prefs.domain || "all", source: prefs.source || "fresh" };
+    var mins = Math.ceil(QUESTIONS_PER_TEST * SECONDS_PER_QUESTION / 60);
+    setView("home");
+
+    function seg(name, items, current) {
+      return '<div class="seg" role="group" data-seg="' + name + '">' + items.map(function (it) {
+        return '<button type="button" data-val="' + it[0] + '" aria-pressed="' + (String(it[0]) === String(current)) + '">' +
+          esc(it[1]) + (it[2] != null ? '<span class="count">' + it[2] + "</span>" : "") + "</button>";
+      }).join("") + "</div>";
+    }
+    function countDomain(d) { return BANK.filter(function (q) { return String(q.domain) === String(d); }).length; }
+
     var html = "";
     if (resume) {
       var answered = resume.items.filter(isAnswered).length;
-      html += '<div class="banner"><div><b>Test in progress</b> — ' +
-        (resume.mode === "exam" ? "Mock exam" : "Practice") + ", " + answered + "/" + resume.items.length +
+      html += '<div style="padding:0 16px"><div class="banner fade-in"><div><b>Test in progress.</b> ' +
+        (resume.mode === "exam" ? "Mock exam" : "Practice") + " · " + answered + " of " + resume.items.length +
         ' answered.</div><div style="display:flex;gap:8px"><button class="btn sm" id="discard">Discard</button>' +
-        '<button class="btn primary sm" id="resume">Resume</button></div></div>';
+        '<button class="btn primary sm" id="resume">Resume</button></div></div></div>';
     }
 
-    html += '<section class="hero"><h1>Prepare for the CAMS exam</h1>' +
-      '<p class="muted">Exam-style questions built on the CAMS 7th edition blueprint (Anti-Financial Crime scope). Each test draws ' +
-      QUESTIONS_PER_TEST + " questions from a bank of " + BANK.length + ", weighted like the real exam, favouring questions you have not seen yet.</p>" +
-      '<p class="muted small">These are original exam-style questions, not real ACAMS items. Every answer was checked against primary sources (FATF, FinCEN, OFAC, eCFR, FFIEC, Wolfsberg, EU and UK law) as of September 2026, and each explanation links to its source.</p>' +
-      '<div class="facts">' +
-      '<div class="fact"><b>120</b><span>questions on the real exam</span></div>' +
-      '<div class="fact"><b>3h30</b><span>≈ 1 min 45 s per question</span></div>' +
-      '<div class="fact"><b>75/120</b><span>to pass (≈ 62.5%)</span></div>' +
-      '<div class="fact"><b>4</b><span>domains · 30/20/30/20 %</span></div>' +
+    // Hero
+    html += '<section class="hero">' +
+      '<div class="kicker fade-in">CAMS Exam Trainer</div>' +
+      '<h1 class="fade-in" style="animation-delay:.08s">Pass CAMS.<br><span class="grad-text">With confidence.</span></h1>' +
+      '<p class="lede fade-in" style="animation-delay:.16s">' + BANK.length + ' exam-style questions. Every answer verified at the source.</p>' +
+      '<div class="ctas fade-in" style="animation-delay:.24s">' +
+      '<button class="btn primary lg" data-start="practice">Start practising</button>' +
+      '<button class="link-btn" data-start="exam">Take a mock exam</button></div>' +
+      '<div class="video-frame fade-in" style="animation-delay:.32s">' +
+      '<video id="heroVideo" src="assets/video/cams-trainer.mp4" poster="assets/video/poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="15-second overview of CAMS Exam Trainer"></video>' +
+      '<button class="video-ctrl play" id="vidPlay" aria-label="Pause video"></button>' +
+      '<button class="video-ctrl" id="vidSound" aria-label="Turn sound on"></button>' +
       "</div></section>";
 
-    html += '<div class="card" style="margin-bottom:16px"><h3>Test settings</h3><div class="options-row">' +
-      '<div class="field"><label for="domain">Domain</label><select id="domain">' +
-      '<option value="all">All domains (exam weighting)</option>' +
-      Object.keys(DOMAINS).map(function (d) {
-        var c = BANK.filter(function (q) { return String(q.domain) === d; }).length;
-        return '<option value="' + d + '">Domain ' + d + " — " + esc(DOMAINS[d].short) + " (" + c + ")</option>";
-      }).join("") + "</select></div>" +
-      '<div class="field"><label for="source">Questions</label><select id="source">' +
-      '<option value="fresh">Unseen first (recommended)</option>' +
-      '<option value="hy">Most frequently tested topics only (' + hyCount + ")</option>" +
-      '<option value="mistakes">My mistakes (' + mistakes + ")</option>" +
-      "</select></div></div></div>";
+    // Stats
+    html += '<section class="section"><div class="inner">' +
+      '<h2 class="headline reveal">Built like the real exam.</h2>' +
+      '<p class="subhead reveal">Same blueprint, same pace, same pass mark. Tests are weighted across the four CAMS 7th edition domains.</p>' +
+      '<div class="stats reveal">' +
+      '<div class="stat"><b>120</b><span>questions on exam day</span></div>' +
+      '<div class="stat"><b>3h30</b><span>about 1 min 45 s each</span></div>' +
+      '<div class="stat"><b>75</b><span>correct answers to pass</span></div>' +
+      '<div class="stat"><b>4</b><span>domains, weighted like the exam</span></div>' +
+      "</div></div></section>";
 
-    html += '<div class="modes">' +
-      '<div class="card mode"><span class="tag blue">Practice</span><h2>Practice mode</h2>' +
-      "<ul><li>" + QUESTIONS_PER_TEST + " questions, no time limit</li><li>Correct answer + explanation right after each question</li><li>Ideal to learn and memorise</li></ul>" +
-      '<button class="btn primary" id="startPractice">Start practice</button></div>' +
-      '<div class="card mode"><span class="tag">Mock exam</span><h2>Mock exam mode</h2>' +
-      "<ul><li>" + QUESTIONS_PER_TEST + " questions, " + Math.ceil(QUESTIONS_PER_TEST * SECONDS_PER_QUESTION / 60) + " min timer (real exam pace)</li><li>Flag questions, navigate freely</li><li>Score, domain breakdown and all answers at the very end</li></ul>" +
-      '<button class="btn primary" id="startExam">Start mock exam</button></div>' +
-      "</div>";
+    // Modes
+    html += '<section class="section alt"><div class="inner">' +
+      '<h2 class="headline reveal">Two ways to train.</h2>' +
+      '<p class="subhead reveal">' + QUESTIONS_PER_TEST + ' questions per test. Learn as you go, or sit it like the real thing.</p>' +
+      '<div class="settings reveal">' +
+      '<div class="seg-group"><label>Domain</label>' + seg("domain", [["all", "All", null], ["1", "D1", countDomain(1)], ["2", "D2", countDomain(2)], ["3", "D3", countDomain(3)], ["4", "D4", countDomain(4)]], prefs0.domain) + "</div>" +
+      '<div class="seg-group"><label>Questions</label>' + seg("source", [["fresh", "Unseen first", null], ["hy", "Most tested", hyCount], ["mistakes", "My mistakes", mistakes]], prefs0.source) + "</div>" +
+      "</div>" +
+      '<div class="tiles">' +
+      '<div class="tile reveal"><div class="glyph">💡</div><div class="eyebrow" style="color:var(--blue)">Practice</div>' +
+      "<h2>Learn every answer.</h2>" +
+      '<p class="sub">The correct answer and a sourced explanation appear the moment you answer.</p>' +
+      "<ul><li>No time limit</li><li>Instant feedback on the same page</li><li>Links to FATF, FinCEN, OFAC and more</li></ul>" +
+      '<div class="tile-cta"><button class="btn primary" data-start="practice">Start practice</button></div></div>' +
+      '<div class="tile dark reveal"><div class="glow"></div><div class="glyph">⏱</div><div class="eyebrow" style="color:#bf5af2">Mock exam</div>' +
+      "<h2>Sit it for real.</h2>" +
+      '<p class="sub">A ' + mins + '-minute timer at exam pace. Results and every answer at the very end.</p>' +
+      "<ul><li>Flag and revisit questions</li><li>Score by domain</li><li>Full review with explanations</li></ul>" +
+      '<div class="tile-cta"><button class="btn light" data-start="exam">Start mock exam</button></div></div>' +
+      "</div></div></section>";
 
-    html += '<div class="card" style="margin-top:16px"><div class="qhead" style="margin:0 0 8px"><h3 style="margin:0">Your progress</h3>' +
-      (history.length ? '<button class="btn sm danger" id="reset">Reset progress</button>' : "") + "</div>" +
-      '<p class="muted small" style="margin-top:0">' + seenCount + " / " + BANK.length + " questions seen · " + mistakes + " to review</p>";
+    // Progress + provenance
+    html += '<section class="section"><div class="inner">' +
+      '<h2 class="headline reveal">Your progress.</h2>' +
+      '<p class="subhead reveal">' + seenCount + " of " + BANK.length + " questions seen · " + mistakes + " to review</p>" +
+      '<div class="card reveal" style="margin-top:40px">';
     if (history.length) {
       html += '<table><thead><tr><th>Date</th><th>Mode</th><th class="hide-sm">Scope</th><th class="num">Score</th><th class="num">Result</th></tr></thead><tbody>' +
         history.slice(-10).reverse().map(function (h) {
           var p = pct(h.score, h.total);
+          var ok = h.score / h.total >= PASS_RATE;
           return "<tr><td>" + new Date(h.date).toLocaleDateString(undefined, { day: "2-digit", month: "short" }) + " " +
             new Date(h.date).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) + "</td>" +
             "<td>" + (h.mode === "exam" ? "Mock exam" : "Practice") + "</td>" +
             '<td class="hide-sm">' + esc(h.scope || "All") + "</td>" +
-            '<td class="num">' + h.score + "/" + h.total + " (" + p + "%)</td>" +
-            '<td class="num"><span class="tag ' + (h.score / h.total >= PASS_RATE ? "good" : "bad") + '">' +
-            (h.score / h.total >= PASS_RATE ? "Pass" : "Fail") + "</span></td></tr>";
-        }).join("") + "</tbody></table>";
+            '<td class="num">' + h.score + "/" + h.total + " · " + p + "%</td>" +
+            '<td class="num"><span class="tag ' + (ok ? "good" : "bad") + '">' + (ok ? "Pass" : "Fail") + "</span></td></tr>";
+        }).join("") + "</tbody></table>" +
+        '<div style="text-align:right;margin-top:12px"><button class="btn sm danger" id="reset">Reset progress</button></div>';
     } else {
-      html += '<p class="muted small" style="margin:0">No tests taken yet.</p>';
+      html += '<p class="muted" style="margin:0;text-align:center">No tests yet. Your scores will appear here.</p>';
     }
-    html += "</div>";
+    html += "</div>" +
+      '<p class="small muted reveal" style="text-align:center;max-width:680px;margin:40px auto 0">These are original exam-style questions, not real ACAMS items. Every answer was checked against primary sources (FATF, FinCEN, OFAC, eCFR, Federal Reserve, Wolfsberg, EU and UK law) as of September 2026, and each explanation links to its source.</p>' +
+      "</div></section>";
 
     app.innerHTML = html;
 
-    var domainSel = document.getElementById("domain");
-    var sourceSel = document.getElementById("source");
-    domainSel.value = prefs.domain || "all";
-    sourceSel.value = prefs.source || "fresh";
-    function opts() {
-      var o = { domain: domainSel.value, source: sourceSel.value };
-      save(KEYS.prefs, o);
-      return o;
-    }
-    domainSel.onchange = opts;
-    sourceSel.onchange = opts;
+    var current = { domain: prefs0.domain, source: prefs0.source };
+    function opts() { save(KEYS.prefs, current); return { domain: current.domain, source: current.source }; }
+    Array.prototype.forEach.call(document.querySelectorAll("[data-seg]"), function (group) {
+      var name = group.getAttribute("data-seg");
+      Array.prototype.forEach.call(group.querySelectorAll("button"), function (b) {
+        b.onclick = function () {
+          current[name] = b.getAttribute("data-val");
+          Array.prototype.forEach.call(group.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+          opts();
+        };
+      });
+    });
     function confirmOverwrite() {
       return !resume || confirm("Starting a new test will discard the test in progress. Continue?");
     }
-    document.getElementById("startPractice").onclick = function () { if (confirmOverwrite()) startSession("practice", opts()); };
-    document.getElementById("startExam").onclick = function () { if (confirmOverwrite()) startSession("exam", opts()); };
+    Array.prototype.forEach.call(document.querySelectorAll("[data-start]"), function (b) {
+      b.onclick = function () { if (confirmOverwrite()) startSession(b.getAttribute("data-start"), opts()); };
+    });
     if (resume) {
       document.getElementById("resume").onclick = function () { session = resume; renderQuiz(); };
       document.getElementById("discard").onclick = function () { remove(KEYS.session); renderHome(); };
@@ -289,7 +323,59 @@
         remove(KEYS.history); remove(KEYS.stats); renderHome();
       }
     };
+    setupVideo();
+    setupReveal();
     window.scrollTo(0, 0);
+  }
+
+  var ICONS = {
+    play: '<svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 4.2v11.6c0 .6.7 1 1.2.7l9.3-5.8c.5-.3.5-1.1 0-1.4L7.2 3.5C6.7 3.2 6 3.6 6 4.2z"/></svg>',
+    pause: '<svg viewBox="0 0 20 20" fill="currentColor"><rect x="5" y="4" width="3.4" height="12" rx="1"/><rect x="11.6" y="4" width="3.4" height="12" rx="1"/></svg>',
+    muted: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13.5 7.5l4 5M17.5 7.5l-4 5"/></svg>',
+    sound: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13.2 7.2a4 4 0 010 5.6M15.5 5a7 7 0 010 10"/></svg>'
+  };
+
+  function setupVideo() {
+    var v = document.getElementById("heroVideo");
+    if (!v) return;
+    var play = document.getElementById("vidPlay"), snd = document.getElementById("vidSound");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) { v.removeAttribute("autoplay"); v.pause(); }
+    function sync() {
+      play.innerHTML = v.paused ? ICONS.play : ICONS.pause;
+      play.setAttribute("aria-label", v.paused ? "Play video" : "Pause video");
+      snd.innerHTML = v.muted ? ICONS.muted : ICONS.sound;
+      snd.setAttribute("aria-label", v.muted ? "Turn sound on" : "Turn sound off");
+    }
+    play.onclick = function () { if (v.paused) v.play(); else v.pause(); };
+    snd.onclick = function () {
+      v.muted = !v.muted;
+      if (!v.muted) { v.currentTime = 0; v.play(); }
+      sync();
+    };
+    v.addEventListener("play", sync);
+    v.addEventListener("pause", sync);
+    v.addEventListener("volumechange", sync);
+    sync();
+  }
+
+  function setupReveal() {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) {
+      Array.prototype.forEach.call(els, function (e) { e.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    Array.prototype.forEach.call(els, function (e) { io.observe(e); });
+  }
+
+  function setView(name) {
+    document.body.className = name;
+    app.className = name === "home" ? "container wide" : "container";
   }
 
   // ---------- Quiz ----------
@@ -312,8 +398,11 @@
     }
 
     var answeredCount = s.items.filter(practice ? function (it) { return it.submitted; } : isAnswered).length;
-    var html = '<div class="card">' +
-      '<div class="qhead"><div><b>Question ' + (s.current + 1) + "</b> <span class=\"muted\">of " + total + "</span></div>" +
+    var animate = lastRendered !== s.current;
+    lastRendered = s.current;
+    setView("quiz");
+    var html = '<div class="card' + (animate ? " fade-in" : "") + '">' +
+      '<div class="qhead"><div class="qcount"><b>Question ' + (s.current + 1) + "</b> of " + total + "</div>" +
       '<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag blue">Domain ' + q.domain + "</span>" +
       (practice && q.topic ? '<span class="tag">' + esc(q.topic) + "</span>" : "") +
       (practice && q.hy ? '<span class="tag hy">Frequently tested</span>' : "") + "</div></div>" +
@@ -363,7 +452,7 @@
     html += "</div></div></div>";
 
     // Navigator
-    html += '<div class="card" style="margin-top:16px"><div class="qhead" style="margin:0"><h3 style="margin:0">Navigator</h3>' +
+    html += '<div class="card" style="margin-top:20px"><div class="qhead" style="margin:0"><h3 style="margin:0">Navigator</h3>' +
       '<div style="display:flex;gap:8px"><button class="btn sm" id="quit">Quit</button>' +
       (practice ? "" : '<button class="btn sm primary" id="finish2">Submit exam</button>') + "</div></div>" +
       '<div class="navgrid">' + s.items.map(function (it, i) {
@@ -373,18 +462,13 @@
         } else if (isAnswered(it)) c.push("answered");
         if (it.flagged) c.push("flagged");
         if (i === s.current) c.push("current");
-        var style = "";
-        if (practice && it.submitted) {
-          style = isCorrect(it)
-            ? ' style="background:var(--good-soft);border-color:var(--good);color:var(--good)"'
-            : ' style="background:var(--bad-soft);border-color:var(--bad);color:var(--bad)"';
-        }
-        return '<button data-go="' + i + '" class="' + c.join(" ") + '"' + style + ">" + (i + 1) + "</button>";
+        if (practice && it.submitted) c.push(isCorrect(it) ? "ok" : "ko");
+        return '<button data-go="' + i + '" class="' + c.join(" ") + '">' + (i + 1) + "</button>";
       }).join("") + "</div>" +
       '<div class="legend">' +
       (practice
-        ? '<span><i style="background:var(--good-soft);border:1px solid var(--good)"></i>Correct</span><span><i style="background:var(--bad-soft);border:1px solid var(--bad)"></i>Incorrect</span>'
-        : '<span><i style="background:var(--primary-soft);border:1px solid var(--primary)"></i>Answered</span><span><i style="background:var(--warn)"></i>Flagged</span>') +
+        ? '<span><i style="background:var(--good)"></i>Correct</span><span><i style="background:var(--bad)"></i>Incorrect</span>'
+        : '<span><i style="background:var(--blue)"></i>Answered</span><span><i style="background:var(--warn)"></i>Flagged</span>') +
       "</div></div>";
 
     app.innerHTML = html;
@@ -496,14 +580,16 @@
     var r = 50, c = 2 * Math.PI * r;
     var color = pass ? "var(--good)" : "var(--bad)";
     return '<svg class="ring" viewBox="0 0 120 120" role="img" aria-label="Score ' + p + '%">' +
-      '<circle cx="60" cy="60" r="' + r + '" fill="none" stroke="var(--surface-2)" stroke-width="12"/>' +
-      '<circle cx="60" cy="60" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="12" stroke-linecap="round"' +
+      '<circle cx="60" cy="60" r="' + r + '" fill="none" stroke="rgba(118,118,128,.16)" stroke-width="10"/>' +
+      '<circle cx="60" cy="60" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="10" stroke-linecap="round" class="val"' +
       ' stroke-dasharray="' + (c * p / 100) + " " + c + '" transform="rotate(-90 60 60)"/>' +
       '<text x="60" y="68" text-anchor="middle">' + p + "%</text></svg>";
   }
 
   function renderResults() {
     var s = session;
+    setView("quiz");
+    lastRendered = -1;
     setTopbar('<span class="tag">' + (s.mode === "exam" ? "Mock exam" : "Practice") + " · results</span>");
     var total = s.items.length;
     var score = s.items.filter(isCorrect).length;
@@ -519,8 +605,8 @@
       if (isCorrect(it)) byDomain[d].ok += 1;
     });
 
-    var html = '<div class="card"><div class="score">' + ring(p, pass) + "<div>" +
-      '<h1 style="margin-bottom:4px">' + (pass ? "Pass 🎉" : "Not yet — keep going") + "</h1>" +
+    var html = '<div class="card fade-in"><div class="score">' + ring(p, pass) + "<div>" +
+      '<div class="result-title">' + (pass ? "You passed." : "Not yet. Keep going.") + "</div>" +
       '<p class="muted" style="margin:0">' + score + " / " + total + " correct · pass mark ≈ " + Math.round(PASS_RATE * 100) +
       "% (75/120) · time " + fmtTime(elapsed) + "</p>" +
       '<p class="muted small" style="margin:6px 0 0">Aim for 80%+ consistently in mock exams before booking the real one.</p>' +
@@ -536,7 +622,7 @@
       '<button class="btn primary" id="again">New ' + (s.mode === "exam" ? "mock exam" : "practice test") + "</button></div></div></div>";
 
     var wrongCount = total - score;
-    html += '<div class="card" style="margin-top:16px"><div class="qhead"><h2 style="margin:0">Answer review</h2>' +
+    html += '<div class="card" style="margin-top:20px"><div class="qhead"><h2 style="margin:0">Answer review</h2>' +
       '<div style="display:flex;gap:6px"><button class="btn sm' + (reviewFilter === "all" ? " primary" : "") + '" data-filter="all">All (' + total + ")</button>" +
       '<button class="btn sm' + (reviewFilter === "wrong" ? " primary" : "") + '" data-filter="wrong">Incorrect (' + wrongCount + ")</button></div></div>";
 

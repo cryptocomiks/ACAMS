@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CAMS Exam Trainer</title>
   <meta name="description" content="Practice tests for the ACAMS CAMS exam (7th edition): practice mode with instant feedback and timed mock exam mode.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231d4ed8'/><path d='M9 17l5 5 9-11' stroke='white' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x2='1'><stop offset='0' stop-color='%230a84ff'/><stop offset='1' stop-color='%23bf5af2'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23g)'/><path d='M9 17l5 5 9-11' stroke='white' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -17,10 +20,10 @@
     <div class="topbar-right" id="topbarRight"></div>
   </header>
 
-  <main id="app" class="container"></main>
+  <main id="app" class="container wide"></main>
 
   <footer class="footer">
-    Independent study tool — not affiliated with or endorsed by ACAMS. Always check the latest official ACAMS materials.
+    Independent study tool. Not affiliated with or endorsed by ACAMS. Always check the latest official ACAMS materials.
   </footer>
 
   <script src="data/domain1.js"></script>
