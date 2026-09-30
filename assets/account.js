@@ -7,7 +7,7 @@
   var PG = window.CAMSProgress;
   var slot = document.getElementById("account");
   var OWNER = "cams.owner.v1";
-  var SDK = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
+  var SDK = "assets/vendor/supabase.min.js"; // @supabase/supabase-js 2.117.2 (UMD), self-hosted
 
   var client = null, user = null, syncedFor = null;
   var pushTimer = null, dirty = false, state = "idle"; // idle | syncing | saved | error | offline
