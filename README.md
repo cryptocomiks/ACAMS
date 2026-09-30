@@ -14,6 +14,19 @@ La progression est sauvegardée dans le navigateur (localStorage), un test en co
 
 Raccourcis clavier : `A`–`F` pour répondre, `Entrée` pour valider/suivant, `←`/`→` pour naviguer.
 
+## D'où viennent les réponses
+
+Les questions sont originales (style examen), ce ne sont pas des questions officielles ACAMS (confidentielles).
+Chaque réponse a été vérifiée contre les textes officiels en septembre 2026 et chaque question porte un champ
+`source` (lien affiché sous l'explication) : recommandations FATF, 31 CFR (eCFR), FinCEN (règles, FAQ, advisories),
+OFAC (FAQ, règlements), Federal Reserve / OCC, Wolfsberg, Egmont, UNODC, EUR-Lex / AMLA, legislation.gov.uk.
+Le site du FATF bloque les accès automatisés : le contenu a été lu dans les copies officielles hébergées par des
+organismes régionaux du FATF (EAG, APG).
+
+Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être antérieur) : FAQ SAR FinCEN d'octobre 2025
+(pas d'obligation de documenter un « no-SAR », revue d'activité continue non obligatoire), SR 26-2 d'avril 2026
+(remplace SR 11-7 / SR 21-8), révision FATF R.1 (fév. 2025) et R.16 (juin 2025), règle finale BOI de FinCEN (août 2026).
+
 ## Structure
 
 ```
@@ -27,7 +40,8 @@ Format d'une question :
 
 ```js
 { id: "D1-001", domain: 1, topic: "...", hy: true, q: "...",
-  options: ["...", "...", "...", "..."], answer: [1], explanation: "..." }
+  options: ["...", "...", "...", "..."], answer: [1], explanation: "...",
+  source: [{ label: "FATF R.12", url: "https://..." }] }
 ```
 
 `answer` est une liste d'index (plusieurs pour les questions « Choose two/three »). `hy: true` marque un sujet fréquemment testé.

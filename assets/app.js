@@ -211,6 +211,7 @@
     html += '<section class="hero"><h1>Prepare for the CAMS exam</h1>' +
       '<p class="muted">Exam-style questions built on the CAMS 7th edition blueprint (Anti-Financial Crime scope). Each test draws ' +
       QUESTIONS_PER_TEST + " questions from a bank of " + BANK.length + ", weighted like the real exam, favouring questions you have not seen yet.</p>" +
+      '<p class="muted small">These are original exam-style questions, not real ACAMS items. Every answer was checked against primary sources (FATF, FinCEN, OFAC, eCFR, FFIEC, Wolfsberg, EU and UK law) as of September 2026, and each explanation links to its source.</p>' +
       '<div class="facts">' +
       '<div class="fact"><b>120</b><span>questions on the real exam</span></div>' +
       '<div class="fact"><b>3h30</b><span>≈ 1 min 45 s per question</span></div>' +
