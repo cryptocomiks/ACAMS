@@ -9,6 +9,11 @@ create table if not exists public.progress (
 
 alter table public.progress enable row level security;
 
+-- Explicit Data API access (needed when "Automatically expose new tables" is off):
+-- signed-in users only; anonymous visitors get nothing. RLS below limits each user to their own row.
+revoke all on table public.progress from anon;
+grant select, insert, update on table public.progress to authenticated;
+
 -- Each signed-in user can read and write only their own row.
 drop policy if exists "progress_select_own" on public.progress;
 create policy "progress_select_own" on public.progress
