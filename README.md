@@ -16,6 +16,8 @@ Raccourcis clavier : `A`–`F` pour répondre, `Entrée` pour valider/suivant, `
 
 ## D'où viennent les réponses
 
+310 questions au total, toutes vérifiées source par source (lien officiel sur chaque question). Aucune question officielle ACAMS ni « dump ».
+
 Les questions sont originales (style examen), ce ne sont pas des questions officielles ACAMS (confidentielles).
 Chaque réponse a été vérifiée contre les textes officiels en septembre 2026 et chaque question porte un champ
 `source` (lien affiché sous l'explication) : recommandations FATF, 31 CFR (eCFR), FinCEN (règles, FAQ, advisories),
@@ -39,7 +41,8 @@ apparitions au scroll, mode sombre automatique. En haut de page, une vidéo de 1
 index.html
 assets/app.js       logique du quiz
 assets/style.css    styles (clair/sombre)
-data/domain1-4.js   banque de questions, une par domaine
+data/domain1-4.js   banque de base (150 questions, par domaine)
+data/extra-*.js     lots thématiques : affaires réelles, Europe/UK, pièges d'examen, secteurs, monde & risques émergents (160)
 assets/video/       vidéo + poster
 assets/fonts/       Inter (licence OFL)
 video-src/          source de la vidéo (animation + son)
@@ -52,6 +55,8 @@ Format d'une question :
   options: ["...", "...", "...", "..."], answer: [1], explanation: "...",
   source: [{ label: "FATF R.12", url: "https://..." }] }
 ```
+
+`changed` (optionnel) signale une règle modifiée depuis le matériel ACAMS de juillet 2025 (badge « Rule changed recently »).
 
 `answer` est une liste d'index (plusieurs pour les questions « Choose two/three »). `hy: true` marque un sujet fréquemment testé.
 
