@@ -12,7 +12,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The jurisdiction received a low effectiveness rating in its last mutual evaluation and must undergo a follow-up assessment within one year."
     ],
     answer: [2],
-    explanation: "The \"call for action\" list (often called the black list) identifies jurisdictions with significant strategic AML/CFT/CPF deficiencies; the FATF calls on all members to apply enhanced due diligence and, in the most serious cases, countermeasures. Option A describes the grey list (\"Jurisdictions under Increased Monitoring\"), whose members are actively working with the FATF under an action plan. A FATF listing does not by itself create a legal prohibition, and it is not an automatic result of a poor mutual evaluation rating."
+    explanation: "The \"call for action\" list (often called the black list) identifies jurisdictions with significant strategic AML/CFT/CPF deficiencies; the FATF calls on all members to apply enhanced due diligence and, in the most serious cases, countermeasures. The statement about a committed action plan and agreed timeframes describes the grey list (\"Jurisdictions under Increased Monitoring\"), whose members are actively working with the FATF to address their deficiencies. A FATF listing does not by itself create a legal prohibition, and it is not an automatic result of a poor mutual evaluation rating.",
+    source: [
+      { label: "FATF – High-Risk Jurisdictions subject to a Call for Action (June 2026): EDD and, in the most serious cases, countermeasures", url: "https://www.fatf-gafi.org/en/publications/High-risk-and-other-monitored-jurisdictions/call-for-action-june-2026.html" },
+      { label: "FinCEN (Nov 2025) – describes the call-for-action list vs. jurisdictions under increased monitoring (agreed timeline)", url: "https://www.fincen.gov/news/news-releases/financial-action-task-force-identifies-jurisdictions-anti-money-laundering-4" }
+    ]
   },
   {
     id: "D2-002",
@@ -27,7 +31,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Only the supervisory practices of the central bank, measured against the Basel Core Principles for banking supervision."
     ],
     answer: [0],
-    explanation: "Under the FATF assessment Methodology, mutual evaluations rate both technical compliance (Compliant, Largely Compliant, Partially Compliant, Non-Compliant) with each Recommendation and effectiveness (High, Substantial, Moderate, Low) against the Immediate Outcomes. The IMF and World Bank may conduct assessments but use the same methodology rather than splitting the work. Statistics such as STRs and convictions are evidence of effectiveness, not the whole assessment, and the Basel Core Principles are a separate prudential standard."
+    explanation: "Under the FATF assessment Methodology, mutual evaluations rate both technical compliance (Compliant, Largely Compliant, Partially Compliant, Non-Compliant) with each Recommendation and effectiveness (High, Substantial, Moderate, Low) against the Immediate Outcomes. The IMF and World Bank may conduct assessments but use the same methodology rather than splitting the work. Statistics such as STRs and convictions are evidence of effectiveness, not the whole assessment, and the Basel Core Principles are a separate prudential standard.",
+    source: [
+      { label: "FATF Methodology – assesses technical compliance with the 40 Recommendations and effectiveness (Immediate Outcomes)", url: "https://www.fatf-gafi.org/en/publications/Mutualevaluations/Fatf-methodology.html" },
+      { label: "FATF Methodology, June 2026 text – para. 42 TC ratings; High/Substantial/Moderate/Low effectiveness for 11 IOs (official copy hosted by the EAG)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Methodology_2026_eng.pdf" }
+    ]
   },
   {
     id: "D2-003",
@@ -43,7 +51,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The Basel Committee on Banking Supervision"
     ],
     answer: [1, 3],
-    explanation: "MONEYVAL (Council of Europe) and GAFILAT (Latin America) are FSRBs, which promote the FATF standards and conduct mutual evaluations of their members; others include APG, CFATF, ESAAMLG, EAG, GIABA, GABAC and MENAFATF. The Egmont Group is a network of FIUs, the Wolfsberg Group is a private-sector association of global banks, and the Basel Committee sets prudential banking standards. None of these three conducts FATF mutual evaluations."
+    explanation: "MONEYVAL (Council of Europe) and GAFILAT (Latin America) are FSRBs, which promote the FATF standards and conduct mutual evaluations of their members; others include APG, CFATF, ESAAMLG, EAG, GIABA, GABAC and MENAFATF. The Egmont Group is a network of FIUs, the Wolfsberg Group is a private-sector association of global banks, and the Basel Committee sets prudential banking standards. None of these three conducts FATF mutual evaluations.",
+    source: [
+      { label: "FATF – Global Network: the FATF-style regional bodies", url: "https://www.fatf-gafi.org/en/countries/global-network.html" },
+      { label: "Eurasian Group – list of FSRBs (APG, CFATF, MONEYVAL, EAG, ESAAMLG, GAFILAT, GIABA, MENAFATF, GABAC)", url: "https://eurasiangroup.org/en/fatf-style-regional-bodies" }
+    ]
   },
   {
     id: "D2-004",
@@ -58,7 +70,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Send an FIU-to-FIU request to Country B's FIU through the Egmont Secure Web, following Egmont principles for information exchange."
     ],
     answer: [3],
-    explanation: "The Egmont Group is an informal network of FIUs that facilitates rapid, secure FIU-to-FIU exchange of financial intelligence, mainly through the Egmont Secure Web (ESW), consistent with FATF R.29 and R.40. An MLAT is the formal route for obtaining evidence for use in court and is slower; it is not a prerequisite for intelligence sharing. The FATF Secretariat does not exchange case information, and an FIU would not bypass its counterpart by approaching a foreign bank directly."
+    explanation: "The Egmont Group is an informal network of FIUs that facilitates rapid, secure FIU-to-FIU exchange of financial intelligence, mainly through the Egmont Secure Web (ESW), consistent with FATF R.29 and R.40. An MLAT is the formal route for obtaining evidence for use in court and is slower; it is not a prerequisite for intelligence sharing. The FATF Secretariat does not exchange case information, and an FIU would not bypass its counterpart by approaching a foreign bank directly.",
+    source: [
+      { label: "Egmont Group – Principles for Information Exchange between FIUs (rev. July 2025), paras 11-13 and 43 (Egmont Secure Web)", url: "https://egmontgroup.org/wp-content/uploads/2022/07/EG-Principles-for-Information-Exchange-Revised-July-2025.pdf" },
+      { label: "Egmont Group – About: platform for FIUs to securely exchange financial intelligence", url: "https://egmontgroup.org/about/" }
+    ]
   },
   {
     id: "D2-005",
@@ -73,7 +89,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "It breaches the rule that institutions must apply customer risk ratings assigned by the national FIU."
     ],
     answer: [1],
-    explanation: "FATF R.1 requires countries and institutions to identify, assess and understand their ML/TF risks and apply a risk-based approach, so that enhanced measures are applied where risks are higher and simplified measures may be permitted where risks are lower. There is no requirement to apply EDD to every customer. Lower risk allows simplified CDD, not a full exemption, and FIUs do not assign customer risk ratings."
+    explanation: "FATF R.1 (revised February 2025) requires countries to identify, assess and understand their ML/TF risks and apply a risk-based approach so that measures are proportionate to the risks identified, and requires financial institutions to identify, assess and take effective risk-based action to mitigate their risks. Under INR.1, enhanced measures are required where risks are higher, and where risks are lower countries should allow and encourage simplified measures. There is no requirement to apply EDD to every customer. Lower risk allows simplified CDD, not a full exemption, and FIUs do not assign customer risk ratings.",
+    source: [
+      { label: "FATF Recommendations – R.1 and INR.1 (risk-based approach, revised Feb 2025)", url: "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html" },
+      { label: "FATF Recommendations, June 2026 edition – full text (official copy hosted by the Eurasian Group FSRB)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+    ]
   },
   {
     id: "D2-006",
@@ -88,7 +108,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The OECD Working Group on Bribery"
     ],
     answer: [2],
-    explanation: "The Basel Committee on Banking Supervision (BCBS), hosted by the Bank for International Settlements, issued the \"Sound management\" guidelines, which complement the FATF standards from a prudential perspective and cover group-wide and cross-border ML/TF risk management. The Wolfsberg Group is a private association of banks that issues industry guidance. The Egmont Group connects FIUs, and the OECD Working Group on Bribery monitors the Anti-Bribery Convention."
+    explanation: "The Basel Committee on Banking Supervision (BCBS), hosted by the Bank for International Settlements, issued the \"Sound management\" guidelines, which complement the FATF standards from a prudential perspective and cover group-wide and cross-border ML/TF risk management. The Wolfsberg Group is a private association of banks that issues industry guidance. The Egmont Group connects FIUs, and the OECD Working Group on Bribery monitors the Anti-Bribery Convention.",
+    source: [
+      { label: "BCBS – Sound management of risks related to money laundering and financing of terrorism (Jan 2014, rev. July 2020)", url: "https://www.bis.org/bcbs/publ/d505.htm" }
+    ]
   },
   {
     id: "D2-007",
@@ -103,7 +126,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The Egmont Group"
     ],
     answer: [0],
-    explanation: "The Wolfsberg Group is an association of global banks that publishes non-binding guidance, including the Wolfsberg Correspondent Banking Principles and the CBDDQ. The FATF sets the correspondent banking standard in R.13 but did not author the CBDDQ. FinCEN is the US FIU and a regulator, and the Egmont Group is a network of FIUs."
+    explanation: "The Wolfsberg Group is an association of global banks that publishes non-binding guidance, including the Wolfsberg Correspondent Banking Principles and the CBDDQ. The FATF sets the correspondent banking standard in R.13 but did not author the CBDDQ. FinCEN is the US FIU and a regulator, and the Egmont Group is a network of FIUs.",
+    source: [
+      { label: "Wolfsberg Group – CBDDQ Guidance (2023): objective of the CBDDQ", url: "https://db.wolfsberg-group.org/assets/09bafec3-4b77-428b-9113-f4203d290a2f/EN_CBDDQ%20Guidance%20(2023).pdf" },
+      { label: "Wolfsberg Group – resources (CBDDQ v1.4, Correspondent Banking Principles)", url: "https://wolfsberg-group.org/resources" }
+    ]
   },
   {
     id: "D2-008",
@@ -118,7 +145,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The UN Convention against Illicit Traffic in Narcotic Drugs and Psychotropic Substances (Vienna, 1988)"
     ],
     answer: [3],
-    explanation: "The 1988 Vienna Convention was the first international instrument to require the criminalization of laundering the proceeds of drug trafficking, and it also covered confiscation and international cooperation. The Palermo Convention (2000) later extended the ML offence to the proceeds of all serious crimes. UNCAC (2003) addresses corruption and asset recovery, and the 1999 Convention targets terrorist financing."
+    explanation: "The 1988 Vienna Convention was the first international instrument to require the criminalization of laundering the proceeds of drug trafficking, and it also covered confiscation and international cooperation. The Palermo Convention (2000) later extended the ML offence to the proceeds of all serious crimes. UNCAC (2003) addresses corruption and asset recovery, and the 1999 Convention targets terrorist financing.",
+    source: [
+      { label: "UN Vienna Convention 1988 – Art. 3(1)(b): criminalizing laundering of drug-trafficking proceeds", url: "https://www.unodc.org/pdf/convention_1988_en.pdf" },
+      { label: "UNODC – money laundering: Vienna 1988 Art. 3.1, later extended by the 2000 UNTOC (Palermo)", url: "https://www.unodc.org/unodc/en/money-laundering/overview.html" }
+    ]
   },
   {
     id: "D2-009",
@@ -133,7 +164,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The OECD Anti-Bribery Convention (1997)"
     ],
     answer: [1],
-    explanation: "UNCAC (the Merida Convention) makes the return of assets a fundamental principle (Article 51) and has a full chapter (Chapter V) on asset recovery, which is why it matters in cases involving stolen public funds. The Vienna and Palermo Conventions cover drug proceeds and organized crime, respectively. The OECD Convention focuses on criminalizing the bribery of foreign public officials."
+    explanation: "UNCAC (the Merida Convention) makes the return of assets a fundamental principle (Article 51) and has a full chapter (Chapter V) on asset recovery, which is why it matters in cases involving stolen public funds. The Vienna and Palermo Conventions cover drug proceeds and organized crime, respectively. The OECD Convention focuses on criminalizing the bribery of foreign public officials.",
+    source: [
+      { label: "UNCAC – Art. 51: return of assets is a fundamental principle (Chapter V, Asset recovery)", url: "https://www.unodc.org/documents/brussels/UN_Convention_Against_Corruption.pdf" }
+    ]
   },
   {
     id: "D2-010",
@@ -145,10 +179,14 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "UNSCR 1373 (2001)",
       "UNSCR 1267 (1999)",
       "UNSCR 1718 (2006)",
-      "UNSCR 2231 (2015)"
+      "UNSCR 1737 (2006)"
     ],
     answer: [0],
-    explanation: "UNSCR 1373, adopted after 9/11, requires states to criminalize TF, freeze terrorist assets, and make designations at the national (or supranational) level, including acting on other countries' requests (FATF R.6). UNSCR 1267 and its successors set up the UN list of designated Al-Qaida/Taliban (now ISIL/Al-Qaida) individuals and entities, maintained by a UN committee rather than by national authorities. UNSCR 1718 (DPRK) and 2231 (Iran) relate to proliferation financing under R.7."
+    explanation: "UNSCR 1373, adopted after 9/11, requires states to criminalize TF and freeze terrorist funds without delay. Under FATF R.6 and its Interpretive Note, 1373 designations are made at the national or supranational level, on a country's own motion or at the request of another country. Under UNSCR 1267 and its successor resolutions, designations are made by UN Security Council committees (the 1267 Committee for ISIL/Al-Qaida and the 1988 Committee for the Taliban), not by national authorities. UNSCR 1718 (DPRK) and 1737 (Iran, re-applied in 2025) are proliferation financing resolutions covered by R.7.",
+    source: [
+      { label: "FATF Recommendations – INR.6 para. 3 (1373 designations at national level, incl. at another country's request); INR.7 (Iran resolutions, Oct 2025)", url: "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html" },
+      { label: "FATF Recommendations, June 2026 edition – full text (official copy hosted by the Eurasian Group FSRB)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+    ]
   },
   {
     id: "D2-011",
@@ -163,7 +201,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "It is based in Frankfurt and will directly supervise a limited number of high-risk cross-border financial institutions."
     ],
     answer: [3],
-    explanation: "AMLA is headquartered in Frankfurt. It will directly supervise a limited number of selected high-risk cross-border financial sector entities, coordinate national supervisors, and support cooperation among the national FIUs, which remain in place. It is an administrative authority and does not impose criminal penalties. The package also includes the AML Regulation (AMLR), a directly applicable single rulebook, and the sixth AML Directive (AMLD6)."
+    explanation: "AMLA is headquartered in Frankfurt. From 2028 it will directly supervise up to 40 selected financial institutions or groups that operate in at least six Member States and have a high residual risk profile. It also coordinates national supervisors and supports cooperation among the national FIUs, which remain in place and are not replaced by AMLA. It is an administrative authority and does not impose criminal penalties. The package also includes the AML Regulation (AMLR), a directly applicable single rulebook, and the sixth AML Directive (AMLD6).",
+    source: [
+      { label: "AMLA – Explainer (Jan 2026): direct supervision of up to 40 entities from 2028; seat in Frankfurt", url: "https://www.amla.europa.eu/document/download/5aa923cc-eece-4cff-a9dd-4f687e88962b_en?filename=Explainer+-+Direct+Supervision+by+AMLA.pdf" },
+      { label: "AMLA – FAQs: national supervisors and FIUs are not replaced; AMLA supports FIU cooperation", url: "https://www.amla.europa.eu/faqs_en" }
+    ]
   },
   {
     id: "D2-012",
@@ -178,7 +220,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "That the total value of transactions through the account will not exceed the respondent's regulatory capital each year."
     ],
     answer: [1],
-    explanation: "FATF R.13 requires that, for payable-through accounts, the correspondent be satisfied that the respondent has performed CDD on customers with direct access to the correspondent's accounts and can provide relevant CDD information on request. R.13 also requires gathering information on the respondent, assessing its AML/CFT controls, obtaining senior management approval, and understanding each institution's responsibilities. The other options are not FATF requirements."
+    explanation: "FATF R.13 requires that, for payable-through accounts, the correspondent be satisfied that the respondent has performed CDD on customers with direct access to the correspondent's accounts and can provide relevant CDD information on request. R.13 also requires gathering information on the respondent, assessing its AML/CFT controls, obtaining senior management approval, and understanding each institution's responsibilities. The other options are not FATF requirements.",
+    source: [
+      { label: "FATF Recommendations – R.13(e): payable-through accounts", url: "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html" },
+      { label: "FATF Recommendations, June 2026 edition – full text (official copy hosted by the Eurasian Group FSRB)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+    ]
   },
   {
     id: "D2-013",
@@ -193,7 +239,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Section 326; US institutions must re-verify the identity of every customer who has transacted with the foreign bank."
     ],
     answer: [2],
-    explanation: "Section 311 (31 U.S.C. 5318A) lets Treasury designate a foreign jurisdiction, institution, class of transactions or type of account as a primary money laundering concern and impose up to five special measures. The fifth and most severe measure prohibits, or imposes conditions on, opening or maintaining correspondent or payable-through accounts. Section 314(a) covers FinCEN information requests, s.312 covers due diligence for correspondent and private banking accounts, and s.326 covers CIP."
+    explanation: "Section 311 (31 U.S.C. 5318A) lets Treasury designate a foreign jurisdiction, institution, class of transactions or type of account as a primary money laundering concern and impose up to five special measures. The fifth and most severe measure prohibits, or imposes conditions on, opening or maintaining correspondent or payable-through accounts. Section 314(a) covers FinCEN information requests, s.312 covers due diligence for correspondent and private banking accounts, and s.326 covers CIP.",
+    source: [
+      { label: "31 U.S.C. 5318A(b)(5) – fifth special measure: prohibit or condition correspondent/payable-through accounts", url: "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section5318A&num=0&edition=prelim" }
+    ]
   },
   {
     id: "D2-014",
@@ -208,7 +257,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Any account held by a foreign financial institution that is used to process transactions on behalf of its own customers."
     ],
     answer: [0],
-    explanation: "Under 31 CFR 1010.605 and 1010.620, a private banking account requires minimum aggregate deposits of at least $1,000,000, is established for one or more non-US persons, and is assigned to a bank officer or employee who acts as liaison. Due diligence includes identifying the nominal and beneficial owners and the source of funds, with enhanced scrutiny for senior foreign political figures. Option D describes a correspondent account, which s.312 also covers but under separate requirements."
+    explanation: "Under 31 CFR 1010.605 and 1010.620, a private banking account requires minimum aggregate deposits of at least $1,000,000, is established for one or more non-US persons, and is assigned to a bank officer or employee who acts as liaison. Due diligence includes identifying the nominal and beneficial owners and the source of funds, with enhanced scrutiny for senior foreign political figures. An account that a foreign financial institution uses to process its own customers' transactions is a correspondent account, which s.312 also covers but under separate requirements.",
+    source: [
+      { label: "31 CFR 1010.605(m) – definition of private banking account ($1,000,000; non-US persons; liaison)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-F/section-1010.605" },
+      { label: "31 CFR 1010.620 – due diligence for private banking accounts", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-F/section-1010.620" }
+    ]
   },
   {
     id: "D2-015",
@@ -223,7 +276,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Terminate the correspondent account, because US banks may not maintain correspondent accounts for foreign shell banks."
     ],
     answer: [3],
-    explanation: "Section 313 (31 CFR 1010.630) prohibits covered financial institutions from maintaining correspondent accounts for foreign shell banks. It also requires reasonable steps to make sure correspondent accounts are not used to provide services indirectly to shell banks. The only exception is a regulated affiliate of a supervised institution with a physical presence, which does not apply here. FATF R.13 likewise prohibits correspondent relationships with shell banks, so EDD or monitoring alone is insufficient."
+    explanation: "Section 313 (31 CFR 1010.630) prohibits covered financial institutions from maintaining correspondent accounts for foreign shell banks. It also requires reasonable steps to make sure correspondent accounts are not used to provide services indirectly to shell banks. The only exception is a regulated affiliate of a supervised institution with a physical presence, which does not apply here. FATF R.13 likewise prohibits correspondent relationships with shell banks, so EDD or monitoring alone is insufficient.",
+    source: [
+      { label: "31 CFR 1010.630(a)(1) – prohibition on correspondent accounts for foreign shell banks; regulated-affiliate exception", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-F/section-1010.630" }
+    ]
   },
   {
     id: "D2-016",
@@ -238,7 +294,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Within 10 business days"
     ],
     answer: [1],
-    explanation: "Section 319(b) (31 U.S.C. 5318(k)) requires a covered institution to produce AML compliance information and records within 120 hours of a request from its federal banking agency. Section 319(b) also requires records of foreign respondent banks' owners and US agents for service of process, and termination of a correspondent relationship within 10 business days after notice that the foreign bank failed to comply with a Treasury or DOJ subpoena. The 14-day period is associated with s.314(a) requests."
+    explanation: "Section 319(b) (31 U.S.C. 5318(k)) requires a covered institution to produce AML compliance information and records within 120 hours of a request from its federal banking agency. Section 319(b) also requires records of foreign respondent banks' owners and US agents for service of process, and termination of a correspondent relationship within 10 business days after notice that the foreign bank failed to comply with a Treasury or DOJ subpoena. The 14-day period is associated with s.314(a) requests.",
+    source: [
+      { label: "31 U.S.C. 5318(k)(2) – 120-hour rule; 5318(k)(3) foreign bank records and termination", url: "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section5318&num=0&edition=prelim" },
+      { label: "31 CFR 1010.670(d) – terminate correspondent relationship within 10 business days of notice", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-F/section-1010.670" }
+    ]
   },
   {
     id: "D2-017",
@@ -253,7 +313,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Each bank must first file a SAR and attach the other bank's customer records to that filing."
     ],
     answer: [2],
-    explanation: "Under 31 CFR 1010.540, 314(b) sharing is voluntary and receives a safe harbor if each institution has filed a notice with FinCEN (renewed annually), verifies that the other party has also filed, and uses the information only for permitted purposes under appropriate security. Customer consent is not required. Option A describes a 314(a) request. Filing a SAR is not a precondition, and institutions may share underlying information but not the SAR itself."
+    explanation: "Under 31 CFR 1010.540, 314(b) sharing is voluntary and receives a safe harbor if each institution has filed a notice with FinCEN (renewed annually), verifies that the other party has also filed, and uses the information only for permitted purposes under appropriate security. Customer consent is not required. A FinCEN request naming specific subjects is the separate 314(a) process. Filing a SAR is not a precondition, and institutions may share underlying information but not the SAR itself.",
+    source: [
+      { label: "31 CFR 1010.540(b)(2)-(5) – 314(b) notice (valid one year), verification, use and safe harbor", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-E/section-1010.540" }
+    ]
   },
   {
     id: "D2-018",
@@ -269,7 +332,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "It expanded the BSA whistleblower program, including awards and anti-retaliation protections."
     ],
     answer: [0, 2, 4],
-    explanation: "AMLA 2020, enacted in the National Defense Authorization Act for FY2021, included the Corporate Transparency Act, required national AML/CFT priorities (first published by FinCEN in 2021), and expanded whistleblower awards and protections. It also strengthened Treasury and DOJ subpoena power over foreign banks with US correspondent accounts. CTR requirements date from the Bank Secrecy Act of 1970, and the PATRIOT Act correspondent banking provisions were not repealed."
+    explanation: "AMLA 2020, enacted in the National Defense Authorization Act for FY2021, included the Corporate Transparency Act (since FinCEN's March 2025 interim final rule, made permanent by an August 2026 final rule, US companies are exempt and only certain foreign companies registered in the US must report), required national AML/CFT priorities (first published by FinCEN in 2021), and expanded whistleblower awards and protections. It also strengthened Treasury and DOJ subpoena power over foreign banks with US correspondent accounts. CTR requirements date from the Bank Secrecy Act of 1970, and the PATRIOT Act correspondent banking provisions were not repealed.",
+    source: [
+      { label: "FinCEN (June 2021) – first national AML/CFT priorities, issued pursuant to the AML Act of 2020", url: "https://www.fincen.gov/news/news-releases/fincen-issues-first-national-amlcft-priorities-and-accompanying-statements" },
+      { label: "31 U.S.C. 5323 – whistleblower awards and anti-retaliation (amended by Pub. L. 116-283, div. F, s.6314)", url: "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section5323&num=0&edition=prelim" }
+    ]
   },
   {
     id: "D2-019",
@@ -284,7 +351,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Recommendation 29"
     ],
     answer: [1],
-    explanation: "FATF R.25 covers transparency and beneficial ownership of legal arrangements. Among other things, trustees must hold adequate, accurate and up-to-date information on the settlor, trustees, protector (if any), beneficiaries or class of beneficiaries, and any other natural person exercising ultimate effective control. R.24 covers legal persons such as companies, R.22 covers CDD for DNFBPs, and R.29 covers FIUs."
+    explanation: "FATF R.25 covers transparency and beneficial ownership of legal arrangements. Among other things, trustees must hold adequate, accurate and up-to-date information on the settlor, trustees, protector (if any), beneficiaries or class of beneficiaries, and any other natural person exercising ultimate effective control. R.24 covers legal persons such as companies, R.22 covers CDD for DNFBPs, and R.29 covers FIUs.",
+    source: [
+      { label: "FATF Recommendations – R.25 and INR.25 para. 1: trustee beneficial ownership information", url: "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html" },
+      { label: "FATF Recommendations, June 2026 edition – full text (official copy hosted by the Eurasian Group FSRB)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+    ]
   },
   {
     id: "D2-020",
@@ -299,7 +370,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "As blocked only if the non-sanctioned owner is related to one of the SDNs."
     ],
     answer: [0],
-    explanation: "Under OFAC's 50 percent rule (2014 guidance), any entity owned 50% or more, directly or indirectly, individually or in the aggregate, by one or more blocked persons is itself blocked, whether or not it is listed. Here, 30% + 20% = 50%, which meets the threshold. The rule is based on ownership, not control, although OFAC advises caution with entities that blocked persons control."
+    explanation: "Under OFAC's 50 percent rule (2014 guidance), any entity owned 50% or more, directly or indirectly, individually or in the aggregate, by one or more blocked persons is itself blocked, whether or not it is listed. Here, 30% + 20% = 50%, which meets the threshold. The rule is based on ownership, not control, although OFAC advises caution with entities that blocked persons control.",
+    source: [
+      { label: "OFAC FAQ 401 – 50 Percent Rule: owned 50% or more in the aggregate by one or more blocked persons", url: "https://ofac.treasury.gov/faqs/401" },
+      { label: "OFAC FAQ 398 – the 50 Percent Rule covers ownership, not control", url: "https://ofac.treasury.gov/faqs/398" }
+    ]
   },
   {
     id: "D2-021",
@@ -314,7 +389,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Report the blocked property to OFAC within 10 business days of the blocking."
     ],
     answer: [3],
-    explanation: "Under 31 CFR 501.603, blocked property must be reported to OFAC within 10 business days. The bank must also include it in the annual report of blocked property as of June 30, which is due by September 30. Blocked funds may not be returned to the originator; they must stay frozen until OFAC authorizes their release. A SAR is generally not required solely because of a blocking that has been reported to OFAC, but it does not replace the OFAC report."
+    explanation: "Under 31 CFR 501.603(b)(1), blocked property must be reported to OFAC within 10 business days of the blocking. Under 501.603(b)(2), the bank must also include it in the annual report of blocked property held as of June 30, which is due by September 30. Blocked funds may not be returned to the originator; they must stay frozen until OFAC authorizes their release. A SAR never replaces the OFAC report. Under FinCEN's 2004 unitary-filing interpretation, a blocking report on a terrorism- or narcotics-related SDN match is deemed to satisfy the SAR requirement for that match, but a separate SAR is still required if the activity would be suspicious without the match or the bank holds information not included in the blocking report.",
+    source: [
+      { label: "31 CFR 501.603(b) – blocking reports within 10 business days; annual report as of June 30 due September 30", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-V/part-501/subpart-C/section-501.603" },
+      { label: "FinCEN – unitary filing of suspicious activity and blocking reports (2004 interpretation)", url: "https://www.fincen.gov/resources/statutes-regulations/guidance/interpretation-suspicious-activity-reporting-requirements" }
+    ]
   },
   {
     id: "D2-022",
@@ -329,7 +408,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The bank must re-submit the SAR to the Financial Conduct Authority for a decision."
     ],
     answer: [2],
-    explanation: "Under POCA 2002 (s.335), if the NCA does not refuse consent within the 7-working-day notice period, consent is deemed given and the reporter has a defence for proceeding. The 31-day moratorium applies only if the NCA refuses consent within the notice period, and it can be extended by a court. Returning funds without consent could itself be a prohibited act and risks tipping off, and DAML requests go to the NCA (the UK FIU), not the FCA."
+    explanation: "Under POCA 2002 s.336(3) and (7), a nominated officer who has made a disclosure to the NCA may give consent if no notice of refusal is received before the end of the notice period (seven working days starting with the first working day after the disclosure). The bank can then proceed with the DAML defence. The 31-day moratorium (ss.335(6) and 336(8)) applies only if the NCA refuses consent within the notice period, and a court can extend it under s.336A. Returning funds without consent could itself be a prohibited act and risks tipping off, and DAML requests go to the NCA (the UK FIU), not the FCA.",
+    source: [
+      { label: "POCA 2002 s.336 – nominated officer consent; 7-working-day notice period and 31-day moratorium", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/336" },
+      { label: "POCA 2002 s.335 – appropriate consent; moratorium extendable under s.336A", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/335" }
+    ]
   },
   {
     id: "D2-023",
@@ -344,7 +427,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Tell her the bank suspects the funds are illicit so that she can send documents to clear the STR."
     ],
     answer: [1],
-    explanation: "FATF R.21 prohibits financial institutions and their staff from disclosing (tipping off) that an STR or related information is being filed with the FIU. It also protects staff from liability for good-faith reporting. The manager should avoid any reference to the STR or the suspicion and escalate to compliance. Options A, C and D each alert the customer to the report or the suspicion, which is tipping off."
+    explanation: "FATF R.21 prohibits financial institutions and their staff from disclosing (tipping off) that an STR or related information is being filed with the FIU. It also protects staff from liability for good-faith reporting. The manager should avoid any reference to the STR or the suspicion and escalate to compliance. Mentioning the STR, advising her to cancel so that the investigation stops, or telling her the funds are suspected of being illicit would each alert her to the report or the suspicion, which is tipping off.",
+    source: [
+      { label: "FATF Recommendations – R.21: tipping-off prohibition and safe harbor", url: "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html" },
+      { label: "FATF Recommendations, June 2026 edition – full text (official copy hosted by the Eurasian Group FSRB)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+    ]
   },
   {
     id: "D2-024",
@@ -359,7 +446,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The corporate offence of failing to prevent bribery (section 7) can be defended by showing the company had adequate procedures."
     ],
     answer: [1, 3],
-    explanation: "The UK Bribery Act covers both public and private-sector bribery. Its section 7 offence of failure by a commercial organisation to prevent bribery is strict liability, with a defence of adequate procedures. Unlike the FCPA, which has a narrow exception for facilitating payments for routine governmental action, the UK Act has no facilitation payment exception. Section 7 also reaches organisations that carry on business or part of a business in the UK, not only UK-incorporated companies."
+    explanation: "The UK Bribery Act covers both public and private-sector bribery. Its section 7 offence of failure by a commercial organisation to prevent bribery is strict liability, with a defence of adequate procedures. Unlike the FCPA, which has a narrow exception for facilitating payments for routine governmental action, the UK Act has no facilitation payment exception. Section 7 also reaches organisations that carry on business or part of a business in the UK, not only UK-incorporated companies.",
+    source: [
+      { label: "Bribery Act 2010 s.7 – failure to prevent bribery; adequate procedures defence; 'relevant commercial organisation'", url: "https://www.legislation.gov.uk/ukpga/2010/23/section/7" },
+      { label: "Ministry of Justice – Bribery Act 2010 Guidance: no exemption for facilitation payments (unlike US law)", url: "https://assets.publishing.service.gov.uk/media/5d80cfc3ed915d51e9aff85a/bribery-act-2010-guidance.pdf" }
+    ]
   },
   {
     id: "D2-025",
@@ -374,7 +465,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The whistleblower provisions, which require issuers to self-report such payments directly to the OECD."
     ],
     answer: [0],
-    explanation: "The FCPA has two main parts: the anti-bribery provisions, which require corrupt intent, and the accounting provisions (books and records, and internal accounting controls), which apply to issuers and are enforced by the SEC civilly and by the DOJ criminally when violations are willful. Recording bribes as \"consulting fees\" is a classic books-and-records violation. The facilitating payments exception is an exception, not an offence, and the OECD does not receive self-reports."
+    explanation: "The FCPA has two main parts: the anti-bribery provisions, which require corrupt intent, and the accounting provisions (books and records, and internal accounting controls), which apply to issuers and are enforced by the SEC civilly and by the DOJ criminally when violations are willful. Recording bribes as \"consulting fees\" is a classic books-and-records violation. The facilitating payments exception is an exception, not an offence, and the OECD does not receive self-reports.",
+    source: [
+      { label: "15 U.S.C. 78m(b)(2) and (5) – FCPA books-and-records and internal accounting controls provisions", url: "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section78m&num=0&edition=prelim" },
+      { label: "15 U.S.C. 78dd-1 – FCPA anti-bribery provisions (\"corruptly\"; facilitating payments exception)", url: "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section78dd-1&num=0&edition=prelim" }
+    ]
   },
   {
     id: "D2-026",
@@ -389,7 +484,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "It requires parties to criminalize the bribery of foreign public officials in international business transactions, monitored through peer review."
     ],
     answer: [3],
-    explanation: "The OECD Convention on Combating Bribery of Foreign Public Officials in International Business Transactions targets the supply side of foreign bribery. Its implementation is monitored through phased peer reviews by the OECD Working Group on Bribery. Option A describes the demand side, which the Convention does not cover. Option B describes UNCAC, and option C describes Wolfsberg ABC guidance."
+    explanation: "The OECD Convention on Combating Bribery of Foreign Public Officials in International Business Transactions targets the supply side of foreign bribery. Its implementation is monitored through phased peer reviews by the OECD Working Group on Bribery. Criminalizing the receipt of bribes by a country's own officials concerns the demand side, which the Convention does not cover. Asset return is the focus of UNCAC, and voluntary guidance from an association of banks describes the Wolfsberg ABC guidance.",
+    source: [
+      { label: "OECD Anti-Bribery Convention – Art. 1: offence of bribery of foreign public officials", url: "https://legalinstruments.oecd.org/public/doc/205/205.en.pdf" },
+      { label: "OECD – The Anti-Bribery Convention and the Working Group on Bribery (supply side; peer review)", url: "https://www.oecd.org/content/dam/oecd/en/topics/policy-sub-issues/fighting-foreign-bribery/fighting-the-crime-of-foreign-bribery.pdf" }
+    ]
   },
   {
     id: "D2-027",
@@ -404,7 +503,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The board of directors is the third line of defense because it performs independent testing of controls."
     ],
     answer: [2],
-    explanation: "In the three lines of defense model, the first line (business units and front office) owns and manages risk. The second line (compliance and risk management) sets policy, provides oversight and challenge, and monitors. The third line (internal audit) gives the board independent assurance. The board is not one of the lines; it oversees the whole framework and receives reporting from all three."
+    explanation: "In the three lines of defense model, the first line (business units and front office) owns and manages risk. The second line (compliance and risk management) sets policy, provides oversight and challenge, and monitors. The third line (internal audit) gives the board independent assurance. The board is not one of the lines; it oversees the whole framework and receives reporting from all three.",
+    source: [
+      { label: "BCBS Sound management guidelines (rev. July 2020) – paras 19-26: the three lines of defence", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" }
+    ]
   },
   {
     id: "D2-028",
@@ -419,7 +521,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Delegating all AML responsibility to the compliance officer so the board has no remaining accountability."
     ],
     answer: [1],
-    explanation: "Regulators and the Basel Committee expect the board to approve the AML/CFT program and risk appetite, oversee its implementation, set a culture of compliance, and ensure the compliance function has adequate resources and authority. Day-to-day tasks such as clearing alerts and drafting procedures belong to management and compliance. Independent testing must be done by parties independent of the program. The board can delegate execution but remains ultimately accountable."
+    explanation: "Regulators and the Basel Committee expect the board to approve the AML/CFT program and risk appetite, oversee its implementation, set a culture of compliance, and ensure the compliance function has adequate resources and authority. Day-to-day tasks such as clearing alerts and drafting procedures belong to management and compliance. Independent testing must be done by parties independent of the program. The board can delegate execution but remains ultimately accountable.",
+    source: [
+      { label: "12 CFR 21.21(c)(1) – BSA compliance program must be approved by the board of directors", url: "https://www.ecfr.gov/current/title-12/chapter-I/part-21/subpart-C/section-21.21" },
+      { label: "BCBS Sound management guidelines (rev. July 2020) – paras 17-18: board approval and oversight, chief AML/CFT officer", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" }
+    ]
   },
   {
     id: "D2-029",
@@ -436,7 +542,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Obtain prior written approval from the national FIU before opening the account"
     ],
     answer: [1, 2, 4],
-    explanation: "For foreign PEPs, FATF R.12 requires risk management systems to identify PEPs, senior management approval, reasonable measures to establish source of wealth and source of funds, and enhanced ongoing monitoring. For domestic and international organisation PEPs, these measures apply when the relationship is higher risk, and they extend to family members and close associates. PEP status alone is not grounds for automatic rejection or an STR, and FIU approval is not required."
+    explanation: "For foreign PEPs, FATF R.12 requires risk management systems to identify PEPs, senior management approval, reasonable measures to establish source of wealth and source of funds, and enhanced ongoing monitoring. For domestic and international organisation PEPs, these measures apply when the relationship is higher risk, and they extend to family members and close associates. PEP status alone is not grounds for automatic rejection or an STR, and FIU approval is not required.",
+    source: [
+      { label: "FATF Recommendations – R.12(a)-(d): politically exposed persons", url: "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html" },
+      { label: "FATF Recommendations, June 2026 edition – full text (official copy hosted by the Eurasian Group FSRB)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+    ]
   },
   {
     id: "D2-030",
@@ -451,6 +561,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "VASPs are supervised directly by the FATF Secretariat rather than by national authorities."
     ],
     answer: [1, 2],
-    explanation: "The Interpretive Note to R.15 requires VASPs to be licensed or registered, at a minimum where they are created, and to be supervised or monitored by national competent authorities. It applies the R.16 wire transfer (travel rule) requirements to virtual asset transfers. The threshold for occasional transaction CDD for VAs is USD/EUR 1,000, not 10,000. The FATF sets standards and does not supervise firms."
+    explanation: "The Interpretive Note to R.15 requires VASPs to be licensed or registered, at a minimum where they are created, and to be supervised or monitored by national competent authorities. It applies the R.16 payment transparency (\"travel rule\") requirements to virtual asset transfers; R.16 was revised in June 2025, with a consequential update to INR.15. The threshold for occasional transaction CDD for VAs is USD/EUR 1,000, not 10,000. The FATF sets standards and does not supervise firms.",
+    source: [
+      { label: "FATF Recommendations – INR.15 paras 3, 5 and 7: VASP licensing, supervision, USD/EUR 1,000 threshold, travel rule", url: "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html" },
+      { label: "FATF Recommendations, June 2026 edition – full text (official copy hosted by the Eurasian Group FSRB)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+    ]
   }
 ]);
