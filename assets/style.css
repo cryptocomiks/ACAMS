@@ -457,3 +457,5 @@ body.home .section:not(.alt) .dtile, body.home .section:not(.alt) .card { backgr
 .save-nudge { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 14px; padding: 14px 18px; border-radius: 16px; background: var(--blue-soft); }
 .save-nudge b { display: block; font-size: 15px; } .save-nudge span { font-size: 13px; color: var(--muted); }
 @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+.tag.hard { background: rgba(191, 90, 242, .14); color: #a33fd6; }
+@media (prefers-color-scheme: dark) { .tag.hard { color: #da8fff; } }

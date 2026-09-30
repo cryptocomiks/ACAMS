@@ -34,7 +34,7 @@ Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être a
 - **Sans compte** : tout marche, la progression reste dans le navigateur.
 - **Avec compte** (Supabase, email + mot de passe) : progression synchronisée entre appareils. Activation : voir `supabase/README.md`
   (créer le projet, lancer `supabase/schema.sql`, coller l'URL et la clé *anon* dans `assets/config.js`).
-- **Gamification** (`assets/progress.js`) : XP et niveaux, série de jours 🔥, objectif quotidien (10/20/30/50), calendrier d'activité, 17 badges.
+- **Gamification** (`assets/progress.js`) : XP et niveaux, série de jours 🔥, objectif quotidien (10/20/30/50), calendrier d'activité, 18 badges.
 - **Révision intelligente** : répétition espacée (Leitner) — une question ratée revient après 10 min, puis 1, 3, 7, 16, 35 jours
   à chaque bonne réponse. Mode « Review », sujets les plus faibles avec entraînement ciblé, précision par domaine.
 

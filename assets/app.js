@@ -96,6 +96,7 @@
     var pool = BANK.slice();
     if (opts.domain !== "all") pool = pool.filter(function (q) { return String(q.domain) === String(opts.domain); });
     if (opts.source === "hy") pool = pool.filter(function (q) { return q.hy; });
+    if (opts.source === "hard") pool = pool.filter(function (q) { return q.difficulty === "hard"; });
     if (opts.source === "review") {
       var due = PG ? PG.dueIds(BY_ID) : [];
       return shuffle(due.slice(0, 20).map(function (id) { return BY_ID[id]; }));
@@ -220,6 +221,7 @@
     var seenCount = Object.keys(stats).filter(function (k) { return BY_ID[k]; }).length;
     var mistakes = Object.keys(stats).filter(function (k) { return BY_ID[k] && stats[k].last === false; }).length;
     var hyCount = BANK.filter(function (q) { return q.hy; }).length;
+    var hardCount = BANK.filter(function (q) { return q.difficulty === "hard"; }).length;
 
     if (PG) {
       var g0 = PG.gam();
@@ -281,7 +283,7 @@
       '<p class="subhead reveal">' + QUESTIONS_PER_TEST + ' questions per test. Learn as you go, or sit it like the real thing.</p>' +
       '<div class="settings reveal">' +
       '<div class="seg-group"><label>Domain</label>' + seg("domain", [["all", "All", null], ["1", "D1", countDomain(1)], ["2", "D2", countDomain(2)], ["3", "D3", countDomain(3)], ["4", "D4", countDomain(4)]], prefs0.domain) + "</div>" +
-      '<div class="seg-group"><label>Questions</label>' + seg("source", [["fresh", "Unseen first", null], ["hy", "Most tested", hyCount], ["mistakes", "My mistakes", mistakes]], prefs0.source) + "</div>" +
+      '<div class="seg-group"><label>Questions</label>' + seg("source", [["fresh", "Unseen first", null], ["hy", "Most tested", hyCount], ["hard", "Hard only", hardCount], ["mistakes", "My mistakes", mistakes]], prefs0.source) + "</div>" +
       "</div>" +
       '<div class="tiles">' +
       '<div class="tile reveal"><div class="glyph">💡</div><div class="eyebrow" style="color:var(--blue)">Practice</div>' +
@@ -580,7 +582,8 @@
       '<div class="qhead"><div class="qcount"><b>Question ' + (s.current + 1) + "</b> of " + total + "</div>" +
       '<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag blue">Domain ' + q.domain + "</span>" +
       (practice && q.topic ? '<span class="tag">' + esc(q.topic) + "</span>" : "") +
-      (practice && q.hy ? '<span class="tag hy">Frequently tested</span>' : "") + "</div></div>" +
+      (practice && q.hy ? '<span class="tag hy">Frequently tested</span>' : "") +
+      (q.difficulty === "hard" ? '<span class="tag hard">Hard</span>' : "") + "</div></div>" +
       '<div class="progress"><div style="width:' + pct(answeredCount, total) + '%"></div></div>' +
       '<div class="qtext">' + esc(q.q) + "</div>" +
       (multi ? '<div class="hint">Select ' + q.answer.length + " answers.</div>" : "") +
@@ -748,7 +751,7 @@
       score: score,
       total: s.items.length,
       scope: (s.opts.domain === "all" ? "All" : "D" + s.opts.domain) +
-        (s.opts.source === "hy" ? " · HY" : s.opts.source === "mistakes" ? " · Mistakes" : s.opts.source === "review" ? " · Review" : s.opts.label ? " · " + s.opts.label : "")
+        (s.opts.source === "hy" ? " · HY" : s.opts.source === "hard" ? " · Hard" : s.opts.source === "mistakes" ? " · Mistakes" : s.opts.source === "review" ? " · Review" : s.opts.label ? " · " + s.opts.label : "")
     });
     save(KEYS.history, history.slice(-100));
     if (PG) {
@@ -845,6 +848,7 @@
         '<span class="tag blue">Domain ' + q.domain + "</span>" +
         (q.topic ? '<span class="tag">' + esc(q.topic) + "</span>" : "") +
         (q.hy ? '<span class="tag hy">Frequently tested</span>' : "") +
+        (q.difficulty === "hard" ? '<span class="tag hard">Hard</span>' : "") +
         (it.flagged ? '<span class="tag">⚑ Flagged</span>' : "") + "</div>" +
         '<div class="qtext">' + esc(q.q) + "</div>";
       it.order.forEach(function (orig, i) {
