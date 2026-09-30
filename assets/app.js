@@ -67,6 +67,13 @@
     return s === t;
   }
   function isMulti(q) { return q.answer.length > 1; }
+  function sourcesHtml(q) {
+    var list = Array.isArray(q.source) ? q.source.filter(function (s) { return s && /^https:\/\//.test(s.url); }) : [];
+    if (!list.length) return "";
+    return '<div class="sources">Source' + (list.length > 1 ? "s" : "") + ": " + list.map(function (s) {
+      return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' + esc(s.label || s.url) + "</a>";
+    }).join(" · ") + "</div>";
+  }
   function isCorrect(item) { return sameSet(item.selected, BY_ID[item.qid].answer); }
   function isAnswered(item) {
     var q = BY_ID[item.qid];
@@ -333,7 +340,7 @@
       var correctLetters = item.order.map(function (orig, i) { return q.answer.indexOf(orig) >= 0 ? LETTERS[i] : null; })
         .filter(Boolean).join(", ");
       html += '<div class="explain ' + (ok ? "good" : "bad") + '"><div class="verdict">' +
-        (ok ? "✓ Correct" : "✗ Incorrect — correct answer: " + correctLetters) + "</div>" + esc(q.explanation) + "</div>";
+        (ok ? "✓ Correct" : "✗ Incorrect — correct answer: " + correctLetters) + "</div>" + esc(q.explanation) + sourcesHtml(q) + "</div>";
     }
 
     html += '<div class="actions">';
@@ -554,7 +561,7 @@
         html += '<button class="' + cls + '" disabled><span class="letter">' + LETTERS[i] + "</span><span>" + esc(q.options[orig]) +
           (sel ? ' <span class="muted small">— your answer</span>' : "") + "</span></button>";
       });
-      html += '<div class="explain ' + (ok ? "good" : "bad") + '">' + esc(q.explanation) + "</div></div>";
+      html += '<div class="explain ' + (ok ? "good" : "bad") + '">' + esc(q.explanation) + sourcesHtml(q) + "</div></div>";
     });
     html += "</div>";
 

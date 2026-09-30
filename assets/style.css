@@ -213,3 +213,6 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .card { padding: 16px; }
   .hide-sm { display: none; }
 }
+
+.sources { margin-top: 8px; font-size: 13px; color: var(--muted); }
+.sources a { color: var(--primary); overflow-wrap: anywhere; }
