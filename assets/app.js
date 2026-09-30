@@ -34,9 +34,13 @@
       return raw ? JSON.parse(raw) : fallback;
     } catch (e) { return fallback; }
   }
+  var PG = window.CAMSProgress;
   function save(key, value) {
+    if (PG && PG.SYNCED.indexOf(key) >= 0) return PG.save(key, value);
     try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* ignore */ }
   }
+  function modeLabel(m) { return m === "exam" ? "Mock exam" : m === "review" ? "Review" : "Practice"; }
+  function instant(s) { return s.mode !== "exam"; }
   function remove(key) {
     try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
   }
@@ -92,6 +96,15 @@
     var pool = BANK.slice();
     if (opts.domain !== "all") pool = pool.filter(function (q) { return String(q.domain) === String(opts.domain); });
     if (opts.source === "hy") pool = pool.filter(function (q) { return q.hy; });
+    if (opts.source === "review") {
+      var due = PG ? PG.dueIds(BY_ID) : [];
+      return shuffle(due.slice(0, 20).map(function (id) { return BY_ID[id]; }));
+    }
+    if (opts.ids) {
+      var set = {};
+      opts.ids.forEach(function (id) { set[id] = 1; });
+      pool = BANK.filter(function (q) { return set[q.id]; });
+    }
     if (opts.source === "mistakes") {
       pool = pool.filter(function (q) { var s = stats[q.id]; return s && s.wrong > 0 && s.last === false; });
     }
@@ -107,7 +120,7 @@
 
     var n = Math.min(QUESTIONS_PER_TEST, pool.length);
     var chosen = [];
-    if (opts.domain === "all" && opts.source !== "mistakes") {
+    if (opts.domain === "all" && opts.source !== "mistakes" && !opts.ids) {
       // Mirror the exam blueprint weights (30/20/30/20).
       var quotas = {};
       var assigned = 0;
@@ -134,8 +147,8 @@
   function startSession(mode, opts) {
     var qs = pickQuestions(opts);
     if (!qs.length) {
-      alert(opts.source === "mistakes"
-        ? "No missed questions to review yet for this selection. Take a test first!"
+      alert(opts.source === "review" ? "Nothing due for review right now. Come back tomorrow, or start a practice test."
+        : opts.source === "mistakes" ? "No missed questions to review yet for this selection. Take a test first!"
         : "No questions available for this selection.");
       return;
     }
@@ -146,6 +159,8 @@
       endsAt: mode === "exam" ? Date.now() + qs.length * SECONDS_PER_QUESTION * 1000 : null,
       current: 0,
       finished: false,
+      xp: 0,
+      badgesAtStart: PG ? Object.keys(PG.gam().badges) : [],
       items: qs.map(function (q) {
         return { qid: q.id, order: shuffle(range(q.options.length)), selected: [], submitted: false, flagged: false };
       })
@@ -206,6 +221,14 @@
     var mistakes = Object.keys(stats).filter(function (k) { return BY_ID[k] && stats[k].last === false; }).length;
     var hyCount = BANK.filter(function (q) { return q.hy; }).length;
 
+    if (PG) {
+      var g0 = PG.gam();
+      if (g0.xp) {
+        var st0 = PG.streak(g0);
+        setTopbar('<span class="chip" title="Day streak">🔥 ' + st0.current + '</span><span class="chip" title="Today / daily goal">' +
+          (g0.days[PG.dayKey()] || 0) + "/" + g0.goal + '</span><span class="chip hide-sm" title="Level">Lv ' + PG.levelFor(g0.xp).level + "</span>");
+      }
+    }
     var prefs0 = { domain: prefs.domain || "all", source: prefs.source || "fresh" };
     var mins = Math.ceil(QUESTIONS_PER_TEST * SECONDS_PER_QUESTION / 60);
     setView("home");
@@ -222,7 +245,7 @@
     if (resume) {
       var answered = resume.items.filter(isAnswered).length;
       html += '<div style="padding:0 16px"><div class="banner fade-in"><div><b>Test in progress.</b> ' +
-        (resume.mode === "exam" ? "Mock exam" : "Practice") + " · " + answered + " of " + resume.items.length +
+        modeLabel(resume.mode) + " · " + answered + " of " + resume.items.length +
         ' answered.</div><div style="display:flex;gap:8px"><button class="btn sm" id="discard">Discard</button>' +
         '<button class="btn primary sm" id="resume">Resume</button></div></div></div>';
     }
@@ -234,7 +257,7 @@
       '<p class="lede fade-in" style="animation-delay:.16s">' + BANK.length + ' exam-style questions. Every answer verified at the source.</p>' +
       '<div class="ctas fade-in" style="animation-delay:.24s">' +
       '<button class="btn primary lg" data-start="practice">Start practising</button>' +
-      '<button class="link-btn" data-start="exam">Take a mock exam</button></div>' +
+      '<button class="link-btn" data-start="exam">Take a mock exam</button></div>' + todayStrip() +
       '<div class="video-frame fade-in" style="animation-delay:.32s">' +
       '<video id="heroVideo" src="assets/video/cams-trainer.mp4" poster="assets/video/poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="15-second overview of CAMS Exam Trainer"></video>' +
       '<button class="video-ctrl play" id="vidPlay" aria-label="Pause video"></button>' +
@@ -273,29 +296,9 @@
       '<div class="tile-cta"><button class="btn light" data-start="exam">Start mock exam</button></div></div>' +
       "</div></div></section>";
 
-    // Progress + provenance
-    html += '<section class="section"><div class="inner">' +
-      '<h2 class="headline reveal">Your progress.</h2>' +
-      '<p class="subhead reveal">' + seenCount + " of " + BANK.length + " questions seen · " + mistakes + " to review</p>" +
-      '<div class="card reveal" style="margin-top:40px">';
-    if (history.length) {
-      html += '<table><thead><tr><th>Date</th><th>Mode</th><th class="hide-sm">Scope</th><th class="num">Score</th><th class="num">Result</th></tr></thead><tbody>' +
-        history.slice(-10).reverse().map(function (h) {
-          var p = pct(h.score, h.total);
-          var ok = h.score / h.total >= PASS_RATE;
-          return "<tr><td>" + new Date(h.date).toLocaleDateString(undefined, { day: "2-digit", month: "short" }) + " " +
-            new Date(h.date).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) + "</td>" +
-            "<td>" + (h.mode === "exam" ? "Mock exam" : "Practice") + "</td>" +
-            '<td class="hide-sm">' + esc(h.scope || "All") + "</td>" +
-            '<td class="num">' + h.score + "/" + h.total + " · " + p + "%</td>" +
-            '<td class="num"><span class="tag ' + (ok ? "good" : "bad") + '">' + (ok ? "Pass" : "Fail") + "</span></td></tr>";
-        }).join("") + "</tbody></table>" +
-        '<div style="text-align:right;margin-top:12px"><button class="btn sm danger" id="reset">Reset progress</button></div>';
-    } else {
-      html += '<p class="muted" style="margin:0;text-align:center">No tests yet. Your scores will appear here.</p>';
-    }
-    html += "</div>" +
-      '<p class="small muted reveal" style="text-align:center;max-width:680px;margin:40px auto 0">These are original exam-style questions, not real ACAMS items. Every answer was checked against primary sources (FATF, FinCEN, OFAC, eCFR, Federal Reserve, Wolfsberg, EU and UK law) as of September 2026, and each explanation links to its source.</p>' +
+    // Progress dashboard + provenance
+    html += '<section class="section" id="progress"><div class="inner">' + dashboardHtml(history) +
+      '<p class="small muted reveal" style="text-align:center;max-width:680px;margin:48px auto 0">These are original exam-style questions, not real ACAMS items. Every answer was checked against primary sources (FATF, FinCEN, OFAC, eCFR, Federal Reserve, Wolfsberg, EU and UK law) as of September 2026, and each explanation links to its source.</p>' +
       "</div></section>";
 
     app.innerHTML = html;
@@ -325,12 +328,159 @@
     var reset = document.getElementById("reset");
     if (reset) reset.onclick = function () {
       if (confirm("Erase your test history and question statistics?")) {
-        remove(KEYS.history); remove(KEYS.stats); renderHome();
+        if (PG) PG.clearAll(); remove(KEYS.history); remove(KEYS.stats); if (window.CAMSSync) window.CAMSSync.schedule(); renderHome();
       }
     };
+    bindDashboard();
     setupVideo();
     setupReveal();
     window.scrollTo(0, 0);
+  }
+
+  // ---------- Progress dashboard ----------
+  function goalRing(n, goal) {
+    var r = 44, c = 2 * Math.PI * r, k = Math.min(1, goal ? n / goal : 0);
+    return '<svg class="goal-ring" viewBox="0 0 110 110"><circle cx="55" cy="55" r="' + r + '" fill="none" stroke="rgba(118,118,128,.16)" stroke-width="11"/>' +
+      '<circle cx="55" cy="55" r="' + r + '" fill="none" stroke="url(#gr)" stroke-width="11" stroke-linecap="round" stroke-dasharray="' + (c * k) + " " + c + '" transform="rotate(-90 55 55)"/>' +
+      '<defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a84ff"/><stop offset="1" stop-color="#bf5af2"/></linearGradient></defs>' +
+      '<text x="55" y="53" text-anchor="middle" class="gr-n">' + n + '</text><text x="55" y="72" text-anchor="middle" class="gr-d">of ' + goal + "</text></svg>";
+  }
+
+  function heatmapHtml() {
+    var h = PG.heat(20), goal = h.goal;
+    var cols = [], col = [];
+    h.cells.forEach(function (c, i) {
+      if (i > 0 && c.dow === 0) { cols.push(col); col = []; }
+      col.push(c);
+    });
+    cols.push(col);
+    function lvl(n) { return !n ? 0 : n < goal / 2 ? 1 : n < goal ? 2 : n < goal * 2 ? 3 : 4; }
+    return '<div class="heatmap" role="img" aria-label="Daily activity, last 20 weeks">' + cols.map(function (cl, ci) {
+      return '<div class="hcol">' + (ci === 0 ? new Array(cl[0].dow + 1).join('<i class="h-empty"></i>') : "") + cl.map(function (c) {
+        return '<i class="l' + lvl(c.n) + '" title="' + c.key + ": " + c.n + ' answers"></i>';
+      }).join("") + "</div>";
+    }).join("") + "</div>" +
+      '<div class="hlegend">Less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> More · darkest = goal reached twice over</div>';
+  }
+
+  function todayStrip() {
+    if (!PG) return "";
+    var g = PG.gam();
+    if (!g.xp) return "";
+    var st = PG.streak(g), today = g.days[PG.dayKey()] || 0, due = PG.dueIds(BY_ID).length;
+    return '<div class="today fade-in" style="animation-delay:.28s">' +
+      '<span>🔥 <b>' + st.current + "</b> day" + (st.current === 1 ? "" : "s") + "</span>" +
+      '<span>🎯 <b>' + today + "/" + g.goal + "</b> today</span>" +
+      '<span>🔁 <b>' + due + "</b> to review</span>" +
+      (due ? '<button class="btn sm primary" id="heroReview">Review</button>' : '<a class="link-btn" href="#progress">My progress</a>') + "</div>";
+  }
+
+  function dashboardHtml(history) {
+    if (!PG) return "";
+    var g = PG.gam(), st = PG.streak(g), lv = PG.levelFor(g.xp);
+    var today = g.days[PG.dayKey()] || 0;
+    var mastered = PG.masteredCount(BY_ID);
+    var due = PG.dueIds(BY_ID).length;
+    var weak = PG.weakTopics(BANK, 6);
+    var acc = PG.domainAccuracy(BANK);
+    var fresh = !g.xp && !history.length;
+
+    var html = '<h2 class="headline reveal">Your progress.</h2>' +
+      '<p class="subhead reveal">' + (fresh ? "Answer your first question to start your streak."
+        : "Level " + lv.level + " · " + esc(PG.titleFor(lv.level)) + " · " + g.xp.toLocaleString() + " XP") + "</p>";
+
+    // Stat tiles
+    html += '<div class="dash reveal">' +
+      '<div class="dtile"><div class="dlabel">Streak</div><div class="dbig">🔥 ' + st.current + '</div><div class="dsub">' +
+        (st.activeToday ? "Done for today. Nice." : st.current ? "Practise today to keep it" : "Start today") + " · best " + st.best + "</div></div>" +
+      '<div class="dtile goal"><div><div class="dlabel">Daily goal</div>' + goalRing(today, g.goal) + "</div>" +
+        '<div class="seg small-seg" role="group" aria-label="Daily goal">' + PG.GOALS.map(function (n) {
+          return '<button type="button" data-goal="' + n + '" aria-pressed="' + (n === g.goal) + '">' + n + "</button>";
+        }).join("") + "</div></div>" +
+      '<div class="dtile"><div class="dlabel">Level ' + lv.level + '</div><div class="dbig">' + esc(PG.titleFor(lv.level)) + "</div>" +
+        '<div class="xpbar"><div style="width:' + lv.pct + '%"></div></div><div class="dsub">' + (lv.next - lv.xp) + " XP to level " + (lv.level + 1) + "</div></div>" +
+      '<div class="dtile"><div class="dlabel">Mastered</div><div class="dbig">' + mastered + '<small>/' + BANK.length + "</small></div>" +
+        '<div class="xpbar"><div style="width:' + pct(mastered, BANK.length) + '%"></div></div><div class="dsub">answered right several times, spaced out</div></div>' +
+      "</div>";
+
+    // Review + weak topics
+    html += '<div class="dgrid2 reveal">' +
+      '<div class="card review-card"><div class="dlabel">Smart review</div>' +
+        '<div class="dbig">' + due + '<small> due</small></div>' +
+        '<p class="muted small">Missed questions come back after 10 minutes. Each time you get one right, it waits longer: 1, 3, 7, 16 then 35 days. A few minutes a day beats cramming.</p>' +
+        '<button class="btn primary" id="startReview"' + (due ? "" : " disabled") + ">" + (due ? "Review " + Math.min(20, due) + " now" : "All caught up") + "</button></div>" +
+      '<div class="card"><div class="dlabel">Work on these</div>' +
+        (weak.length ? '<div class="weak">' + weak.map(function (t) {
+          return '<div class="wrow"><div><b>' + esc(t.topic) + '</b><span>D' + t.domain + " · " + Math.round(t.acc * 100) + "% correct · " + t.wrong + " miss" + (t.wrong > 1 ? "es" : "") + "</span>" +
+            '<div class="bar"><div style="width:' + Math.round(t.acc * 100) + '%;background:' + (t.acc >= PASS_RATE ? "var(--good)" : "var(--bad)") + '"></div></div></div>' +
+            '<button class="btn sm" data-topic="' + esc(t.topic) + '">Practise</button></div>';
+        }).join("") + "</div>" : '<p class="muted small">Your weakest topics will show up here after a few tests.</p>') +
+      "</div></div>";
+
+    // Domains
+    html += '<div class="card reveal" style="margin-top:20px"><div class="dlabel">Accuracy by domain</div><div class="bars">' +
+      Object.keys(DOMAINS).map(function (d) {
+        var b = acc[d] || { n: 0, ok: 0, seen: 0, total: 0 }, dp = pct(b.ok, b.n);
+        return '<div class="bar-row"><div><span>D' + d + " · " + esc(DOMAINS[d].name) + ' <span class="muted small">(' + b.seen + "/" + b.total + " seen)</span></span>" +
+          '<div class="bar"><div style="width:' + (b.n ? dp : 0) + "%;background:" + (dp / 100 >= PASS_RATE ? "var(--good)" : "var(--bad)") + '"></div></div></div>' +
+          '<div class="num">' + (b.n ? dp + "%" : "–") + "</div></div>";
+      }).join("") + "</div></div>";
+
+    // Activity
+    html += '<div class="card reveal" style="margin-top:20px"><div class="dlabel">Activity</div>' + heatmapHtml() + "</div>";
+
+    // Badges
+    var got = Object.keys(g.badges).length;
+    html += '<div class="card reveal" style="margin-top:20px"><div class="dlabel">Badges · ' + got + " of " + PG.BADGES.length + '</div><div class="badges">' +
+      PG.BADGES.map(function (b) {
+        var on = !!g.badges[b.id];
+        return '<div class="badge' + (on ? " earned" : "") + '" title="' + esc(b.desc) + '"><div class="bi">' + b.icon + "</div><b>" + esc(b.name) + "</b><span>" + esc(b.desc) + "</span></div>";
+      }).join("") + "</div></div>";
+
+    // History
+    html += '<div class="card reveal" style="margin-top:20px"><div class="dlabel">Recent tests</div>';
+    if (history.length) {
+      html += '<table><thead><tr><th>Date</th><th>Mode</th><th class="hide-sm">Scope</th><th class="num">Score</th><th class="num">Result</th></tr></thead><tbody>' +
+        history.slice(-10).reverse().map(function (h) {
+          var p2 = pct(h.score, h.total);
+          var ok = h.score / h.total >= PASS_RATE;
+          return "<tr><td>" + new Date(h.date).toLocaleDateString(undefined, { day: "2-digit", month: "short" }) + " " +
+            new Date(h.date).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) + "</td>" +
+            "<td>" + modeLabel(h.mode) + "</td>" +
+            '<td class="hide-sm">' + esc(h.scope || "All") + "</td>" +
+            '<td class="num">' + h.score + "/" + h.total + " · " + p2 + "%</td>" +
+            '<td class="num"><span class="tag ' + (ok ? "good" : "bad") + '">' + (ok ? "Pass" : "Fail") + "</span></td></tr>";
+        }).join("") + "</tbody></table>" +
+        '<div style="text-align:right;margin-top:12px"><button class="btn sm danger" id="reset">Reset progress</button></div>';
+    } else {
+      html += '<p class="muted" style="margin:0">No tests yet. Your scores will appear here.</p>';
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function bindDashboard() {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-goal]"), function (b) {
+      b.onclick = function () { PG.setGoal(Number(b.getAttribute("data-goal"))); renderHomeKeepScroll(); };
+    });
+    var hr = document.getElementById("heroReview");
+    if (hr) hr.onclick = function () { startSession("review", { domain: "all", source: "review" }); };
+    var rv = document.getElementById("startReview");
+    if (rv) rv.onclick = function () { startSession("review", { domain: "all", source: "review" }); };
+    Array.prototype.forEach.call(document.querySelectorAll("[data-topic]"), function (b) {
+      b.onclick = function () {
+        var topic = b.getAttribute("data-topic");
+        var ids = BANK.filter(function (q) { return q.topic && q.topic.split(/\s[-–:]\s|:\s/)[0].trim() === topic; }).map(function (q) { return q.id; });
+        startSession("practice", { domain: "all", source: "topic", ids: ids, label: topic });
+      };
+    });
+  }
+
+  function renderHomeKeepScroll() {
+    var y = window.scrollY;
+    renderHome();
+    document.querySelectorAll(".reveal").forEach(function (e) { e.classList.add("in"); });
+    window.scrollTo(0, y);
   }
 
   var ICONS = {
@@ -378,6 +528,25 @@
     Array.prototype.forEach.call(els, function (e) { io.observe(e); });
   }
 
+  // ---------- Toasts ----------
+  function toast(html, cls) {
+    var box = document.getElementById("toasts");
+    if (!box) { box = document.createElement("div"); box.id = "toasts"; box.setAttribute("aria-live", "polite"); document.body.appendChild(box); }
+    var t = document.createElement("div");
+    t.className = "toast " + (cls || "");
+    t.innerHTML = html;
+    box.appendChild(t);
+    setTimeout(function () { t.classList.add("out"); }, 3400);
+    setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 3900);
+  }
+  window.CAMSUI = { toast: toast, refresh: function () { if (!session || session.finished) renderHomeKeepScroll(); } };
+  if (PG) PG.on(function (ev) {
+    if (ev.type === "badge") toast('<span class="ti">' + ev.badge.icon + "</span><div><b>Badge unlocked: " + esc(ev.badge.name) + "</b><span>" + esc(ev.badge.desc) + "</span></div>", "big");
+    else if (ev.type === "goal") toast('<span class="ti">🎯</span><div><b>Daily goal reached!</b><span>' + ev.goal + " questions today · +" + ev.bonus + " XP</span></div>", "big");
+    else if (ev.type === "level") toast('<span class="ti">⭐</span><div><b>Level ' + ev.level + "</b><span>" + esc(ev.title) + "</span></div>", "big");
+    else if (ev.type === "streak") toast('<span class="ti">🔥</span><div><b>' + ev.days + "-day streak</b><span>Keep it going tomorrow</span></div>");
+  });
+
   function setView(name) {
     document.body.className = name;
     app.className = name === "home" ? "container wide" : "container";
@@ -389,14 +558,15 @@
     var item = s.items[s.current];
     var q = BY_ID[item.qid];
     var total = s.items.length;
-    var practice = s.mode === "practice";
+    var practice = instant(s);
     var revealed = practice && item.submitted;
     var multi = isMulti(q);
 
     if (practice) {
       var done = s.items.filter(function (it) { return it.submitted; });
       var right = done.filter(isCorrect).length;
-      setTopbar('<span class="tag blue">Practice</span><span class="small muted">Score ' + right + "/" + done.length + "</span>");
+      setTopbar('<span class="tag blue">' + modeLabel(s.mode) + '</span><span class="small muted">Score ' + right + "/" + done.length +
+        (s.xp ? ' · <b style="color:var(--blue)">+' + s.xp + " XP</b>" : "") + "</span>");
     } else {
       setTopbar('<span class="tag">Mock exam</span><span class="timer" id="timer"></span>');
       startTimer();
@@ -435,7 +605,8 @@
       var correctLetters = item.order.map(function (orig, i) { return q.answer.indexOf(orig) >= 0 ? LETTERS[i] : null; })
         .filter(Boolean).join(", ");
       html += '<div class="explain ' + (ok ? "good" : "bad") + '"><div class="verdict">' +
-        (ok ? "✓ Correct" : "✗ Incorrect — correct answer: " + correctLetters) + "</div>" + esc(q.explanation) + changedHtml(q) + sourcesHtml(q) + "</div>";
+        (ok ? "✓ Correct" : "✗ Incorrect — correct answer: " + correctLetters) +
+        (item.xp ? '<span class="xp-chip">+' + item.xp + " XP</span>" : "") + "</div>" + esc(q.explanation) + changedHtml(q) + sourcesHtml(q) + "</div>";
     }
 
     html += '<div class="actions">';
@@ -531,7 +702,7 @@
 
   function confirmFinish() {
     var s = session;
-    if (s.mode === "practice") {
+    if (instant(s)) {
       var pending = s.items.filter(function (it) { return !it.submitted; }).length;
       if (pending && !confirm(pending + " question(s) not checked yet. They will count as incorrect. Finish anyway?")) return;
     } else {
@@ -554,6 +725,11 @@
     st.last = ok;
     stats[item.qid] = st;
     save(KEYS.stats, stats);
+    if (PG && isAnswered(item) && session) {
+      item.xp = PG.onAnswer(item.qid, ok, { review: session.mode === "review" });
+      session.xp = (session.xp || 0) + item.xp;
+    }
+    if (PG && session && session.mode !== "exam") PG.checkBadges({ bank: BANK });
   }
 
   function finish() {
@@ -572,9 +748,16 @@
       score: score,
       total: s.items.length,
       scope: (s.opts.domain === "all" ? "All" : "D" + s.opts.domain) +
-        (s.opts.source === "hy" ? " · HY" : s.opts.source === "mistakes" ? " · Mistakes" : "")
+        (s.opts.source === "hy" ? " · HY" : s.opts.source === "mistakes" ? " · Mistakes" : s.opts.source === "review" ? " · Review" : s.opts.label ? " · " + s.opts.label : "")
     });
-    save(KEYS.history, history.slice(-50));
+    save(KEYS.history, history.slice(-100));
+    if (PG) {
+      s.bonus = PG.onFinish({ mode: s.mode, score: score, total: s.items.length });
+      s.xp = (s.xp || 0) + s.bonus;
+      PG.checkBadges({ bank: BANK });
+      var now = PG.gam().badges;
+      s.newBadges = PG.BADGES.filter(function (b) { return now[b.id] && (s.badgesAtStart || []).indexOf(b.id) < 0; });
+    }
     remove(KEYS.session);
     reviewFilter = "all";
     renderResults();
@@ -591,11 +774,31 @@
       '<text x="60" y="68" text-anchor="middle">' + p + "%</text></svg>";
   }
 
+  function rewardsHtml(s) {
+    if (!PG) return "";
+    var g = PG.gam(), lv = PG.levelFor(g.xp), st = PG.streak(g);
+    var html = '<div class="rewards">' +
+      '<div class="reward"><b>+' + (s.xp || 0) + ' XP</b><span>this session</span></div>' +
+      '<div class="reward"><b>Level ' + lv.level + '</b><span>' + esc(PG.titleFor(lv.level)) + " · " + lv.pct + '% to next</span></div>' +
+      '<div class="reward"><b>🔥 ' + st.current + '</b><span>day streak</span></div>' +
+      '<div class="reward"><b>' + (g.days[PG.dayKey()] || 0) + "/" + g.goal + '</b><span>daily goal</span></div></div>';
+    if (window.CAMSAccount && window.CAMSAccount.enabled && !window.CAMSAccount.user()) {
+      html += '<div class="save-nudge"><div><b>Keep your streak on every device.</b><span>Create a free account to save your XP, badges and review schedule.</span></div>' +
+        '<button class="btn sm primary" id="nudgeSignup">Create account</button></div>';
+    }
+    if (s.newBadges && s.newBadges.length) {
+      html += '<div class="new-badges">' + s.newBadges.map(function (b) {
+        return '<div class="badge earned pop"><div class="bi">' + b.icon + "</div><b>" + esc(b.name) + "</b><span>" + esc(b.desc) + "</span></div>";
+      }).join("") + "</div>";
+    }
+    return html;
+  }
+
   function renderResults() {
     var s = session;
     setView("quiz");
     lastRendered = -1;
-    setTopbar('<span class="tag">' + (s.mode === "exam" ? "Mock exam" : "Practice") + " · results</span>");
+    setTopbar('<span class="tag">' + modeLabel(s.mode) + " · results</span>");
     var total = s.items.length;
     var score = s.items.filter(isCorrect).length;
     var p = pct(score, total);
@@ -615,7 +818,7 @@
       '<p class="muted" style="margin:0">' + score + " / " + total + " correct · pass mark ≈ " + Math.round(PASS_RATE * 100) +
       "% (75/120) · time " + fmtTime(elapsed) + "</p>" +
       '<p class="muted small" style="margin:6px 0 0">Aim for 80%+ consistently in mock exams before booking the real one.</p>' +
-      "</div></div>" +
+      "</div></div>" + rewardsHtml(s) +
       '<h3 style="margin-top:20px">By domain</h3><div class="bars">' +
       Object.keys(DOMAINS).filter(function (d) { return byDomain[d]; }).map(function (d) {
         var b = byDomain[d], dp = pct(b.ok, b.n);
@@ -624,7 +827,7 @@
           '<div class="num" style="text-align:right">' + b.ok + "/" + b.n + "</div></div>";
       }).join("") + "</div>" +
       '<div class="actions"><button class="btn" id="home">Home</button><div class="right">' +
-      '<button class="btn primary" id="again">New ' + (s.mode === "exam" ? "mock exam" : "practice test") + "</button></div></div></div>";
+      '<button class="btn primary" id="again">New ' + (s.mode === "exam" ? "mock exam" : s.mode === "review" ? "review session" : "practice test") + "</button></div></div></div>";
 
     var wrongCount = total - score;
     html += '<div class="card" style="margin-top:20px"><div class="qhead"><h2 style="margin:0">Answer review</h2>' +
@@ -659,6 +862,8 @@
 
     app.innerHTML = html;
     document.getElementById("home").onclick = renderHome;
+    var ns = document.getElementById("nudgeSignup");
+    if (ns) ns.onclick = function () { window.CAMSAccount.open("signup"); };
     document.getElementById("again").onclick = function () { startSession(s.mode, s.opts); };
     Array.prototype.forEach.call(document.querySelectorAll("[data-filter]"), function (b) {
       b.onclick = function () { reviewFilter = b.getAttribute("data-filter"); renderResults(); };

@@ -29,6 +29,15 @@ Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être a
 (pas d'obligation de documenter un « no-SAR », revue d'activité continue non obligatoire), SR 26-2 d'avril 2026
 (remplace SR 11-7 / SR 21-8), révision FATF R.1 (fév. 2025) et R.16 (juin 2025), règle finale BOI de FinCEN (août 2026).
 
+## Comptes, progression et gamification
+
+- **Sans compte** : tout marche, la progression reste dans le navigateur.
+- **Avec compte** (Supabase, email + mot de passe) : progression synchronisée entre appareils. Activation : voir `supabase/README.md`
+  (créer le projet, lancer `supabase/schema.sql`, coller l'URL et la clé *anon* dans `assets/config.js`).
+- **Gamification** (`assets/progress.js`) : XP et niveaux, série de jours 🔥, objectif quotidien (10/20/30/50), calendrier d'activité, 17 badges.
+- **Révision intelligente** : répétition espacée (Leitner) — une question ratée revient après 10 min, puis 1, 3, 7, 16, 35 jours
+  à chaque bonne réponse. Mode « Review », sujets les plus faibles avec entraînement ciblé, précision par domaine.
+
 ## Design et vidéo
 
 Interface inspirée d'apple.com : typo SF Pro (Inter auto-hébergée en repli), sections plein écran, tuiles, contrôles segmentés,
