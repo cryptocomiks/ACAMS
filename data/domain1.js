@@ -433,17 +433,17 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   {
     id: "D1-032",
     domain: 1,
-    topic: "Sanctions - OFAC 50% rule",
-    hy: true,
-    q: "Company Z is 30% owned by Person A and 25% owned by Person B. Both are on OFAC's SDN List. The remaining 45% is held by unsanctioned investors, and Company Z is not itself listed. How should a US bank treat Company Z?",
+    topic: "Sanctions evasion - third-country intermediaries",
+    hy: false,
+    q: "A newly onboarded electronics distributor in a regional trade hub begins buying large volumes of US-origin microelectronics. Its orders far exceed local market demand, its website was created two months ago, and the goods are quickly re-exported to a country bordering a comprehensively sanctioned jurisdiction. Which risk does this pattern MOST likely indicate?",
     options: [
-      "As not blocked, because no single SDN owns 50% or more",
-      "As not blocked, because Company Z does not appear on the SDN List",
-      "As blocked, because the SDNs' combined ownership is 50% or more",
-      "As blocked only if Persons A and B are officers of Company Z"
+      "Ordinary inventory stockpiling ahead of expected price increases",
+      "Trade-based money laundering through over-invoicing of the electronics",
+      "Sanctions and export control evasion through a front company and transshipment",
+      "Tax evasion through under-declaration of customs duties in the trade hub"
     ],
     answer: [2],
-    explanation: "Under OFAC's 50 Percent Rule, an entity owned 50% or more in the aggregate, directly or indirectly, by one or more blocked persons is itself blocked, even if it is not named on the list. Here the combined ownership is 55%. Whether the SDNs hold management positions does not matter under this rule."
+    explanation: "Sanctions and export control guidance (e.g., joint OFAC/BIS/FinCEN advisories) highlights newly formed intermediaries in third countries, purchase volumes inconsistent with the local market, and rapid re-export toward sanctioned destinations as classic evasion red flags. Nothing in the facts points to mispriced invoices (TBML) or customs duty fraud, and stockpiling would not explain a new company with no market footprint diverting goods toward a sanctioned area."
   },
   {
     id: "D1-033",
