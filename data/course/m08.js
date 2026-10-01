@@ -19,7 +19,7 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
     {
       h: "Types of sanctions and who must comply",
       p: [
-        "Sanctions **coerce**, **constrain** or **signal** disapproval by cutting a target's access to funds, goods and services. They are **prohibitions**: the risk-based approach shapes your screening, not whether a ban applies.",
+        "Sanctions **coerce**, **constrain** or **signal** disapproval by cutting access to funds, goods and services. They are **prohibitions**: a risk-based approach shapes screening, not whether a ban applies.",
         "The **UN Security Council** imposes sanctions under **Chapter VII**; member states implement them, and the US, EU and UK add their own."
       ],
       table: {
@@ -32,10 +32,10 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
         ]
       },
       list: [
-        "**US persons** (citizens, permanent residents, US entities and their **foreign branches**, anyone in the US) comply worldwide and may not **facilitate** foreign deals they could not do themselves. Cuba and Iran rules also bind US-owned or controlled foreign subsidiaries.",
-        "UN designations are frozen **without delay** (ideally within hours) and without prior notice. FATF **R.6** adds national designations under **UNSCR 1373**; **R.7** covers UN designations only: DPRK **1718** and Iran **1737**, re-applied by snapback in September 2025 (changed September 2025). R.7 freezing is never risk-based, though PF risk can be assessed within the sanctions programme."
+        "**US persons** (citizens, permanent residents, US entities and their **foreign branches**, anyone in the US) comply worldwide and may not **facilitate** foreign deals barred to them. Cuba and Iran rules also bind US-owned or controlled foreign subsidiaries.",
+        "Freeze UN designations **without delay** (ideally within hours), without prior notice. FATF **R.6** adds national designations (**UNSCR 1373**); **R.7** covers UN designations only: DPRK **1718**, Iran **1737** (re-applied by snapback in September 2025; changed September 2025). R.7 freezing is never risk-based; PF risk can be assessed within the sanctions programme."
       ],
-      tip: "Exam tip: an SSI entity is not an SDN: refuse the restricted debt or equity, but do not block."
+      tip: "Exam tip: an SSI entity is not an SDN: refuse the restricted debt, but do not block."
     },
     {
       h: "OFAC, the SDN List and the 50 Percent Rule",
@@ -59,7 +59,7 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
       table: {
         head: ["", "Block", "Reject"],
         rows: [
-          ["When", "A blocked person has an **interest**: SDN, 50%-owned entity, blocked government (e.g. an Iranian bank)", "Prohibited but **no blockable interest** (e.g. exports to an unlisted Iranian company)"],
+          ["When", "A blocked person has an **interest**: SDN, 50%-owned entity, blocked government or Iranian bank", "Prohibited but **no blockable interest** (e.g. exports to an unlisted Iranian company)"],
           ["Action", "Freeze in a **blocked interest-bearing account**; only OFAC-authorised debits", "Do not process; return to the originator"],
           ["Report to OFAC", "Within **10 business days**", "Within **10 business days**"]
         ]
@@ -67,7 +67,7 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
       list: [
         "**Annual report**: blocked property held on **30 June**, due **30 September**. Unblocking or transfer: report within **10 business days**; loans are reported as **$0.00**.",
         "**Records**: **10 years** (since March 2025). Crypto from an SDN address is blocked too: deny all access, never send it back.",
-        "A blocking report does not replace a SAR, except that FinCEN treats one on a terrorism or narcotics SDN match as the SAR for that match.",
+        "FinCEN treats a blocking report on a terrorism or narcotics SDN match as the SAR for that match; anything more needs a SAR.",
         "**General license**: public, **self-executing**, conditions (e.g. reports) apply. **Specific license**: non-public, issued to a named applicant; not granted where a general license applies.",
         "Valid match? Check licenses and exemptions **before** blocking or rejecting (OFAC FAQ 5)."
       ],
@@ -91,7 +91,7 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
     {
       h: "EU and UK regimes",
       p: [
-        "The EU Council acts **unanimously**: a CFSP decision plus an **Art. 215 TFEU** regulation, directly applicable; Member States enforce and penalise. UK regimes rest on **SAMLA 2018**: the **FCDO** designates, **OFSI** (HM Treasury) enforces financial sanctions, **OTSI** (Business and Trade) trade sanctions."
+        "The EU Council adopts a CFSP decision **unanimously**, then an **Art. 215 TFEU** regulation that applies directly; Member States enforce and penalise. UK regimes rest on **SAMLA 2018**: the **FCDO** designates, **OFSI** (HM Treasury) enforces financial sanctions, **OTSI** (Business and Trade) trade sanctions."
       ],
       table: {
         head: ["Point", "EU", "UK"],
@@ -113,12 +113,12 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
     {
       h: "Designing the screening programme",
       p: [
-        "Screen customers at **onboarding** and whenever **lists change**, and screen payments before processing (cross-border ones in real time). Cover every party and field; in trade finance, also **vessels and IMO numbers**, shipping companies, **ports** and **transhipment points**."
+        "Screen customers at **onboarding** and whenever **lists change**, and payments before processing (cross-border ones in real time). In trade finance, also screen **vessels and IMO numbers**, shipping companies, **ports** and **transhipment points**."
       ],
       list: [
         "**Lists**: OFAC, UN, EU and UK; the **UK Sanctions List** is the sole UK source since **28 January 2026** (changed January 2026). Load new names fast and **test completeness**: Starling screened only part of the list for years (FCA fine **£29 million**, 2024).",
         "**Fuzzy matching** (edit distance, Jaro-Winkler, Soundex) catches spelling and transliteration variants. A **higher threshold** cuts false positives but adds **false negatives**; OFAC sets no score.",
-        "**Weak AKAs**: OFAC does not expect screening against them, only their use to confirm hits. Suppression ('good guys') rules need documented governance.",
+        "**Weak AKAs** need not be screened, only used to confirm hits; suppression ('good guys') rules need documented governance.",
         "**Disposition**: compare date of birth, nationality, ID numbers and address; clear real mismatches as **false positives** and record why. OFAC does not confirm matches.",
         "Beyond names: **IP addresses** showing customers in sanctioned countries (Standard Chartered, 2019) and listed crypto addresses, with a **look-back** after new listings."
       ],
@@ -139,12 +139,12 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
     {
       h: "Export controls: the BIS Entity List",
       p: [
-        "**BIS** (Commerce Department) administers the **Export Administration Regulations (EAR)** for dual-use items. Its **Entity List** creates **license requirements** for exports to listed parties but blocks nothing: an Entity List hit is not an SDN hit, so no blocking and no OFAC report.",
+        "**BIS** (Commerce Department) administers the **Export Administration Regulations (EAR)** for dual-use items. Its **Entity List** imposes **license requirements** on exports to listed parties but blocks nothing, so a hit means no blocking and no OFAC report.",
         "Banks risk **General Prohibition 10 (GP 10)**: financing or servicing an item with **knowledge** of an EAR violation, including awareness of a **high probability**."
       ],
       list: [
-        "BIS (October 2024): check customers against BIS lists at onboarding and periodically, review payments for red flags **after** processing, and **refrain** from further dealings if one stays unresolved. Real-time screening is expected only in narrow cases, such as the Denied Persons List.",
-        "Red flags: new firms in **transhipment hubs**, orders far above local demand, little web presence, no end-user details. SAR key terms: **FIN-2022-RUSSIABIS**, **FIN-2023-GLOBALEXPORT**.",
+        "BIS (October 2024): check customers against BIS lists at onboarding and periodically, review payments for red flags **after** processing, and **refrain** from further dealings if one stays unresolved; real-time screening only in narrow cases (e.g. the Denied Persons List).",
+        "Red flags: little or no web presence, routing via **transhipment points**, refusal to give end-user details, an address shared with an Entity List party. SAR key terms: **FIN-2022-RUSSIABIS**, **FIN-2023-GLOBALEXPORT**.",
         "The **Affiliates Rule** (September 2025) extends Entity List restrictions to firms **50% or more** owned by listed parties; it is suspended until **9 November 2026** (changed November 2025).",
         "**Foreign direct product rules** can put foreign-made items built with US technology under the EAR."
       ],
@@ -195,7 +195,7 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
     "INV-005", "INV-030", "INV-031",
     "SANC-001", "SANC-002", "SANC-003", "SANC-004", "SANC-005", "SANC-006", "SANC-007", "SANC-008", "SANC-009", "SANC-010",
     "SANC-011", "SANC-012", "SANC-013", "SANC-014", "SANC-015", "SANC-016", "SANC-017", "SANC-018", "SANC-019", "SANC-020",
-    "SANC-021", "SANC-022", "SANC-023", "SANC-024", "SANC-026", "SANC-027", "SANC-028", "SANC-029", "SANC-030",
+    "SANC-021", "SANC-022", "SANC-023", "SANC-024", "SANC-025", "SANC-026", "SANC-027", "SANC-028", "SANC-029", "SANC-030",
     "SANC-031", "SANC-032", "SANC-034", "SANC-035"
   ],
   sources: [

@@ -24,10 +24,10 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
       list: [
         "**Higher risk**: enhanced measures. **Lower risk**: countries should **allow and encourage** simplified measures (changed February 2025), but **never** where ML/TF is suspected.",
         "Institutions **document** their assessments, keep them **up to date** and have policies, controls and procedures **approved by senior management** (INR.1).",
-        "Countries keep the **national risk assessment** current and share results with institutions for their own assessments.",
+        "Countries keep the **national risk assessment** current and share its results with institutions.",
         "**PF risk** may be assessed within the existing sanctions or compliance program."
       ],
-      tip: "Exam tip: identical CDD for every customer fails the RBA, and so does EDD for everyone. The RBA is also not a 'zero failure' standard (FATF banking guidance, 2014)."
+      tip: "Exam tip: identical CDD for every customer fails the RBA, as does EDD for everyone. The RBA is not a 'zero failure' standard either (FATF banking guidance, 2014)."
     },
     {
       h: "Enterprise-wide risk assessment and risk appetite",
@@ -52,7 +52,7 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
     {
       h: "The program pillars: US, FATF and OFAC",
       p: [
-        "**31 CFR 1020.210** requires a bank AML program with **five pillars**; the statute (**31 U.S.C. 5318(h)**) names the first four. The program must be **written** and **approved by the board**, with the approval recorded in the minutes."
+        "**31 CFR 1020.210** requires a bank AML program with **five pillars**; the statute (**31 U.S.C. 5318(h)**) names the first four. The program must be **written** and **board-approved**, with the approval minuted."
       ],
       table: {
         head: ["Pillar", "Key point"],
@@ -85,7 +85,7 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
         ]
       },
       list: [
-        "Conflicts between a business line and the AML officer are settled at the **highest level**, the board or its risk committee (Basel Committee 'Sound management' guidelines).",
+        "Business-line conflicts with the AML officer go to the **highest level**, the board or its risk committee (Basel Committee 'Sound management' guidelines).",
         "The board, or a designated committee, is notified of **SAR filings**. If a director or executive officer is the suspect, only the **non-suspect** directors are told (12 CFR 21.11(h)).",
         "**R.18**: group-wide programs reach foreign branches and majority-owned subsidiaries and share information with group compliance; if host law blocks this, apply **additional measures** and **inform the home supervisor**."
       ],
@@ -120,7 +120,7 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
         "**How often**: no US banking rule fixes it; risk-based, for example every **12-18 months** and after major changes. **FINRA Rule 3310**: broker-dealers test **every calendar year** (every **two** years if they hold no customer accounts).",
         "**Scope**: risk assessment, policies versus risk profile, transaction testing (CIP, CDD, SARs, CTRs), data integrity, training and **follow-up** of earlier findings, **tracked to closure**."
       ],
-      tip: "Exam tip: auditors who complete the overdue reviews they criticised lose their independence; the answer is a resourced corrective action plan with owners and dates."
+      tip: "Exam tip: auditors who complete the overdue reviews they criticized lose their independence; the answer is a resourced corrective action plan with owners and dates."
     },
     {
       h: "Exams, MRAs, enforcement and remediation",
@@ -128,25 +128,25 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
         "US BSA exams are **risk-focused**, scoped from the bank's risk assessment, independent testing and past findings; FATF **R.26** also sets supervisory intensity by risk profile. An **MRA** must be fixed within a set timeframe; an **MRIA** (significant, urgent or **repeat** issues) immediately. The board responds in writing (SR 13-13)."
       ],
       list: [
-        "Changed September 2026: from **2 November 2026**, OCC and FDIC MRAs require possible **material financial harm** or an **actual violation** of banking-related law (AML/CFT included); lesser weaknesses become **supervisory observations**. The Fed applies similar principles.",
+        "OCC and FDIC MRAs (changed September 2026, effective **2 November 2026**) require possible **material financial harm** or an **actual violation** of banking-related law (AML/CFT included); lesser weaknesses become **supervisory observations**. The Fed applies similar principles.",
         "Failing to correct a **previously reported** BSA program problem triggers a **mandatory cease-and-desist order** (12 U.S.C. 1818(s)).",
         "Remediation: **root cause**, accountable owners, deadlines, resources, **board oversight** and **validation** before closure. Fix the methodology, not only the sampled accounts.",
         "Orders may add a consultant's **SAR look-back**: the examiner sets the scope, and the bank must disclose SARs it declined to file against the consultant's advice (TD Bank, OCC 2024).",
-        "Individuals who **willfully** violate the BSA face civil penalties (**31 U.S.C. 5321**); U.S. Bank's former risk officer paid **$450,000** (2020) over staffing-based alert caps. **R.35** also targets **directors and senior management**."
+        "Individuals who **willfully** violate the BSA face civil penalties (**31 U.S.C. 5321**); U.S. Bank's former risk officer was fined **$450,000** (2020) over staffing-based alert caps. **R.35** also targets **directors and senior management**."
       ],
       tip: "Exam tip: USAA FSB (2022, $140 million) let regulator-cited deficiencies linger while growing: 'growth and compliance must be paired'."
     },
     {
       h: "New products, third parties and fintech partners",
       p: [
-        "**R.15**: assess the ML/TF risk of new products, business practices, **delivery mechanisms** and technologies **before launch**, then mitigate it. **Commonwealth Bank of Australia** rolled out intelligent deposit machines in 2012 without that assessment and paid **A$700 million** (2018)."
+        "**R.15**: assess the ML/TF risk of new products, business practices, **delivery mechanisms** and technologies **before launch**, then mitigate it. **Commonwealth Bank of Australia** launched intelligent deposit machines in 2012 without that assessment and paid **A$700 million** (2018)."
       ],
       table: {
         head: ["Arrangement", "What it is", "Responsibility"],
         rows: [
           ["**Outsourcing / agency**", "Provider applies **your** procedures under your control", "Stays with you; R.17 does **not** apply"],
           ["**Reliance (R.17)**", "Regulated third party applies **its own** CDD to a customer it already serves", "**Ultimately** yours: get CDD information **immediately**, copies **without delay** on request"],
-          ["**US CIP reliance**", "Another financial institution performs CIP steps", "Yours; only if reasonable and that institution has an AML program rule, a federal regulator and certifies annually"]
+          ["**US CIP reliance**", "Another institution sharing the customer performs CIP steps", "No liability for its lapses if reliance is reasonable and it is AML-regulated, federally supervised and certifies annually"]
         ]
       },
       list: [
@@ -165,7 +165,7 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
       list: [
         "US agencies (July 2022): **no customer type** carries a single, uniform level of risk; manage relationships rather than decline whole categories.",
         "MSBs: the minimum is **CIP**, FinCEN **registration**, state **licensing**, agent status and a basic risk assessment; banks are **not de facto regulators** of MSBs (2005 guidance).",
-        "EU (**EBA/GL/2023/04**): no blanket refusal of higher-risk categories; first consider **mitigating measures** such as tighter monitoring or product limits, and **document** every refusal or exit.",
+        "EU (**EBA/GL/2023/04**): no blanket refusal of higher-risk categories; try **mitigating measures** first (tighter monitoring, product limits) and **document** every refusal or exit.",
         "US (changed August 2025): **Executive Order 14331** requires **individualized, objective, risk-based** banking decisions, not political or religious ones; OCC and FDIC supervision dropped **reputation risk** (April 2026)."
       ],
       tip: "Exam tip: 'exit every MSB, NPO or respondent bank in a region to avoid scrutiny' is textbook de-risking, and wrong.",
@@ -190,10 +190,10 @@ window.CAMS_COURSE = (window.CAMS_COURSE || []).concat([{
     { front: "Reliance (R.17) vs outsourcing", back: "Reliance: regulated third party uses its own CDD. Outsourcing: provider follows your procedures. Responsibility stays with you in both." },
     { front: "When must a new product be risk-assessed (R.15)?", back: "Before launch, including new delivery mechanisms and technologies, followed by measures to manage and mitigate the risk." },
     { front: "What is de-risking?", back: "Indiscriminately ending or restricting relationships with broad customer categories instead of managing each customer's risk; inconsistent with the RBA." },
-    { front: "When may OCC and FDIC examiners issue an MRA (from November 2026)?", back: "Only for practices that could materially harm the bank's finances, or actual violations of banking-related law, including AML/CFT." }
+    { front: "When may OCC and FDIC examiners issue an MRA (from November 2026)?", back: "Only for practices that could materially harm the bank's finances, or actual violations of banking-related law, including AML/CFT. Lesser issues: supervisory observations." }
   ],
   numbers: [
-    { q: "Month in which the FATF revised R.1 to 'allow and encourage' simplified measures", a: "February 2025", wrong: ["June 2025", "October 2023", "February 2012"] },
+    { q: "Month and year the FATF revised R.1 to 'allow and encourage' simplified measures", a: "February 2025", wrong: ["June 2025", "October 2023", "February 2012"] },
     { q: "Regulation setting the AML program pillars for US banks", a: "31 CFR 1020.210", wrong: ["31 CFR 1010.230", "31 CFR 1020.220", "31 CFR 1020.320"] },
     { q: "Year of FinCEN's CDD Rule, which added the fifth pillar", a: "2016", wrong: ["2001", "2012", "2020"] },
     { q: "Number of principles in FinCEN's culture of compliance advisory (FIN-2014-A007)", a: "6", wrong: ["4", "5", "8"] },

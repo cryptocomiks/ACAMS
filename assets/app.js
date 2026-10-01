@@ -4,7 +4,7 @@
   // ---------- Config ----------
   var QUESTIONS_PER_TEST = 30;
   var SECONDS_PER_QUESTION = 105; // real exam: 120 questions in 210 minutes
-  var PASS_RATE = 75 / 120; // 62.5%
+  var PASS_RATE = 75 / 120; // 62.5%: the handbook's passing score is 75; ACAMS does not publish the raw-score conversion, so 75 of 120 is our pass line
   var DOMAINS = {
     1: { name: "Risks & Methods of Financial Crime", short: "Risks & Methods", weight: 0.30 },
     2: { name: "Global AFC Frameworks, Governance & Regulations", short: "Frameworks & Regulations", weight: 0.20 },
@@ -427,11 +427,11 @@
     // Exam facts
     html += '<section class="section"><div class="inner">' +
       '<h2 class="headline reveal">Built like the real exam.</h2>' +
-      '<p class="subhead reveal">Same blueprint, same pace, same pass mark. Tests are weighted across the four CAMS 7th edition domains.</p>' +
+      '<p class="subhead reveal">Same blueprint, same pace. Tests are weighted across the four CAMS 7th edition domains, and the pass line is set at 75 of 120.</p>' +
       '<div class="stats reveal">' +
       '<div class="stat"><b>120</b><span>questions on exam day</span></div>' +
       '<div class="stat"><b>3h30</b><span>about 1 min 45 s each</span></div>' +
-      '<div class="stat"><b>75</b><span>correct answers to pass</span></div>' +
+      '<div class="stat"><b>75</b><span>passing score · aim for 80%+</span></div>' +
       '<div class="stat"><b>4</b><span>domains, weighted like the exam</span></div>' +
       "</div>" + (returning ? '<div class="video-small reveal">' + videoHtml() + "</div>" : "") +
       '<div style="text-align:center;margin-top:40px" class="reveal"><a class="btn" href="#/progress">See my progress and charts</a></div>' +
@@ -567,7 +567,7 @@
       '<div class="rd-num"><b data-count="' + rd.score + '">' + rd.score + "</b><span>/100</span></div></div>" +
       '<div class="rd-body"><div class="dlabel">Exam readiness</div><div class="rd-verdict v-' + rd.verdict.toLowerCase().replace(/\s+/g, "-") + '">' + esc(rd.verdict) + "</div>" +
       (rd.predicted != null
-        ? '<p class="muted">Predicted score on the real exam: about <b>' + rd.predicted + "/120</b> (pass mark 75). Confidence: " + rd.confidence + " (" + rd.answers + " answers so far).</p>"
+        ? '<p class="muted">Predicted score on the real exam: about <b>' + rd.predicted + "/120</b> (pass line 75). Confidence: " + rd.confidence + " (" + rd.answers + " answers so far).</p>"
         : '<p class="muted">Answer a few questions and your readiness score will appear here.</p>') +
       '<div class="rd-parts">' + [["Accuracy (exam-weighted)", rd.accuracy], ["Coverage of the bank", rd.coverage], ["Mastered questions", rd.mastery], ["Mock exam average", rd.examAvg]].map(function (p) {
         var v = p[1] == null ? null : Math.round(p[1] * 100);
@@ -656,7 +656,7 @@
       tableHead: ["Day", "Answers"]
     });
     CH.hbars($("chDomains"), {
-      title: "Accuracy by domain", subtitle: "Line = exam pass mark (62.5%)", ref: { value: 62.5, label: "Pass" },
+      title: "Accuracy by domain", subtitle: "Line = pass line (62.5%, i.e. 75 of 120)", ref: { value: 62.5, label: "Pass" },
       bars: [1, 2, 3, 4].map(function (d) {
         var b = acc[d] || { n: 0, ok: 0, seen: 0, total: 0 };
         return { label: "D" + d + " · " + DOMAINS[d].short, value: b.n ? pct(b.ok, b.n) : 0, valueLabel: b.n ? pct(b.ok, b.n) + "%" : "–", dim: !b.n,
@@ -1092,7 +1092,7 @@
     if (s.mode === "survival") { title = score + " correct"; sub = "Survival run over after " + total + " questions · best combo " + (s.bestCombo || 0); }
     else if (s.mode === "lightning") { title = score + " / " + total + " in Lightning"; sub = "Speed bonus included in your XP · time " + fmtTime(elapsed); }
     else if (s.mode === "daily") { title = "Daily challenge: " + score + "/" + total; sub = s.replay ? "Replay (your first attempt already counts)" : s.dailyLate ? "Finished after midnight, so it was saved for " + s.dailyKey + " and not ranked on today's board." : "Done in " + fmtTime(elapsed) + ". Come back tomorrow for a new set."; }
-    else if (s.mode === "exam") { title = pass ? "You passed." : "Not yet. Keep going."; sub = score + " / " + total + " correct · pass mark ≈ 63% (75/120) · time " + fmtTime(elapsed); }
+    else if (s.mode === "exam") { title = pass ? "You passed." : "Not yet. Keep going."; sub = score + " / " + total + " correct · pass line 62.5% (75 of 120) · time " + fmtTime(elapsed); }
     else { title = p >= 80 ? "Excellent." : pass ? "Good work." : "Keep going."; sub = score + " / " + total + " correct · time " + fmtTime(elapsed); }
 
     var byDomain = {};
