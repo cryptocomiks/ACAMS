@@ -332,7 +332,7 @@
       // Streak
       '<div class="tcard streak-card' + (st.activeToday ? " lit" : "") + '"><div class="dlabel">Streak</div>' +
         '<div class="flame-big" aria-hidden="true">🔥</div><div class="dbig"><span data-count="' + st.current + '">' + st.current + "</span> day" + (st.current === 1 ? "" : "s") + "</div>" +
-        '<div class="dsub">' + (st.activeToday ? "You're done for today. See you tomorrow!" : st.current ? "Practise today to keep your streak." : "Answer one question to light it.") + "</div>" +
+        '<div class="dsub">' + (st.activeToday ? "Streak safe for today. Keep training as long as you like!" : st.current ? "Practise today to keep your streak." : "Answer one question to light it.") + "</div>" +
         '<div class="freeze-row" title="A streak freeze saves your streak if you miss a day. Earn one every 7 days (max 2).">' +
         [0, 1].map(function (i) { return '<span class="fz' + (i < st.freezes ? " on" : "") + '">❄️</span>'; }).join("") + '<span class="dsub">Streak freezes</span></div></div>' +
       // Goal + quests
@@ -353,6 +353,33 @@
           : '<div class="dbig">10 questions</div><div class="dsub">The same set for everyone today. Your first attempt counts on the leaderboard.</div><div class="countdown">Ends in <b id="dailyCountdown">' + fmtTime(msToMidnight() / 1000) + "</b></div>" +
             '<div class="tc-actions"><button class="btn primary" data-mode="daily">Play today\'s challenge</button></div>') +
       "</div></div></section>";
+  }
+
+  // Themes = course modules and the bank questions they teach. Practice on a theme never runs out:
+  // unseen questions come first, then the least seen.
+  function themes() {
+    var stats = load(KEYS.stats, {});
+    return (window.CAMS_COURSE || []).slice().sort(function (a, b) { return (a.order || 0) - (b.order || 0); }).map(function (m) {
+      var ids = (m.questionIds || []).filter(function (id) { return BY_ID[id]; });
+      var seen = 0, n = 0, ok = 0;
+      ids.forEach(function (id) { var st = stats[id]; if (st) { seen++; n += st.seen; ok += st.right; } });
+      return { id: m.id, icon: m.icon, title: m.title, ids: ids, seen: seen, acc: n ? Math.round(ok / n * 100) : null };
+    }).filter(function (t) { return t.ids.length >= 5; });
+  }
+  function themeChips(list) {
+    return '<div class="theme-grid">' + list.map(function (t) {
+      return '<button type="button" class="theme-chip" data-theme="' + t.id + '"><span class="th-i" aria-hidden="true">' + t.icon + '</span><span class="th-b"><b>' + esc(t.title) + "</b><span>" +
+        t.ids.length + " questions · " + t.seen + " seen" + (t.acc != null ? " · " + t.acc + "%" : "") + '</span></span><span class="th-go" aria-hidden="true">›</span></button>';
+    }).join("") + "</div>";
+  }
+  function bindThemes(root) {
+    var all = themes();
+    Array.prototype.forEach.call((root || document).querySelectorAll("[data-theme]"), function (b) {
+      b.onclick = function () {
+        var t = all.filter(function (x) { return x.id === b.getAttribute("data-theme"); })[0];
+        if (t) startSession("practice", { domain: "all", source: "topic", ids: t.ids, label: t.title });
+      };
+    });
   }
 
   function modeTiles(due, recs) {
@@ -422,6 +449,12 @@
       '</div><p class="small muted reveal" style="text-align:center;margin:10px 0 0">Filters apply to Practice, Mock exam, Lightning and Survival.</p>' +
       modeTiles(due, g.records || {}) + "</div></section>";
 
+    var th = themes();
+    if (th.length) html += '<section class="section"><div class="inner">' +
+      '<h2 class="headline reveal">Train by theme.</h2>' +
+      '<p class="subhead reveal">Unlimited: start as many sessions as you like. Unseen questions come first, then the ones you have seen least.</p>' +
+      '<div class="reveal">' + themeChips(th) + "</div></div></section>";
+
     if (!returning) html += todayPanel();
 
     // Exam facts
@@ -462,6 +495,7 @@
       };
     });
     each(".mode-tile.disabled[href^='#/']", function (a) { a.onclick = function (e) { e.preventDefault(); }; });
+    bindThemes(app);
     if (resume) {
       $("resume").onclick = function () { session = resume; navigate("/play"); };
       $("discard").onclick = function () {
@@ -1072,6 +1106,17 @@
     return html;
   }
 
+  function keepGoingHtml(s) {
+    var th = themes();
+    // Weakest themes first (unseen count as weak), so the next session targets gaps.
+    th.sort(function (a, b) { return (a.acc == null ? -1 : a.acc) - (b.acc == null ? -1 : b.acc) || a.seen - b.seen; });
+    return '<div class="keep-going"><div class="dlabel">Keep going: no daily limit</div>' +
+      '<div class="kg-modes"><button class="btn sm" data-next="practice">💡 Practice · 30 mixed</button><button class="btn sm" data-next="exam">⏱ Mock exam</button>' +
+      '<button class="btn sm" data-next="lightning">⏳ Lightning</button><button class="btn sm" data-next="survival">❤️ Survival</button>' +
+      (PG && PG.dueIds(BY_ID).length ? '<button class="btn sm" data-next="review">🔁 Smart review</button>' : "") + "</div>" +
+      (th.length ? '<p class="small muted" style="margin:14px 0 8px">Or pick a theme (weakest first):</p>' + themeChips(th.slice(0, 6)) : "") + "</div>";
+  }
+
   function shareText(s) {
     var sq = s.items.map(function (it) { return isCorrect(it) ? "🟩" : "🟥"; }).join("");
     var score = s.items.filter(isCorrect).length;
@@ -1091,7 +1136,7 @@
     var title, sub;
     if (s.mode === "survival") { title = score + " correct"; sub = "Survival run over after " + total + " questions · best combo " + (s.bestCombo || 0); }
     else if (s.mode === "lightning") { title = score + " / " + total + " in Lightning"; sub = "Speed bonus included in your XP · time " + fmtTime(elapsed); }
-    else if (s.mode === "daily") { title = "Daily challenge: " + score + "/" + total; sub = s.replay ? "Replay (your first attempt already counts)" : s.dailyLate ? "Finished after midnight, so it was saved for " + s.dailyKey + " and not ranked on today's board." : "Done in " + fmtTime(elapsed) + ". Come back tomorrow for a new set."; }
+    else if (s.mode === "daily") { title = "Daily challenge: " + score + "/" + total; sub = s.replay ? "Replay (your first attempt already counts)" : s.dailyLate ? "Finished after midnight, so it was saved for " + s.dailyKey + " and not ranked on today's board." : "Done in " + fmtTime(elapsed) + ". A new set tomorrow; meanwhile, keep training below as much as you like."; }
     else if (s.mode === "exam") { title = pass ? "You passed." : "Not yet. Keep going."; sub = score + " / " + total + " correct · pass line 62.5% (75 of 120) · time " + fmtTime(elapsed); }
     else { title = p >= 80 ? "Excellent." : pass ? "Good work." : "Keep going."; sub = score + " / " + total + " correct · time " + fmtTime(elapsed); }
 
@@ -1108,7 +1153,7 @@
       '<div class="result-title">' + esc(title) + "</div>" +
       '<p class="muted" style="margin:0">' + esc(sub) + "</p>" +
       (s.mode === "exam" ? '<p class="muted small" style="margin:6px 0 0">Aim for 80%+ consistently in mock exams before booking the real one.</p>' : "") +
-      "</div></div>" + rewardsHtml(s) +
+      "</div></div>" + rewardsHtml(s) + keepGoingHtml(s) +
       (s.mode === "daily" && !s.replay && !s.dailyLate ? '<div class="share"><pre id="shareTxt">' + esc(shareText(s)) + '</pre><button class="btn sm" id="copyShare">Copy result</button> <a class="link-btn small" href="#/ranks">See today\'s leaderboard</a></div>' : "") +
       '<h3 style="margin-top:20px">By domain</h3><div class="bars">' +
       Object.keys(DOMAINS).filter(function (d) { return byDomain[d]; }).map(function (d) {
@@ -1153,6 +1198,13 @@
     var ns = $("nudgeSignup");
     if (ns) ns.onclick = function () { window.CAMSAccount.open("signup"); };
     $("again").onclick = function () { startSession(s.mode, s.opts); };
+    each("[data-next]", function (b) {
+      b.onclick = function () {
+        var m = b.getAttribute("data-next"), prefs = load(KEYS.prefs, {});
+        startSession(m, m === "review" ? { domain: "all", source: "review" } : { domain: prefs.domain || "all", source: prefs.source || "fresh" });
+      };
+    });
+    bindThemes(app);
     var cp = $("copyShare");
     if (cp) cp.onclick = function () {
       var txt = shareText(s);
