@@ -601,6 +601,7 @@ body.page .footer { border-top: 0; }
 .viz-bar.dim { opacity: .3; }
 .viz-col:hover .viz-bar { opacity: .75; }
 .viz-label { fill: var(--text); font-size: 13px; }
+.viz-value, .viz-endlabel { paint-order: stroke; stroke: var(--tile); stroke-width: 4px; stroke-linejoin: round; }
 .viz-value { fill: var(--muted); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .viz-tip { display: none; position: absolute; z-index: 5; pointer-events: none; background: var(--tile); border-radius: 10px; padding: 7px 10px; box-shadow: 0 8px 28px rgba(0,0,0,.18); font-size: 12px; white-space: nowrap; }
 .viz-tip b { display: block; font-size: 14px; color: var(--text); }
@@ -788,7 +789,16 @@ kbd { font: inherit; font-size: 11px; padding: 1px 6px; border-radius: 5px; back
 .lb-list .meta { font-size: 12px; color: var(--muted); }
 .lb-list .vl { font-weight: 700; font-variant-numeric: tabular-nums; }
 .lb-empty { text-align: center; padding: 34px 24px; }
-.lb-vis { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; }
+.lb-join { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 20px; }
+.lbj-icon { font-size: 44px; line-height: 1; }
+.lbj-body { flex: 1; min-width: 0; }
+.lbj-body h2 { margin: 0 0 6px; }
+.lbj-body p { margin: 0; }
+.lbj-form { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; margin: 14px 0 6px; }
+.lbj-form .fld { flex: 1 1 220px; }
+.lb-member { text-align: center; margin-top: 14px; }
+.lb-member .link-btn { font-size: inherit; }
+.lb-member .link-btn::after { content: none; }
 
 /* ---------- FX ---------- */
 .fx-confetti { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 300; }
@@ -836,4 +846,8 @@ kbd { font: inherit; font-size: 11px; padding: 1px 6px; border-radius: 5px; back
   .chip.flame.lit, .streak-card.lit .flame-big, .mode-tile.hot::after, .hg-stream, .hourglass.low, .fx-burst { animation: none !important; }
   .flip { transition: none; }
   .tcard, .module, .pod { animation: none; }
+  /* Everything else: no movement, only instant changes. */
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
 }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.cards-actions:not(.show) { visibility: hidden; }

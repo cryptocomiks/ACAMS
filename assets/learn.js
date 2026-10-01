@@ -7,6 +7,13 @@
   var app = document.getElementById("app");
   var DOMAIN_COLORS = { 1: "d1", 2: "d2", 3: "d3", 4: "d4" };
   var learnFilter = { domain: "all", q: "" };
+  var token = 0;
+  // Starts a new view. The returned check is false once the user has moved on (new view or another page),
+  // so pending timeouts, observers and listeners never write into a page they don't own.
+  function newView() {
+    var t = ++token, h = location.hash;
+    return function () { return t === token && location.hash === h; };
+  }
 
   function course() {
     return (window.CAMS_COURSE || []).slice().sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
@@ -52,7 +59,7 @@
     if (!mods.length) return empty();
     var read = PG.lessons(), st = stats();
     var readCount = mods.filter(function (m) { return read[m.id]; }).length;
-    var cardsN = allCards(mods).length, numsN = allNumbers().length;
+    var cardsN = allCards(mods).length, numsN = allNumbers().length, cheat = byId("m13");
     var hy = [];
     mods.forEach(function (m) { (m.mostTested || []).forEach(function (t) { hy.push({ t: t, m: m }); }); });
 
@@ -61,7 +68,7 @@
       '<div class="learn-drills fade-in">' +
       '<a class="drill" href="#/cards/all"><span class="dr-i">🃏</span><span><b>Flashcards</b><span>' + cardsN + " cards · spaced repetition</span></span></a>" +
       '<a class="drill" href="#/sprint"><span class="dr-i">🔢</span><span><b>Numbers sprint</b><span>' + numsN + " thresholds and deadlines · 60 s</span></span></a>" +
-      '<a class="drill" href="#/learn/m13"><span class="dr-i">📋</span><span><b>Cheat sheet</b><span>Every number to know, in one page</span></span></a></div>' +
+      (cheat ? '<a class="drill" href="#/learn/m13"><span class="dr-i">' + cheat.icon + "</span><span><b>" + esc(cheat.title) + "</b><span>" + esc(cheat.summary || "") + "</span></span></a>" : "") + "</div>" +
       '<div class="learn-tools fade-in"><input id="learnSearch" type="search" placeholder="Search the course (e.g. PEP, 314(b), travel rule)" value="' + esc(learnFilter.q) + '" aria-label="Search the course">' +
       '<div class="seg" role="group" data-lf="domain">' + [["all", "All"], ["1", "D1"], ["2", "D2"], ["3", "D3"], ["4", "D4"]].map(function (d) {
         return '<button type="button" data-val="' + d[0] + '" aria-pressed="' + (learnFilter.domain === d[0]) + '">' + d[1] + "</button>";
@@ -111,6 +118,7 @@
   function renderLesson(id) {
     var mods = course(), m = byId(id);
     if (!m) return renderIndex();
+    var alive = newView();
     A.setView("page lesson");
     A.setTopbar(A.homeChips());
     var idx = mods.indexOf(m), prev = mods[idx - 1], next = mods[idx + 1];
@@ -162,23 +170,29 @@
     });
     var pp = $("lpPractice");
     if (pp) pp.onclick = function () { A.startSession("practice", { domain: "all", source: "topic", ids: ms.ids, label: m.title }); };
-    function markRead() { if (PG.lessonRead(m.id)) { FX.play("quest"); FX.confetti({ count: 60 }); var b = $("lpRead"); if (b) b.remove(); var h = document.querySelector(".practice-panel h2"); if (h) h.textContent = "Lesson complete ✓"; } }
+    function markRead() {
+      if (!alive() || !PG.lessonRead(m.id)) return;
+      FX.play("quest"); FX.confetti({ count: 60 });
+      var b = $("lpRead"); if (b) b.remove();
+      var h = document.querySelector(".practice-panel h2"); if (h) h.textContent = "Lesson complete ✓";
+    }
     var rb = $("lpRead");
     if (rb) rb.onclick = markRead;
     var bar = $("readBar");
     function onScroll() {
+      if (!alive()) { window.removeEventListener("scroll", onScroll); return; }
       var h = document.documentElement.scrollHeight - window.innerHeight;
       if (bar) bar.style.width = (h > 0 ? Math.min(100, (window.scrollY / h) * 100) : 100) + "%";
     }
     window.addEventListener("scroll", onScroll, { passive: true });
-    A.addViewTimer(setInterval(function () { if (!document.body.classList.contains("lesson")) window.removeEventListener("scroll", onScroll); }, 1000));
     onScroll();
     if ("IntersectionObserver" in window && !read[m.id]) {
-      var seenTop = false;
       var io = new IntersectionObserver(function (en) {
-        en.forEach(function (x) { if (x.isIntersecting && seenTop) { markRead(); io.disconnect(); } });
+        if (!alive()) { io.disconnect(); return; }
+        en.forEach(function (x) { if (x.isIntersecting) { markRead(); io.disconnect(); } });
       });
-      setTimeout(function () { seenTop = true; var end = $("lessonEnd"); if (end) io.observe(end); }, 8000); // must actually spend a moment reading
+      // Must actually spend a moment reading before reaching the end counts.
+      A.addViewTimer(setTimeout(function () { var end = $("lessonEnd"); if (alive() && end) io.observe(end); else io.disconnect(); }, 8000));
     }
     window.scrollTo(0, 0);
   }
@@ -194,7 +208,9 @@
     cards.forEach(function (c) { map[c.id] = c; });
     var ordered = PG.orderDeck(cards.map(function (c) { return c.id; }));
     var deck = ordered.order.slice(0, 20).map(function (id) { return map[id]; });
-    var i = 0, flipped = false, results = { good: 0, again: 0 };
+    var i = 0, flipped = false, grading = false, results = { good: 0, again: 0, xp: 0 };
+    var practiceOnly = !ordered.due && !ordered.fresh;   // nothing scheduled: free practice, schedule unchanged
+    var alive = newView();
     A.setView("page cards-view");
     A.setTopbar('<span class="tag blue">🃏 Flashcards</span>');
     var title = which && which !== "all" ? src[0].icon + " " + src[0].title : "All lessons";
@@ -203,12 +219,13 @@
       if (i >= deck.length) return done();
       var c = deck[i];
       app.innerHTML = '<div class="cards-page"><a class="back" href="' + (which && which !== "all" ? "#/learn/" + which : "#/learn") + '">‹ Back</a>' +
-        '<div class="cards-head"><div><div class="dlabel">Flashcards · ' + esc(title) + '</div><div class="muted small">' + ordered.due + " due · " + ordered.fresh + " new · card " + (i + 1) + " of " + deck.length + "</div></div>" +
+        '<div class="cards-head"><div><div class="dlabel">Flashcards · ' + esc(title) + '</div><div class="muted small">' + (practiceOnly ? "Nothing due · free practice (schedule unchanged)" : ordered.due + " due · " + ordered.fresh + " new") + " · card " + (i + 1) + " of " + deck.length + "</div></div>" +
         '<div class="cards-score"><span class="good">✓ ' + results.good + '</span><span class="bad">↺ ' + results.again + "</span></div></div>" +
         '<div class="progress"><div style="width:' + pct(i, deck.length) + '%"></div></div>' +
-        '<div class="flip-wrap"><button class="flip' + (flipped ? " on" : "") + '" id="flipCard" aria-label="Flip card" aria-live="polite">' +
-        '<div class="face front"><span class="fc-tag">' + c.m.icon + " " + esc(c.m.title) + '</span><div class="fc-text">' + md(c.front) + '</div><span class="fc-hint">Tap or press Space to reveal</span></div>' +
-        '<div class="face back"><span class="fc-tag">Answer</span><div class="fc-text">' + md(c.back) + "</div></div></button></div>" +
+        '<div class="flip-wrap"><button class="flip' + (flipped ? " on" : "") + '" id="flipCard" aria-label="' + (flipped ? "Show the question again" : "Reveal the answer") + '">' +
+        '<div class="face front"' + (flipped ? ' aria-hidden="true"' : "") + '><span class="fc-tag">' + c.m.icon + " " + esc(c.m.title) + '</span><div class="fc-text">' + md(c.front) + '</div><span class="fc-hint">Tap or press Space to reveal</span></div>' +
+        '<div class="face back"' + (flipped ? "" : ' aria-hidden="true"') + '><span class="fc-tag">Answer</span><div class="fc-text">' + md(c.back) + "</div></div></button></div>" +
+        '<div class="sr-only" aria-live="polite" id="cardLive"></div>' +
         '<div class="cards-actions' + (flipped ? " show" : "") + '"><button class="btn again" id="cAgain">↺ Again <kbd>1</kbd></button><button class="btn primary" id="cGood">✓ Got it <kbd>2</kbd></button></div></div>';
       $("flipCard").onclick = flip;
       $("cAgain").onclick = function () { grade(false); };
@@ -216,19 +233,31 @@
       swipe($("flipCard"));
     }
     function flip() {
+      if (grading || i >= deck.length) return;
       flipped = !flipped;
       FX.play("flip");
-      var f = $("flipCard"); if (f) f.classList.toggle("on", flipped);
+      var f = $("flipCard");
+      if (f) {
+        f.classList.toggle("on", flipped);
+        f.setAttribute("aria-label", flipped ? "Show the question again" : "Reveal the answer");
+        f.querySelector(".front").setAttribute("aria-hidden", String(flipped));
+        f.querySelector(".back").setAttribute("aria-hidden", String(!flipped));
+      }
+      var live = $("cardLive"); if (live) live.textContent = flipped ? "Answer: " + (f ? f.querySelector(".back .fc-text").textContent : "") : "";
       var a = document.querySelector(".cards-actions"); if (a) a.classList.toggle("show", flipped);
     }
     function grade(ok) {
+      if (grading || i >= deck.length) return;
       if (!flipped) return flip();
+      grading = true;   // one grade per card, even on a double press
+      var st = PG.cardState()[deck[i].id];
+      if (!st || st.due <= Date.now()) results.xp += PG.XP.card;   // early re-practice earns nothing
       PG.cardUpdate(deck[i].id, ok);
       if (ok) { results.good++; FX.play("correct"); } else { results.again++; FX.play("wrong"); deck.push(deck[i]); }
       var f = $("flipCard");
-      if (f && !FX.reduced) { f.classList.add(ok ? "out-right" : "out-left"); setTimeout(next, 260); } else next();
+      if (f && !FX.reduced) { f.classList.add(ok ? "out-right" : "out-left"); setTimeout(function () { if (alive()) next(); }, 260); } else next();
     }
-    function next() { i++; flipped = false; view(); }
+    function next() { i++; flipped = false; grading = false; view(); }
     function swipe(el) {
       var x0 = null;
       el.addEventListener("pointerdown", function (e) { x0 = e.clientX; });
@@ -239,18 +268,22 @@
       });
     }
     function done() {
-      var total = results.good + results.again;
       FX.play("end");
       if (results.good >= 10) FX.confetti({ count: 80 });
       app.innerHTML = '<div class="cards-page"><div class="card fade-in" style="text-align:center"><div style="font-size:54px">🃏</div><div class="result-title">Deck done.</div>' +
-        '<p class="muted">' + results.good + " known · " + results.again + " to see again · +" + total + " XP</p>" +
-        '<p class="small muted">Cards you got right come back after 1, 3, 7, 16 then 35 days. Missed ones come back sooner.</p>' +
+        '<p class="muted">' + results.good + " known · " + results.again + " to see again · +" + results.xp + " XP</p>" +
+        '<p class="small muted">' + (practiceOnly ? "Free practice: your review schedule did not change. " : "") + "Cards you know come back after a few days, then at growing intervals up to 35 days. Missed ones come back in 10 minutes.</p>" +
         '<div class="actions" style="justify-content:center"><a class="btn" href="#/learn">Back to the course</a><button class="btn primary" id="cMore">Another round</button></div></div></div>';
       $("cMore").onclick = function () { renderCards(which); };
     }
     keyHandler = function (e) {
-      if (!document.body.classList.contains("cards-view")) return;
-      if (e.key === " " || e.key === "Enter") { e.preventDefault(); if (i < deck.length) flip(); }
+      if (!alive() || i >= deck.length) return;
+      var t = e.target, ctl = t && t.closest ? t.closest("a, button, [role=button]") : null;
+      if (e.key === " " || e.key === "Enter") {
+        if (ctl && ctl.id !== "flipCard") return;   // let focused links and buttons work normally
+        e.preventDefault();
+        flip();
+      }
       else if ((e.key === "1" || e.key === "ArrowLeft") && flipped) grade(false);
       else if ((e.key === "2" || e.key === "ArrowRight") && flipped) grade(true);
     };
@@ -267,22 +300,24 @@
     A.setView("page sprint-view");
     A.setTopbar('<span class="tag blue">🔢 Numbers sprint</span>');
     var best = (PG.gam().records || {}).sprint;
+    var alive = newView();
     app.innerHTML = '<div class="sprint-page"><a class="back" href="#/learn">‹ Back</a><div class="card sprint-intro fade-in"><div class="sp-icon">🔢</div><h1>Numbers sprint</h1>' +
       '<p class="muted">60 seconds. Thresholds, deadlines, percentages and recommendation numbers. As many as you can.</p>' +
       '<div class="sp-best">' + (best != null ? "🏆 Your best: <b>" + best + "</b>" : "No record yet") + " · " + nums.length + " facts in the pool</div>" +
       '<button class="btn primary lg" id="spGo">Start</button></div></div>';
-    $("spGo").onclick = function () { countdown(function () { run(nums); }); };
+    $("spGo").onclick = function () { countdown(alive, function () { run(nums, alive); }); };
   }
-  function countdown(cb) {
+  function countdown(alive, cb) {
     var n = 3;
     function show() {
+      if (!alive()) return;
       app.innerHTML = '<div class="sprint-page"><div class="count-big" aria-live="assertive">' + (n || "Go!") + "</div></div>";
       FX.play(n ? "tick" : "start");
-      if (n-- > 0) setTimeout(show, 700); else setTimeout(cb, 500);
+      if (n-- > 0) setTimeout(show, 700); else setTimeout(function () { if (alive()) cb(); }, 500);
     }
     show();
   }
-  function run(nums) {
+  function run(nums, alive) {
     var DUR = 60000, t0 = Date.now(), score = 0, streakN = 0, missed = [], bag = [], cur = null, curOpts = [], locked = false;
     function draw() { if (!bag.length) bag = A.shuffle(nums); return bag.pop(); }
     function view() {
@@ -304,7 +339,7 @@
         streakN = 0; FX.play("wrong"); b.classList.add("bad"); missed.push(cur);
         each(".sp-opt", function (x) { if (curOpts[Number(x.getAttribute("data-k"))] === cur.a) x.classList.add("good"); });
       }
-      setTimeout(function () { locked = false; if (Date.now() - t0 < DUR) view(); }, ok ? 250 : 900);
+      setTimeout(function () { locked = false; if (alive() && Date.now() - t0 < DUR) view(); }, ok ? 250 : 900);
     }
     function tickUi() {
       var left = Math.max(0, DUR - (Date.now() - t0));
@@ -314,13 +349,13 @@
       if (sc) sc.textContent = score;
     }
     keyHandler = function (e) {
-      if (!document.body.classList.contains("sprint-view")) return;
+      if (!alive()) return;
       var k = parseInt(e.key, 10);
       if (k >= 1 && k <= 4) { var b = document.querySelectorAll(".sp-opt")[k - 1]; if (b) b.click(); }
     };
     clearInterval(sprintTimer);
     sprintTimer = setInterval(function () {
-      if (!document.body.classList.contains("sprint-view")) { clearInterval(sprintTimer); return; }
+      if (!alive()) { clearInterval(sprintTimer); return; }
       tickUi();
       var left = DUR - (Date.now() - t0);
       if (left <= 5000 && left > 0 && Math.ceil(left / 1000) !== tickUi.last) { tickUi.last = Math.ceil(left / 1000); FX.play("tick"); }
@@ -339,14 +374,15 @@
         '<div class="count-big small">' + score + '</div><div class="result-title">correct in 60 seconds</div><p class="muted">+' + r.xp + " XP</p>" +
         (uniq.length ? '<div class="missed"><div class="dlabel">Review the ones you missed</div>' + uniq.map(function (m) { return '<div class="miss"><span>' + md(m.q) + "</span><b>" + md(m.a) + "</b></div>"; }).join("") + "</div>" : "") +
         '<div class="actions" style="justify-content:center"><a class="btn" href="#/learn">Back to the course</a><button class="btn primary" id="spAgain">Play again</button></div></div></div>';
-      $("spAgain").onclick = function () { countdown(function () { run(nums); }); };
+      $("spAgain").onclick = function () { countdown(alive, function () { run(nums, alive); }); };
     }
   }
 
   var keyHandler = null;
   document.addEventListener("keydown", function (e) {
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.defaultPrevented) return;
     if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
+    if (document.querySelector(".modal, .fx-celebrate")) return;
     if (keyHandler) keyHandler(e);
   });
 

@@ -39,6 +39,7 @@
   var viewTimers = [];
   var reviewFilter = "all";
   var lastRendered = -1;
+  var pendingFocus = null; // selector to refocus after a keyboard-driven re-render
   var routes = {};
 
   // ---------- Storage (fails silently) ----------
@@ -104,7 +105,7 @@
   function makeItem(q) { return { qid: q.id, order: shuffle(range(q.options.length)), selected: [], submitted: false, flagged: false }; }
   function msToMidnight() { var n = new Date(), m = new Date(n.getFullYear(), n.getMonth(), n.getDate() + 1); return m - n; }
   function addViewTimer(h) { viewTimers.push(h); return h; }
-  function clearViewTimers() { viewTimers.forEach(function (h) { clearInterval(h); }); viewTimers = []; }
+  function clearViewTimers() { viewTimers.forEach(function (h) { clearInterval(h); clearTimeout(h); }); viewTimers = []; }
   function $(id) { return document.getElementById(id); }
   function each(sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); }
 
@@ -159,6 +160,13 @@
     return shuffle(chosen);
   }
 
+  // Asks before a new test replaces one in progress. Returns false if the user says no.
+  function confirmDiscard(cur, action) {
+    if (!cur) return true;
+    var msg = action + " will discard your " + modeLabel(cur.mode).toLowerCase() + " in progress.";
+    if (cur.mode === "daily" && !cur.replay) msg += " Today's first attempt will then not count on the leaderboard.";
+    return confirm(msg + " Continue?");
+  }
   function startSession(mode, opts) {
     opts = opts || {};
     var qs = pickQuestions(mode, opts);
@@ -166,8 +174,11 @@
       alert(mode === "review" ? "Nothing due for review right now. Come back later, or start a practice test."
         : opts.source === "mistakes" ? "No missed questions yet for this selection. Take a test first!"
         : "No questions available for this selection.");
-      return;
+      return false;
     }
+    var cur = session && !session.finished ? session : restoreSession();
+    if (!confirmDiscard(cur, "Starting a new test")) return false;
+    stopTimer(); stopQTimer();
     var m = MODES[mode] || MODES.practice;
     session = {
       mode: mode,
@@ -191,12 +202,16 @@
     }
     if (mode === "daily") {
       session.dailyKey = PG.dayKey();
-      session.replay = !!PG.dailyResult();
+      // The first attempt is used as soon as it starts: abandoning it and starting again is a replay.
+      session.replay = PG.dailyAttemptUsed(session.dailyKey);
+      if (!session.replay) PG.startDaily(session.dailyKey);
     }
     lastRendered = -1;
+    pendingFocus = null;
     persist();
     FX.play("start");
     if (location.hash !== "#/play") location.hash = "/play"; else renderQuiz();
+    return true;
   }
 
   function persist() {
@@ -208,6 +223,7 @@
     if (!s || s.finished || !Array.isArray(s.items) || !s.items.length) return null;
     if (!s.items.every(function (it) { return BY_ID[it.qid]; })) return null;
     if (s.mode === "daily" && s.dailyKey !== PG.dayKey()) return null; // yesterday's challenge expired
+    if (s.mode === "survival") s.pool = (s.pool || []).filter(function (id) { return BY_ID[id]; });
     return s;
   }
 
@@ -255,22 +271,18 @@
     if (location.hash === h) route(); else location.hash = path;
   }
   function currentPath() { return (location.hash || "#/").replace(/^#/, "") || "/"; }
-  var leaving = false;
   function route() {
     var path = currentPath();
     var parts = path.split("/").filter(Boolean);
     var name = parts[0] || "home";
     clearViewTimers();
     if (name !== "play") {
-      if (session && !session.finished && !leaving) {
-        // Leaving an active test: keep it resumable (except timed Lightning, which is paused per question).
-        stopTimer(); stopQTimer();
-        if (session.mode === "lightning") session.items.forEach(function (it) { if (!it.submitted) delete it.endsAt; });
-        persist();
-        session = null;
-      }
+      // Leaving the quiz: stop its timers. An unfinished test stays resumable from Home.
+      // The mock exam clock and the Lightning hourglass keep running in real time, as on a reload.
+      stopTimer(); stopQTimer();
+      if (session && !session.finished) persist();
+      session = null;
     }
-    leaving = false;
     each(".navlink", function (a) {
       var r = a.getAttribute("data-route");
       var active = r === name || (r === "learn" && (name === "cards" || name === "sprint"));
@@ -280,7 +292,7 @@
       if (!session) session = restoreSession();
       if (session && session.finished) return renderResults();
       if (session) return renderQuiz();
-      return navigate("/");
+      return location.replace("#/"); // nothing to show: don't leave a #/play entry that traps the Back button
     }
     if (routes[name]) return routes[name](parts.slice(1));
     return renderHome();
@@ -310,8 +322,11 @@
     if (!PG) return "";
     var g = PG.gam(), st = PG.streak(g), today = g.days[PG.dayKey()] || 0;
     var due = PG.dueIds(BY_ID).length;
-    var quests = PG.todayQuests({ hasDue: due > 0, hasCourse: !!(window.CAMS_COURSE && window.CAMS_COURSE.length) });
+    var quests = PG.todayQuests({ due: due });
     var daily = PG.dailyResult();
+    var started = !daily && PG.dailyAttemptUsed();
+    var res = started ? restoreSession() : null;
+    var resumable = !!(res && res.mode === "daily" && !res.replay);
     var r = 26, c = 2 * Math.PI * r, k = Math.min(1, today / g.goal);
     return '<section class="today-wrap"><div class="today-grid">' +
       // Streak
@@ -329,6 +344,12 @@
         (daily
           ? '<div class="dbig">' + daily.score + "/" + daily.total + '</div><div class="dsub">Done in ' + fmtTime(daily.ms / 1000) + '. Same 10 questions for everyone today.</div><div class="countdown">Next challenge in <b id="dailyCountdown">' + fmtTime(msToMidnight() / 1000) + "</b></div>" +
             '<div class="tc-actions"><button class="btn sm" data-mode="daily">Replay</button><a class="link-btn small" href="#/ranks">Leaderboard</a></div>'
+          : resumable
+          ? '<div class="dbig">In progress</div><div class="dsub">' + res.items.filter(function (it) { return it.submitted; }).length + " of " + res.items.length + ' answered. Finish it to post your score.</div><div class="countdown">Ends in <b id="dailyCountdown">' + fmtTime(msToMidnight() / 1000) + "</b></div>" +
+            '<div class="tc-actions"><button class="btn primary" id="dailyResume">Resume today\'s challenge</button></div>'
+          : started
+          ? '<div class="dbig">Not finished</div><div class="dsub">Today\'s first attempt was left unfinished, so it can\'t be ranked. You can still replay it for practice.</div><div class="countdown">Next challenge in <b id="dailyCountdown">' + fmtTime(msToMidnight() / 1000) + "</b></div>" +
+            '<div class="tc-actions"><button class="btn sm" data-mode="daily">Replay</button></div>'
           : '<div class="dbig">10 questions</div><div class="dsub">The same set for everyone today. Your first attempt counts on the leaderboard.</div><div class="countdown">Ends in <b id="dailyCountdown">' + fmtTime(msToMidnight() / 1000) + "</b></div>" +
             '<div class="tc-actions"><button class="btn primary" data-mode="daily">Play today\'s challenge</button></div>') +
       "</div></div></section>";
@@ -355,7 +376,7 @@
   }
 
   function renderHome() {
-    stopTimer(); stopQTimer();
+    stopTimer(); stopQTimer(); clearViewTimers();
     if (session && session.finished) session = null;
     setTopbar(homeChips());
     var prefs = load(KEYS.prefs, { domain: "all", source: "fresh" });
@@ -431,13 +452,11 @@
         };
       });
     });
-    function confirmOverwrite() { return !resume || confirm("Starting a new test will discard the test in progress. Continue?"); }
     each("[data-mode]", function (b) {
       b.onclick = function (e) {
         e.preventDefault();
         if (b.classList.contains("disabled")) return;
         var mode = b.getAttribute("data-mode");
-        if (!confirmOverwrite()) return;
         var o = mode === "practice" || mode === "exam" || mode === "lightning" || mode === "survival" ? opts() : { domain: "all" };
         startSession(mode, o);
       };
@@ -445,13 +464,21 @@
     each(".mode-tile.disabled[href^='#/']", function (a) { a.onclick = function (e) { e.preventDefault(); }; });
     if (resume) {
       $("resume").onclick = function () { session = resume; navigate("/play"); };
-      $("discard").onclick = function () { remove(KEYS.session); renderHome(); };
+      $("discard").onclick = function () {
+        if (resume.mode === "daily" && !resume.replay && !confirm("Discard today's challenge? Your first attempt will then not count on the leaderboard.")) return;
+        remove(KEYS.session); renderHome();
+      };
     }
-    var cd = $("dailyCountdown");
+    var dr = $("dailyResume");
+    if (dr) dr.onclick = function () { session = restoreSession(); navigate("/play"); };
+    var cd = $("dailyCountdown"), midnight = false;
     if (cd) addViewTimer(setInterval(function () {
       var ms = msToMidnight();
       cd.textContent = fmtTime(ms / 1000);
-      if (ms < 1500) setTimeout(renderHome, 1600);
+      if (ms < 1500 && !midnight) {
+        midnight = true;
+        addViewTimer(setTimeout(function () { if (currentPath() === "/") renderHome(); }, 1600));
+      }
     }, 1000));
     setupVideo();
     setupReveal();
@@ -656,8 +683,8 @@
     });
     var reset = $("reset");
     if (reset) reset.onclick = function () {
-      if (confirm("Erase all your progress (history, XP, streak, badges, review schedule)?")) {
-        PG.clearAll(); remove(KEYS.history); remove(KEYS.stats); if (window.CAMSSync) window.CAMSSync.schedule(); renderProgress();
+      if (confirm("Erase all your progress (history, XP, streak, badges, review schedule)?" + (window.CAMSAccount && window.CAMSAccount.user() ? " This also erases it from your account on every device." : ""))) {
+        PG.resetAll(); remove(KEYS.session); if (window.CAMSSync) window.CAMSSync.schedule(); renderProgress();
       }
     };
     FX.countUp(app);
@@ -707,6 +734,10 @@
 
   function renderQuiz() {
     var s = session;
+    if (s.mode === "exam" && s.endsAt && Date.now() >= s.endsAt) {
+      alert("Time is up! Your exam has been submitted.");
+      return finish();
+    }
     var item = s.items[s.current];
     var q = BY_ID[item.qid];
     var total = s.items.length;
@@ -720,7 +751,6 @@
     var right = done.filter(isCorrect).length;
     if (s.mode === "exam") {
       setTopbar('<span class="tag">Mock exam</span><span class="timer" id="timer"></span>');
-      startTimer();
     } else {
       setTopbar('<span class="tag blue">' + esc(MODES[s.mode].icon + " " + modeLabel(s.mode)) + "</span>" +
         (s.mode === "survival" ? livesHtml(s) : "") +
@@ -740,7 +770,7 @@
       (practice && q.hy ? '<span class="tag hy">Frequently tested</span>' : "") +
       (q.difficulty === "hard" ? '<span class="tag hard">Hard</span>' : "") + "</div></div>" +
       (s.mode === "survival" ? "" : '<div class="progress"><div style="width:' + pct(answeredCount, total) + '%"></div></div>') +
-      '<div class="qtext">' + esc(q.q) + "</div>" +
+      '<div class="qtext" id="qtext" tabindex="-1">' + esc(q.q) + "</div>" +
       (multi ? '<div class="hint">Select ' + q.answer.length + " answers.</div>" : "") +
       '<div id="opts">';
 
@@ -763,7 +793,8 @@
       var correctLetters = item.order.map(function (orig, i) { return q.answer.indexOf(orig) >= 0 ? LETTERS[i] : null; }).filter(Boolean).join(", ");
       if (ok && item.combo >= 3) html += '<div class="combo-pill' + (item.fresh ? " pop" : "") + '">🔥 ' + item.combo + " in a row" + (item.combo >= 5 ? " · on fire!" : "") + "</div>";
       html += '<div class="explain ' + (ok ? "good" : "bad") + '"><div class="verdict">' +
-        (item.timedOut ? "⌛ Time's up — correct answer: " + correctLetters : ok ? "✓ Correct" : "✗ Incorrect — correct answer: " + correctLetters) +
+        (item.timedOut && isAnswered(item) ? (ok ? "⌛ Time's up — your selection was submitted: ✓ Correct" : "⌛ Time's up — your selection was submitted. Correct answer: " + correctLetters)
+          : item.timedOut ? "⌛ Time's up — correct answer: " + correctLetters : ok ? "✓ Correct" : "✗ Incorrect — correct answer: " + correctLetters) +
         (item.xp ? '<span class="xp-chip' + (item.fresh ? " pop" : "") + '">+' + item.xp + " XP</span>" : "") + "</div>" + esc(q.explanation) + changedHtml(q) + sourcesHtml(q) + "</div>";
       item.fresh = false;
       s.lostAnim = false;
@@ -808,7 +839,13 @@
 
     app.innerHTML = html;
     bindQuiz(q, item);
-    if (s.mode === "exam") tick();
+    if (pendingFocus) {
+      var f = document.querySelector(pendingFocus);
+      if (!f || f.disabled) f = $("qtext");
+      pendingFocus = null;
+      if (f) f.focus({ preventScroll: true });
+    }
+    if (s.mode === "exam") startTimer();
     if (timed && !item.submitted) startQTimer(item);
   }
 
@@ -855,12 +892,15 @@
     if (ex && ex.scrollIntoView) ex.scrollIntoView({ behavior: FX.reduced ? "auto" : "smooth", block: "nearest" });
   }
 
+  // A click with detail 0 comes from the keyboard (Enter/Space or a shortcut): keep focus on that control.
+  function kbFocus(e, sel) { if (e && e.detail === 0) pendingFocus = sel; }
   function bindQuiz(q, item) {
     var s = session;
     var multi = isMulti(q);
     each(".opt", function (btn) {
-      btn.onclick = function () {
+      btn.onclick = function (e) {
         if (item.submitted && instant(s)) return;
+        kbFocus(e, '.opt[data-orig="' + btn.getAttribute("data-orig") + '"]');
         var orig = Number(btn.getAttribute("data-orig"));
         var idx = item.selected.indexOf(orig);
         if (multi) {
@@ -878,10 +918,11 @@
         renderQuiz();
       };
     });
-    function on(id, fn) { var el = $(id); if (el) el.onclick = fn; }
+    function on(id, fn) { var el = $(id); if (el) el.onclick = function (e) { kbFocus(e, "#" + id); fn(e); }; }
     on("prev", function () { go(s.current - 1); });
     on("next", function () {
       if (s.mode === "survival") {
+        while (s.pool.length && !BY_ID[s.pool[0]]) s.pool.shift();
         if (!s.pool.length) return finish();
         s.items.push(makeItem(BY_ID[s.pool.shift()]));
       }
@@ -898,7 +939,7 @@
         persist(); session = null; navigate("/");
       }
     });
-    each("[data-go]", function (b) { b.onclick = function () { go(Number(b.getAttribute("data-go"))); }; });
+    each("[data-go]", function (b) { b.onclick = function (e) { kbFocus(e, '[data-go="' + b.getAttribute("data-go") + '"]'); go(Number(b.getAttribute("data-go"))); }; });
   }
 
   function go(i) {
@@ -913,7 +954,7 @@
     var s = session;
     if (instant(s)) {
       var pending = s.items.filter(function (it) { return !it.submitted; }).length;
-      if (pending && s.mode !== "survival" && !confirm(pending + " question(s) not checked yet. They will count as incorrect. Finish anyway?")) return;
+      if (pending && s.mode !== "survival" && !confirm(pending + " question(s) not checked yet. Selected answers will be scored as they are; blank ones count as incorrect. Finish anyway?")) return;
     } else {
       var un = s.items.filter(function (it) { return !isAnswered(it); }).length;
       var fl = s.items.filter(function (it) { return it.flagged; }).length;
@@ -945,29 +986,42 @@
   function finish(early) {
     var s = session;
     stopTimer(); stopQTimer();
-    s.items.forEach(function (it) {
+    if (!s || s.finished) return;
+    if (s.mode === "survival") s.items = s.items.filter(function (it) { return it.submitted; });
+    var answered = s.items.filter(isAnswered).length;
+    if (!answered && (early || !s.items.length)) {
+      // Quit before answering anything: nothing to score or record.
+      remove(KEYS.session);
+      session = null;
+      toast('<span class="ti">👋</span><div><b>Run ended</b><span>Nothing was answered, so nothing was recorded.</span></div>');
+      return location.replace("#/");
+    }
+    if (answered) s.items.forEach(function (it) {
       if (s.mode === "exam" || (!it.submitted && s.mode !== "survival" && s.mode !== "lightning")) recordStat(it);
     });
     // Unanswered Lightning questions left by quitting count as wrong but give no XP.
     if (s.mode === "lightning") s.items.forEach(function (it) { if (!it.submitted) { it.submitted = true; it.timedOut = true; } });
-    if (s.mode === "survival") s.items = s.items.filter(function (it) { return it.submitted; });
     s.finished = true;
     s.finishedAt = Date.now();
     var score = s.items.filter(isCorrect).length;
     var total = s.items.length;
     var history = load(KEYS.history, []);
     var o = s.opts || {};
-    history.push({
+    if (answered) history.push({
       date: s.finishedAt, mode: s.mode, score: score, total: total,
       scope: s.mode === "daily" ? "Daily " + s.dailyKey + (s.replay ? " · replay" : "")
         : (!o.domain || o.domain === "all" ? "All" : "D" + o.domain) +
           (o.source === "hy" ? " · HY" : o.source === "hard" ? " · Hard" : o.source === "mistakes" ? " · Mistakes" : s.mode === "review" ? " · Review" : o.label ? " · " + o.label : "")
     });
-    save(KEYS.history, history.slice(-100));
-    if (PG) {
-      if (s.mode === "daily" && !s.replay) s.dailySaved = PG.saveDaily(score, total, s.finishedAt - s.startedAt);
+    if (answered) save(KEYS.history, history.slice(-100));
+    if (PG && answered) {
+      if (s.mode === "daily" && !s.replay) {
+        s.dailyLate = s.dailyKey !== PG.dayKey(); // started before midnight: saved for its own day, not ranked today
+        s.dailySaved = PG.saveDaily(score, total, s.finishedAt - s.startedAt, s.dailyKey);
+        if (!s.dailySaved && !s.dailyLate) s.replay = true; // another device already posted today's first attempt
+      }
       var recBefore = JSON.parse(JSON.stringify(PG.gam().records || {}));
-      s.bonus = PG.onFinish({ mode: s.mode === "daily" && s.replay ? "practice" : s.mode, score: score, total: total });
+      s.bonus = PG.onFinish({ mode: s.mode === "daily" && s.replay ? "practice" : s.mode, score: score, total: total, answered: answered });
       s.xp = (s.xp || 0) + s.bonus;
       var recAfter = PG.gam().records || {};
       s.newRecord = ["exam", "lightning", "survival", "daily"].filter(function (k) { return recAfter[k] != null && recAfter[k] !== recBefore[k]; })[0] || null;
@@ -980,7 +1034,6 @@
     reviewFilter = "all";
     FX.play("end");
     if (score / Math.max(1, total) >= 0.8 && total >= 10) FX.confetti();
-    leaving = true;
     if (location.hash !== "#/play") location.hash = "/play"; else renderResults();
   }
 
@@ -1038,7 +1091,7 @@
     var title, sub;
     if (s.mode === "survival") { title = score + " correct"; sub = "Survival run over after " + total + " questions · best combo " + (s.bestCombo || 0); }
     else if (s.mode === "lightning") { title = score + " / " + total + " in Lightning"; sub = "Speed bonus included in your XP · time " + fmtTime(elapsed); }
-    else if (s.mode === "daily") { title = "Daily challenge: " + score + "/" + total; sub = (s.replay ? "Replay (your first attempt already counts)" : "Done in " + fmtTime(elapsed) + ". Come back tomorrow for a new set."); }
+    else if (s.mode === "daily") { title = "Daily challenge: " + score + "/" + total; sub = s.replay ? "Replay (your first attempt already counts)" : s.dailyLate ? "Finished after midnight, so it was saved for " + s.dailyKey + " and not ranked on today's board." : "Done in " + fmtTime(elapsed) + ". Come back tomorrow for a new set."; }
     else if (s.mode === "exam") { title = pass ? "You passed." : "Not yet. Keep going."; sub = score + " / " + total + " correct · pass mark ≈ 63% (75/120) · time " + fmtTime(elapsed); }
     else { title = p >= 80 ? "Excellent." : pass ? "Good work." : "Keep going."; sub = score + " / " + total + " correct · time " + fmtTime(elapsed); }
 
@@ -1056,7 +1109,7 @@
       '<p class="muted" style="margin:0">' + esc(sub) + "</p>" +
       (s.mode === "exam" ? '<p class="muted small" style="margin:6px 0 0">Aim for 80%+ consistently in mock exams before booking the real one.</p>' : "") +
       "</div></div>" + rewardsHtml(s) +
-      (s.mode === "daily" && !s.replay ? '<div class="share"><pre id="shareTxt">' + esc(shareText(s)) + '</pre><button class="btn sm" id="copyShare">Copy result</button> <a class="link-btn small" href="#/ranks">See today\'s leaderboard</a></div>' : "") +
+      (s.mode === "daily" && !s.replay && !s.dailyLate ? '<div class="share"><pre id="shareTxt">' + esc(shareText(s)) + '</pre><button class="btn sm" id="copyShare">Copy result</button> <a class="link-btn small" href="#/ranks">See today\'s leaderboard</a></div>' : "") +
       '<h3 style="margin-top:20px">By domain</h3><div class="bars">' +
       Object.keys(DOMAINS).filter(function (d) { return byDomain[d]; }).map(function (d) {
         var b = byDomain[d], dp = pct(b.ok, b.n);
@@ -1114,14 +1167,18 @@
 
   // ---------- Keyboard shortcuts ----------
   document.addEventListener("keydown", function (e) {
-    if (!session || session.finished || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (!session || session.finished || e.metaKey || e.ctrlKey || e.altKey || e.defaultPrevented) return;
     if (currentPath() !== "/play") return;
     if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
+    if (document.querySelector(".modal, .fx-celebrate")) return;   // keys belong to the dialog on top
     var k = e.key.toUpperCase();
     var i = LETTERS.indexOf(k);
     var opts = document.querySelectorAll(".opt:not([disabled])");
     if (i >= 0 && k.length === 1 && opts[i]) { opts[i].click(); return; }
     if (e.key === "Enter") {
+      var t = e.target, el = t && t.closest ? t.closest("button, a, [role=button]") : null;
+      // Let focused controls work natively. Enter on an option that is already selected confirms it.
+      if (el && !(el.classList.contains("opt") && (el.classList.contains("selected") || el.disabled))) return;
       var btn = $("submit") || $("next") || $("finish");
       if (btn && !btn.disabled) { e.preventDefault(); btn.click(); }
     } else if (e.key === "ArrowRight") {

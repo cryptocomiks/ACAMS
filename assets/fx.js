@@ -140,10 +140,20 @@
     ov.querySelector(".fx-sub").textContent = sub || "";
     document.body.appendChild(ov);
     confetti({ count: 180 });
-    var close = function () { ov.classList.add("out"); setTimeout(function () { ov.remove(); }, 300); document.removeEventListener("keydown", close); };
+    var closed = false, armT, autoT;
+    // Capture phase: the key that closes the overlay must not also act on the page behind it.
+    var onKey = function (e) { e.preventDefault(); e.stopImmediatePropagation(); close(); };
+    var close = function () {
+      if (closed) return;
+      closed = true;
+      clearTimeout(armT); clearTimeout(autoT);
+      document.removeEventListener("keydown", onKey, true);
+      ov.classList.add("out");
+      setTimeout(function () { ov.remove(); }, 300);
+    };
     ov.onclick = close;
-    setTimeout(function () { document.addEventListener("keydown", close); }, 300);
-    setTimeout(close, 3600);
+    armT = setTimeout(function () { if (!closed) document.addEventListener("keydown", onKey, true); }, 300);
+    autoT = setTimeout(close, 3600);
   }
 
   // ---------- Count-up ----------

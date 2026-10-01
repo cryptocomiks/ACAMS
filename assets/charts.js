@@ -96,8 +96,9 @@
         var tx = el("text", { x: L - 8, y: y + 4, class: "viz-axis", "text-anchor": "end" }, svg);
         tx.textContent = fmt(Math.round(yMax * k));
       });
+      var ry = null;
       if (cfg.ref) {
-        var ry = Y(cfg.ref.value);
+        ry = Y(cfg.ref.value);
         el("line", { x1: L, x2: W - R, y1: ry, y2: ry, class: "viz-ref" }, svg);
         var rt = el("text", { x: W - R + 4, y: ry + 4, class: "viz-reflabel" }, svg);
         rt.textContent = cfg.ref.label;
@@ -108,7 +109,11 @@
       el("path", { d: d, class: "viz-line" }, svg);
       var last = pts[pts.length - 1];
       el("circle", { cx: X(pts.length - 1), cy: Y(last.y), r: 5, class: "viz-dot" }, svg);
-      var et = el("text", { x: X(pts.length - 1) + 8, y: Y(last.y) - 8, class: "viz-endlabel" }, svg);
+      // End label above the last point, or below it when it would sit on the reference label.
+      var ly = Y(last.y), ey = ly - 8, refY = ry == null ? null : ry + 4;   // text baselines
+      if (refY != null && Math.abs(ey - refY) < 18) ey = Math.abs(ly + 20 - refY) >= 18 ? ly + 20 : (ly <= ry ? refY - 18 : refY + 18);
+      ey = Math.max(11, Math.min(T + ih + 2, ey));
+      var et = el("text", { x: X(pts.length - 1) + 8, y: ey, class: "viz-endlabel" }, svg);
       et.textContent = fmt(last.y);
       // x labels: first and last only
       [0, pts.length - 1].forEach(function (i, k) {
@@ -190,7 +195,7 @@
     var bars = cfg.bars || [];
     var fmt = cfg.format || function (v) { return v + "%"; };
     shell(host, cfg, function (plot, W, tip) {
-      var rowH = 38, T = 6, H = T + bars.length * rowH + 20, labelW = Math.min(W * 0.42, 260), R = 46;
+      var rowH = 38, T = cfg.ref ? 22 : 6, H = T + bars.length * rowH + 20, labelW = Math.min(W * 0.42, 260), R = 46;
       var max = cfg.max || 100;
       var svg = el("svg", { viewBox: "0 0 " + W + " " + H, width: W, height: H, role: "img", "aria-label": cfg.title || "Bar chart", class: "viz-svg" }, plot);
       var X = function (v) { return labelW + (v / max) * (W - labelW - R); };
@@ -200,6 +205,12 @@
         var tx = el("text", { x: x, y: H - 4, class: "viz-axis", "text-anchor": "middle" }, svg);
         tx.textContent = fmt(Math.round(v * max / 100));
       });
+      if (cfg.ref) {
+        var rx = X(cfg.ref.value);
+        el("line", { x1: rx, x2: rx, y1: T - 4, y2: H - 18, class: "viz-ref" }, svg);
+        var rt = el("text", { x: rx, y: T - 8, class: "viz-reflabel", "text-anchor": "middle" }, svg);
+        rt.textContent = cfg.ref.label;
+      }
       bars.forEach(function (b, i) {
         var y = T + i * rowH, cy = y + rowH / 2;
         var g = el("g", { class: "viz-col", tabindex: "0", role: "img", "aria-label": b.label + ": " + (b.valueLabel || fmt(b.value)) }, svg);
@@ -221,12 +232,6 @@
         g.addEventListener("pointerleave", function () { hideTip(tip); });
         g.addEventListener("blur", function () { hideTip(tip); });
       });
-      if (cfg.ref) {
-        var rx = X(cfg.ref.value);
-        el("line", { x1: rx, x2: rx, y1: T, y2: H - 18, class: "viz-ref" }, svg);
-        var rt = el("text", { x: rx + 4, y: T + 10, class: "viz-reflabel" }, svg);
-        rt.textContent = cfg.ref.label;
-      }
     }, { head: cfg.tableHead || ["Item", "Value"], body: bars.map(function (b) { return [b.label, b.valueLabel || fmt(b.value)]; }) });
   }
 

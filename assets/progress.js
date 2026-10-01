@@ -63,9 +63,13 @@
     g.badges = g.badges || {};
     g.reviews = g.reviews || 0;
     g.quests = g.quests || {};      // { date: { ids: [..], p: {id: n}, done: {id: true}, chest: bool } }
-    g.freezes = g.freezes || 0;
     g.frozen = g.frozen || {};      // { date: true } days covered by a streak freeze
-    g.freezeAt = g.freezeAt || 0;   // streak length at which the last freeze was awarded
+    g.freezeAt = g.freezeAt || 0;   // highest multiple of 7 already rewarded in the current streak
+    // Freezes are derived: earned (grow-only) minus days actually covered. Robust across devices.
+    if (g.earned == null) g.earned = (g.freezes || 0) + Object.keys(g.frozen).length;
+    Object.keys(g.frozen).forEach(function (k) { if (g.days[k] || g.act[k]) delete g.frozen[k]; }); // active elsewhere: no freeze needed
+    g.freezes = Math.max(0, Math.min(MAX_FREEZES, g.earned - Object.keys(g.frozen).length));
+    g.dailyStarted = g.dailyStarted || {}; // { date: ts } first attempt of the daily challenge has begun
     g.records = g.records || {};    // { key: best value }
     g.daily = g.daily || {};        // { date: { score, total, ms } } first attempt of the daily challenge
     g.counts = g.counts || {};      // { cards, lightning, survival, sprint, chests }
@@ -111,17 +115,24 @@
     while (!activeOn(g, dayKey(d)) && gap < 60) { gap++; d = addDays(d, -1); }
     if (gap >= 60 || gap > g.freezes) return 0;          // nothing to save, or not enough freezes
     for (var i = 1; i <= gap; i++) g.frozen[dayKey(addDays(today, -i))] = true;
-    g.freezes -= gap;
+    g.freezes = Math.max(0, g.freezes - gap);
     saveGam(g);
     emit({ type: "freezeUsed", used: gap, left: g.freezes });
     return gap;
   }
   function maybeAwardFreeze(g) {
     var st = streak(g);
-    if (st.current > 0 && st.current % 7 === 0 && g.freezeAt !== st.current && g.freezes < MAX_FREEZES) {
-      g.freezes++;
-      g.freezeAt = st.current;
-      emit({ type: "freezeEarned", freezes: g.freezes });
+    if (!st.current) return;
+    var start = dayKey(addDays(new Date(), 1 - st.current));     // first day of the current streak
+    if (g.freezeStart !== start) { g.freezeStart = start; g.freezeAt = 0; }
+    var mark = Math.floor(st.current / 7) * 7;                    // highest multiple of 7 reached
+    if (mark > 0 && mark > g.freezeAt) {
+      g.freezeAt = mark;
+      if (g.freezes < MAX_FREEZES) {
+        g.earned = (g.earned || 0) + 1;
+        g.freezes++;
+        emit({ type: "freezeEarned", freezes: g.freezes });
+      }
     }
   }
 
@@ -171,8 +182,11 @@
 
   function questCtx(ctx) {
     ctx = ctx || {};
-    if (ctx.hasCourse == null) ctx.hasCourse = !!(window.CAMS_COURSE && window.CAMS_COURSE.length);
-    if (ctx.hasDue == null) ctx.hasDue = dueIds().length > 0;
+    var course = window.CAMS_COURSE || [];
+    if (ctx.hasCourse == null) ctx.hasCourse = course.length > 0;
+    if (ctx.due == null) ctx.due = dueIds(window.CAMSApp ? window.CAMSApp.BY_ID : null).length;
+    if (ctx.unreadLesson == null) { var rd = load(KEYS.learn, {}); ctx.unreadLesson = course.some(function (m) { return !rd[m.id]; }); }
+    if (ctx.hasNumbers == null) ctx.hasNumbers = course.some(function (m) { return (m.numbers || []).length; });
     return ctx;
   }
   function ensureQuests(g, ctx) {
@@ -182,8 +196,10 @@
       var r = seeded(hash("quests" + k));
       var pool = QUESTS.filter(function (q) {
         if (q.id === "answer") return false;
-        if (q.needsDue && !ctx.hasDue) return false;
+        if (q.needsDue && (ctx.due || 0) < questTarget(q, g)) return false;   // e.g. 10 due questions for the review quest
         if (q.needsCourse && !ctx.hasCourse) return false;
+        if (q.id === "lesson" && !ctx.unreadLesson) return false;
+        if (q.id === "sprint" && !ctx.hasNumbers) return false;
         return true;
       });
       var ids = ["answer"];
@@ -277,11 +293,13 @@
   // Flashcards: same Leitner schedule, separate store.
   function cardUpdate(cardId, ok) {
     var c = load(KEYS.cards, {});
-    c[cardId] = srsNext(c[cardId], ok);
-    save(KEYS.cards, c);
+    var cur = c[cardId];
+    var notDue = cur && cur.due > Date.now();
+    // Re-practising a card early never promotes it (that would defeat the spacing); forgetting it resets it.
+    if (!(notDue && ok)) { c[cardId] = srsNext(cur, ok); save(KEYS.cards, c); }
     var g = gam();
     g.counts.cards = (g.counts.cards || 0) + 1;
-    addXp(g, XP.card);
+    if (!notDue) addXp(g, XP.card);
     markActive(g);
     questEvent("card", 1, g);
     saveGam(g);
@@ -403,6 +421,7 @@
     opts = opts || {};
     var g = gam();
     var k = dayKey();
+    markActive(g);
     g.days[k] = (g.days[k] || 0) + 1;
     var gain = opts.noXp ? 0 : ok ? (opts.review ? XP.reviewRight : XP.right) : XP.wrong;
     if (ok && opts.combo >= 3) gain += Math.min(opts.combo - 2, 5) * 2;
@@ -417,7 +436,6 @@
       addXp(g, XP.goal);
       emit({ type: "goal", goal: g.goal, bonus: XP.goal });
     }
-    markActive(g);
     saveGam(g);
     srsUpdate(qid, ok);
     return gain;
@@ -426,6 +444,8 @@
   // summary: { mode, score, total, variant }
   function onFinish(summary) {
     var g = gam();
+    var answered = summary.answered != null ? summary.answered : summary.total;
+    if (!answered || answered < Math.min(5, summary.total || 0)) return 0;   // nothing (or almost nothing) was answered
     var bonus = XP.testDone;
     var pctv = summary.total ? summary.score / summary.total : 0;
     if (summary.mode === "exam" && pctv >= 75 / 120) bonus += XP.examPass;
@@ -452,13 +472,22 @@
 
   // Daily challenge: only the first attempt of the day counts.
   function dailyResult(k) { return gam().daily[k || dayKey()] || null; }
-  function saveDaily(score, total, ms) {
-    var g = gam(), k = dayKey();
+  // The first attempt is "used" as soon as it starts: abandoning it and starting again counts as a replay.
+  function dailyAttemptUsed(k) { var g = gam(); k = k || dayKey(); return !!(g.daily[k] || g.dailyStarted[k]); }
+  function startDaily(k) {
+    var g = gam();
+    k = k || dayKey();
+    if (!g.dailyStarted[k]) { g.dailyStarted[k] = Date.now(); Object.keys(g.dailyStarted).sort().slice(0, -14).forEach(function (o) { delete g.dailyStarted[o]; }); saveGam(g); }
+  }
+  // Stores the result under the challenge's own day. Returns true only for a same-day first attempt (published to today's board).
+  function saveDaily(score, total, ms, k) {
+    var g = gam(), today = dayKey();
+    k = k || today;
     if (g.daily[k]) return false;
-    g.daily[k] = { score: score, total: total, ms: ms };
-    questEvent("daily", 1, g);
+    g.daily[k] = { score: score, total: total, ms: ms, at: Date.now() };
+    if (k === today) questEvent("daily", 1, g);
     saveGam(g);
-    return true;
+    return k === today;
   }
   // Same 10 questions for everyone on a given day.
   function dailyIds(bank, k) {
@@ -536,11 +565,12 @@
   function readiness(bank) {
     var stats = load(KEYS.stats, {});
     var acc = domainAccuracy(bank, stats);
-    var A = 0, answers = 0;
+    var A = 0, answers = 0, rawW = 0, rawSum = 0;
     [1, 2, 3, 4].forEach(function (d) {
       var b = acc[d] || { n: 0, ok: 0 };
       answers += b.n;
-      A += WEIGHTS[d] * ((b.ok + 1) / (b.n + 2));        // Laplace-smoothed accuracy
+      A += WEIGHTS[d] * ((b.ok + 1) / (b.n + 2));        // Laplace-smoothed accuracy (used for the score)
+      if (b.n) { rawW += WEIGHTS[d]; rawSum += WEIGHTS[d] * (b.ok / b.n); }
     });
     var valid = {};
     bank.forEach(function (q) { valid[q.id] = 1; });
@@ -553,7 +583,7 @@
     var predictedPct = 0.6 * A + 0.4 * E;
     var predicted = Math.round(120 * predictedPct);
     return {
-      score: answers ? score : 0, accuracy: A, coverage: C, mastery: M, examAvg: exams.length ? E : null,
+      score: answers ? score : 0, accuracy: rawW ? rawSum / rawW : null, coverage: C, mastery: M, examAvg: exams.length ? E : null,
       predicted: answers ? predicted : null, predictedPct: predictedPct, answers: answers,
       confidence: answers < 100 ? "low" : answers < 300 ? "medium" : "high",
       verdict: !answers ? "Start practising" : answers < 60 ? "Early days" : predicted >= 90 ? "On track" : predicted >= 75 ? "Borderline" : "Not yet"
@@ -580,6 +610,10 @@
   function newer(x, y) { return (y.last || 0) > (x.last || 0) ? y : x; }
   function merge(a, b) {
     a = a || {}; b = b || {};
+    // A reset on any device wins over older data everywhere.
+    var ra = (a.gam && a.gam.resetAt) || 0, rb = (b.gam && b.gam.resetAt) || 0, RESET = Math.max(ra, rb);
+    if (ra < RESET) a = { gam: { resetAt: RESET } };
+    if (rb < RESET) b = { gam: { resetAt: RESET } };
     var out = { v: 2, history: [], gam: {} };
     out.stats = mergeMap(a.stats, b.stats, function (x, y) { return (y.seen || 0) > (x.seen || 0) ? y : x; });
     var seen = {};
@@ -593,25 +627,36 @@
     var max = function (x, y) { return Math.max(x || 0, y || 0); };
     var any = function (x, y) { return x || y; };
     var G = out.gam;
-    G.xp = max(ga.xp, gb.xp);
+    var sumVals = function (o) { var t = 0; Object.keys(o || {}).forEach(function (k) { t += +o[k] || 0; }); return t; };
+    G.xpDays = mergeMap(ga.xpDays, gb.xpDays, max);
+    var sumG = sumVals(G.xpDays);
+    // Keep XP earned on both devices without double-counting the days they share.
+    G.xp = Math.max(ga.xp || 0, gb.xp || 0, (ga.xp || 0) + sumG - sumVals(ga.xpDays), (gb.xp || 0) + sumG - sumVals(gb.xpDays));
     G.reviews = max(ga.reviews, gb.reviews);
     G.goal = (gb.updated || 0) > (ga.updated || 0) ? (gb.goal || ga.goal) : (ga.goal || gb.goal);
-    G.freezes = (gb.updated || 0) > (ga.updated || 0) ? (gb.freezes || 0) : (ga.freezes || 0);
-    G.freezeAt = max(ga.freezeAt, gb.freezeAt);
+    var earned = function (x) { return x.earned != null ? x.earned : (x.freezes || 0) + Object.keys(x.frozen || {}).length; };
+    G.earned = Math.max(earned(ga), earned(gb));
+    var fs = (ga.freezeStart || "") >= (gb.freezeStart || "") ? ga : gb, fo = fs === ga ? gb : ga;
+    G.freezeStart = fs.freezeStart;
+    G.freezeAt = (fo.freezeStart || "") === (fs.freezeStart || "") ? max(fs.freezeAt, fo.freezeAt) : (fs.freezeAt || 0);
     G.days = mergeMap(ga.days, gb.days, max);
-    G.xpDays = mergeMap(ga.xpDays, gb.xpDays, max);
     G.act = mergeMap(ga.act, gb.act, any);
     G.goalDays = mergeMap(ga.goalDays, gb.goalDays, any);
     G.frozen = mergeMap(ga.frozen, gb.frozen, any);
+    Object.keys(G.frozen).forEach(function (k) { if (G.days[k] || G.act[k]) delete G.frozen[k]; });   // day was active elsewhere
+    G.freezes = Math.max(0, Math.min(MAX_FREEZES, G.earned - Object.keys(G.frozen).length));
     G.badges = mergeMap(ga.badges, gb.badges, function (x, y) { return Math.min(x, y); });
     G.records = mergeMap(ga.records, gb.records, max);
     G.counts = mergeMap(ga.counts, gb.counts, max);
-    G.daily = mergeMap(ga.daily, gb.daily, function (x) { return x; });   // first attempt wins either way
+    // First attempt wins: earliest timestamp, else the copy already in the cloud (b).
+    G.daily = mergeMap(ga.daily, gb.daily, function (x, y) { return x.at && y.at ? (y.at < x.at ? y : x) : y; });
+    G.dailyStarted = mergeMap(ga.dailyStarted, gb.dailyStarted, function (x, y) { return Math.min(x, y); });
     G.quests = mergeMap(ga.quests, gb.quests, function (x, y) {
       var r = { ids: x.ids || y.ids, p: mergeMap(x.p, y.p, max), done: mergeMap(x.done, y.done, any), chest: !!(x.chest || y.chest) };
       return r;
     });
     G.updated = max(ga.updated, gb.updated);
+    if (RESET) G.resetAt = RESET;
     out.srs = mergeMap(a.srs, b.srs, newer);
     out.cards = mergeMap(a.cards, b.cards, newer);
     out.learn = mergeMap(a.learn, b.learn, function (x, y) { return Math.min(x, y); });
@@ -630,6 +675,12 @@
   function clearAll() {
     SYNCED.forEach(function (k) { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } });
   }
+  // "Reset progress": wipes local data and leaves a marker so other devices drop their older copies on sync.
+  function resetAll() {
+    clearAll();
+    var now = Date.now();
+    save(KEYS.gam, { resetAt: now, updated: now });
+  }
 
   window.CAMSProgress = {
     KEYS: KEYS, SYNCED: SYNCED, GOALS: GOALS, BADGES: BADGES, XP: XP, MASTERED_BOX: MASTERED_BOX, RECORDS: RECORDS, WEIGHTS: WEIGHTS,
@@ -637,11 +688,11 @@
     gam: gam, levelFor: levelFor, titleFor: titleFor, streak: streak, applyFreezes: applyFreezes, dayKey: dayKey, weekKey: weekKey, weekXp: weekXp,
     onAnswer: onAnswer, onFinish: onFinish, onSprint: onSprint, setGoal: setGoal, checkBadges: checkBadges,
     todayQuests: todayQuests, questEvent: questEvent, record: record,
-    dailyResult: dailyResult, saveDaily: saveDaily, dailyIds: dailyIds,
+    dailyResult: dailyResult, saveDaily: saveDaily, dailyIds: dailyIds, startDaily: startDaily, dailyAttemptUsed: dailyAttemptUsed,
     cardUpdate: cardUpdate, cardState: cardState, orderDeck: orderDeck, lessonRead: lessonRead, lessons: lessons,
     dueIds: dueIds, masteredCount: masteredCount, domainAccuracy: domainAccuracy, weakTopics: weakTopics, strongTopics: strongTopics,
     topicKey: topicKey, heat: heat, lastDays: lastDays, readiness: readiness, seeded: seeded, hash: hash,
     srs: function () { return load(KEYS.srs, {}); },
-    exportAll: exportAll, importAll: importAll, merge: merge, isEmpty: isEmpty, clearAll: clearAll, save: save
+    exportAll: exportAll, importAll: importAll, merge: merge, isEmpty: isEmpty, clearAll: clearAll, resetAll: resetAll, save: save
   };
 })();

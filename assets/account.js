@@ -9,16 +9,22 @@
   var OWNER = "cams.owner.v1";
   var SDK = "assets/vendor/supabase.min.js"; // @supabase/supabase-js 2.117.2 (UMD), self-hosted
 
-  var client = null, user = null, syncedFor = null;
+  var client = null, user = null;
+  var mergedFor = null;   // user id whose cloud copy has been merged into this device. Nothing is uploaded before that.
+  var syncingFor = null;  // first pull + merge in progress for this user id
+  var retryTimer = null, retryN = 0, announce = /access_token|type=signup|[?&]code=/.test(location.hash + location.search);
   var pushTimer = null, dirty = false, state = "idle"; // idle | syncing | saved | error | offline
+  var chain = Promise.resolve();                      // uploads run one at a time
   var enabled = !!(cfg.supabaseUrl && cfg.supabaseAnonKey);
 
+  function ready() { return !!(client && user && mergedFor === user.id); }
   window.CAMSSync = {
     schedule: function () {
       if (!client || !user) return;
       dirty = true;
+      if (!ready()) return;   // the first merge uploads everything once it completes
       clearTimeout(pushTimer);
-      pushTimer = setTimeout(push, 1500);
+      pushTimer = setTimeout(autoPush, 1500);
     }
   };
   window.CAMSAccount = {
@@ -26,7 +32,17 @@
     user: function () { return user; },
     client: function () { return client; },
     name: function () { return displayName(); },
-    open: function (view) { openModal(view || "signup"); }
+    open: function (view) { openModal(view || "signup"); },
+    // Updates the account's metadata (e.g. leaderboard membership) and returns the updated user.
+    setMeta: function (data) {
+      if (!client || !user) return Promise.reject(new Error("Not signed in"));
+      return client.auth.updateUser({ data: data }).then(function (r) {
+        if (r.error) throw r.error;
+        user = r.data.user;
+        renderSlot();
+        return user;
+      });
+    }
   };
 
   function esc(s) {
@@ -37,6 +53,7 @@
   function getOwner() { try { return localStorage.getItem(OWNER); } catch (e) { return null; } }
   function setOwner(v) { try { if (v) localStorage.setItem(OWNER, v); else localStorage.removeItem(OWNER); } catch (e) { /* ignore */ } }
   function refreshUI() { renderSlot(); if (window.CAMSUI) window.CAMSUI.refresh(); }
+  // Private label for this device's UI (the leaderboard only ever uses a name the user chose).
   function displayName(u) {
     u = u || user;
     if (!u) return "";
@@ -117,7 +134,7 @@
         '<div class="m-stats"><div><b>Lv ' + lv.level + "</b><span>" + esc(PG.titleFor(lv.level)) + "</span></div><div><b>" + g.xp.toLocaleString() +
         "</b><span>XP</span></div><div><b>🔥 " + st.current + "</b><span>streak</span></div><div><b>" + Object.keys(g.badges).length + "</b><span>badges</span></div></div>" +
         '<p class="m-sync"><i class="sync-dot ' + state + '"></i>' + stateText + "</p>" +
-        '<form id="mForm" novalidate>' + field("mName", "Display name", "text", 'maxlength="40" value="' + esc(displayName()) + '"') +
+        '<form id="mForm" novalidate>' + field("mName", "Display name", "text", 'maxlength="40" value="' + esc((user.user_metadata && user.user_metadata.display_name) || "") + '" placeholder="Shown on the leaderboard if you join"') +
         '<div class="m-msg" id="mMsg" role="status"></div><button class="btn m-submit" type="submit">Save name</button></form>' +
         '<button class="btn danger m-out" id="mOut" type="button">Sign out</button>';
     }
@@ -159,19 +176,21 @@
     var ev = email && email.value.trim(), pv = pass && pass.value;
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ev)) return msg("Enter a valid email address.", "err");
     if (pass && pv.length < 8) return msg("Password must be at least 8 characters.", "err");
+    if (!client) return msg("Still connecting… please try again in a few seconds.", "err");
     busy(form, true);
     msg("");
     var p;
     var redirect = location.origin + location.pathname;
+    try {
     if (view === "signup") {
-      p = client.auth.signUp({ email: ev, password: pv, options: { data: { display_name: (name && name.value.trim()) || ev.split("@")[0] }, emailRedirectTo: redirect } })
+      p = client.auth.signUp({ email: ev, password: pv, options: { data: { display_name: (name && name.value.trim().slice(0, 40)) || "" }, emailRedirectTo: redirect } })
         .then(function (r) {
           if (r.error) throw r.error;
           if (!r.data.session) msg("Almost there! We sent a confirmation link to " + ev + ". Open it, then sign in.", "ok");
           else closeModal();
         });
     } else if (view === "signin") {
-      p = client.auth.signInWithPassword({ email: ev, password: pv }).then(function (r) { if (r.error) throw r.error; closeModal(); });
+      p = client.auth.signInWithPassword({ email: ev, password: pv }).then(function (r) { if (r.error) throw r.error; announce = true; closeModal(); });
     } else if (view === "forgot") {
       p = client.auth.resetPasswordForEmail(ev, { redirectTo: redirect }).then(function (r) {
         if (r.error) throw r.error;
@@ -192,7 +211,8 @@
         msg("Saved.", "ok");
       });
     }
-    p.catch(function (e) { msg(friendly(e), "err"); }).then(function () { busy(form, false); });
+    } catch (e) { p = Promise.reject(e); }
+    Promise.resolve(p).catch(function (e) { msg(friendly(e), "err"); }).then(function () { busy(form, false); });
   }
 
   // ---------- Sync ----------
@@ -202,68 +222,110 @@
     Array.prototype.forEach.call(dots, function (d) { d.className = "sync-dot " + s; });
   }
 
-  function pull() {
-    return client.from("progress").select("data").eq("user_id", user.id).maybeSingle().then(function (r) {
+  function pull(uid) {
+    return client.from("progress").select("data").eq("user_id", uid).maybeSingle().then(function (r) {
       if (r.error) throw r.error;
       return r.data ? r.data.data : null;
     });
   }
 
+  // Merge on write: fetch the cloud copy, merge it with this device, and store the result on both sides,
+  // so a tab left open (or another device) never overwrites progress made elsewhere.
+  // Resolves once the cloud copy is up to date; rejects when offline, before the first merge, or on error.
   function push() {
-    if (!client || !user) return Promise.resolve();
-    if (!navigator.onLine) { setState("offline"); return Promise.resolve(); }
+    if (!ready()) return Promise.reject(new Error("Not synced yet"));
+    if (!navigator.onLine) { dirty = true; setState("offline"); return Promise.reject(new Error("Offline")); }
+    var uid = user.id;
     clearTimeout(pushTimer);
     dirty = false;
     setState("syncing");
-    return client.from("progress").upsert({ user_id: user.id, data: PG.exportAll(), updated_at: new Date().toISOString() })
-      .then(function (r) {
+    var run = chain.then(function () {
+      return pull(uid).then(function (remote) {
+        if (!user || user.id !== uid) throw new Error("Account changed");
+        var data = remote ? PG.merge(PG.exportAll(), remote) : PG.exportAll();
+        if (remote) PG.importAll(data);
+        return client.from("progress").upsert({ user_id: uid, data: data, updated_at: new Date().toISOString() });
+      }).then(function (r) {
         if (r.error) throw r.error;
-        setState("saved");
+        if (!dirty) setState("saved");
         if (window.CAMSLeaderboard) window.CAMSLeaderboard.schedule();
-      })
-      .catch(function () {
-        dirty = true;
-        setState("error");
-        pushTimer = setTimeout(push, 15000);
       });
+    });
+    chain = run.catch(function () { /* handled below */ });
+    return run.catch(function (e) {
+      if (user && user.id === uid) {
+        dirty = true;
+        setState(navigator.onLine ? "error" : "offline");
+        clearTimeout(pushTimer);
+        pushTimer = setTimeout(autoPush, 15000);
+      }
+      throw e;
+    });
+  }
+  function autoPush() { push().catch(function () { /* retried later */ }); }
+
+  // First sync after sign-in: pull the cloud copy and merge it into this device. Retried with backoff until it works.
+  function initialSync(u) {
+    if (mergedFor === u.id || syncingFor === u.id) return;
+    syncingFor = u.id;
+    clearTimeout(retryTimer);
+    setState("syncing");
+    pull(u.id).then(function (remote) {
+      if (syncingFor !== u.id || !user || user.id !== u.id) return;
+      var owner = getOwner();
+      // Progress left on this device by another account is never merged into this one.
+      var data = owner && owner !== u.id ? (remote || {}) : PG.merge(PG.exportAll(), remote);
+      PG.importAll(data);
+      setOwner(u.id);
+      mergedFor = u.id;
+      syncingFor = null;
+      retryN = 0;
+      PG.checkBadges({ bank: window.CAMS_QUESTIONS || [] });
+      refreshUI();
+      if (announce && window.CAMSUI) window.CAMSUI.toast('<span class="ti">☁️</span><div><b>Signed in as ' + esc(displayName()) + "</b><span>Your progress is synced</span></div>");
+      announce = false;
+      return push().catch(function () { /* retried later */ });
+    }).catch(function () {
+      if (syncingFor !== u.id) return;
+      syncingFor = null;
+      setState(navigator.onLine ? "error" : "offline");
+      renderSlot();
+      retryTimer = setTimeout(function () { if (user && user.id === u.id) initialSync(u); }, Math.min(60000, 2000 * Math.pow(2, retryN++)));
+    });
   }
 
   function onSignedIn(u) {
+    if (user && user.id !== u.id) { mergedFor = null; syncingFor = null; clearTimeout(pushTimer); }
     user = u;
     renderSlot();
-    if (syncedFor === u.id) return;
-    syncedFor = u.id;
-    setState("syncing");
-    pull().then(function (remote) {
-      var owner = getOwner();
-      var local = PG.exportAll();
-      var data;
-      if (owner && owner !== u.id) data = remote || {};          // this device held someone else's progress
-      else data = PG.merge(local, remote);                         // anonymous or same user: combine
-      PG.importAll(data);
-      setOwner(u.id);
-      PG.checkBadges({ bank: window.CAMS_QUESTIONS || [] });
-      return push();
-    }).then(function () {
-      refreshUI();
-      if (window.CAMSUI) window.CAMSUI.toast('<span class="ti">☁️</span><div><b>Signed in as ' + esc(displayName()) + "</b><span>Your progress is synced</span></div>");
-    }).catch(function () { setState("error"); renderSlot(); });
+    initialSync(u);
+  }
+  function resetSync() {
+    clearTimeout(pushTimer); clearTimeout(retryTimer);
+    user = null; mergedFor = null; syncingFor = null; dirty = false; retryN = 0;
+    setState("idle");
   }
 
   function signOut() {
-    var done = function () {
-      client.auth.signOut().then(function () {
-        PG.clearAll();
-        try { localStorage.removeItem("cams.session.v1"); } catch (e) { /* ignore */ }
-        setOwner(null);
-        user = null;
-        syncedFor = null;
-        closeModal();
-        refreshUI();
-        if (window.CAMSUI) window.CAMSUI.toast('<span class="ti">👋</span><div><b>Signed out</b><span>Your progress is saved in your account</span></div>');
-      });
+    var btn = document.getElementById("mOut");
+    if (btn) btn.disabled = true;
+    push().then(function () { finishSignOut(true); }, function () {
+      if (confirm("Your latest progress could not be saved to your account (you may be offline). If you sign out now, it will be lost on this device. Sign out anyway?")) finishSignOut(false);
+      else if (btn) btn.disabled = false;
+    });
+  }
+  function finishSignOut(saved) {
+    resetSync();   // stops any further upload right away
+    var clearLocal = function () {
+      PG.clearAll();
+      try { localStorage.removeItem("cams.session.v1"); } catch (e) { /* ignore */ }
+      setOwner(null);
+      closeModal();
+      refreshUI();
+      if (window.CAMSUI) window.CAMSUI.toast('<span class="ti">👋</span><div><b>Signed out</b><span>' + (saved ? "Your progress is saved in your account" : "This device's unsaved progress was removed") + "</span></div>");
     };
-    push().then(done, done);
+    // Local scope: other devices stay signed in.
+    client.auth.signOut({ scope: "local" }).then(clearLocal, clearLocal);
   }
 
   function loadSdk() {
@@ -291,12 +353,24 @@
         // Defer: supabase-js recommends not awaiting other calls inside this callback.
         setTimeout(function () { onSignedIn(session.user); }, 0);
       } else if (event === "SIGNED_OUT") {
-        user = null;
-        renderSlot();
+        // Session ended (signed out here or elsewhere, password changed, expired). Local progress stays on
+        // this device, owned by that account: signing in again re-runs the full pull and merge.
+        resetSync();
+        refreshUI();
       }
     });
-    window.addEventListener("online", function () { if (dirty) push(); });
-    document.addEventListener("visibilitychange", function () { if (document.visibilityState === "hidden" && dirty) push(); });
+    window.addEventListener("online", function () {
+      if (!user) return;
+      if (mergedFor !== user.id) { retryN = 0; initialSync(user); }
+      else if (dirty) autoPush();
+    });
+    var hiddenAt = 0;
+    document.addEventListener("visibilitychange", function () {
+      if (!ready()) return;
+      if (document.visibilityState === "hidden") { hiddenAt = Date.now(); if (dirty) autoPush(); return; }
+      // Back to a tab left in the background: pick up progress made on other devices.
+      if (hiddenAt && Date.now() - hiddenAt > 60000) autoPush();
+    });
   }).catch(function () {
     enabled = false;
     renderSlot();
