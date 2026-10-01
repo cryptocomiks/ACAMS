@@ -170,8 +170,16 @@
   function startSession(mode, opts) {
     opts = opts || {};
     var qs = pickQuestions(mode, opts);
+    // A filter with nothing in it (no mistakes yet, etc.) must never block training: fall back to all questions.
+    if (!qs.length && mode !== "review" && mode !== "daily" && !opts.ids && (opts.source !== "fresh" || (opts.domain && opts.domain !== "all"))) {
+      var why = opts.source === "mistakes" ? "No mistakes to review right now" : "Nothing left for this filter";
+      opts = { domain: "all", source: "fresh" };
+      qs = pickQuestions(mode, opts);
+      if (qs.length) setTimeout(function () { toast('<span class="ti">💡</span><div><b>' + why + '</b><span>Here is a mixed set from the whole bank instead.</span></div>'); }, 400);
+    }
     if (!qs.length) {
-      alert(mode === "review" ? "Nothing due for review right now. Come back later, or start a practice test."
+      if (mode === "review") return startSession("practice", { domain: "all", source: "fresh" });
+      alert(mode === "review" ? "Nothing due for review right now."
         : opts.source === "mistakes" ? "No missed questions yet for this selection. Take a test first!"
         : "No questions available for this selection.");
       return false;
