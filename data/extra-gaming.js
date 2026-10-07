@@ -36,13 +36,15 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The manager is right: without placement, layering or integration nothing was laundered, so this is only a fraud matter for the police",
       "Gambling with criminal property is laundering even if the money is simply lost, so staff should report internally for a SAR decision",
       "A report is needed only if Varley comes back, because the casino is not expected to report activity by customers who stopped visiting",
-      "Only the cash buy-ins of €2,000 or more need to be reported, because smaller amounts fall outside the Money Laundering Regulations"
+      "Only the cash buy-ins of £2,000 or more need to be reported, because smaller amounts fall outside the Money Laundering Regulations"
     ],
     answer: [1],
-    explanation: "The Gambling Commission's guidance says the money laundering offence includes simple criminal spend, meaning the use of criminal proceeds to gamble for leisure or to fund an addiction, and that it may involve none of the typical laundering stages. The UK's 2025 National Risk Assessment adds that recreational spending of criminal property is the most common form of laundering through licensed casinos. Staff should report to the nominated officer, who decides on a SAR to the NCA. The runner-up wrongly treats placement, layering and integration as required elements. The €2,000 threshold triggers CDD, not reporting, and the duty arises whenever knowledge or suspicion arises.",
+    changed: "UK casino CDD threshold in MLR reg 27(5) became £2,000 (previously €2,000) from 30 June 2026 (SI 2026/621)",
+    explanation: "The Gambling Commission's guidance says the money laundering offence includes simple criminal spend, meaning the use of criminal proceeds to gamble for leisure or to fund an addiction, and that it may involve none of the typical laundering stages. The UK's 2025 National Risk Assessment (para 5.154) adds that recreational spending of criminal property is the most common form of laundering through licensed casinos. Staff should report to the nominated officer, who decides on a SAR to the NCA. The runner-up wrongly treats placement, layering and integration as required elements. The £2,000 threshold in regulation 27 of the MLRs triggers CDD, not reporting, and the reporting duty arises whenever knowledge or suspicion arises, whatever the amount.",
     source: [
-      { label: "Gambling Commission – AML guidance for casinos (5th ed., rev. 5), para 1.10 (criminal spend)", url: "https://www.gamblingcommission.gov.uk/guidance/the-prevention-of-money-laundering-and-combating-the-financing-of-terrorism" },
-      { label: "HM Treasury/Home Office – UK National Risk Assessment of ML and TF 2025 (casinos)", url: "https://www.gov.uk/government/publications/national-risk-assessment-of-money-laundering-and-terrorist-financing-2025" }
+      { label: "Gambling Commission – AML guidance for casinos (5th ed., rev. 5, Oct 2025), para 1.10 (criminal spend)", url: "https://www.gamblingcommission.gov.uk/guidance/the-prevention-of-money-laundering-and-combating-the-financing-of-terrorism" },
+      { label: "HM Treasury/Home Office – UK National Risk Assessment of ML and TF 2025, para 5.154", url: "https://assets.publishing.service.gov.uk/media/6877be59760bf6cedaf5bd4f/National_Risk_Assessment_of_Money_Laundering_and_Terrorist_Financing_2025_FINAL.pdf" },
+      { label: "Money Laundering Regulations 2017, reg 27(5)-(6) (casino CDD threshold, as amended)", url: "https://www.legislation.gov.uk/uksi/2017/692/regulation/27" }
     ] },
 
   { id: "GAME-004", domain: 1, topic: "Casinos: proxy ('human head') gambling", hy: false, difficulty: "hard",
@@ -68,10 +70,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Refining, in which the customer swaps small-denomination notes for large ones at the counter to make cash easier to move"
     ],
     answer: [0],
-    explanation: "The FATF's 2026 gaming and gambling indicators list cash loading of digital accounts (for example through a betting shop linked to a remote account with the same operator), numerous cash deposits within short time frames, short-odds bets used to justify withdrawals, and deposits followed by withdrawals with minimal play. The Gambling Commission's casino guidance likewise warns that criminal proceeds may be paid into an internet gambling account at a land-based venue. Repeated loads minutes apart at neighbouring shops look designed to avoid attention. Refining is the runner-up, but no notes were exchanged and the money left by bank transfer; he withdrew almost everything, which does not fit loss-chasing.",
+    explanation: "The FATF's 2026 gaming and gambling indicators list cash loading of digital accounts (for example through a betting shop linked to a remote account with the same operator), numerous cash deposits within short time frames, short-odds bets used to justify withdrawals, and deposits followed by withdrawals with minimal play. The Gambling Commission's casino guidance likewise warns that customers may deposit criminal proceeds into an internet gambling account at a non-remote casino, and the same risk arises wherever shop counters accept cash for online accounts. Repeated loads minutes apart at neighbouring shops look designed to avoid attention. Refining is the runner-up, but no notes were exchanged and the money left by bank transfer; he withdrew almost everything, which does not fit loss-chasing.",
     source: [
-      { label: "FATF (Sept 2026) – Risks of Gaming and Gambling: red-flag risk indicators", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/risks-of-gaming-and-gambling.html" },
-      { label: "Gambling Commission – AML guidance for casinos (5th ed., rev. 5), para 2.23", url: "https://www.gamblingcommission.gov.uk/guidance/the-prevention-of-money-laundering-and-combating-the-financing-of-terrorism" }
+      { label: "FATF (Sept 2026) – Risks of Gaming and Gambling: red-flag risk indicators (payment methods; betting patterns)", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/risks-of-gaming-and-gambling.html" },
+      { label: "Gambling Commission – AML guidance for casinos (5th ed., rev. 5, Oct 2025), para 2.23", url:"https://www.gamblingcommission.gov.uk/guidance/the-prevention-of-money-laundering-and-combating-the-financing-of-terrorism" }
     ] },
 
   { id: "GAME-006", domain: 1, topic: "Junkets: pooled funds and hidden players", hy: true, difficulty: "hard",
@@ -83,9 +85,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Foreign junket players are by definition politically exposed persons, so enhanced due diligence must apply to all of them"
     ],
     answer: [2],
-    explanation: "The FATF/APG casino report (2009) explains that junket players rely on the operator to move their funds, which creates layers of obscurity around the source and ownership of the money and the players' identities; in one case all the money went through the operator's accounts, so the casino bypassed identifying the source and beneficial owner of the funds. The FATF's 2026 findings say junkets still pose risks from player anonymity and the obscured beneficial ownership of junket operators. Commission terms are the runner-up but are a commercial and credit issue. Identifying players does not reveal whose money is played, and foreign players are not automatically PEPs.",
+    explanation: "The FATF/APG casino report (2009, para 153) explains that junket players rely on the operator to move their funds, which creates layers of obscurity around the source and ownership of the money and the players' identities; in one case (Case 24) all the money went through the operator's accounts, so the casino bypassed identifying the source and beneficial owner of the funds. The FATF's 2026 findings say junkets still pose risks from player anonymity and the obscured beneficial ownership of junket operators. Commission terms are the runner-up but are a commercial and credit issue. Identifying players does not reveal whose money is played, and foreign players are not automatically PEPs.",
     source: [
-      { label: "FATF/APG (March 2009) – Vulnerabilities of Casinos and Gaming Sector, paras 150-155", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/Vulnerabilitiesofcasinosandgamingsector.html" },
+      { label: "FATF/APG (March 2009) – Vulnerabilities of Casinos and Gaming Sector, paras 150-155 and Case 24 (EAG-hosted copy)", url: "https://eurasiangroup.org/files/FATF_docs/Casinos_and_Gaming_Sector.pdf" },
       { label: "FATF (Sept 2026) – Risks of Gaming and Gambling, key findings", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/risks-of-gaming-and-gambling.html" }
     ] },
 
@@ -98,10 +100,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Structuring of prize claims to keep each payment below the operator's prize verification threshold"
     ],
     answer: [1],
-    explanation: "The FATF's 2026 indicators include buying, or trying to buy, winning claim instruments such as lottery tickets from another customer and presenting them as one's own, and an improbable, sustained winning streak. The FATF/APG 2009 casino report describes Spanish cases in which drug trafficking, corruption and tax fraud proceeds were laundered by buying winning lottery tickets from legitimate gamblers. The winner gets a cash premium, and the launderer gets a prize payment that explains the money. Retailer fraud is the runner-up, but Vela is not a retailer and the tickets came from many shops; nothing suggests a syndicate, and the prizes vary too widely for structuring.",
+    explanation: "The FATF's 2026 indicators include buying, or trying to buy, winning claim instruments such as lottery tickets from another customer and presenting them as one's own, and an improbable, sustained winning streak. The FATF/APG 2009 casino report (Case 16) describes Spanish investigations, mainly into drug trafficking, corruption and tax fraud, in which proceeds were laundered by buying winning lottery tickets from legitimate gamblers. The launderer then receives a prize payment that gives the money an apparently lawful source. Retailer fraud is the runner-up, but Vela is not a retailer and the tickets came from many shops; nothing suggests a syndicate, and the prizes vary too widely for structuring.",
     source: [
       { label: "FATF (Sept 2026) – Risks of Gaming and Gambling: red-flag risk indicators", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/risks-of-gaming-and-gambling.html" },
-      { label: "FATF/APG (March 2009) – Vulnerabilities of Casinos and Gaming Sector (winnings typologies)", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/Vulnerabilitiesofcasinosandgamingsector.html" }
+      { label: "FATF/APG (March 2009) – Vulnerabilities of Casinos and Gaming Sector, Case 16 (EAG-hosted copy)", url: "https://eurasiangroup.org/files/FATF_docs/Casinos_and_Gaming_Sector.pdf" }
     ] },
 
   { id: "GAME-008", domain: 1, topic: "Online gambling groups: brand-hopping to evade restrictions", hy: true, difficulty: "hard",
@@ -123,14 +125,14 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Staff at a high-street betting shop empty the note acceptor of a gaming machine and find 40 £20 notes with pink staining along one edge. CCTV shows that a man in a cap inserted them over 20 minutes, played briefly, and cashed the resulting ticket at the counter. He is not a known customer, and the manager notes that the machine was last serviced three weeks ago. The area manager suggests banking the notes as usual because the amount is small. What is the BEST response?",
     options: [
       "Tell the police through the non-emergency route and submit a SAR to the NCA, since suspicion exists whatever the amount",
-      "Bank the notes as usual and log the incident, because £800 is below the threshold for customer due diligence",
+      "Bank the notes as usual and log the incident, because £800 is too small a sum to require any report",
       "Keep the notes and return them to the customer on his next visit, asking him to exchange them at his own bank",
       "Refer the matter to the machine supplier, because staining usually points to a fault in the note acceptor"
     ],
     answer: [0],
-    explanation: "The Gambling Commission's risk assessment for land-based betting notes that dyed notes have been found in gaming machines. Its industry alert asks operators to report them to the local police through non-emergency contact options, and it is mandatory to submit a SAR to the NCA where there is knowledge or suspicion of money laundering, which the Commission expects in all cases where dyed notes are found. The size of the sum does not matter, because the CDD threshold has nothing to do with the duty to report. Returning or banking the notes ignores the suspicion, and the staining has nothing to do with the machine.",
+    explanation: "The Gambling Commission's risk assessment for land-based betting notes that dyed notes have been found in gaming machines. Its industry alert asks operators to report them to the local police through non-emergency contact options, and it is mandatory to submit a SAR to the NCA where there is knowledge or suspicion of money laundering, which the Commission expects in all cases where dyed notes are found. The size of the sum does not matter: no minimum amount applies to reporting suspicion. Banking the notes or handing them back would deal with suspected criminal property while ignoring the suspicion, and the dye is on the notes themselves, so it does not point to a machine fault.",
     source: [
-      { label: "Gambling Commission – ML/TF risks in the British gambling industry: Betting (Non-remote)", url: "https://www.gamblingcommission.gov.uk/guidance/The-money-laundering-and-terrorist-financing-risks-within-the-British-gambling-industry/betting-non-remote" }
+      { label: "Gambling Commission – ML/TF risks in the British gambling industry: Betting (Non-remote), dyed notes", url: "https://www.gamblingcommission.gov.uk/guidance/The-money-laundering-and-terrorist-financing-risks-within-the-British-gambling-industry/betting-non-remote" }
     ] },
 
   { id: "GAME-010", domain: 1, topic: "Esports betting: spot-fixing in low-level competitions", hy: true, difficulty: "hard",
@@ -201,9 +203,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The return to player means Teller is certain to lose most of his deposits, so laundering through the game cannot work"
     ],
     answer: [0],
-    explanation: "The UK's 2025 National Risk Assessment notes that crash games, offered by crypto casinos (illegal if accessible from the UK) and by some licensed operators, may give criminals an opportunity to launder through regulated casinos: because legitimate players also cash out quickly, criminals can hide the high-risk behaviour of quick cash-outs after limited play. Prepaid cards are higher risk, but they can be monitored, and the Gambling Commission treats them like cash. Cashing out at 1.05x keeps losses small, so the return to player does not prevent laundering.",
+    explanation: "The UK's 2025 National Risk Assessment notes that crash games, offered by crypto casinos (illegal if accessible from the UK) and by some licensed operators, may give criminals an opportunity to launder through regulated casinos: because legitimate players also cash out quickly, criminals can hide the high-risk behaviour of quick cash-outs after limited play. Prepaid cards are higher risk (the Gambling Commission's casino guidance says they pose the same risks as cash), but they can still be monitored. Cashing out at 1.05x keeps losses small, so the return to player does not prevent laundering.",
     source: [
-      { label: "HM Treasury/Home Office – UK National Risk Assessment of ML and TF 2025, para 5.169", url: "https://www.gov.uk/government/publications/national-risk-assessment-of-money-laundering-and-terrorist-financing-2025" }
+      { label: "HM Treasury/Home Office – UK National Risk Assessment of ML and TF 2025, para 5.169", url: "https://assets.publishing.service.gov.uk/media/6877be59760bf6cedaf5bd4f/National_Risk_Assessment_of_Money_Laundering_and_Terrorist_Financing_2025_FINAL.pdf" },
+      { label: "Gambling Commission – AML guidance for casinos (5th ed., rev. 5, Oct 2025), para 2.23 (pre-paid cards)", url: "https://www.gamblingcommission.gov.uk/guidance/the-prevention-of-money-laundering-and-combating-the-financing-of-terrorism" }
     ] },
 
   { id: "GAME-015", domain: 1, topic: "Online casinos: third-party prepaid funding and foreign e-wallet withdrawals", hy: true, difficulty: "hard",
@@ -215,14 +218,15 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Her recent registration, which means the operator has not yet completed enhanced due diligence on her"
     ],
     answer: [2],
-    explanation: "The FATF's 2026 indicators include multiple payment methods in different names linked to one account, deposits followed by withdrawals with minimal play, attempts to withdraw to an account other than the source of funds, and e-wallets held by foreign payment institutions. The Gambling Commission says prepaid cards pose the same risks as cash and that operators should run a closed loop, paying customers back to the card they deposited with. Even-money roulette is the runner-up, but the roulette technique the guidance describes involves equal, opposite stakes on red and black, which she is not doing. A bank gambling block or a new account is not suspicious in itself.",
+    explanation: "The FATF's 2026 indicators include multiple payment methods in different names linked to one account, deposits followed by withdrawals with minimal play, attempts to withdraw to an account other than the source of funds, and e-wallets held by foreign payment institutions. The Gambling Commission's casino guidance says pre-paid cards pose the same risks as cash, and its remote casino risk assessment strongly recommends a closed loop, paying customers back to the card they deposited with. Even-money roulette is the runner-up: the FATF does list frequent low-risk, low-return play as an indicator, but on its own it is weak and also fits ordinary cautious play, and she is not placing the equal, opposite stakes on red and black that the guidance describes. A bank gambling block or a new account is not suspicious in itself.",
     source: [
       { label: "FATF (Sept 2026) – Risks of Gaming and Gambling: red-flag risk indicators", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/risks-of-gaming-and-gambling.html" },
-      { label: "Gambling Commission – ML/TF risks in the British gambling industry: Casino (Remote)", url: "https://www.gamblingcommission.gov.uk/guidance/The-money-laundering-and-terrorist-financing-risks-within-the-British-gambling-industry/casino-remote" }
+      { label: "Gambling Commission – ML/TF risks in the British gambling industry: Casino (Remote), closed loop", url: "https://www.gamblingcommission.gov.uk/guidance/The-money-laundering-and-terrorist-financing-risks-within-the-British-gambling-industry/casino-remote" },
+      { label: "Gambling Commission – AML guidance for casinos (5th ed., rev. 5, Oct 2025), paras 2.23 and 2.25", url: "https://www.gamblingcommission.gov.uk/guidance/the-prevention-of-money-laundering-and-combating-the-financing-of-terrorism" }
     ] },
 
   { id: "GAME-016", domain: 1, topic: "B2B game suppliers: games reaching unlicensed operators", hy: false, difficulty: "hard",
-    q: "Lumen Live, a games studio, holds UK gambling software and game host licences and supplies live-dealer games to about 40 operators worldwide. Its ML/TF risk assessment, last updated in 2022, covers only its direct customers' licences, checked at onboarding. In 2026 its traffic data show heavy play from British IP addresses on six websites run by two Curaçao-based customers that hold no UK licence. The commercial director notes that both customers pay on time, that the games are independently certified as fair, and that the contracts make geo-blocking the operators' responsibility. What is the MOST important lesson for Lumen Live from the UK regulator's perspective?",
+    q: "Lumen Live, a games studio, holds Gambling Commission gambling software and casino game host licences and supplies live-dealer games to about 40 operators worldwide. Its ML/TF risk assessment, last updated in 2022, covers only its direct customers' licences, checked at onboarding. In 2026 its traffic data show heavy play from British IP addresses on six websites run by two Curaçao-based customers that hold no UK licence. The commercial director notes that both customers pay on time, that the games are independently certified as fair, and that the contracts make geo-blocking the operators' responsibility. What is the MOST important lesson for Lumen Live from the UK regulator's perspective?",
     options: [
       "Because the games are certified as fair, the supplier carries no laundering risk from where they are played",
       "It must keep its risk assessment current and know how and where its games are actually accessed, whatever the contracts say",
@@ -230,23 +234,23 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "It should make its customers sign annual compliance certificates, which transfer the legal responsibility to them"
     ],
     answer: [1],
-    explanation: "In July 2026 the Gambling Commission announced a £4.75 million settlement with Evolution Malta Holding, a software and game host licensee whose games appeared on six unlicensed websites accessible from Great Britain. Its risk assessment was outdated and did not flag that two business customers were supplying its games to British consumers without a licence, and it breached the regulations on risk assessment, policies and controls, and CDD. The Commission said suppliers must understand who they supply, how and where their games are accessed in practice, and keep their risk assessments current and tested. Contracts and certificates (the runner-up) do not transfer the supplier's own obligations.",
+    explanation: "In July 2026 the Gambling Commission announced a £4.75 million settlement with Evolution Malta Holding, a gambling software and casino game host licensee whose games appeared on six unlicensed websites accessible to consumers in Great Britain. Its risk assessment was outdated and did not flag that two business customers were supplying its games to British consumers without a licence, and it breached the regulations on risk assessment, policies and controls, and CDD. The Commission said suppliers must understand who they supply, how and where their games are accessed in practice, and keep their risk assessments current and tested. Contracts and certificates (the runner-up) do not transfer the supplier's own obligations.",
     source: [
       { label: "Gambling Commission news, 23 July 2026 – Evolution Malta Holding Limited to pay £4.75m", url: "https://www.gamblingcommission.gov.uk/news/article/evolution-malta-holding-limited-to-pay-gbp4-75m" }
     ] },
 
-  { id: "GAME-017", domain: 1, topic: "US online sportsbooks under a casino's licence", hy: false, difficulty: "medium",
-    q: "Riverbend Casino, a state-licensed US casino subject to the BSA, lets an online sportsbook app operate under its licence through a market-access agreement. The app has 90,000 customers in the state and runs its own onboarding and monitoring. Riverbend's compliance officer receives only monthly revenue reports from the app and has never seen its SAR decisions. The app's chief executive says it is not a casino for BSA purposes because it holds no casino licence of its own. According to the US 2024 National Money Laundering Risk Assessment, what is the MOST significant vulnerability in this model?",
+  { id: "GAME-017", domain: 1, topic: "US sweepstakes casinos outside casino regulation (2026 NMLRA)", hy: false, difficulty: "medium",
+    q: "Cedar Valley Bank's monitoring flags Troy Bennett, a 31-year-old delivery driver. In two months his account received 37 payouts totalling $46,000 from an online sweepstakes casino. The site lets people play slot-style games for free, sells bundles of 'gold coins', and gives players 'sweeps coins' that can be redeemed for cash. Bennett says most of his play was funded by 'friends from the game' who bought coin bundles for him. The relationship manager wants to close the alert, saying the site is a casino and so has its own Bank Secrecy Act program. According to Treasury's 2026 National Money Laundering Risk Assessment, what is the BEST assessment?",
     options: [
-      "Online sports betting involves no cash, so the app presents lower risk than the casino's cage and table games",
-      "The app must file CTRs on all customer deposits, so its reporting volume will overwhelm the casino's team",
-      "Sports betting is a game of skill, so wagers placed through the app fall entirely outside the BSA",
-      "The casino may have little visibility into crime on the third-party app, which may not see itself as bound by the BSA"
+      "The manager is right, because sweepstakes casinos are BSA-covered casinos whose own AML programs mitigate the risk",
+      "Sweepstakes casinos generally fall outside casino and gambling regulation, and that lack of oversight can make them attractive for laundering",
+      "Sweepstakes play is legally a game of skill, so redemptions cannot involve criminal proceeds and need no further review",
+      "The only concern is consumer protection, because coins won on a sweepstakes site have no cash value"
     ],
-    answer: [3],
-    explanation: "The 2024 NMLRA explains that most US sports betting runs on online platforms, often as third-party operators under licensing arrangements with BSA-covered casinos. It warns that such platforms may lack robust AML/CFT controls or be unaware of BSA obligations that apply as an extension of the licensing arrangement, and that the covered casino could have limited visibility into criminal activity on the third-party operator's services. Online betting is not low risk simply because it is cashless, CTRs apply to currency rather than all deposits, and the skill argument misstates the rules.",
+    answer: [1],
+    explanation: "The 2026 NMLRA describes sweepstakes casinos as services offering casino games for free with a dual-currency system in which players earn coins they can later cash out for fiat currency or digital assets. That model means they are not subject to many casino or online gambling rules, yet they are vulnerable to the same laundering methods as casinos and may be especially attractive to criminals because of the lack of oversight. Third-party funding and large cash-outs inconsistent with Bennett's income therefore need review and a SAR decision. The manager's view (the runner-up) assumes BSA coverage that generally does not exist. The coins here are redeemable for cash, and the NMLRA uses the 'game of skill' label for fantasy sports; no such label stops a service from being used to launder criminal proceeds.",
     source: [
-      { label: "US Treasury – 2024 National Money Laundering Risk Assessment (Special Focus: Online Gaming)", url: "https://home.treasury.gov/system/files/136/2024-National-Money-Laundering-Risk-Assessment.pdf" }
+      { label: "US Treasury – 2026 National Money Laundering Risk Assessment, Casinos and Gaming: Non-Casino Gaming and Gambling", url: "https://home.treasury.gov/system/files/246/2026-NMLRA.pdf" }
     ] },
 
   { id: "GAME-018", domain: 1, topic: "Matched betting and bonus abuse through relatives' accounts", hy: false, difficulty: "hard",
@@ -258,7 +262,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The main risk is credit risk, because matched betting profits are too irregular to support Marsh's mortgage payments"
     ],
     answer: [0],
-    explanation: "The Gambling Commission's risk assessment for remote betting describes 'mule' betting accounts, opened with third parties' details with or without their knowledge, which hide who places the bets and the source of the funds. It lists bonus abusers alongside money launderers, organised crime groups and match fixers among their users, and says third-party funding of gambling has facilitated laundering. The FATF's 2026 indicators also flag deposits by third parties not clearly related to the account holder. The runner-up overstates the position: breaching bookmakers' terms does not automatically make all his income criminal property, but the nominee structure must be understood.",
+    explanation: "The Gambling Commission's risk assessment for remote betting describes 'mule' betting accounts, opened with third parties' details with or without their knowledge, which hide who places the bets and the source of the funds. It lists bonus abusers alongside money launderers, organised crime groups and match fixers among their users, and says third-party funding of gambling has facilitated laundering. The FATF's 2026 indicators also flag frequent transfers, deposits and payments to or from numerous individuals, and the use of third parties to place bets in an attempt to anonymise gambling. The runner-up overstates the position: breaching bookmakers' terms does not automatically make all his income criminal property, but the nominee structure must be understood.",
     source: [
       { label: "Gambling Commission – ML/TF risks in the British gambling industry: Betting (Remote)", url: "https://www.gamblingcommission.gov.uk/guidance/The-money-laundering-and-terrorist-financing-risks-within-the-British-gambling-industry/betting-remote" },
       { label: "FATF (Sept 2026) – Risks of Gaming and Gambling: red-flag risk indicators", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/risks-of-gaming-and-gambling.html" }
@@ -279,19 +283,19 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "HM Treasury/Home Office – UK National Risk Assessment of ML and TF 2025, para 5.164", url: "https://www.gov.uk/government/publications/national-risk-assessment-of-money-laundering-and-terrorist-financing-2025" }
     ] },
 
-  { id: "GAME-020", domain: 1, topic: "Social media recruitment of betting account mules", hy: false, difficulty: "medium",
-    q: "Ellie Shaw, 19, a first-year student, answers a social media post offering '£200 for 10 minutes' work: open a betting account and an e-wallet, then send us the logins'. The post uses a famous footballer's photo and says the work is 'totally legal affiliate marketing'. Within a week, her new e-wallet receives £6,800 from people she does not know. The money is deposited into the betting account and used for large bets on lower-league football matches abroad. Her bank account receives the promised £200 from yet another person. What is Ellie's account MOST likely being used for?",
+  { id: "GAME-020", domain: 1, topic: "Gambling operators as bank customers: platform-level red flags", hy: true, difficulty: "hard",
+    q: "Westmere Bank is reviewing Orbis Play Ltd, a new corporate customer that holds an online gambling licence and wants a merchant account and a multi-currency payments account. Its due diligence produces the findings below. According to the FATF's 2026 red-flag indicators for gaming and gambling, which findings are the STRONGEST indicators that the platform may be misused for illicit finance? (Choose two.)",
     options: [
-      "Affiliate marketing, in which bookmakers pay commission to people who refer new customers to them",
-      "A romance scam in which Ellie is the victim of a fake celebrity profile seeking her trust",
-      "A mule betting account controlled by a criminal group to place bets and move funds under her identity",
-      "Loan fraud, in which the group will use her details to borrow money in her name without her knowledge"
+      "Its brand name and website address have changed three times in a year, and it did not trade for 18 months after obtaining its licence",
+      "It pays large fees to an offshore 'software and marketing consultancy' for services that its contracts describe only vaguely and that bear no relation to its size",
+      "Its customer numbers and revenue have grown steadily, in line with its published marketing spend",
+      "It takes card deposits through a regulated payment service provider and pays withdrawals back to the same card",
+      "An independent testing house has certified the fairness of its random number generator"
     ],
-    answer: [2],
-    explanation: "The FATF's 2026 findings note that social media is used to recruit money mules and co-ordinate competition manipulation. The Gambling Commission describes mule betting accounts opened with third parties' details, often students targeted by organised crime groups, to spread bets and disguise who is betting and where the money comes from, and Europol reports that criminal groups misuse identities to create betting accounts and e-wallets. Affiliate marketing is the runner-up, but affiliates refer customers and never hand over login details or route third-party money through their own accounts.",
+    answer: [0, 1],
+    explanation: "The FATF's product and platform indicators include frequent changes of platform URLs, website addresses or company or brand names; obtaining a gambling licence followed by a prolonged period of operational inactivity; and third-party contracts with intangible service providers (such as software, marketing, consultancy or technology services) that appear to lack economic or commercial sense, together with business-to-business cross-border flows unrelated to regulated gambling. Steady growth in line with marketing is the opposite of the FATF's indicator of rapid, unexplained growth or sudden revenue spikes. Card payments through a regulated provider with a closed loop and a certified random number generator are features of a well-run operator, not red flags.",
     source: [
-      { label: "FATF (Sept 2026) – Risks of Gaming and Gambling, key findings para 11", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/risks-of-gaming-and-gambling.html" },
-      { label: "Gambling Commission – ML/TF risks in the British gambling industry: Betting (Remote)", url: "https://www.gamblingcommission.gov.uk/guidance/The-money-laundering-and-terrorist-financing-risks-within-the-British-gambling-industry/betting-remote" }
+      { label: "FATF (Sept 2026) – Risks of Gaming and Gambling: red-flag risk indicators (product and platform features)", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/risks-of-gaming-and-gambling.html" }
     ] },
 
   { id: "GAME-021", domain: 4, topic: "Investigating account takeover on a betting account", hy: false, difficulty: "hard",
@@ -332,7 +336,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Submit a SAR to the NCA and seek a defence before paying out the suspected criminal winnings"
     ],
     answer: [0, 2, 4],
-    explanation: "LCCP 15.1.2 requires betting licensees to give the Commission, as soon as reasonably practicable, information they know or suspect relates to an offence under the Gambling Act (sports betting integrity information goes to the Sports Betting Intelligence Unit), and to give sport governing bodies listed in Schedule 6, which include The Football Association, information about suspected breaches of their betting rules. Paying out winnings suspected to be criminal property would be a prohibited act, so a SAR with a request for a defence (DAML) is needed first. Warning the account holders risks tipping off, and waiting for a disciplinary outcome breaches the 'as soon as reasonably practicable' duty.",
+    explanation: "LCCP 15.1.2 requires betting licensees to give the Commission, as soon as reasonably practicable, information they know or suspect relates to an offence under the Gambling Act (sports betting integrity information goes to the Sports Betting Intelligence Unit), and to give sport governing bodies listed in Schedule 6, which include The Football Association, information about suspected breaches of their betting rules. Paying out winnings suspected to be criminal property would be a prohibited act, so a SAR with a request for a defence (DAML) is needed first. Warning the account holders could alert suspected fixers and prejudice an investigation (and, once a SAR is made, risk tipping off), and waiting for a disciplinary outcome breaches the 'as soon as reasonably practicable' duty.",
     source: [
       { label: "Gambling Commission – LCCP 15.1.2 Reporting suspicion of offences etc – betting licences", url: "https://www.gamblingcommission.gov.uk/licensees-and-businesses/lccp/condition/15-1-2-reporting-suspicion-of-offences-etc-betting-licences" },
       { label: "Gambling Act 2005, Schedule 6, Part 3 (sport governing bodies)", url: "https://www.legislation.gov.uk/ukpga/2005/19/schedule/6/part/3" }
