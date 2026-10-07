@@ -25,9 +25,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Only the regulatory fine should count, because Basel treats ML/FT risk as separate from liquidity, legal and operational risk"
     ],
     answer: [1],
-    explanation: "The Basel guidelines describe how banks should include ML/FT risk within their overall risk management. They state that inadequate ML/FT risk management exposes banks to reputational, operational, compliance and concentration risks, and that these risks are interrelated. Beyond fines, they can cause significant financial costs such as the termination of wholesale funding and facilities, claims against the bank, investigation costs, asset seizures and freezes, loan losses and the diversion of management time. Treating ML/FT as a stand-alone compliance issue, or counting only the fine, contradicts this. No criminal conviction is needed for these consequences to follow.",
+    explanation: "The Basel guidelines (January 2014, revised July 2020) describe how banks should include ML/FT risk within their overall risk management. They state that inadequate ML/FT risk management exposes banks to reputational, operational, compliance and concentration risks, and that these risks are interrelated. Beyond fines, they can cause significant financial costs such as the termination of wholesale funding and facilities, claims against the bank, investigation costs, asset seizures and freezes, loan losses and the diversion of management time. Treating ML/FT as a stand-alone compliance issue, or counting only the fine, contradicts this. No criminal conviction is needed for these consequences to follow.",
     source: [
-      { label: "BCBS – Sound management of risks related to ML and FT (paras 1, 6-7), copy hosted by Japan FSA", url: "https://www.fsa.go.jp/inter/bis/20140121-1/02.pdf" }
+      { label: "BCBS – Sound management of risks related to ML and FT (January 2014, rev. July 2020), Introduction paras 1, 6-7", url: "https://www.bis.org/bcbs/publ/d505.pdf" },
+      { label: "Same BCBS guidelines (rev. July 2020), copy hosted by the Nevis Financial Services Regulatory Commission", url: "https://www.nevisfsrc.com/wp-content/uploads/2021/04/Basel-Committee-Guidelines-Sound-Management-of-Risks-Related-to-ML-TF.pdf" }
     ]
   },
   {
@@ -136,7 +137,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "The NCA reports that JMLIT+ supports investigations into complex, multi-institution and multi-jurisdiction money laundering, and has identified more than 10,700 accounts previously unknown to law enforcement. The FATF's 2022 'Partnering in the Fight Against Financial Crime' recommendations stress a clear legal basis, data protection by design, a data protection impact assessment and early engagement with data protection authorities. The EU AMLR (Art. 75) requires a DPIA before any processing, forbids decisions on partnership information without the firm's own assessment, and leaves members' own reporting duties in place.",
     source: [
       { label: "NCA – National Economic Crime Centre: JMLIT+ public-private partnership", url: "https://www.nationalcrimeagency.gov.uk/what-we-do/national-economic-crime-centre" },
-      { label: "FATF – Partnering in the Fight Against Financial Crime (2022), key recommendations (copy hosted by Saudi SAFIU)", url: "https://www.aml.gov.sa/en-us/GuidanceReports/Partnering%20in%20the%20Fight%20against%20Financial%20Crime%20-%20handout.pdf" }
+      { label: "FATF – Partnering in the Fight Against Financial Crime (2022), key recommendations (copy hosted by Saudi SAFIU)", url: "https://www.aml.gov.sa/en-us/GuidanceReports/Partnering%20in%20the%20Fight%20against%20Financial%20Crime%20-%20handout.pdf" },
+      { label: "Regulation (EU) 2024/1624 (AMLR) – Art. 75 partnerships for information sharing", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }
     ]
   },
   {
@@ -194,7 +196,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "A payment institution headquartered here that serves customers in five Member States only under the freedom to provide services"
     ],
     answer: [2],
-    explanation: "AMLD6 Article 49(1) requires a college where a credit or financial institution has set up establishments in at least two Member States other than its head-office state, or where a third-country institution has establishments in at least three Member States. The bank with subsidiaries in two other Member States qualifies. One other Member State is not enough, because third-country establishments do not count toward the threshold. The third-country bank has establishments in only two Member States. Cross-border services without establishments allow host supervisors to be invited only as observers (Art. 49(6)). Colleges are not set up under Article 49 where AMLA is the supervisor.",
+    explanation: "AMLD6 Article 49(1) requires a college where a credit or financial institution has set up establishments in at least two Member States other than its head-office state, or where a third-country institution has establishments in at least three Member States. The bank with subsidiaries in two other Member States qualifies. One other Member State is not enough, because third-country establishments do not count toward the mandatory threshold; Article 49(8) only lets Member States allow a college where an EU institution has establishments in at least two third countries. The third-country bank has establishments in only two Member States. Cross-border services without establishments allow host supervisors to be invited only as observers (Art. 49(6)). Colleges are not set up under Article 49 where AMLA is the supervisor.",
     source: [
       { label: "Directive (EU) 2024/1640 (AMLD6) – Art. 49 AML/CFT supervisory colleges", url: "https://eur-lex.europa.eu/eli/dir/2024/1640/oj" }
     ]
@@ -233,7 +235,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "FRAME-016", domain: 2, topic: "Cross-border FIU suspension of transactions and accounts (AMLD6 Art. 24)", hy: false, difficulty: "hard",
     q: "After AMLD6 is transposed, the FIU of Member State Y asks the FIU of Member State X to stop a EUR 900,000 outgoing transfer from a company's account at a bank in X while it analyses links to a fraud. X's FIU also considers suspending the account itself. Under national law in X, the FIU has no asset-tracing or confiscation functions. Which statement is CORRECT?",
     options: [
-      "X's FIU may suspend the transaction for up to 10 working days and the account for up to 5, and may lift either suspension at any time",
+      "X's FIU may suspend the transaction for a period set by national law of up to 10 working days and the account for up to 5 working days, and may lift either suspension at any time",
       "Y's FIU may instruct the bank in X directly to suspend the transfer, without involving X's FIU",
       "X's FIU may suspend the transaction only if the bank in X has already filed an STR on the company",
       "X's FIU may suspend the transaction for up to 15 calendar days and the account for up to 30 calendar days"
@@ -356,7 +358,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "FRAME-024", domain: 2, topic: "AMLA and non-selected entities: requests to act and transfer of supervision", hy: false, difficulty: "hard",
     q: "In 2029, AMLA receives well-substantiated information from an EU agency that a bank it does not directly supervise is committing serious, systematic CDD breaches affecting several Member States. Which sequence BEST describes AMLA's powers under Regulation (EU) 2024/1620?",
     options: [
-      "AMLA asks the national supervisor to investigate and consider sanctions; if no reply comes within 10 working days, it may seek Commission permission to take over supervision for up to three years",
+      "AMLA asks the national supervisor to investigate and consider sanctions; if the supervisor does not comply or report its steps within 10 working days, AMLA may seek Commission permission to take over supervision for up to three years",
       "AMLA fines the bank directly at once, using the same powers it holds over the institutions it directly supervises",
       "AMLA may only issue a non-binding opinion to the national supervisor, which remains free to ignore it",
       "AMLA must wait for its next three-yearly selection round before it can take any action concerning the bank"
@@ -377,9 +379,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Only if the FIU of Member State B first approves the disclosure in writing for this specific case"
     ],
     answer: [1],
-    explanation: "AMLR Article 16(3) requires group-wide policies to make entities in a group exchange information relevant for CDD and ML/TF risk management. This covers suspicions reported to the FIU under Article 69, with the underlying analyses, unless the FIU instructs otherwise. The parent must ensure confidentiality and data protection safeguards that prevent disclosure outside the permitted use. Sharing within the group under these policies is not tipping off the customer. Neither customer consent nor case-by-case approval from a foreign FIU is required.",
+    explanation: "AMLR Article 16(3) requires group-wide policies to make entities in a group exchange information relevant for CDD and ML/TF risk management. This covers suspicions reported to the FIU under Article 69, with the underlying analyses, unless the FIU instructs otherwise. The parent must ensure confidentiality and data protection safeguards that prevent disclosure outside the permitted use. Article 73(3) expressly allows this disclosure between obliged entities of the same group that comply with the group-wide policies, so it is not prohibited tipping off. Neither customer consent nor case-by-case approval from a foreign FIU is required.",
     source: [
-      { label: "Regulation (EU) 2024/1624 (AMLR) – Art. 16(3) group information sharing", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }
+      { label: "Regulation (EU) 2024/1624 (AMLR) – Arts. 16(3) and 73(3) group information sharing", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }
     ]
   }
 ]);
