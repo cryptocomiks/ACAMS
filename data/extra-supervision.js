@@ -204,20 +204,20 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "SUPV-014", domain: 2, topic: "Powers of supervisors: technical compliance gaps (FATF R.27)", hy: false, difficulty: "medium",
-    q: "Assessors preparing Country V's mutual evaluation review the powers of its financial supervisor. Which features would they treat as gaps against FATF Recommendation 27? (Choose two.)",
+    id: "SUPV-014", domain: 2, topic: "Supervisory framework: technical compliance gaps (FATF R.26 and R.27)", hy: false, difficulty: "hard",
+    q: "Assessors preparing Country V's mutual evaluation review the legal framework of its banking supervisor, which is also the AML/CFT supervisor for banks. Which features would they treat as technical compliance gaps against FATF Recommendations 26 and 27? (Choose two.)",
     options: [
       "The supervisor can compel a bank to produce customer files only after obtaining a court order",
-      "The supervisor sets the frequency of on-site inspections based on each institution's risk profile",
+      "The supervisor's AML/CFT powers apply to each licensed bank on a solo basis only, with no legal basis for consolidated group supervision for AML/CFT purposes",
+      "The supervisor has licensed a bank whose mind and management sit with its parent abroad, a member of a regulated financial group under effective consolidated supervision",
       "Money or value transfer providers must be registered, but not licensed, with the supervisor",
-      "The supervisor can impose fines for AML/CFT breaches but cannot restrict, suspend or withdraw a licence",
       "The supervisor shares inspection findings with foreign counterparts through a supervisory college"
     ],
-    answer: [0, 3],
-    explanation: "R.27 requires supervisors to be authorised to compel production of any relevant information. The FATF Methodology (footnote to criterion 27.3) says this power should not depend on a court order. Criterion 27.4 requires a range of disciplinary and financial sanctions, including the power to withdraw, restrict or suspend a licence, so fines alone are not enough. Risk-based inspection frequency is what R.26 expects. R.26 allows money or value transfer services to be licensed or registered. Sharing findings through colleges supports international cooperation.",
+    answer: [0, 1],
+    explanation: "R.27 requires supervisors to be authorised to compel production of any relevant information, and the FATF Methodology (footnote to criterion 27.3) says this power should not depend on a court order. R.26 and criterion 26.4(a) require Core Principles institutions such as banks to be supervised in line with the Core Principles, including consolidated group supervision for AML/CFT purposes, so solo-only powers are a gap. The bank licensed without local mind and management is the runner-up, but it is not a prohibited shell bank: the FATF Glossary defines a shell bank as one with no physical presence that is also unaffiliated with a regulated financial group subject to effective consolidated supervision. Criterion 26.2 allows money or value transfer providers to be licensed or registered, and sharing findings through colleges supports international cooperation.",
     source: [
-      { label: "FATF Methodology (2026) – criteria 26.2, 26.5 and 27.1-27.4 (official EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Methodology_2026_eng.pdf" },
-      { label: "FATF Recommendations (2026) – R.26 and R.27 (official EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+      { label: "FATF Methodology (2026) – criteria 26.2, 26.4 and 27.3 with footnote (official EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Methodology_2026_eng.pdf" },
+      { label: "FATF Recommendations (2026) – R.26, R.27 and Glossary 'shell bank' (official EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
     ]
   },
   {

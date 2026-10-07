@@ -25,7 +25,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Hijacking of another trader's VAT number to make acquisitions without registering for VAT"
     ],
     answer: [0],
-    explanation: "HMRC describes a contra trader as a VAT-registered person that, in the same VAT period, runs a 'tax loss chain' (domestic purchases followed by zero-rated dispatches) and a 'contra chain' (VAT-free acquisitions followed by domestic sales). The output tax on the contra chain is designed to offset the input tax on the tax loss chain, which hides a large repayment claim and makes the fraud harder to detect. The tax loss chain still traces back to a defaulter. Legitimate netting is the runner-up, but matching two unrelated, same-sized chains in one quarter, with same-day payments, is the hallmark HMRC describes. Kestrel is registered and trades in its own name, so this is not hijacking.",
+    explanation: "HMRC describes a contra trader as a VAT-registered person that, in the same VAT period, runs a 'tax loss chain' (domestic purchases followed by zero-rated dispatches) and a 'contra chain' (VAT-free acquisitions followed by domestic sales). The output tax on the contra chain is designed to offset the input tax on the tax loss chain, which hides a large repayment claim and makes the fraud harder to detect. The tax loss chain still traces back to a defaulter. Legitimate netting is the runner-up, but two unrelated chains of matching size run in the same VAT period, one producing input tax and the other output tax that cancels it, is the pattern HMRC describes; the same-day circular payments add to the suspicion. Kestrel is registered and trades in its own name, so this is not hijacking.",
     source: [
       { label: "HMRC VAT Fraud Manual VATF23550 – contra trading", url: "https://www.gov.uk/hmrc-internal-manuals/vat-fraud/vatf23550" }
     ]
@@ -63,7 +63,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "TAXC-005", domain: 1, topic: "Payroll tax fraud: mini umbrella company fraud (HMRC)", hy: false, difficulty: "hard",
-    q: "In six months, Thameside Bank opens business accounts for 38 limited companies with names such as 'Quartz Vale 14 Ltd'. Each company was incorporated around the same time, has five to nine employees and shares a registered address with several of the others. Most directors are foreign nationals with no experience in UK labour supply, and many are replaced within a few months. Companies House lists activities such as hairdressing supplies, but every company is paid by the same recruitment agency for temporary warehouse workers. Workers' pay goes to their own accounts by Bacs at about minimum wage, and payments to HMRC are small. Companies close within a year and are replaced by new ones. The agency is a long-standing, well-run customer. Which typology is MOST likely?",
+    q: "In six months, Thameside Bank opens business accounts for 38 limited companies with names such as 'Quartz Vale 14 Ltd'. Each company was incorporated around the same time, has five to nine employees and shares a registered address with several of the others. Most directors are foreign nationals with no experience in UK labour supply, who replaced a UK resident director within a few months of incorporation. Companies House lists activities such as hairdressing supplies, but every company is paid by the same recruitment agency for temporary warehouse workers. Workers' pay goes to their own accounts by Bacs at about minimum wage, and payments to HMRC are small. Companies close within a year and are replaced by new ones. The agency is a long-standing, well-run customer. Which typology is MOST likely?",
     options: [
       "Labour trafficking, in which controllers confiscate workers' wages through debt bondage",
       "Ghost employee fraud by an insider at the recruitment agency who adds fictitious workers to the payroll",
@@ -71,7 +71,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Mini umbrella company fraud, splitting the workforce across many small companies to claim small-business reliefs and leave unpaid tax debts"
     ],
     answer: [3],
-    explanation: "HMRC describes mini umbrella company fraud as organised crime groups breaking one umbrella company into many small companies, each with few workers. This lets them claim small-business incentives such as the Employment Allowance or the VAT Flat Rate Scheme, build up PAYE, National Insurance and VAT debts and then close. HMRC's warning signs match this case: similar unusual names set up at the same time, unrelated listed activities, inexperienced foreign national directors who are soon replaced, workers moved between companies, and short-lived businesses. Labour trafficking is the runner-up, but workers here are paid into their own accounts with no sign of control or wage confiscation. The reputable agency is a decoy, because these companies sit low in the supply chain.",
+    explanation: "HMRC describes mini umbrella company fraud as organised crime groups breaking one umbrella company into many small companies, each with few workers. This lets them claim small-business incentives such as the Employment Allowance or the VAT Flat Rate Scheme, build up PAYE, National Insurance and VAT debts and then close. HMRC's warning signs match this case: similar unusual names set up at the same time, unrelated listed activities, foreign national directors with no labour supply experience who replace a temporary UK resident director, workers moved between companies, and short-lived businesses. Labour trafficking is the runner-up, but workers here are paid into their own accounts with no sign of control or wage confiscation. The reputable agency is a decoy, because these companies sit low in the supply chain.",
     source: [
       { label: "HMRC guidance – Mini umbrella company fraud (GOV.UK)", url: "https://www.gov.uk/guidance/mini-umbrella-company-fraud" }
     ]
@@ -133,7 +133,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [1],
     explanation: "The 2023 FATF/OECD report on citizenship and residency by investment warns that a new citizenship can be used to separate a person from their original identity and from past crimes or tax obligations. It suggests that, when a CBI passport is the proof of identity, institutions routinely ask for evidence of the original nationality, including the birth certificate and any passports held in the original identity, and make sure all nationalities are disclosed. Screening only the new identity in one language can miss adverse information from the country of origin. CBI passports are not banned, and an introducer's assurance does not replace the bank's own CDD.",
     source: [
-      { label: "FATF/OECD (2023) – Misuse of Citizenship and Residency by Investment Programmes (copy hosted by the Bank of Russia), paras 69 and 170", url: "https://www.cbr.ru/Content/Document/File/156566/MCR.PDF" }
+      { label: "FATF/OECD (November 2023) – Misuse of Citizenship and Residency by Investment Programmes (OECD-hosted copy), paras 69 and 170", url: "https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/11/misuse-of-citizenship-and-residency-by-investment-programmes_a3e76bac/ae7ce5fb-en.pdf" }
     ]
   },
   {
@@ -148,21 +148,21 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [2],
     explanation: "An unambiguous US place of birth is a US indicium. Annex I lets the institution avoid treating the account as a US Reportable Account only if it obtains three things: a self-certification of non-US status, a non-US passport or other government ID, and a copy of the Certificate of Loss of Nationality or a reasonable explanation of why the holder has none despite relinquishing US citizenship (or why they did not obtain it at birth). Moving away as a child does not end US citizenship, so the self-certification and passport alone, the runner-up, are not enough. US tax returns are not part of the cure.",
     source: [
-      { label: "US Treasury – Model 1 IGA, Annex I (June 2014), section II.B(1) and B(4)(a)", url: "https://home.treasury.gov/system/files/131/FATCA-Annex-I-to-Model-1-Agreement-6-6-14.pdf" }
+      { label: "US Treasury – Model 1 IGA, Annex I (June 2014), section II.B(1), B(4)(a) and D (high value accounts)", url: "https://home.treasury.gov/system/files/131/FATCA-Annex-I-to-Model-1-Agreement-6-6-14.pdf" }
     ]
   },
   {
     id: "TAXC-011", domain: 1, topic: "OECD MDR: recognising CRS avoidance arrangements", hy: true, difficulty: "hard",
     q: "Fenwick Partners, a UK wealth planning firm, reviews five proposals its planners have prepared for clients who are tax resident in France and Spain, both of which take part in the Common Reporting Standard (CRS). Under the UK Mandatory Disclosure Rules, which implement the OECD Model Rules, which proposals have features of a reportable CRS avoidance arrangement? (Choose two.)",
     options: [
-      "Moving a client's portfolio to an institution in a jurisdiction that does not exchange CRS information with the client's country of residence",
+      "Moving a client's portfolio to an institution in a jurisdiction that does not exchange CRS information with the client's country of residence, so that the account stops being reported there",
       "Using money from a CRS-reported French bank account to buy a holiday home in France",
       "Restructuring a US citizen client's holdings only to avoid FATCA reporting by a UK financial institution",
       "Putting a client's cash into a 'private vault deposit plan' that is presented as not being a Financial Account but works like a deposit account",
       "Transferring a client's account between two banks in CRS-participating jurisdictions, both of which report it"
     ],
     answer: [0, 3],
-    explanation: "HMRC's MDR guidance lists, among the features of CRS avoidance arrangements, using a product that purports not to be a Financial Account but has substantially similar features, and moving accounts or assets to an institution or jurisdiction that does not exchange CRS information with all of the taxpayer's residence jurisdictions. An arrangement does not circumvent the CRS just because no report results: real estate is outside the CRS, so buying the French house is not caught. The UK's FATCA agreement is not an equivalent agreement, so FATCA-only avoidance is not reportable under these rules, although other anti-avoidance rules may apply. A move between two reporting banks keeps the account reported.",
+    explanation: "HMRC's MDR guidance lists, among the features of CRS avoidance arrangements, using a product that purports not to be a Financial Account but has substantially similar features, and moving accounts or assets to an institution or jurisdiction that does not exchange CRS information with all of the taxpayer's residence jurisdictions. An arrangement does not circumvent the CRS just because no report results: real estate is outside the CRS, so buying the French house is not caught. The UK's FATCA agreement is not an equivalent agreement, so FATCA-only avoidance is not reportable under these rules, although other anti-avoidance rules may apply. A move between two reporting banks keeps the account reported. HMRC adds that a move to a non-reporting jurisdiction is not automatically caught: it is a CRS avoidance arrangement when, as here, ending the reporting is part of the design or effect.",
     source: [
       { label: "HMRC International Exchange of Information Manual IEIM730020 – CRS avoidance arrangements", url: "https://www.gov.uk/hmrc-internal-manuals/international-exchange-of-information/ieim730020" },
       { label: "International Tax Enforcement (Disclosable Arrangements) Regulations 2023 (SI 2023/38)", url: "https://www.legislation.gov.uk/uksi/2023/38/made" }
@@ -301,9 +301,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "A third-party payer diverting employment taxes collected from client employers, which remain liable for the unpaid taxes"
     ],
     answer: [3],
-    explanation: "The IRS warns that some payroll service providers and professional employer organisations collect employment taxes from their clients but do not pay them over, leaving millions unpaid when they dissolve. It urges employers to choose providers that use EFTPS, so payments can be checked, and never to let the provider change their address of record with the IRS. Clients that funded the taxes can still be held liable for them. Pyramiding by the clients is the runner-up, but here the clients paid the money to Summit and Summit diverted it into property and fees. A shortfall of this size over two quarters, alongside property purchases and fees to the CEO's company, is not explained by ordinary timing.",
+    explanation: "The IRS warns that some payroll service providers and professional employer organisations collect employment taxes from their clients but do not pay them over, leaving millions unpaid when they dissolve. It urges employers to choose providers that use EFTPS, so payments can be checked, and never to let the provider change their address of record with the IRS. The IRS also says that if a payroll service provider defaults, the employer remains responsible for the deposits, so clients that funded the taxes can still be liable for them. Pyramiding by the clients is the runner-up, but here the clients paid the money to Summit and Summit diverted it into property and fees. A shortfall of this size over two quarters, alongside property purchases and fees to the CEO's company, is not explained by ordinary timing.",
     source: [
-      { label: "IRS – Warning on questionable employment tax practices (unreliable third-party payers)", url: "https://www.irs.gov/newsroom/irs-warns-businesses-individuals-to-watch-for-questionable-employment-tax-practices" }
+      { label: "IRS – Warning on questionable employment tax practices (unreliable third-party payers)", url: "https://www.irs.gov/newsroom/irs-warns-businesses-individuals-to-watch-for-questionable-employment-tax-practices" },
+      { label: "IRS – Outsourcing payroll and third-party payers (employer remains responsible if a payroll service provider defaults)", url: "https://www.irs.gov/businesses/small-businesses-self-employed/outsourcing-payroll-and-third-party-payers" }
     ]
   },
   {
@@ -366,7 +367,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [1],
     explanation: "Under the government guidance, a relevant body commits the offence only if a person associated with it criminally facilitates tax evasion while acting in that capacity, meaning when performing services for or on behalf of the body. The guidance's own examples are on point. An introducer that sells extra tax services outside its contracted role does not create liability, but a foreign tax adviser that the firm sub-contracts, controls and bills as a disbursement does. The runner-up, 'both', ignores the requirement that the person act in that capacity. Associated persons are not limited to employees: they include agents and sub-contractors.",
     source: [
-      { label: "HM Government guidance – Tackling tax evasion: corporate offences of failure to prevent the criminal facilitation of tax evasion (2017), section 3.2 case studies", url: "https://assets.publishing.service.gov.uk/media/5a82aaa0e5274a2e8ab58b82/Tackling-tax-evasion-corporate-offences.pdf" },
+      { label: "HM Government guidance – Tackling tax evasion: corporate offences of failure to prevent the criminal facilitation of tax evasion (2017), section 3.5 referral examples 2 and 3", url: "https://assets.publishing.service.gov.uk/media/5a82aaa0e5274a2e8ab58b82/Tackling-tax-evasion-corporate-offences.pdf" },
       { label: "Criminal Finances Act 2017, s.44 (legislation.gov.uk)", url: "https://www.legislation.gov.uk/ukpga/2017/22/section/44" }
     ]
   },
@@ -375,14 +376,15 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Amélie Durand, a French resident, holds GBP 900,000 in a deposit account at Kingsbury Bank in London. During a periodic review, she tells her relationship manager that she has never declared the interest and dividends on these funds to the French tax authority, and her adviser estimates the tax evaded at about GBP 140,000. She now asks the bank to transfer the whole balance to an account in Dubai. France has made no request to the UK, and the original capital came from a documented inheritance. What should the bank's nominated officer conclude under the Proceeds of Crime Act 2002?",
     options: [
       "The funds are not criminal property, because UK courts do not enforce foreign tax laws and France has made no request",
-      "Only the GBP 140,000 of evaded tax is criminal property, so the rest of the balance can be transferred without a defence",
-      "The balance can be criminal property, because the evaded tax is a benefit and property representing it even in part is covered, so a SAR and a DAML are needed before the transfer",
+      "The whole balance can be transferred without a DAML, because the ECCTA 2023 mixed-property exemption covers accounts holding both clean and criminal funds",
+      "The balance can be criminal property, because the evaded tax is a benefit and property representing it even in part is covered, so a SAR and a DAML are needed before transferring the whole balance",
       "The funds become criminal property only once a French court has convicted her of tax evasion"
     ],
     answer: [2],
-    explanation: "Under POCA s.340(2)(b), criminal conduct includes conduct abroad that would be an offence if it happened in the UK, which deliberately evading tax would be. Under s.340(6), a person who obtains a pecuniary advantage, such as tax not paid, is treated as obtaining a sum equal to its value. Under s.340(3), property is criminal property if it represents such a benefit 'in whole or part', so the mixed balance is tainted. The runner-up tries to split the balance, but moving any of it would risk a s.327 offence without an authorised disclosure. No conviction or foreign request is needed.",
+    explanation: "Under POCA s.340(2)(b), criminal conduct includes conduct abroad that would be an offence if it happened in the UK, which deliberately evading tax would be. Under s.340(6), a person who obtains a pecuniary advantage, such as tax not paid, is treated as obtaining a sum equal to its value. Under s.340(3), property is criminal property if it represents such a benefit 'in whole or part', so the mixed balance is tainted. The runner-up misreads s.327(2F), added by ECCTA 2023: it protects a regulated firm operating a mixed account only if the account is not reduced below the value of the suspected criminal property, so transferring the whole balance is outside it and needs an authorised disclosure and consent. The duty to report under s.330 applies either way. No conviction or foreign request is needed.",
     source: [
-      { label: "Proceeds of Crime Act 2002, s.340 (legislation.gov.uk)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/340" }
+      { label: "Proceeds of Crime Act 2002, s.340 (legislation.gov.uk)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/340" },
+      { label: "Proceeds of Crime Act 2002, s.327, including the mixed-property exemption in s.327(2F)-(2G) (legislation.gov.uk)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/327" }
     ]
   }
 ]);
