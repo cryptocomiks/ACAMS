@@ -165,9 +165,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "RISK-012", difficulty: "medium", domain: 3, topic: "UK MLRs regulation 18A: proliferation financing risk assessment", hy: false,
     q: "A UK-authorised payment institution is documenting its proliferation financing risk assessment under regulation 18A of the Money Laundering Regulations 2017. Which TWO statements about this requirement are CORRECT? (Choose two.)",
     options: [
-      "It may skip the assessment if it has no customers or payments connected with the DPRK or Iran",
+      "It may skip the assessment if it has no customers, payments or counterparties connected with the DPRK or Iran",
       "It must take into account the information in HM Treasury's proliferation financing risk assessment report",
-      "It must send its assessment to the FCA every year, whether or not the FCA asks for it",
+      "It must send its written assessment to the FCA every year, whether or not the FCA has asked for it",
       "It may treat the requirement as met once its ML/TF risk assessment under regulation 18 has been approved",
       "It must consider risk factors on customers, countries, products or services, transactions and delivery channels"
     ],
@@ -231,7 +231,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "RISK-017", difficulty: "hard", domain: 3, topic: "Generic industry inherent risk ratings vs the firm's own inherent risk assessment (Wolfsberg 6.1.6)", hy: true,
     q: "Kestrel Bank is running its first enterprise-wide risk assessment using the Wolfsberg FAQs methodology. To save time, the project lead proposes to copy the example standard inherent risk ratings in the FAQs' Appendix H (for example, international correspondent banking high, asset management low to moderate, retail banking moderate to high) as the inherent ratings of the bank's own business lines, without collecting client, product, channel or geography data. Kestrel's retail arm serves mainly salaried local customers, while its small asset management unit takes in money from offshore companies in several high-risk jurisdictions. Which TWO statements are consistent with the Wolfsberg FAQs? (Choose two.)",
     options: [
-      "Generic industry ratings can be a useful reference, but they should not be used on their own in place of an inherent risk assessment",
+      "Generic industry ratings can be a useful reference, but should not be used on their own in place of an inherent risk assessment",
       "The Appendix H ratings are an industry standard, so supervisors expect banks to adopt them for each business line without change",
       "Each line's inherent risk should come from scoring its own clients, products, channels, geographies and other qualitative factors",
       "The generic ratings are acceptable if controls are assessed in full, because control strength is what drives the residual rating",
