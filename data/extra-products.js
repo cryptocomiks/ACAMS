@@ -10,10 +10,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Mariner is offering nested correspondent services to Beacon, so Northbridge must perform CDD on Beacon's corporate customers"
     ],
     answer: [2],
-    explanation: "Under INR.16 (2025), R.16 covers both serial and cover payments, and the exemption for financial institution-to-financial institution transfers applies only where both banks act on their own behalf. Here the funds paid Beacon's customers, so the cover leg should carry the underlying originator and beneficiary data; the Wolfsberg Payment Transparency Standards require PSPs to use the correct message type and not to omit party information to avoid detection by other PSPs. The interbank-liquidity option is the runner-up, but it ignores that the underlying transfers were for customers. The payments are not serial (the MT103 went directly to Beacon), and nothing shows Beacon using Mariner's account as a nested bank; in any case no one must perform CDD on a respondent's customers. The CBDDQ, round amounts and country status are decoys.",
+    explanation: "Under INR.16 (2025), R.16 covers both serial and cover payments, and the exemption for financial institution-to-financial institution transfers applies only where both banks act on their own behalf. Here the funds paid Beacon's customers, so these are cover payments. The Basel Committee's 2009 cover payment guidance expects the cover message sent through the intermediary to carry the underlying originator and beneficiary information (the role of the MT202COV), and the Wolfsberg Payment Transparency Standards say PSPs should accurately reflect the roles of all parties in the appropriate fields and should not omit party information to avoid detection by other PSPs. The interbank-liquidity option is the runner-up, but it ignores that the underlying transfers were for customers. The payments are not serial (the MT103 went directly to Beacon), and nothing shows Beacon using Mariner's account as a nested bank; in any case no one must perform CDD on a respondent's customers. The CBDDQ, round amounts and country status are decoys.",
     source: [
       { label: "FATF Recommendations (2026), INR.16 paras 3, 13 and glossary (cover payment)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" },
-      { label: "Wolfsberg Payment Transparency Standards (2023)", url: "https://db.wolfsberg-group.org/assets/13422898-fba1-44b3-9679-a8c7406e9e78/Wolfsberg%20Group%20Payment%20Transparency%20Standards%202023.pdf" }
+      { label: "Basel Committee, Due diligence and transparency regarding cover payment messages related to cross-border wire transfers (May 2009)", url: "https://www.bis.org/publ/bcbs154.htm" },
+      { label: "Wolfsberg Payment Transparency Standards (2023), section 2", url: "https://db.wolfsberg-group.org/assets/13422898-fba1-44b3-9679-a8c7406e9e78/Wolfsberg%20Group%20Payment%20Transparency%20Standards%202023.pdf" }
     ] },
 
   { id: "PROD-002", domain: 1, topic: "Correspondent banking: volume out of line with the respondent's size", hy: false, difficulty: "medium",
@@ -105,18 +106,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "FATF Guidance on Correspondent Banking Services (2016), paras 3 and 32", url: "https://eurasiangroup.org/files/uploads/files/FATF_documents/FATF_Guidances/Guidance-Correspondent-Banking-Services.pdf" }
     ] },
 
-  { id: "PROD-008", domain: 1, topic: "Private banking: Lombard-backed loan-back of offshore funds", hy: false, difficulty: "hard",
-    q: "Rafael Montes, a resident of Country R, holds EUR 6 million at Lakeshore Private Bank's affiliate in another jurisdiction through a BVI company. He cannot clearly explain how the BVI company earned the money. He asks Lakeshore's branch in Country R for a EUR 5 million mortgage on a villa there, secured by a pledge over the BVI company's deposits. Instalments are to be paid from the BVI account, and he will tell the Country R tax authority that the villa was bought with a bank loan. He is not a PEP, his credit score is excellent, and the loan-to-value ratio is within policy. What is this arrangement MOST likely designed to do?",
+  { id: "PROD-008", domain: 3, topic: "Private banking: offshore-secured lending and source of funds (EBA wealth management)", hy: false, difficulty: "hard",
+    q: "Rafael Montes, a resident of Country R, holds EUR 6 million at Lakeshore Private Bank's affiliate in another jurisdiction through a BVI company. He asks Lakeshore's branch in Country R for a EUR 5 million mortgage on a villa there, secured by a pledge over the BVI company's deposits, with instalments paid from the BVI account. When the relationship manager asks how the BVI company earned the money, he answers only that it came from 'consulting work abroad'. The affiliate opened the BVI account six years ago and has never raised concerns. He is not a PEP, his credit score is excellent, and the loan-to-value ratio is within policy. What should the Country R branch do before deciding on the loan?",
     options: [
-      "Bring undeclared offshore funds into Country R disguised as legitimate loan proceeds",
-      "Lower Montes's borrowing costs by using low-yield offshore deposits as collateral",
-      "Shield the villa from Montes's creditors by keeping its legal title in a BVI company",
-      "Avoid currency risk by matching a euro loan with euro deposits held abroad"
+      "Approve the loan, because the deposits fully secure it and the credit score and loan-to-value ratio are within policy",
+      "Rely on the affiliate's existing due diligence on the BVI company, because it belongs to the same banking group",
+      "Establish the BVI company's beneficial ownership and the source of the pledged funds, and decline and consider a report if they cannot be explained",
+      "Ask Montes to declare the loan to the Country R tax authority, which removes the money laundering concern"
     ],
-    answer: [0],
-    explanation: "The EBA guideline for wealth management names lending secured against assets in other jurisdictions, cross-border arrangements in which assets are deposited with another institution of the same group, and complex vehicles with unclear ultimate ownership as risk-increasing factors, and notes that the sector is vulnerable to clients who wish to hide the origin of funds or evade tax. Here the pledged offshore money of unexplained origin effectively funds the villa, while the loan gives it a clean explanation at home, which is a loan-back. Cheaper borrowing and currency matching are ordinary motives, but they do not explain the unexplained source and the planned declaration to the tax authority. The villa is bought in Montes's own name, so asset shielding through a BVI title does not fit. His credit score and the loan-to-value ratio are decoys.",
+    answer: [2],
+    explanation: "The EBA guideline for wealth management names lending secured against assets in other jurisdictions, cross-border arrangements where assets are held at another institution of the same group, and complex vehicles with unclear beneficial ownership as risk-increasing factors. Its EDD measures include establishing the source of wealth and funds, and, where the firm doubts their legitimate origin, verifying them may be the only adequate mitigation. The pledged offshore money will in effect pay for the villa, so its origin is what matters. Relying on the affiliate is the runner-up, but the affiliate's silence does not explain where the money came from, and the branch must apply its own due diligence to this new, higher-risk transaction. Good credit metrics address credit risk, not money laundering risk, and a tax declaration of the loan would only make an unexplained source look like bank financing.",
     source: [
-      { label: "EBA ML/TF Risk Factors Guidelines (EBA/GL/2021/02), Guideline 12 (wealth management)", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }
+      { label: "EBA ML/TF Risk Factors Guidelines (EBA/GL/2021/02), Guideline 12 (wealth management): risk factors and EDD measures", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }
     ] },
 
   { id: "PROD-009", domain: 1, topic: "Private banking: misuse of internal concentration accounts", hy: false, difficulty: "medium",
@@ -133,17 +134,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "Wolfsberg AML Principles for Private Banking (2012), 1.4-1.5", url: "https://db.wolfsberg-group.org/assets/7d384fb4-8c82-4669-acb8-621aed03e928/Wolfsberg%20Private%20Banking%20Principles.pdf" }
     ] },
 
-  { id: "PROD-010", domain: 1, topic: "Cash-intensive businesses used as fronts (2024 NMLRA)", hy: true, difficulty: "hard",
-    q: "Velasco Auto Repair LLC is a three-bay garage with two mechanics. It deposits USD 8,000 to 15,000 in cash almost every day at its local branch, and the bank files CTRs whenever a day's cash exceeds USD 10,000. Card receipts are small and stable. The owner, Marco Velasco, recently opened business accounts at two other banks, where he also deposits cash and buys cashier's checks. He used the cashier's checks to buy four houses he describes as 'rental properties'. The garage is licensed, Velasco has no criminal record, and all deposits are made by him in person. Which typology is MOST likely?",
+  { id: "PROD-010", domain: 2, topic: "Cash-intensive businesses: the business's own Form 8300 duty (31 CFR 1010.330)", hy: true, difficulty: "hard",
+    q: "Ridgeway Bank is reviewing Velasco Auto Repair LLC, a small garage whose daily cash deposits often trigger CTRs, because the 2024 National Money Laundering Risk Assessment notes that auto repair shops are used as front companies. The owner tells the bank that a customer paid for an engine rebuild in cash: USD 6,000 on Monday, 2 March 2026, when work began, and USD 8,500 on Friday, 20 March 2026, on collection. He says the garage reports nothing itself, because the bank files CTRs when he deposits the cash. Under 31 CFR 1010.330, which statement is correct?",
     options: [
-      "Structuring, because the deposits are timed to avoid currency transaction reporting",
-      "A funnel account, because cash enters one account and quickly leaves through cashier's checks",
-      "Trade-based money laundering, because the garage buys imported spare parts",
-      "A front business mixing illicit cash with legitimate revenue and then moving it into real estate"
+      "The garage need not report, because the bank's CTRs on the deposits already cover this cash",
+      "The garage must file a Form 8300 by 4 April 2026, because the payments for one transaction together exceed USD 10,000",
+      "The garage need not report, because neither payment exceeded USD 10,000 and they were made 18 days apart",
+      "The garage must file a CTR for each cash payment within 15 days, because it received currency in its business"
     ],
-    answer: [3],
-    explanation: "The 2024 National Money Laundering Risk Assessment describes criminals using cash-intensive businesses, including auto repair shops, as fronts that mix illicit proceeds with legitimate revenue. Its case of a beauty salon owner who opened accounts at several banks, made large cash deposits, bought cashier's checks and acquired properties described as 'rental properties' closely matches this pattern. Cash far out of line with a small garage's card sales points to commingling. Structuring is the runner-up, but CTRs are being filed, so the deposits are not being kept under the threshold. A funnel account needs deposits from many places by different people, and nothing suggests trade misinvoicing.",
+    answer: [1],
+    explanation: "Section 1010.330 requires a person in a trade or business that receives more than USD 10,000 in currency in one transaction or related transactions to report it (Form 8300). Where the initial payment is USD 10,000 or less, the recipient must aggregate it with later payments made within one year until the total exceeds USD 10,000, and report within 15 days after the payment that crosses the threshold: 20 March 2026 + 15 days = 4 April 2026. Relying on the bank's CTRs is the runner-up, but the rule excludes only amounts received in a transaction that is itself reported on a CTR; the bank's CTR covers Velasco's deposit at the bank, not the garage's receipt of cash from its customer. It does not matter that each payment was under USD 10,000 or that they were 18 days apart, because instalments on a single transaction are aggregated over a year. A business that is not a financial institution does not file CTRs.",
     source: [
+      { label: "31 CFR 1010.330(a)-(b) (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-C/section-1010.330" },
       { label: "US Treasury, 2024 National Money Laundering Risk Assessment, Cash-Intensive Businesses and Front Companies", url: "https://home.treasury.gov/system/files/136/2024-National-Money-Laundering-Risk-Assessment.pdf" }
     ] },
 
@@ -162,7 +164,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ] },
 
   { id: "PROD-012", domain: 1, topic: "ATMs: cross-border card cash withdrawals (R.16, 2025)", hy: true, difficulty: "hard", changed: "FATF R.16 revision, June 2025",
-    q: "Harbourview Bank runs ATMs in a border town. Over three weeks, 40 prepaid cards issued by one card issuer in Country Q withdraw the daily maximum between 2 a.m. and 4 a.m. at the same two machines. Camera images show the same three people making most withdrawals. Harbourview has no relationship with the cardholders and receives only the card number with each withdrawal. In a country that has implemented FATF R.16 as revised in June 2025, what can Harbourview obtain to support its analysis and any STR?",
+    q: "Harbourview Bank runs ATMs in a border town. Over three weeks, 40 prepaid cards issued by one card issuer in Country Q, across the border, withdraw the daily maximum between 2 a.m. and 4 a.m. at the same two machines. Camera images show the same three people making most withdrawals. Harbourview has no relationship with the cardholders and receives only the card number with each withdrawal. In a country that has implemented FATF R.16 as revised in June 2025, what can Harbourview obtain to support its analysis and any STR?",
     options: [
       "Nothing beyond the card number, because card transactions are fully exempt from R.16",
       "The cardholder's name, address and date of birth, which must accompany each withdrawal as for a wire transfer",
@@ -206,7 +208,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ] },
 
   { id: "PROD-015", domain: 1, topic: "Transaction laundering through a merchant account", hy: true, difficulty: "hard",
-    q: "Brightpay Merchant Services onboarded Bloomly Flowers, an online florist, expecting card sales of about EUR 20,000 a month. Eight months later Bloomly processes EUR 900,000 a month. Most transactions occur between midnight and 5 a.m., come from cardholders in countries where Bloomly does not deliver, and cluster at a few fixed amounts. The chargeback rate is 4%, within Brightpay's tolerance. A test purchase on a link found in a forum leads to an unlicensed online casino whose checkout shows Bloomly's name as the merchant. Bloomly's owner says the growth comes from a new marketing campaign. Which typology is MOST likely?",
+    q: "Brightpay Merchant Services onboarded Bloomly Flowers, an online florist, expecting card sales of about EUR 20,000 a month. Eight months later Bloomly processes EUR 900,000 a month. Most transactions occur between midnight and 5 a.m., come from cardholders in countries where Bloomly does not deliver, and cluster at a few fixed amounts. The chargeback rate is 0.6%, within Brightpay's tolerance. A test purchase on a link found in a forum leads to an unlicensed online casino whose checkout shows Bloomly's name as the merchant. Bloomly's owner says the growth comes from a new marketing campaign. Which typology is MOST likely?",
     options: [
       "Transaction laundering, with a hidden business's sales processed through the florist's account",
       "Card testing, in which fraudsters make small purchases to check whether stolen card numbers work",
@@ -235,18 +237,20 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ] },
 
   { id: "PROD-017", domain: 1, topic: "Low-priced securities: deposit red flags (FINRA RN 19-18)", hy: true, difficulty: "medium",
-    q: "Harlan Vance opens an account at a retail broker-dealer and deposits a physical certificate for 4 million shares of Quorvex Biotech, quoted over the counter at USD 0.04. He says he got the shares two months ago by converting a note issued by the company. Which facts are red flags for the deposit of securities listed in FINRA Regulatory Notice 19-18? (Choose two.)",
+    q: "Harlan Vance opens an account at a retail broker-dealer and deposits a physical certificate for 4 million shares of Quorvex Biotech, quoted over the counter at USD 0.04. He says he bought the shares directly from the company in a private placement two months ago. Which facts are red flags for the deposit of securities listed by FINRA and the SEC's examination staff? (Choose two.)",
     options: [
-      "The certificate has no restrictive legend, even though he acquired the shares from the issuer only two months ago",
+      "The certificate has no restrictive legend, even though he bought the shares from the issuer in a private placement only two months ago",
       "He gives a verified US home address and a tax identification number that matches his identity documents",
       "Quorvex has changed its name and business twice in the past year and reports no revenue",
       "He asks to receive account statements electronically rather than by post",
       "He pays the firm's standard commission rate on his first sale"
     ],
     answer: [0, 2],
-    explanation: "FINRA Regulatory Notice 19-18 lists, among red flags in deposits of securities, a lack of a restrictive legend that seems inconsistent with when and how the customer acquired the shares, and deposits of shares issued by a company that has been through several recent name changes or business combinations, or has no apparent business, revenues or products. Such patterns can indicate an unregistered distribution or a pump-and-dump. A verified identity, electronic statements and standard commissions are ordinary features of an account.",
+    explanation: "FINRA Regulatory Notice 19-18 and the SEC examination staff's 2014 microcap risk alert list, among red flags in deposits of securities, a lack of a restrictive legend that seems inconsistent with when and how the customer acquired the shares, and shares of an issuer that has been through several recent name changes or business combinations (19-18 adds an issuer with no apparent business, revenues or products). Shares bought from the issuer in a private placement are restricted securities under SEC Rule 144, and the minimum holding period before resale is six months or one year, so unlegended shares two months later suggest a possible unregistered distribution or a pump-and-dump. A verified identity, electronic statements and standard commissions are ordinary features of an account.",
     source: [
-      { label: "FINRA Regulatory Notice 19-18 (red flags)", url: "https://www.finra.org/rules-guidance/notices/19-18" }
+      { label: "FINRA Regulatory Notice 19-18 (red flags)", url: "https://www.finra.org/rules-guidance/notices/19-18" },
+      { label: "SEC OCIE Risk Alert, Broker-Dealer Controls Regarding Customer Sales of Microcap Securities (Oct. 2014)", url: "https://www.sec.gov/about/offices/ocie/broker-dealer-controls-microcap-securities.pdf" },
+      { label: "17 CFR 230.144(a)(3) and (d) restricted securities and holding period (eCFR)", url: "https://www.ecfr.gov/current/title-17/section-230.144" }
     ] },
 
   { id: "PROD-018", domain: 1, topic: "Securities account used as a conduit for funds", hy: false, difficulty: "medium",
@@ -258,9 +262,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Excessive use of margin credit, which may expose the broker-dealer to credit losses"
     ],
     answer: [2],
-    explanation: "FINRA Regulatory Notice 19-18 lists as money-movement red flags a securities account used for payments or outgoing wires with little or no securities activity, which makes it look like a depository account or a conduit even when the customer says the wires are for business operating needs. It also lists incoming third-party checks and transfers to institutions other than those the funds came from, especially in different countries. Nothing points to trading on inside information, a small index fund purchase cannot move the market, and the margin facility is unused.",
+    explanation: "FINRA Regulatory Notice 19-18 and the FATF's 2009 securities sector report list as red flags a securities account used for payments or outgoing wires with little or no securities activity, which makes it look like a depository account or a conduit even when the customer says the wires are for business operating needs. It also lists incoming third-party checks and transfers to institutions other than those the funds came from, especially in different countries. Nothing points to trading on inside information, a small index fund purchase cannot move the market, and the margin facility is unused.",
     source: [
-      { label: "FINRA Regulatory Notice 19-18 (red flags in money movements)", url: "https://www.finra.org/rules-guidance/notices/19-18" }
+      { label: "FINRA Regulatory Notice 19-18 (red flags in money movements)", url: "https://www.finra.org/rules-guidance/notices/19-18" },
+      { label: "FATF, Money Laundering and Terrorist Financing in the Securities Sector (2009), indicators", url: "https://eurasiangroup.org/files/FATF_docs/ML_and_TF_in_the_Securities_Sector.pdf" }
     ] },
 
   { id: "PROD-019", domain: 3, topic: "Pooled accounts of an unregulated payment facilitator (EBA)", hy: false, difficulty: "hard",
@@ -277,18 +282,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "EBA ML/TF Risk Factors Guidelines (EBA/GL/2021/02), paras 9.16-9.19", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }
     ] },
 
-  { id: "PROD-020", domain: 1, topic: "Trust accounts: settlor keeping effective control", hy: true, difficulty: "hard",
-    q: "Fairhaven Bank holds the account of the Halvorsen Family Trust, a discretionary trust whose trustee is Northgate Trustees Ltd, a licensed corporate trustee. The settlor, Erik Halvorsen, is alive and is not a beneficiary; the beneficiaries are his three adult children. The trust's EUR 8 million came from the documented sale of Erik's company. Over the past year, Northgate made 23 payments within hours of emails from Erik's personal address: his credit card bills, his yacht crew's wages and invoices from a new company he owns. No payments went to the children. The trust deed is in order. What does this pattern MOST likely show?",
+  { id: "PROD-020", domain: 3, topic: "Trust accounts: following up when the settlor directs the trustee", hy: true, difficulty: "hard",
+    q: "Fairhaven Bank holds the account of the Halvorsen Family Trust, a discretionary trust whose trustee is Northgate Trustees Ltd, a licensed corporate trustee. The settlor, Erik Halvorsen, is alive and is not a beneficiary; the beneficiaries are his three adult children. The trust's EUR 8 million came from the documented sale of Erik's company. Over the past year, Northgate made 23 payments within hours of emails from Erik's personal address: his credit card bills, his yacht crew's wages and invoices from a new company he owns. No payments went to the children. What should Fairhaven do NEXT?",
     options: [
-      "The settlor exercises effective control, so the trust may be a façade and he should be treated as controlling it",
-      "The children must be re-verified, because discretionary beneficiaries become beneficial owners when payments are made",
-      "Nothing of concern, because the settlor was identified at onboarding and the source of funds is documented",
-      "The trustee is acting outside its licence, so the issue is solely one for the trustee's supervisor"
+      "Take no further action, because a licensed trustee is responsible for the trust's compliance and the source of funds is documented",
+      "Ask Northgate to explain the legal basis for the payments, such as reserved powers, a letter of wishes or loans, and update who controls the trust",
+      "Ask the three children to confirm in writing that they consent to the payments made to their father",
+      "Accept the payments without further inquiry, because the settlor is always a beneficial owner of a trust under FATF R.10"
     ],
-    answer: [0],
-    explanation: "FATF R.10 and R.25 require identification of the settlor, trustee, protector, beneficiaries and any other natural person exercising ultimate effective control over the trust. A trustee that rubber-stamps the settlor's personal spending, while the named beneficiaries receive nothing, suggests that the settlor keeps control and the trust may be a façade hiding his continuing ownership. The bank should treat him as a controlling person, reassess the risk and consider an STR. The children have received nothing, so a payout-based check on them is not the issue. A documented source of funds does not explain how the funds are used, and the bank keeps its own monitoring duties whatever the trustee's supervisor does.",
+    answer: [1],
+    explanation: "Under FATF R.10 the bank must identify the settlor, trustee, protector, beneficiaries and any other natural person exercising ultimate effective control over the trust, and keep that information up to date through ongoing due diligence. INR.25 requires trustees to disclose their status and says they should not be prevented from giving financial institutions, on request, information on the trust's beneficial ownership and assets. Payments of the settlor's personal costs at his request, when he is not a beneficiary, are unexplained, so the bank should ask Northgate for the basis of the payments, record Erik as a person exercising effective control if that is what the answers show, reassess the risk and consider an STR. Relying on the licensed trustee is the runner-up, but the bank keeps its own monitoring duty, and a documented source of funds says nothing about how the funds are now used. Identifying the settlor as a beneficial owner does not make payments to him consistent with the trust's stated purpose, and the beneficiaries are not the bank's customer or the right people to answer.",
     source: [
-      { label: "FATF Recommendations (2026), INR.10 (legal arrangements) and INR.25", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+      { label: "FATF Recommendations (2026), INR.10 para 5(b)(ii) and INR.25 paras 1 and 4", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
     ] },
 
   { id: "PROD-021", domain: 1, topic: "Correspondent services: what lowers inherent risk", hy: true, difficulty: "medium",
@@ -350,17 +355,19 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "Wolfsberg Correspondent Banking Principles (2022), section 4 and FAQ 2", url: "https://db.wolfsberg-group.org/assets/d39a5072-7fb6-4e31-9a87-9e54021ce71f/Wolfsberg%20Correspondent%20Banking%20Principles%202022.pdf" }
     ] },
 
-  { id: "PROD-025", domain: 1, topic: "Gift cards in elder fraud: tech support refund scams", hy: false, difficulty: "medium",
-    q: "Doris Quinlan, 79, has banked at Elmford Bank for 30 years and rarely withdraws cash. On three consecutive days she withdraws USD 2,500 in cash. A teller learns she is buying gift cards at nearby pharmacies and reading the card numbers over the phone to a 'support agent' from a well-known software company. She says the company had refunded her too much money for a computer repair and she must pay back the difference. Her son is her joint account holder, and her pension is paid in on the first of each month. Which statement BEST describes the typology and FinCEN's reporting request if Elmford files a SAR?",
+  { id: "PROD-025", domain: 3, topic: "Elder fraud with gift cards: preventive steps under the 2024 interagency statement", hy: false, difficulty: "medium",
+    q: "Doris Quinlan, 79, has banked at Elmford Bank for 30 years and rarely withdraws cash. In October 2026 she withdraws USD 2,500 in cash on three consecutive days. A teller learns she is buying gift cards at nearby pharmacies and reading the card numbers over the phone to a 'support agent' who says he refunded too much for a computer repair. She has named her son as a trusted contact. She returns today asking for another USD 2,500. The bank has decided to file a SAR. Which further steps are consistent with the December 2024 Interagency Statement on Elder Financial Exploitation? (Choose two.)",
     options: [
-      "A romance scam; include the key term 'EFE FIN-2022-A002' only if the losses exceed USD 10,000",
-      "A lottery scam; mark the fraud checkbox but no key term, because gift cards are not a monetary instrument",
-      "Financial exploitation by the joint account holder; file a CTR as well, because the withdrawals total over USD 7,000",
-      "A tech support refund scam; include the key term 'EFE FIN-2022-A002' and mark the Elder Financial Exploitation checkbox"
+      "Call her son, as her trusted contact, and tell him that the bank is filing a SAR about her account",
+      "Use a transaction hold or disbursement delay on today's withdrawal where state law permits, following its procedures",
+      "Freeze all of her accounts indefinitely until she agrees in writing to stop buying gift cards",
+      "Report the suspected exploitation to Adult Protective Services or local law enforcement, which privacy law generally does not prevent",
+      "Report the matter to local police instead of filing the SAR, since a direct report to law enforcement replaces the SAR"
     ],
-    answer: [3],
-    explanation: "FinCEN's advisory FIN-2022-A002 describes tech and customer support scams in which scammers claim to have refunded too much and make victims 'repay' the over-refund. It lists bulk purchases of gift cards or prepaid cards by an older customer and uncharacteristic cash withdrawals as red flags. FinCEN asks filers to include the key term 'EFE FIN-2022-A002' in SAR field 2 and the narrative and to mark the Elder Financial Exploitation checkbox (field 38(d)). There is no dollar minimum for the key term, nothing implicates the son, and no CTR is due because no single day's cash exceeded USD 10,000.",
+    answer: [1, 3],
+    explanation: "The 2024 Interagency Statement (CFPB, FDIC, Federal Reserve, FinCEN, NCUA, OCC and state regulators) notes that some state laws permit institutions to temporarily hold a transaction or delay a disbursement when they suspect financial exploitation, and encourages reporting suspected exploitation to Adult Protective Services and law enforcement. It recalls the 2013 interagency guidance that the privacy provisions of the Gramm-Leach-Bliley Act generally do not prevent such reports. Calling the trusted contact is the runner-up, because contacting him is appropriate, but any disclosure must respect the confidentiality of SARs, so the bank may not tell him a SAR is being filed. An open-ended freeze goes beyond time-limited holds under state law, and the Statement notes that reporting to law enforcement does not relieve the bank of its SAR obligation.",
     source: [
+      { label: "Interagency Statement on Elder Financial Exploitation (December 2024), sections 3-6", url: "https://www.fdic.gov/interagency-statement-elder-financial-exploitation.pdf" },
       { label: "FinCEN Advisory FIN-2022-A002 on Elder Financial Exploitation (June 2022)", url: "https://www.fincen.gov/sites/default/files/advisory/2022-06-15/FinCEN%20Advisory%20Elder%20Financial%20Exploitation%20FINAL%20508.pdf" }
     ] }
 ]);

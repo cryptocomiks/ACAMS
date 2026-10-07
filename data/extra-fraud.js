@@ -50,19 +50,21 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "FRAUD-004", domain: 1, topic: "Kickbacks: private-sector bribery as a predicate (UK Bribery Act ss.2-3)", hy: true, difficulty: "hard",
-    q: "Northgate Bank in London holds the account of Pell Advisory Ltd, a one-person consultancy owned by Hannah Pell. Her husband Gareth is head of procurement at Hollins Foods plc, a privately owned UK supermarket chain. Since Gareth took the job in 2025, Pell Advisory has received £6,500 every month from Brightfield Packaging Ltd for 'category insight reports', and Brightfield's share of Hollins's packaging contracts has grown from 10% to 60%. Hannah has no packaging background, and she has never produced a report when asked. The income is declared for tax and the account has no cash activity. No public official is involved. How should Northgate's MLRO BEST assess the activity?",
+    id: "FRAUD-004", domain: 1, topic: "Kickbacks routed to a relative: advantage to a third party (UK Bribery Act ss.1-2) and the SAR decision", hy: true, difficulty: "hard",
+    q: "Northgate Bank in London holds the account of Pell Advisory Ltd, a one-person consultancy owned by Hannah Pell. Her husband Gareth is head of procurement at Hollins Foods plc, a UK supermarket chain. Since Gareth took the job in 2025, Pell Advisory has received £6,500 every month from Brightfield Packaging Ltd for 'category insight reports', and Brightfield's share of Hollins's packaging contracts has grown from 10% to 60%. Hannah has no packaging background and has never produced a report when asked. When the bank asks about the payments, Hannah says: 'Gareth never receives a penny, the money is my company's declared income, and nobody has been charged with anything.' How should Northgate's MLRO BEST assess the activity?",
     options: [
-      "As no criminal matter, because bribery offences need a public official and this is at most a breach of Gareth's job contract",
-      "As possible tax evasion only, because the consultancy fees could reduce Brightfield's taxable profits",
-      "As legitimate consulting income, because the fees are declared for tax and the account has no cash activity",
-      "As possible private-sector bribery, so the payments may be criminal property and a SAR to the NCA may be needed"
+      "As no bribery, because Gareth personally receives nothing and the fees are the declared income of a separate company",
+      "As bribery by Brightfield only, because Gareth has not himself accepted any payment from the supplier",
+      "As possible bribery, because the advantage can go to someone else, so the fees may be criminal property and a SAR may be needed",
+      "As not yet reportable, because the fees cannot be criminal property until a court convicts someone of bribery"
     ],
-    answer: [3],
-    explanation: "Under the UK Bribery Act 2010, a 'relevant function or activity' includes any activity connected with a business or performed in the course of employment, where the person is expected to act in good faith or impartially or is in a position of trust (s.3). Accepting an advantage to perform it improperly is an offence (s.2), and it does not matter whether the advantage goes to the person or to another, such as a spouse's company (s.2(6)). The runner-up is the view that no crime exists without a public official: that is the FCPA's scope, not the UK Act's, which also covers private-sector bribery. Declaring the income for tax does not make bribe proceeds legitimate, and the payments look like kickbacks, not a tax device.",
+    answer: [2],
+    explanation: "Under the UK Bribery Act 2010, it does not matter whether the advantage is given to the person who performs the function or to someone else (s.1(4)), or whether the person being bribed accepts it directly or through a third party, for his own benefit or another's (s.2(6)). Performing a job for a business is a relevant function where good faith, impartiality or trust is expected (s.3). Fees routed to a spouse's company with no real work, while that supplier's share of contracts grows, therefore suggest bribery on both sides. The runner-up is that Gareth receives nothing, but the Act expressly covers advantages that go to another person. Under POCA s.340(3), property is criminal property if it represents a benefit from criminal conduct and the person knows or suspects that it does. Suspicion is enough, so no conviction is needed before a SAR to the NCA, and declaring the income for tax does not make it clean.",
     source: [
+      { label: "UK Bribery Act 2010, s.1 (offences of bribing another person)", url: "https://www.legislation.gov.uk/ukpga/2010/23/section/1" },
       { label: "UK Bribery Act 2010, s.2 (offences relating to being bribed)", url: "https://www.legislation.gov.uk/ukpga/2010/23/section/2" },
-      { label: "UK Bribery Act 2010, s.3 (function or activity to which bribe relates)", url: "https://www.legislation.gov.uk/ukpga/2010/23/section/3" }
+      { label: "UK Bribery Act 2010, s.3 (function or activity to which bribe relates)", url: "https://www.legislation.gov.uk/ukpga/2010/23/section/3" },
+      { label: "Proceeds of Crime Act 2002, s.340 (criminal property)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/340" }
     ]
   },
   {
@@ -172,17 +174,17 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "FRAUD-012", domain: 1, topic: "Mail theft-related check fraud: red flags at the depositing bank (FIN-2023-Alert003)", hy: true, difficulty: "medium",
-    q: "Tyler Banks, 21, has had a student checking account at Riverbend Bank for three years, used only for card spending and a monthly $400 transfer from his parents. Over five days in September 2026 he makes mobile deposits of four checks totalling $18,700, each drawn on a different business account in another state. Within hours of each deposit becoming available, he withdraws cash at ATMs and sends P2P payments to two people he has never paid before. Images of two checks show faded writing under darker ink in the payee line. None of the deposits is cash. Which facts are red flags named in FinCEN's 2023 mail theft-related check fraud alert? (Choose two.)",
+    id: "FRAUD-012", domain: 1, topic: "Mail theft-related check fraud: deposit-side red flags (FIN-2023-Alert003)", hy: true, difficulty: "medium",
+    q: "Tyler Banks, 21, has had a student checking account at Riverbend Bank for three years, used only for card spending and a monthly $400 transfer from his parents. Over five days in September 2026 he makes mobile deposits of four checks totalling $18,700, each drawn on a different business account in another state. Within hours of each deposit becoming available, he withdraws cash at ATMs and sends P2P payments to two people he has never paid before. In the deposit images, two of the checks are on stock that looks noticeably different from genuine checks of the same issuing banks. None of the deposits is cash. Which facts are red flags named in FinCEN's 2023 mail theft-related check fraud alert? (Choose two.)",
     options: [
       "A customer with no history of check deposits suddenly deposits checks and then quickly withdraws or moves the funds",
       "The deposits total more than $10,000 within five days, which should have triggered a currency transaction report",
       "The customer used the mobile deposit channel, which on its own marks the checks as likely stolen from the mail",
-      "Faded handwriting appears underneath darker handwriting on the checks that were deposited",
+      "Some checks are on noticeably different check stock from that used for genuine checks of the issuing bank",
       "The customer is a student whose account regularly receives small transfers from his parents"
     ],
     answer: [0, 3],
-    explanation: "FinCEN's February 2023 alert, issued with the US Postal Inspection Service, lists as red flags an existing customer with no history of check deposits who suddenly deposits checks and withdraws or transfers the funds, sudden abnormal check deposits followed by rapid withdrawal, and faded handwriting beneath darker handwriting. It asks filers to use the key term FIN-2023-MAILTHEFT, check SAR field 34(d), and refer victims to USPIS. CTRs apply only to currency, so check deposits do not trigger one. Mobile deposit is a common channel for these schemes but is not suspicious on its own, and parental transfers are ordinary.",
+    explanation: "FinCEN's February 2023 alert, issued with the US Postal Inspection Service, lists as red flags an existing customer with no history of check deposits who suddenly deposits checks and withdraws or transfers the funds, sudden abnormal check deposits (often electronic) followed by rapid withdrawal or transfer, and checks on noticeably different check stock from that used by the issuing bank and for known legitimate transactions. It asks filers to use the key term FIN-2023-MAILTHEFT, check SAR field 34(d), and refer victims to USPIS. CTRs apply only to currency, so check deposits do not trigger one. Mobile deposit is a common channel for these schemes but is not suspicious on its own, and parental transfers are ordinary.",
     source: [
       { label: "FinCEN Alert FIN-2023-Alert003 (Feb 2023) – Mail theft-related check fraud", url: "https://www.fincen.gov/sites/default/files/shared/FinCEN%20Alert%20Mail%20Theft-Related%20Check%20Fraud%20FINAL%20508.pdf" }
     ]
@@ -281,16 +283,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "FRAUD-019", domain: 1, topic: "Elder scams: tech support 'over-refund' scheme (FIN-2022-A002)", hy: false, difficulty: "hard",
-    q: "Evelyn Shaw, 79, visits her Harbor Point Bank branch to wire $28,000 to a company account in Hong Kong. She explains that last week she paid 'Secure PC Support' $299 to remove a virus after letting its technician connect remotely to her laptop. Yesterday the company said it was closing and would refund her, then claimed its clerk had typed $29,900 by mistake, and her online banking now shows the 'refund'. Her statement shows the $29,900 credit was a transfer from her own savings account to her checking account, made in an online session from an IP address abroad. She seems anxious and keeps looking at her phone, which is still on a call. What is MOST likely happening?",
+    id: "FRAUD-019", domain: 1, topic: "Elder scams: emergency 'grandparent' scam vs government imposter scam (FIN-2022-A002)", hy: false, difficulty: "hard",
+    q: "Evelyn Shaw, 79, comes into her Harbor Point Bank branch to withdraw $14,000 in cash, which she has never done before. She explains that her grandson was arrested after a car accident while visiting another state, and that his lawyer called this morning: a courier will collect the bail money from her home this afternoon. The lawyer told her a 'gag order' means she must not tell her son. Her phone is still on a call, and she keeps glancing at it and asks the teller to hurry. Nobody has said that Evelyn herself owes money or is under investigation. Her pension arrives as usual, and nobody else has access to her accounts. Which typology is MOST likely?",
     options: [
-      "A romance scam, in which an online partner persuades the victim to fund a business venture abroad",
-      "A tech support refund scam, in which she is tricked into sending her own money back as an 'over-refund'",
-      "An account takeover, in which criminals use stolen credentials to wire money without her knowledge",
-      "A genuine refund error by the company, which the bank should help her return through the right channel"
+      "A government imposter scam, in which callers posing as officials threaten the victim with arrest for her own supposed crimes",
+      "An emergency or 'grandparent' scam, in which impostors say a loved one is in trouble and needs money at once",
+      "Elder theft by a trusted person, in which a relative or caregiver misuses access to the victim's accounts",
+      "A romance scam, in which an online partner the victim has never met persuades her to send money"
     ],
     answer: [1],
-    explanation: "FinCEN's 2022 elder exploitation advisory describes tech and customer support scams in which criminals gain remote access, claim to refund the victim, say they refunded too much, and induce the victim to send back the 'over-refund'. It also lists as a behavioural red flag an older customer who seems to take directions from someone on a phone call and is nervous or unwilling to hang up. Account takeover is the runner-up because the scammer did use remote access to move her savings, but the loss will come from a wire she authorises herself after being deceived. There is no romantic relationship, and the 'refund' is her own money, not a company error.",
+    explanation: "FinCEN's 2022 elder exploitation advisory describes emergency or person-in-need scams, also called grandparent scams, in which scammers impersonate a grandchild, another relative, an attorney or a law enforcement official to make the victim believe a loved one is in an emergency, such as a car accident or arrest, and needs money sent immediately. It notes that scammers increasingly ask for cash collected at the victim's home. Its behavioural red flags include an older customer taking directions from someone on a phone call, nervous or unwilling to hang up, and agitated about the need to send money immediately for a purported emergency of a loved one. A government imposter scam is the runner-up, because the caller claims legal authority, but in that scheme fake officials from agencies such as the SSA or IRS threaten the victim herself with arrest or account seizure. No relative or caregiver controls her money, and there is no online romance.",
     source: [
       { label: "FinCEN Advisory FIN-2022-A002 (June 2022) – Elder financial exploitation", url: "https://www.fincen.gov/sites/default/files/advisory/2022-06-15/FinCEN%20Advisory%20Elder%20Financial%20Exploitation%20FINAL%20508.pdf" }
     ]
@@ -342,16 +344,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "FRAUD-023", domain: 3, topic: "Foreign PEP source of wealth: using and verifying asset declarations (FATF PEP Guidance)", hy: false, difficulty: "hard",
-    q: "Meridian Private Bank is onboarding Dr Anton Vasko, deputy minister of health of Country R, who wants to place $6.5 million. He says the wealth comes from 'family real estate and consulting before office'. Country R publishes ministers' annual asset declarations online; his 2025 declaration lists a $48,000 salary, one apartment and no business interests. He offers a signed self-declaration of his wealth and a letter from his own accountant. The relationship manager notes that a long-standing client introduced him. What should the bank do to establish his source of wealth?",
+    id: "FRAUD-023", domain: 3, topic: "PEP family member as legal owner: limits of customer self-declaration (FATF PEP Guidance)", hy: false, difficulty: "hard",
+    q: "Meridian Bank is onboarding Medlinea Supplies Ltd, formed two months ago and wholly owned by Irina Kask, 27, a former schoolteacher. Medlinea expects about $5 million a year from Country R's state hospital procurement agency for medical consumables. On the bank's form, which sets out the PEP definition, Irina ticked 'No' to being a PEP, a family member of a PEP, or a close associate. Screening found nothing, because she uses her married name. An analyst then finds a wedding announcement showing that her father, Dr Anton Vasko, is Country R's deputy minister of health. The relationship manager says the bank can rely on her signed declaration, because any false answer is her responsibility. What should the bank do?",
     options: [
-      "Accept the signed self-declaration and accountant's letter, since a PEP's own statement is the primary evidence",
-      "Rely on the published asset declaration alone, because it is an official government record of his wealth",
-      "Treat the gap with his declaration as a red flag, and verify the claimed sources in property, company and other records",
-      "Decline him at once, because a declared salary of $48,000 can never explain wealth of this size"
+      "Rely on the signed declaration, because the form gave the PEP definition and any misstatement is the customer's legal responsibility",
+      "Apply standard due diligence, because Irina holds no public function herself and the company's own business is lawful",
+      "Decline automatically, because companies owned by relatives of public officials may not contract with the state",
+      "Treat her as a foreign PEP's family member, apply enhanced measures, and test whether the minister is the real owner"
     ],
-    answer: [2],
-    explanation: "FATF's PEP Guidance (2013) lists as a red flag information from a PEP that is inconsistent with public information such as asset declarations and published official salaries. It says asset declarations can help, but they are self-declarations that may contain false statements, so institutions should make reasonable efforts to verify them, using property and land registers, asset disclosure registers and company registers. Relying on the declaration alone is the runner-up, but it is neither verified nor complete, and here it contradicts his story. A self-declaration with his own accountant's letter is weak evidence. Refusing at once is not required, as wealth from before office may be genuine and can be checked.",
+    answer: [3],
+    explanation: "FATF's PEP Guidance says Recommendation 12 applies also to family members and close associates of PEPs, and family members include those related by blood or by marriage. It warns that institutions that give customers a PEP definition and ask them to self-declare must not rely solely on such declarations, which may be false: doing so would shift the institution's obligation to the customer, which is not acceptable. Relying on the declaration is the runner-up, but that is exactly what FATF rejects. Among its red flags of PEPs shielding their identity are the use of corporate vehicles to obscure beneficial ownership and the use of family members or close associates as legal owner, which fits a new company selling to the ministry her father helps run. So the bank should apply the foreign PEP measures (senior management approval, source of wealth and funds, enhanced monitoring) and consider whether a suspicious transaction report is needed. Being a PEP relative does not by itself require refusal.",
     source: [
       { label: "FATF Guidance: Politically Exposed Persons (Recs 12 and 22), 2013", url: "https://www.fatf-gafi.org/content/dam/fatf-gafi/guidance/Guidance-PEP-Rec12-22.pdf" }
     ]
