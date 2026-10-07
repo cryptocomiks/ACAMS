@@ -37,24 +37,24 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Apply the higher standard on each point: Country V's lower cash threshold and Singapore's trust beneficial ownership requirement"
     ],
     answer: [3],
-    explanation: "Paragraph 15.4 requires a Singapore-incorporated bank to extend its group AML/CFT policy to all branches and subsidiaries. Paragraph 15.8 adds that where the host's AML/CFT requirements differ from Singapore's, the overseas branch or subsidiary must apply the higher of the two standards, to the extent host law permits. That works requirement by requirement, so the subsidiary applies Country V's stricter cash threshold and Singapore's trust beneficial ownership rule. Choosing one whole rulebook as 'stricter overall' (the runner-up) would drop the stricter element of the other. A home-rule-always approach ignores the host's stricter threshold, and the strong mutual evaluation does not lower either standard.",
+    explanation: "Paragraph 15.4 requires a Singapore-incorporated bank to extend its group AML/CFT policy to all branches and subsidiaries. Paragraph 15.8 adds that where the host's AML/CFT requirements differ from Singapore's, the overseas branch or subsidiary must apply the higher of the two standards, to the extent host law permits. That works requirement by requirement, so the subsidiary applies Country V's stricter cash threshold and Singapore's trust beneficial ownership rule (paragraph 6.14(b)). Choosing one whole rulebook as 'stricter overall' (the runner-up) would drop the stricter element of the other. A home-rule-always approach ignores the host's stricter threshold, and the strong mutual evaluation does not lower either standard.",
     source: [
-      { label: "MAS Notice 626 (last revised 30 June 2025), paras 15.4 and 15.8 – group policy", url: "https://www.mas.gov.sg/-/media/amld-amendments---30-june-2025/mas-notice-626.pdf" }
+      { label: "MAS Notice 626 (last revised 30 June 2025), paras 6.14 and 15.4-15.8 – beneficial owners of trusts; group policy", url: "https://www.mas.gov.sg/-/media/amld-amendments---30-june-2025/mas-notice-626.pdf" }
     ] },
 
-  { id: "REGS-004", domain: 2, topic: "Hong Kong: overseas subsidiary unable to apply AMLO record-keeping standards", hy: false, difficulty: "hard",
-    q: "Kowloon Crest Bank, a Hong Kong-incorporated authorized institution, owns a subsidiary in Country Q that carries on banking business. Country Q's privacy law requires banks to destroy customer records three years after an account closes, and it allows no exceptions. The Hong Kong standard is at least five years. The subsidiary is small and makes 2% of group profit. Under the HKMA Guideline on AML/CFT, which steps must the parent take? (Choose two.)",
+  { id: "REGS-004", domain: 2, topic: "Hong Kong: which overseas entities group-wide AML/CFT Systems must cover", hy: false, difficulty: "hard",
+    q: "Kowloon Crest Bank, a Hong Kong-incorporated authorized institution, is mapping which overseas entities its group-wide AML/CFT Systems must cover. Its overseas footprint is listed in the options. The head of compliance wants to cover only entities in jurisdictions with weak AML regimes, because 'the others are already supervised locally'. Under the HKMA Guideline on AML/CFT, which TWO entities must the group-wide AML/CFT Systems cover? (Choose two.)",
     options: [
-      "Inform the HKMA that the subsidiary cannot apply the higher record-keeping requirement",
-      "Take additional measures to mitigate the ML/TF risks that result from the shorter retention period",
-      "Accept the three-year period without further action, because host law always prevails over group standards",
-      "Instruct the subsidiary to copy all records to Hong Kong before deletion, even though Country Q's law forbids it",
-      "Close the subsidiary immediately, because the Guideline does not allow subsidiaries that cannot meet Schedule 2"
+      "A wholly owned subsidiary in Country Q that takes deposits and makes loans, in a jurisdiction with a strong FATF rating",
+      "The bank's own branch in London, which provides trade finance to corporate customers",
+      "A wholly owned subsidiary in Country P that provides only IT and payroll services to other group companies",
+      "A 15% shareholding in a bank in Country R, over which Kowloon Crest has no control",
+      "A Hong Kong-listed customer of the bank that has its own subsidiaries in Country Q"
     ],
     answer: [0, 1],
-    explanation: "Paragraphs 3.15-3.18 require Hong Kong-incorporated AIs to apply CDD and record-keeping requirements similar to Parts 2 and 3 of Schedule 2 to the AMLO across overseas branches and subsidiaries, using the higher of the home and host requirements where the host's laws permit. Where host law does not permit this, paragraph 3.19 requires the AI to inform the HKMA and take additional measures to mitigate the resulting risks. Doing nothing ignores paragraph 3.19, and the Guideline does not tell the AI to break host law or to close the subsidiary automatically.",
+    explanation: "Paragraph 3.15 requires a Hong Kong-incorporated AI to implement group-wide AML/CFT Systems covering all of its overseas branches and subsidiary undertakings that carry on the same business as a financial institution as defined in the AMLO. Paragraph 3.16 adds that they must apply CDD and record-keeping requirements similar to Parts 2 and 3 of Schedule 2, to the extent local law permits. The deposit-taking subsidiary and the London branch both carry on banking business, so both are covered, whatever the strength of the local regime. An IT and payroll service company does not carry on financial institution business, a non-controlling 15% stake is not a subsidiary undertaking, and a customer's subsidiaries are not part of the AI's group at all.",
     source: [
-      { label: "HKMA Guideline on AML/CFT (for Authorized Institutions), revised May 2023, paras 3.15-3.19", url: "https://brdr.hkma.gov.hk/eng/doc-ldg/docId/getPdf/20230525-4-EN/AML-2.pdf" }
+      { label: "HKMA Guideline on AML/CFT (for Authorized Institutions), revised May 2023, paras 3.15-3.16", url: "https://brdr.hkma.gov.hk/eng/doc-ldg/docId/getPdf/20230525-4-EN/AML-2.pdf" }
     ] },
 
   { id: "REGS-005", domain: 2, topic: "Hong Kong: relationships managed in Hong Kong but booked abroad", hy: false, difficulty: "hard",
@@ -80,7 +80,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Refuse until Paris obtains a court order, because the STR makes the information confidential"
     ],
     answer: [2],
-    explanation: "Paragraph 15.9A of MAS Notice 626 requires the Singapore branch of a foreign-incorporated bank to share customer, account and transaction information within the bank's financial group when necessary for ML/TF risk management. This includes information and analysis of unusual transactions. It must put in place adequate safeguards to protect the confidentiality and use of what it shares. Asking the customer for consent would create a real risk of tipping off, and a court order is not required.",
+    explanation: "Paragraph 15.9A of MAS Notice 626 requires the Singapore branch of a foreign-incorporated bank to share customer, account and transaction information within the bank's financial group when necessary for ML/TF risk management. This includes information and analysis of unusual transactions. It must put in place adequate safeguards to protect the confidentiality and use of what it shares. Footnote 16 confirms that, subject to the CDSA tipping-off offence, the shared information may include an STR and its underlying information. Asking the customer for consent would create a real risk of tipping off, and a court order is not required.",
     source: [
       { label: "MAS Notice 626 (last revised 30 June 2025), para 15.9A", url: "https://www.mas.gov.sg/-/media/amld-amendments---30-june-2025/mas-notice-626.pdf" }
     ] },
@@ -95,9 +95,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Update the list: apply mandatory high-risk-country EDD to the Monaco customer, and risk-assess the Dubai customer under normal rules"
     ],
     answer: [3],
-    explanation: "Delegated Regulation (EU) 2025/1184, which entered into force in August 2025, added Algeria, Angola, Côte d'Ivoire, Kenya, Laos, Lebanon, Monaco, Namibia, Nepal and Venezuela to the EU list. It removed Barbados, Gibraltar, Jamaica, Panama, the Philippines, Senegal, Uganda and the UAE. Mandatory EDD for relationships involving listed countries applies straight away under the AMLD rules, so waiting for the AMLR is wrong. The Dubai customer is still assessed on its own risk factors, but the UAE no longer triggers list-based EDD. The EU list, not only the FATF statements, is what triggers the EU legal requirement.",
+    explanation: "Delegated Regulation (EU) 2025/1184, which entered into force in August 2025, added Algeria, Angola, Côte d'Ivoire, Kenya, Laos, Lebanon, Monaco, Namibia, Nepal and Venezuela to the EU list. It removed Barbados, Gibraltar, Jamaica, Panama, the Philippines, Senegal, Uganda and the UAE. The amending regulation was published on 16 July 2025 and entered into force 20 days later, and mandatory EDD for relationships involving listed countries applies straight away under the national rules transposing the AMLD, so waiting for the AMLR is wrong. The Dubai customer is still assessed on its own risk factors, but the UAE no longer triggers list-based EDD. The EU list, not only the FATF statements, is what triggers the EU legal requirement. Screening lists need updating each time the Commission amends the list (it did so again with Delegated Regulation (EU) 2026/46, which added Russia).",
     source: [
-      { label: "Commission Delegated Regulation (EU) 2025/1184 amending Delegated Regulation (EU) 2016/1675", url: "https://eur-lex.europa.eu/eli/reg_del/2025/1184/oj/eng" }
+      { label: "Commission Delegated Regulation (EU) 2025/1184 amending Delegated Regulation (EU) 2016/1675", url: "https://eur-lex.europa.eu/eli/reg_del/2025/1184/oj/eng" },
+      { label: "Commission Delegated Regulation (EU) 2026/46 (later amendment adding Russia)", url: "https://eur-lex.europa.eu/eli/reg_del/2026/46/oj/eng" }
     ] },
 
   { id: "REGS-008", domain: 2, topic: "AMLR: Art. 29 vs Art. 30 high-risk third countries", hy: true, difficulty: "hard",
@@ -116,7 +117,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ] },
 
   { id: "REGS-009", domain: 2, topic: "AMLA direct supervision: applying the selection criteria to a group", hy: false, difficulty: "hard",
-    q: "Corvalis Bank Group has its head office in Member State A. It has bank subsidiaries in Member States B and C and a branch in Member State D. It also serves customers in Member States E and F remotely under the freedom to provide services, with no offices there. Its total assets are EUR 25 billion. In the AMLA assessment that starts in 2027, Corvalis's subsidiary in B is individually seen as high risk by its national supervisor, but the group-wide residual risk profile is classified as 'substantial'. What is the outcome under the AMLA Regulation?",
+    q: "Corvalis Bank Group has its head office in Member State A. It has bank subsidiaries in Member States B and C and a branch in Member State D. It also serves customers in Member States E and F remotely under the freedom to provide services, with no offices there. Its total assets are EUR 25 billion. Each of these Member States already has at least one other institution that qualifies for selection. In the AMLA assessment that starts in 2027, Corvalis's subsidiary in B is individually seen as high risk by its national supervisor, but the group-wide residual risk profile is classified as 'substantial'. What is the outcome under the AMLA Regulation?",
     options: [
       "Corvalis is outside the assessment, because it is established in only four Member States",
       "Corvalis is selected, because one of its subsidiaries is high risk in its own Member State",
@@ -124,7 +125,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Corvalis is selected automatically, because its total assets exceed the EUR 20 billion threshold"
     ],
     answer: [2],
-    explanation: "Article 12(1) of Regulation (EU) 2024/1620 covers institutions and groups operating in at least six Member States, including the home one, whether through establishments or under the freedom to provide services, including remotely. So A to F count, and Corvalis is assessed. Article 12(3) classifies a group's risk profile at group-wide level, and Article 13(1) selects only those whose residual risk is high. One high-risk subsidiary therefore does not lead to selection. Size is not a criterion. The additional selection under Article 13(3) also picks only entities whose risk profile is high.",
+    explanation: "Article 12(1) of Regulation (EU) 2024/1620 covers institutions and groups operating in at least six Member States, including the home one, whether through establishments or under the freedom to provide services, including remotely. So A to F count, and Corvalis is assessed. Article 12(3) classifies a group's risk profile at group-wide level, and Article 13(1) selects only those whose residual risk is high. One high-risk subsidiary therefore does not lead to selection. Size is not a criterion. The additional selection under Article 13(3) is not triggered, because it applies only in a Member State where no institution qualifies under Article 13(1)-(2).",
     source: [
       { label: "Regulation (EU) 2024/1620 (AMLA Regulation), Arts. 12-13", url: "https://eur-lex.europa.eu/eli/reg/2024/1620/oj/eng" }
     ] },
@@ -168,25 +169,24 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Book transfers on the Asian bank's ledger are reportable to FinCEN as cross-border funds transfers"
     ],
     answer: [1],
-    explanation: "OFAC settled with British Arab Commercial Bank in 2019 for USD 4 million (base penalty USD 381.4 million; OFAC judged the case egregious). BACB, a London bank with no US presence, processed Sudan-related USD payments through a nostro at a non-US bank. The individual payments never touched the US, but the bulk transfers that funded the nostro were processed through US banks. That is exactly the design described here. Holding US dollar balances does not make a foreign bank a US person, and the other options are not the main risk.",
+    explanation: "OFAC settled with British Arab Commercial Bank in 2019 for USD 4 million (base penalty USD 381.4 million; OFAC judged the case egregious and suspended the rest of a USD 228.84 million proposed penalty because of the bank's operating capacity). BACB, a London bank with no US presence, processed Sudan-related USD payments through a nostro at a non-US bank. The individual payments never touched the US, but the bulk transfers that funded the nostro were processed through US banks. That is exactly the design described here. Holding US dollar balances does not make a foreign bank a US person, and the other options are not the main risk.",
     source: [
       { label: "OFAC Enforcement Information, 17 September 2019 – British Arab Commercial Bank plc", url: "https://ofac.treasury.gov/media/26036/download" }
     ] },
 
-  { id: "REGS-013", domain: 2, topic: "Which US rules reach which offices: BSA vs OFAC", hy: true, difficulty: "hard",
-    q: "A compliance officer is mapping obligations for two banks. Nordhafen Bank AG, a German bank, has a branch in New York. Lakeview Bancorp's national bank, a US bank, has a branch in London. Which statements are correct? (Choose two.)",
+  { id: "REGS-013", domain: 2, topic: "Which offices the BSA reaches: US branches of foreign banks and foreign branches of US banks", hy: true, difficulty: "hard",
+    q: "A compliance officer is mapping Bank Secrecy Act (BSA) reporting duties for two banks. Nordhafen Bank AG, a German bank, has a branch in New York. Lakeview National Bank, a US bank, has a branch in London. Which statements are correct? (Choose two.)",
     options: [
-      "Nordhafen's New York branch must file SARs with FinCEN, because the BSA rules define 'bank' to include US branches of foreign banks",
-      "Lakeview's London branch must comply with OFAC sanctions, because OFAC's regulations treat foreign branches of US banks as US persons",
-      "Lakeview's London branch must file CTRs with FinCEN for cash deposits over USD 10,000 made in London",
-      "Nordhafen's New York branch may apply the German Money Laundering Act instead of the BSA, because BaFin supervises the group",
-      "Lakeview's London branch need not report to the UK National Crime Agency, because its parent files SARs with FinCEN"
+      "Nordhafen's New York branch must file SARs with FinCEN, because the BSA rules define 'bank' to include US branches of banks organised under foreign law",
+      "Lakeview's London branch does not file CTRs with FinCEN for cash deposited in London, because the BSA definition of 'bank' reaches only offices within the United States",
+      "Nordhafen's New York branch may rely on its head office's reports to the German FIU instead of filing SARs with FinCEN",
+      "Nordhafen's New York branch is outside the BSA, because it is not a separately incorporated US bank",
+      "The BSA applies to Nordhafen's New York branch only for accounts held by US citizens"
     ],
     answer: [0, 1],
-    explanation: "31 CFR 1010.100(d) defines 'bank' as each agent, agency, branch or office within the United States of listed institutions, including a bank organised under foreign law. A US branch of a foreign bank is therefore subject to the BSA, and a London branch of a US bank is outside the BSA's CTR and SAR rules. OFAC's definitions of 'US person', such as 31 CFR 560.314, expressly include foreign branches of US entities. The London branch is also in the UK regulated sector, so it must report suspicions to the NCA under UK law.",
+    explanation: "31 CFR 1010.100(d) defines 'bank' as each agent, agency, branch or office within the United States of any person doing business as one of the listed institutions, and the list includes a bank organised under foreign law. The New York branch is therefore a BSA 'bank' in its own right, whatever its legal form or customers' nationality, and must file SARs and CTRs with FinCEN. Reports by its head office to a foreign FIU do not replace them. The same definition reaches only offices within the United States, so cash deposited at Lakeview's London branch is outside the BSA's CTR rule. That branch is instead subject to UK AML law.",
     source: [
-      { label: "31 CFR 1010.100(d) – definition of bank (offices within the United States)", url: "https://www.ecfr.gov/current/title-31/section-1010.100" },
-      { label: "31 CFR 560.314 – United States person (including foreign branches)", url: "https://www.ecfr.gov/current/title-31/section-560.314" }
+      { label: "31 CFR 1010.100(d) – definition of bank (offices within the United States)", url: "https://www.ecfr.gov/current/title-31/section-1010.100" }
     ] },
 
   { id: "REGS-014", domain: 2, topic: "AMLR: EU branch of a third-country bank reports to the host FIU", hy: false, difficulty: "medium",
@@ -266,13 +266,13 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "Strengthening Canada's Immigration System and Borders Act, Royal Assent 26 Mar 2026: AMPs up to 40x, mandatory compliance agreements",
     q: "In September 2026, FINTRAC examines Northgate Exchange, a Vancouver money services business owned by a Hong Kong group. It finds that Northgate did not submit STRs on 14 transactions between April and June 2026. Northgate's lawyer argues that the old penalty limits apply until the regulations are rewritten, and that any compliance agreement would be voluntary. Which statement is MOST accurate?",
     options: [
-      "The violations occurred after 26 March 2026, so the new framework applies: maximum penalties up to 40 times higher and a mandatory compliance agreement",
+      "The violations occurred after 26 March 2026, so the new framework applies, with maximum penalties up to 40 times the former limits and mandatory compliance agreements for prescribed violations",
       "The old limits apply, because the new penalty framework covers only violations found in examinations that start after 2027",
       "Only a warning letter is possible, because FINTRAC cannot penalise MSBs with a foreign parent",
       "FINTRAC may combine pre- and post-March 2026 periods in one exam and apply whichever limits are lower"
     ],
     answer: [0],
-    explanation: "FINTRAC states that Royal Assent of the Strengthening Canada's Immigration System and Borders Act on 26 March 2026 introduced a new AMP framework. It provides maximum penalties up to 40 times the previous limits, mandatory compliance agreements for prescribed violations committed after that date, compliance orders, and consideration of ability to pay. Violations entirely before that date fall under the former policy. FINTRAC scopes examinations to fall within one legislative period, rather than combining both.",
+    explanation: "FINTRAC states that Royal Assent of the Strengthening Canada's Immigration System and Borders Act on 26 March 2026 introduced a new AMP framework. The changes came into force on Royal Assent and apply to violations after that date, so the lawyer is wrong that the old limits survive until the policy is rewritten. The framework provides maximum penalties up to 40 times the previous limits, mandatory compliance agreements for prescribed violations, compliance orders, and consideration of ability to pay. Violations entirely before that date fall under the former policy. FINTRAC scopes each examination so that it falls within one legislative framework, rather than combining both and choosing the lower limits. Foreign ownership does not limit FINTRAC's powers.",
     source: [
       { label: "FINTRAC – Administrative monetary penalties: changes following legislative amendments", url: "https://fintrac-canafe.canada.ca/pen/3-eng" }
     ] },
@@ -301,7 +301,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "A qualified accountant, who is a reporting entity, uses report information in good faith to dissuade a client from committing an offence"
     ],
     answer: [1],
-    explanation: "Under the substituted section 123, it is an offence to disclose that a suspicious matter report was made, or its contents, where the disclosure would or could reasonably be expected to prejudice an investigation. It does not matter whether an investigation has started. Telling the customer during an active police investigation clearly meets that test. Disclosures to AUSTRAC entrusted persons are excluded. There are exceptions for legal practitioners and accountants who dissuade a client from offending in good faith, and for sharing with another reporting entity to detect or disrupt money laundering under the prescribed conditions.",
+    explanation: "Under section 123 as substituted by Schedule 5 to the 2024 Amendment Act (in force since 31 March 2025), it is an offence to disclose that a suspicious matter report was made, or its contents, where the disclosure would or could reasonably be expected to prejudice an investigation. It does not matter whether an investigation has started. Telling the customer during an active police investigation clearly meets that test. Disclosures to AUSTRAC entrusted persons are excluded. There are exceptions for legal practitioners and accountants who dissuade a client from offending in good faith, and for sharing with another reporting entity to detect or disrupt money laundering under the prescribed conditions.",
     source: [
       { label: "Anti-Money Laundering and Counter-Terrorism Financing Amendment Act 2024 (No. 110, 2024), Sch. 5 – new s.123", url: "https://www.legislation.gov.au/C2024A00110/asmade/text" }
     ] },
