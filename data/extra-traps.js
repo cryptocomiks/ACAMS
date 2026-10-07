@@ -463,7 +463,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "TRAP-030", difficulty: "hard", domain: 4, topic: "BEC response – what to do first", hy: true,
+    id: "TRAP-030", difficulty: "hard", domain: 4, topic: "BEC response – what to do first", hy: true, changed: "FinCEN Rapid Response Program fact sheet, Apr 2026 (72 hours)",
     q: "Three hours after sending a $480,000 wire, a corporate customer calls its bank in a panic. The wire went to a 'new account' of a long-standing supplier after an email request, but the supplier has just confirmed it never changed its bank details. The beneficiary bank is in another US state. The customer's CFO is on vacation, and the customer also has a loan renewal pending. What should the bank do FIRST?",
     options: [
       "Open a case and file a SAR within 30 calendar days of initial detection",
