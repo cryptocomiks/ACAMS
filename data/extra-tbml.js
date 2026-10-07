@@ -1,18 +1,17 @@
 // Batch 6 (October 2026): practical cases on trade-based money laundering and trade finance abuse.
 window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
-  { id: "TBML-001", domain: 1, topic: "TBML – under-invoicing of exports and capital flight", hy: true, difficulty: "hard",
-    q: "Ferrovia Minerals exports refined zinc from Country K, which limits how much foreign currency residents may hold abroad. Its sole buyer is a trading company in a free trade zone that is owned by the brother of Ferrovia's chairman. For the last six shipments, the declared invoice value per tonne was about 40% of the published benchmark price, and in two cases the declared cargo value was lower than the freight cost shown on the bill of lading. Payments arrive on time by wire from the buyer's account. Ferrovia's auditors are a respected local firm, and the company recently installed new smelting equipment. What is this pattern MOST likely achieving?",
+  { id: "TBML-001", domain: 1, topic: "TBML – detecting under-invoiced exports with partner-country trade data", hy: true, difficulty: "hard",
+    q: "Customs in Country K, which limits how much foreign currency residents may hold abroad, suspects that exporters of made-to-order mining equipment parts are under-invoicing their shipments to move capital out of the country. Because each part is custom-built, no published market prices exist. Like most customs agencies, Country K's customs has always concentrated on inspecting imports and collecting import duties, and it sees only its own declarations. Which measure, described in the FATF's 2006 TBML study, would BEST help it detect the under-invoicing?",
     options: [
-      "Reducing import duties payable by Ferrovia on the zinc it sells",
-      "Moving value out of Country K to the related buyer while avoiding its currency controls",
-      "Moving value into Country K from the related buyer through inflated export receipts",
-      "Financing the same zinc shipment more than once at several banks"
+      "Comparing each declared export value with published commodity benchmark prices",
+      "Exchanging import and export data with the customs authorities of the main destination countries, so values declared on export can be compared with values declared on import",
+      "Increasing physical inspections of containers arriving at Country K's ports",
+      "Raising export duties so that exporters have a reason to declare the full value of their goods"
     ],
     answer: [1],
-    explanation: "When exports are under-invoiced, the importer receives goods worth more than it pays for, so value moves from the exporter's country to the importer. The FATF's 2006 TBML study notes that under-invoicing exports is a common way to get around currency restrictions and that customs agencies watch exports less closely than imports. The FATF free trade zone report lists a declared value lower than the shipping cost as a red flag. The runner-up reverses the direction: inflated export receipts would need over-invoicing, not prices at 40% of the benchmark. Import duties are paid by importers, and nothing suggests the same documents are being reused. The auditors and the new equipment are irrelevant.",
+    explanation: "The FATF's 2006 TBML study says under-invoicing exports is one of the most common TBML techniques, partly because customs agencies focus on imports and monitor exports less rigorously. It adds that customs agencies often lack data to establish a fair market price for complex goods, usually see only one side of the transaction, and can therefore spot mispricing mainly in widely traded goods. It describes trade transparency units, through which cooperating customs authorities share import and export data to detect anomalies, as an effective tool; studies of South Africa's currency controls compared its reported exports with partners' reported imports. Benchmark checks are the runner-up, but there is no published price for custom-built parts. Inspecting arriving containers looks at the wrong flow, and higher export duties would increase the incentive to under-declare.",
     source: [
-      { label: "FATF (2006) Trade-Based Money Laundering", url: "https://eurasiangroup.org/files/FATF_docs/Trade_Based_Money_Laundering.pdf" },
-      { label: "FATF (2010) Money laundering vulnerabilities of Free Trade Zones, Annex A", url: "https://eurasiangroup.org/files/FATF_docs/ML_vulnerabilities_of_Free_Trade_Zones.pdf" }
+      { label: "FATF (2006) Trade-Based Money Laundering (under-invoicing; Trade Transparency Units)", url: "https://eurasiangroup.org/files/FATF_docs/Trade_Based_Money_Laundering.pdf" }
     ] },
 
   { id: "TBML-002", domain: 1, topic: "TBML used to settle informal value transfer (hawala) balances", hy: false, difficulty: "hard",
@@ -101,18 +100,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "FinCEN Advisory FIN-2025-A003 (Aug 2025) – Chinese money laundering networks", url: "https://www.fincen.gov/system/files/2025-08/FinCEN-Advisory-CMLN-508.pdf" }
     ] },
 
-  { id: "TBML-008", domain: 1, topic: "Funnel accounts used with TBML", hy: false, difficulty: "medium",
-    q: "Rio Bravo Auto Parts, a small distributor whose account is held at a branch in El Paso, Texas, starts receiving many cash deposits of USD 4,000 to 9,500 at branches in Atlanta, Charlotte and Denver. The people making the deposits cannot describe the company's business. Within a day or two, the company wires the funds to an Asian manufacturer for auto parts that are shipped to buyers in Mexico. Which typology does this MOST likely show?",
+  { id: "TBML-008", domain: 1, topic: "Funnel accounts and TBML – pre-signed checks red flag (FIN-2014-A005)", hy: false, difficulty: "hard",
+    q: "Rio Bravo Auto Parts, whose account is held at a branch in Laredo, Texas, receives frequent cash deposits below USD 10,000 at branches in other states. During a review, an analyst examines the paid checks drawn on the account. On each one, the payee and amount lines are in a different handwriting from the owner's signature. The checks are payable to unrelated exporters of electronics and clothing, and several were cleared through the US correspondent account of a Mexican bank. The owner has not reported any lost or stolen checks and does not dispute any payment. What does the handwriting pattern MOST likely indicate?",
     options: [
-      "A funnel account used to pay for goods in a trade-based scheme that converts dollar proceeds into pesos",
-      "Ordinary structuring by a customer trying to avoid paying tax on cash sales",
-      "Business email compromise that redirected supplier payments",
-      "Normal treasury management by a company with sales offices in several states"
+      "The owner signed checks with the payee and amount left blank and handed them to a criminal organisation, which fills them in to pay for goods in a trade-based scheme",
+      "Checks stolen from the mail were chemically washed and rewritten to new payees",
+      "An employee has been forging the owner's signature on company checks",
+      "Normal practice for a business whose bookkeeper completes checks that the owner has already signed"
     ],
     answer: [0],
-    explanation: "FinCEN's advisory FIN-2014-A005 describes funnel accounts that receive many cash deposits below USD 10,000 in distant states, often by people who know nothing about the business, followed by wires to businesses for goods shipped abroad. The goods are sold in Mexico for pesos, so the drug trafficking organization exchanges US dollar cash for pesos through trade. Structuring is part of the picture, but it does not explain the out-of-state depositors and the purchase of goods shipped to Mexico. Nothing suggests email compromise or legitimate offices.",
+    explanation: "FinCEN's advisory FIN-2014-A005 lists, as a red flag of funnel accounts used for TBML, checks with different handwriting on the payee and amount lines than on the signature line. It explains that the checks may have been pre-signed by the account holder, handed to a criminal organisation, and then completed to pay US or foreign parties. A further red flag is checks or wires from the account cleared through the US correspondent account of a Mexican bank. Check washing is the runner-up, but it involves stolen checks altered without the owner's knowledge, and here the owner reports no loss and disputes nothing. The signature is the owner's own, so forgery does not fit, and a genuine bookkeeper would not be paying unrelated exporters with funds from out-of-state cash deposits.",
     source: [
-      { label: "FinCEN Advisory FIN-2014-A005 – Funnel accounts and TBML", url: "https://www.fincen.gov/resources/advisories/fincen-advisory-fin-2014-a005" }
+      { label: "FinCEN Advisory FIN-2014-A005 – Funnel accounts and TBML (red flags)", url: "https://www.fincen.gov/resources/advisories/fincen-advisory-fin-2014-a005" }
     ] },
 
   { id: "TBML-009", domain: 1, topic: "Third-party settlement of trade invoices", hy: true, difficulty: "hard",
@@ -144,18 +143,19 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "FATF-Egmont (2020) TBML: Trends and Developments", url: "https://eurasiangroup.org/files/uploads/files/other_docs/FATF%20docs/Trade-Based-Money-Laundering-Trends-and-Developments.pdf" }
     ] },
 
-  { id: "TBML-011", domain: 1, topic: "Offsetting (compensation) schemes combining services and trade", hy: false, difficulty: "hard",
-    q: "Investigators in Country B find a network of short-lived cleaning and construction companies. They are taken over by new managers every year or so and employ undeclared workers. The companies receive large cash amounts from unrelated criminal groups, issue invoices for 'building maintenance services' to justify the cash, and wire the funds to wholesalers in Asia. The wholesalers then buy merchandise for retailers in Country B, who import and sell it. The companies also pay their workers in cash. Which typology does this MOST likely represent?",
+  { id: "TBML-011", domain: 1, topic: "TBML – use of money transmitters to pay trade invoices", hy: false, difficulty: "hard",
+    q: "The compliance officer of a licensed money transmitter reviews Tamsin Imports Ltd, a small clothing importer that has a bank account. Over three months, Tamsin's director sent eight transfers of about USD 150,000 each through one of the transmitter's agents to a garment trading company in Asia, each supported by an invoice for 'assorted garments'. The director told the agent that the company's bank 'asks too many questions'. The invoice values are high for the stated quantities, and the agent notes that the transfers are unusually large for its location. What is the BEST assessment?",
     options: [
-      "Labour exploitation and payroll tax evasion with no money laundering element",
-      "A missing-trader VAT carousel in electronic goods",
-      "A surrogate shopping network buying luxury goods for wealthy clients",
-      "An offsetting or compensation scheme that combines service invoices and trade to integrate other groups' cash"
+      "Low risk, because each transfer is supported by a commercial invoice",
+      "Prohibited activity, because money transmitters may not send payments for commercial trade",
+      "Cuckoo smurfing, because the Asian supplier is an unwitting beneficiary of criminal cash",
+      "A TBML red flag, because launderers route large business payments for false invoices through money transmitters that they expect to ask fewer questions than banks"
     ],
     answer: [3],
-    explanation: "The FATF-Egmont 2020 report describes offsetting or compensation as a variation of the Black Market Peso Exchange in which groups disposing of illicit cash cooperate with others. Its Belgian case matches this one: rotating construction and cleaning companies accept cash from other criminal networks, invoice for building maintenance services, and send the funds to Asian wholesalers who buy goods for local retailers, a hybrid of services-based and trade-based laundering. Labour exploitation is the runner-up because undeclared workers are present, but it does not explain the cash from other groups or the payments to Asian wholesalers. Nothing points to VAT carousels or surrogate shoppers.",
+    explanation: "The FATF-Egmont 2020 report says conspirators in false invoicing TBML schemes have used money or value transfer services (MVTS) to pay for goods instead of a bank, because they perceive the MVTS sector as having a weaker understanding of TBML and expect it not to question a large business payment made by an unusual method. The 2021 risk indicators add prices out of line with market value. The transmitter should review the trade against the customer's profile and consider a SAR. The runner-up relies on the invoice, but false invoices are the core of the scheme. Money transmitters can lawfully send business payments, and cuckoo smurfing involves criminal cash deposited into a legitimate remittance beneficiary's account, which is not described.",
     source: [
-      { label: "FATF-Egmont (2020) TBML: Trends and Developments, Box 2.10", url: "https://eurasiangroup.org/files/uploads/files/other_docs/FATF%20docs/Trade-Based-Money-Laundering-Trends-and-Developments.pdf" }
+      { label: "FATF-Egmont (2020) TBML: Trends and Developments – exploitation of other types of FIs", url: "https://eurasiangroup.org/files/uploads/files/other_docs/FATF%20docs/Trade-Based-Money-Laundering-Trends-and-Developments.pdf" },
+      { label: "FATF-Egmont (2021) TBML Risk Indicators", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/Trade-based-money-laundering-indicators.html" }
     ] },
 
   { id: "TBML-012", domain: 1, topic: "Services-based money laundering – verifying intangible trade", hy: false, difficulty: "hard",
@@ -260,16 +260,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ] },
 
   { id: "TBML-019", domain: 1, topic: "TBML structural risk indicators", hy: false, difficulty: "medium",
-    q: "A bank onboards Orion Global Trading, which says it imports industrial chemicals and has 25 employees. Which findings are structural risk indicators of TBML under the FATF-Egmont 2021 risk indicators? (Choose two.)",
+    q: "A bank onboards Orion Global Trading, which says it imports industrial chemicals. Which findings are structural risk indicators of TBML under the FATF-Egmont 2021 risk indicators? (Choose two.)",
     options: [
-      "Its registered address is a high-density building used by hundreds of companies, with no unit number given",
+      "Its website is mostly boilerplate text copied from other sites and shows little knowledge of the chemicals it trades",
       "Its accounts are audited each year by a mid-sized accounting firm",
       "It pays its suppliers mainly by letters of credit",
       "It has a trade credit insurance policy covering its main buyers",
-      "Its account shows no payroll payments, although it claims 25 employees"
+      "Its name is almost identical to that of a well-known chemicals multinational, although it has no connection to that group"
     ],
     answer: [0, 4],
-    explanation: "The FATF-Egmont 2021 risk indicators list, among structural indicators, registration at a likely mass registration address with no specific unit and a notable lack of typical business activity, such as no regular payroll in line with the stated number of employees. Annual audits, use of letters of credit and trade credit insurance are ordinary features of legitimate trading businesses and are not listed as indicators.",
+    explanation: "The FATF-Egmont 2021 risk indicators list, among structural indicators, an online presence that suggests business inconsistent with the stated line of business, such as a website of boilerplate material taken from other websites or showing a lack of knowledge of the product, and a name that copies or closely resembles that of a well-known corporation to appear connected to it. Annual audits, letters of credit used in the normal way and trade credit insurance are ordinary features of legitimate trading businesses. The indicators flag letters of credit only when used in unconventional ways, such as for unusually long or frequently extended periods.",
     source: [
       { label: "FATF-Egmont (2021) TBML Risk Indicators", url: "https://www.fatf-gafi.org/en/publications/Methodsandtrends/Trade-based-money-laundering-indicators.html" }
     ] },

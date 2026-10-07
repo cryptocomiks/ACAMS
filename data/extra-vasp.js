@@ -31,7 +31,7 @@
   },
   {
     id: "VASP-002", domain: 1, topic: "Unregistered P2P exchanger using a bank account", hy: false, difficulty: "hard",
-    q: "Tomasz Wrona, 29, a customer of Baltica Bank who describes himself as a freelance web designer, receives 140 instant payments in one month from 95 different individuals, each between EUR 150 and EUR 2,000. Many payment references read 'USDT order' followed by a number. Within hours of each credit he sends similar amounts to his own account at a licensed crypto exchange. A public profile in his name on a peer-to-peer (P2P) crypto marketplace shows 1,300 completed trades, a 'verified merchant' badge and prices about 3% above the exchange rate. He is not registered as a VASP. His tax return shows modest freelance income, and he recently bought a car with a loan. What is the MOST likely explanation?",
+    q: "Marek Wrona, 29, a customer of Baltica Bank who describes himself as a freelance web designer, receives 140 instant payments in one month from 95 different individuals, each between EUR 150 and EUR 2,000. Many payment references read 'USDT order' followed by a number. Within hours of each credit he sends similar amounts to his own account at a licensed crypto exchange. A public profile in his name on a peer-to-peer (P2P) crypto marketplace shows 1,300 completed trades, a 'verified merchant' badge and prices about 3% above the exchange rate. He is not registered as a VASP. His tax return shows modest freelance income, and he recently bought a car with a loan. What is the MOST likely explanation?",
     options: [
       "He is a money mule in a business email compromise scheme, passing on stolen company payments",
       "He is a victim of an investment scam who is being coached to send his savings to the exchange",
@@ -230,17 +230,18 @@
     source: [TFR, EBA_TR]
   },
   {
-    id: "VASP-017", domain: 4, topic: "Travel rule: repeatedly failing counterparty CASP", hy: false, difficulty: "hard",
-    q: "Over the last quarter, 38% of the transfers that Ostra, an EU crypto-asset service provider, received from Tavira Exchange, a provider in another Member State, lacked the originator's address or the beneficiary's account number. Ostra sent 52 requests for the missing data, and Tavira answered 9. Ostra's policy defines a 'repeatedly failing' provider using these two percentages, and Tavira meets the definition. Tavira says its new travel-rule software 'will be fixed next year'. Ostra has decided to warn Tavira and set a deadline before restricting the relationship. What else MUST Ostra do?",
+    id: "VASP-017", domain: 4, topic: "Travel rule: criteria for identifying a repeatedly failing CASP", hy: false, difficulty: "hard",
+    q: "Ostra, an EU crypto-asset service provider, is updating its travel-rule policy. The draft says: 'A counterparty CASP is repeatedly failing if more than 30% of the transfers it sends us in a calendar quarter lack required originator or beneficiary information.' Ostra also logs every transfer with missing or incomplete information. The internal audit team says the draft does not meet the minimum criteria in the EBA Travel Rule Guidelines. Which criteria must Ostra add? (Choose two.)",
     options: [
-      "File an STR with the FIU on every affected transfer, because repeated failure proves money laundering",
-      "Report Tavira's failure and the steps taken to its AML/CFT competent authority, within three months",
-      "Nothing more, because Tavira has explained the cause and is established in the EU",
-      "Obtain the consent of Tavira's home supervisor before restricting the relationship"
+      "The percentage of Ostra's follow-up requests that the counterparty left unanswered or did not answer adequately by the deadline",
+      "Whether the counterparty is established outside the EU, since only non-EU providers can be classed as repeatedly failing",
+      "The level of cooperation the counterparty has shown in responding to Ostra's earlier requests for missing information",
+      "The average value of the affected transfers, since only transfers above EUR 1,000 count towards repeated failure",
+      "Whether the FIU has acknowledged an STR that Ostra filed about the counterparty"
     ],
-    answer: [1],
-    explanation: "Article 17(2) of Regulation (EU) 2023/1113 lets the beneficiary's provider first issue warnings and set deadlines, or directly reject, restrict or terminate. In either case it must report the failure, and the steps taken, to the competent authority responsible for AML/CFT supervision. The EBA guidelines require the report without undue delay and no later than three months after identifying the repeatedly failing provider, regardless of any reasons given or of the provider's location. Missing data is a factor in the suspicion assessment, not proof of laundering, so automatic STRs are wrong. No consent from the other supervisor is needed.",
-    source: [TFR, EBA_TR]
+    answer: [0, 2],
+    explanation: "The EBA guidelines require CASPs to set quantitative and qualitative criteria in their policies for identifying a 'repeatedly failing' provider. The quantitative criteria must include at least the percentage of transfers with missing or incomplete information in a set timeframe, which Ostra already has, and the percentage of follow-up requests left unanswered or not adequately answered by a deadline. The qualitative criteria must include at least the counterparty's level of cooperation on previous requests, any agreement giving it more time, and the type of information missing and the reason given. Location is wrong: the guidelines require reporting a repeatedly failing provider whether it is in the Union or outside. Regulation (EU) 2023/1113 has no EUR 1,000 threshold for transfers between CASPs, and an STR is a separate obligation, not a test of repeated failure.",
+    source: [EBA_TR, TFR]
   },
   {
     id: "VASP-018", domain: 4, topic: "Self-hosted wallets: verifying ownership or control", hy: true, difficulty: "medium",
@@ -270,17 +271,18 @@
     source: [EBA_TR, TFR]
   },
   {
-    id: "VASP-020", domain: 4, topic: "Blockchain analytics alert triage: direct sanctions exposure first", hy: false, difficulty: "hard",
-    q: "On Monday morning, an analyst at a US crypto exchange has four new blockchain analytics alerts and time to work only one before noon. Which alert should she work FIRST?",
+    id: "VASP-020", domain: 4, topic: "Sanctions evasion: a successor exchange before it is designated", hy: false, difficulty: "hard",
+    changed: "OFAC designated Grinex as Garantex's successor (Aug 2025)",
+    q: "In May 2025, two months after US, German and Finnish authorities seized Garantex's web domain and froze its funds, analysts at a US crypto exchange notice several customers receiving USDT from a new exchange called Grinex. Grinex's promotional material says it was formed in response to the sanctions and asset freezes that hit Garantex, and on-chain analysis shows Garantex customer balances being moved to Grinex. Garantex is on the SDN List; Grinex and its wallet addresses are not yet listed. What is the BEST response?",
     options: [
-      "A USD 85,000 deposit with 4% indirect exposure, five hops back, to an online gambling site",
-      "A USD 40,000 withdrawal to a self-hosted address that the customer verified and whitelisted last year",
-      "A USD 2,300 deposit received directly from a wallet attributed to Cryptex, an exchange OFAC designated in 2024",
-      "A USD 12,000 deposit that came directly from a decentralised exchange's router contract"
+      "Treat the flows as normal, because only persons and addresses named on the SDN List can be blocked",
+      "Block every account that has ever received funds from Grinex, because successor entities are designated automatically",
+      "Wait until OFAC publishes Grinex's wallet addresses, because blockchain attribution cannot support sanctions decisions",
+      "Escalate Grinex as a likely front for Garantex, assess whether Garantex's property or ownership is involved, and block or reject as required"
     ],
-    answer: [2],
-    explanation: "Funds received directly from a wallet attributed to a designated exchange may be property in which a blocked person has an interest. OFAC's guidance says such virtual currency must be blocked, with access denied to all parties and a report to OFAC within 10 business days. That makes it time-critical whatever the amount. Treasury's August 2025 Garantex action confirms Cryptex's September 2024 designation. The USD 85,000 alert is larger, but a small share of indirect exposure several hops back is a weaker risk indicator. The whitelisted withdrawal and the DEX deposit can wait for routine review.",
-    source: [OFAC_VC, TREAS_GARANTEX]
+    answer: [3],
+    explanation: "OFAC's prohibitions reach any property in which a blocked person has an interest, and entities owned 50% or more by blocked persons are blocked even if they are not named. OFAC's guidance for the virtual currency industry also warns that unlisted addresses linked to listed ones may pose sanctions risk and encourages blockchain analytics. A self-described successor that is taking over Garantex's customer deposits therefore needs escalation and investigation now. On 14 August 2025 Treasury designated Grinex as owned or controlled by, or acting for, Garantex, noting that Garantex had moved its customer base and funds there to keep operating despite sanctions. Treating the flows as normal is the runner-up, but it ignores the 50% rule and blocked interests. Designation is not automatic, so blocking every account that ever touched Grinex goes too far.",
+    source: [TREAS_GARANTEX, OFAC_VC]
   },
   {
     id: "VASP-021", domain: 4, topic: "Preserving scam proceeds held in a centralised stablecoin", hy: false, difficulty: "hard",

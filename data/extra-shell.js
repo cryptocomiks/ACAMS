@@ -101,19 +101,19 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "FATF (2018) Professional Money Laundering – account settlement mechanisms (Box 12)", url: "https://www.cbr.ru/Content/Document/File/54606/Professional-Money-Laundering.pdf" }
     ] },
 
-  { id: "SHELL-008", domain: 1, topic: "Shell company indicators", hy: true, difficulty: "hard",
-    q: "Nordvik Trading Ltd opened an account with Alder Bank eight months ago, describing itself as a wholesaler of industrial parts. Its sole director lives abroad, and its annual accounts are filed by an external accountancy firm. Its first incoming payment arrived two weeks after the account was opened. The company is incorporated in the same country as the bank. Which TWO facts are the strongest indicators that Nordvik is a shell company rather than an operating business? (Choose two.)",
+  { id: "SHELL-008", domain: 1, topic: "Shell company indicators: dormancy and misleading names", hy: true, difficulty: "hard",
+    q: "Alder Bank reviews Siemenz Global Holdings Ltd, a corporate customer that says it supplies industrial parts. The company was incorporated four years ago and showed no account activity for its first three years. In the last five months it has received and sent on 6.8 million in payments from and to companies abroad. It files its annual accounts through an external accountancy firm, it is incorporated in the same country as the bank, and it holds its only account with Alder Bank. Which TWO facts are FATF-Egmont indicators that the company may be a shell used to conceal beneficial ownership? (Choose two.)",
     options: [
-      "Its registered address is shared with 340 other companies managed by the same formation agent",
-      "It files its annual accounts through an external accountancy firm rather than an in-house team",
-      "It is incorporated in the same country as the bank's head office rather than offshore",
-      "Its first incoming payment arrived two weeks after the account was opened",
-      "Incoming funds leave within one or two days, and it pays no salaries, rent or taxes"
+      "A long period of inactivity after incorporation, followed by a sudden, unexplained rise in activity",
+      "A company name that appears to mimic the name of a well-known multinational group",
+      "Annual accounts filed through an external accountancy firm rather than an in-house finance team",
+      "Incorporation in the same country as the bank rather than in an offshore centre",
+      "A single banking relationship rather than accounts spread across several banks"
     ],
-    answer: [0, 4],
-    explanation: "The FATF-Egmont indicators of shell companies include an address of mass registration (often a company service provider's address used for many companies), only facilitating transit transactions with funds flowing through quickly, having no personnel and paying no taxes or social contributions. Using an external accountant and being incorporated in the bank's own country are normal for genuine businesses. A first payment two weeks after opening is unremarkable by itself.",
+    answer: [0, 1],
+    explanation: "Annex E of the FATF-Egmont report lists, among indicators about legal persons, a long period of inactivity following incorporation followed by a sudden and unexplained increase in financial activity, and registration under a name that appears to mimic the name of other companies, particularly high-profile multinationals. Using an external accountant and being incorporated in the bank's own country are normal for genuine businesses; the report flags incorporation in high-risk or low-tax jurisdictions, not domestic incorporation. The runner-up, a single bank account, is ordinary; it is the use of multiple accounts or accounts in several jurisdictions without good reason that the report treats as an indicator.",
     source: [
-      { label: "FATF–Egmont (2018) Concealment of Beneficial Ownership – Annex E, indicators of shell companies (EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF-Egmont-Concealment-beneficial-ownership_eng.pdf" }
+      { label: "FATF–Egmont (2018) Concealment of Beneficial Ownership – Annex E, indicators about legal persons (EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF-Egmont-Concealment-beneficial-ownership_eng.pdf" }
     ] },
 
   { id: "SHELL-009", domain: 1, topic: "Informal nominees (straw men) vs formal nominees", hy: true, difficulty: "hard",
@@ -158,18 +158,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "FATF (2018) Professional Money Laundering – digital money networks and money mules (Box 6)", url: "https://www.cbr.ru/Content/Document/File/54606/Professional-Money-Laundering.pdf" }
     ] },
 
-  { id: "SHELL-012", domain: 1, topic: "Funnel accounts linked to trade-based money laundering", hy: true, difficulty: "hard",
-    q: "Sierra Produce LLC operates only in Southern California and opened its account at a San Diego branch. Over three months the account receives 46 cash deposits of $4,000 to $9,500 at branches in Chicago, Indianapolis and Minneapolis, made by people the bank cannot identify. The account also shows normal payroll and fuel payments. Outgoing checks and wires now go to a leather goods company and to a textile manufacturer in China. The owner recently bought a new truck. Which fact is the strongest sign that this funnel account is being used for trade-based money laundering rather than as a traditional funnel account?",
+  { id: "SHELL-012", domain: 1, topic: "Funnel accounts: pre-signed checks handed to the launderers", hy: false, difficulty: "hard",
+    q: "Sierra Produce LLC banks with a branch in San Diego. Its account receives regular out-of-state cash deposits below $10,000. A review of paid checks drawn on the account shows that the signature on each check is in the owner's handwriting, but the payee and amount lines are in a different hand and ink. The payees include a leather goods wholesaler and an exporter, and several checks cleared through the US correspondent account of a Mexican bank. No check was reported lost or stolen, the owner has not disputed any of them, and none shows signs of erasure or chemical alteration. According to FinCEN's funnel account advisory, what does the handwriting pattern MOST likely indicate?",
     options: [
-      "Cash deposits made in three distant states by people whom the bank cannot identify",
-      "Checks and wires to textile and leather firms that are unrelated to a produce business",
-      "The owner's purchase of a new truck shortly after the out-of-state deposits began",
-      "The deposits are each kept below the $10,000 currency transaction reporting threshold"
+      "Check washing, in which thieves steal mailed checks and chemically alter the payee and amount",
+      "The owner pre-signed blank checks and handed them to a criminal organisation, which filled in the payees",
+      "Check kiting, in which the owner exploits float between banks to inflate the available balance",
+      "Normal delegation, in which the company's bookkeeper completes checks that the owner has signed"
     ],
     answer: [1],
-    explanation: "FinCEN's advisory FIN-2014-A005 explains that in the TBML variant, funnel account funds pay for goods that are shipped abroad and sold, and it gives this exact red flag: debits unrelated to the business, such as a produce company paying a leather goods business or a textile manufacturer in China. In a traditional funnel account the cash is simply withdrawn and handed to the criminal organisation. The runner-up, out-of-state deposits by unknown people, and deposits kept below $10,000 show a funnel account but not the trade link, and a truck purchase is not a TBML indicator.",
+    explanation: "FinCEN's advisory FIN-2014-A005 lists as a red flag checks from an account receiving out-of-state cash deposits that have different handwriting on the payee and amount lines than on the signature line. It explains that the checks may have been pre-signed with the payee and amount left blank, handed to a criminal organisation, and then used to pay US or foreign parties; it also flags checks cleared through a Mexican bank's US correspondent account. The runner-up, check washing, involves stolen checks altered after the fact, but nothing was stolen, disputed or chemically altered here. Kiting involves float between accounts, and a bookkeeper's routine work would not explain payments to unrelated businesses from an account fed by out-of-state cash.",
     source: [
-      { label: "FinCEN Advisory FIN-2014-A005 – funnel accounts and TBML", url: "https://www.fincen.gov/sites/default/files/advisory/FIN-2014-A005.pdf" }
+      { label: "FinCEN Advisory FIN-2014-A005 – funnel accounts and TBML red flags", url: "https://www.fincen.gov/sites/default/files/advisory/FIN-2014-A005.pdf" }
     ] },
 
   { id: "SHELL-013", domain: 1, topic: "Business accounts used as mule accounts (UK NRA 2025)", hy: false, difficulty: "medium",
@@ -186,18 +186,19 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "HM Treasury and Home Office – National Risk Assessment of Money Laundering and Terrorist Financing 2025, paras 5.12-5.14", url: "https://assets.publishing.service.gov.uk/media/6877be59760bf6cedaf5bd4f/National_Risk_Assessment_of_Money_Laundering_and_Terrorist_Financing_2025_FINAL.pdf" }
     ] },
 
-  { id: "SHELL-014", domain: 1, topic: "Hawala: settlement through trade payments and registration", hy: false, difficulty: "hard",
-    q: "Noor Mini Market Ltd, a UK grocery shop, banks with Kestrel Bank. Its account receives daily cash deposits well above what a shop of its size would take, and every week it pays invoices from a Dubai general trading company for electronics and textiles, which the shop does not sell. Customers have told branch staff that the owner can 'send money home the same day' to relatives in Pakistan and Afghanistan. The shop is not registered with HMRC as a money service business. Its food sales and VAT returns look normal. What is the MOST likely explanation?",
+  { id: "SHELL-014", domain: 1, topic: "Hawala in the UK: registration as a money service business", hy: false, difficulty: "hard",
+    q: "Noor Mini Market Ltd, a UK grocery shop, banks with Kestrel Bank. Customers have told branch staff that the owner can 'send money home the same day' to relatives in Pakistan and Afghanistan through a partner abroad, who pays out locally and settles with him later. The owner tells the bank that this is a traditional community service, that he charges only a small fee, and that he does not need to register because no money passes through a bank. Which statement BEST reflects the UK position set out in the 2025 National Risk Assessment?",
     options: [
-      "The shop is a front company for drug dealers that mixes their cash with its genuine takings",
-      "The shop is expanding into wholesale electronics through a legitimate supplier in the Gulf",
-      "The owner runs an unregistered hawala and uses the trade payments to settle with a counterpart abroad",
-      "The account is a funnel account receiving cash deposited at distant branches by unknown people"
+      "Hawala is prohibited in the UK in every form, because value moves without any transfer through a bank",
+      "A hawala serving only one diaspora community for small fees falls outside the Money Laundering Regulations",
+      "Hawala is lawful in the UK, but the operator must register with HMRC as a money service business and with the FCA",
+      "Hawala needs only FCA authorisation under the Payment Services Regulations, because HMRC supervises only tax"
     ],
     answer: [2],
-    explanation: "The UK's 2025 NRA explains that hawala and other IVTS operators pay out from a local cash pool and later settle imbalances between themselves, for example through the movement or sale of goods, and that every UK IVTS provider must register with HMRC as a money service business. Same-day transfers 'home', excess cash and payments for goods the shop does not sell fit that pattern. The runner-up, a front company, would explain the excess cash but not the remittance service or the trade invoices. Nothing suggests real wholesale trade or deposits at distant branches.",
+    explanation: "The UK's 2025 NRA says IVTS, including hawala, is a form of money remittance: every UK-based IVTS provider must register with HMRC as a money service business and comply with the Money Laundering Regulations, and legitimate use is legal provided the business is registered with HMRC under the MLRs and with the FCA under the Payment Services Regulations. Regulation 56 of the MLRs bars an unregistered money service business from operating. The runner-up, a total ban, is wrong for the UK; the NRA notes that IVTS use is illegal in some other countries, such as China. Serving one community or charging small fees does not take the business outside the MLRs.",
     source: [
-      { label: "UK National Risk Assessment 2025 – informal value transfer systems and hawala, paras 3.51-3.55", url: "https://assets.publishing.service.gov.uk/media/6877be59760bf6cedaf5bd4f/National_Risk_Assessment_of_Money_Laundering_and_Terrorist_Financing_2025_FINAL.pdf" }
+      { label: "UK National Risk Assessment 2025 – informal value transfer systems, paras 3.51-3.55", url: "https://assets.publishing.service.gov.uk/media/6877be59760bf6cedaf5bd4f/National_Risk_Assessment_of_Money_Laundering_and_Terrorist_Financing_2025_FINAL.pdf" },
+      { label: "Money Laundering Regulations 2017, reg. 56 – requirement to be registered (legislation.gov.uk)", url: "https://www.legislation.gov.uk/uksi/2017/692/regulation/56" }
     ] },
 
   { id: "SHELL-015", domain: 1, topic: "Cash courier networks and TBML through vehicle exports", hy: false, difficulty: "hard",
@@ -300,18 +301,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "FATF Recommendations (2012-2026) – INR.24 and Glossary, 'nominee' (EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
     ] },
 
-  { id: "SHELL-022", domain: 3, topic: "Ownership split just below the beneficial ownership threshold", hy: true, difficulty: "hard",
-    q: "Corvo Holdings Ltd applies to open an account with Pennant Bank, which uses a 25% ownership threshold to identify beneficial owners. The share register shows four shareholders with 24.5% each and a fifth with 2%. The four main shareholders are siblings who give the same home address, and each has signed an identical power of attorney in favour of their uncle, who 'handles the business'. The uncle holds no shares and is not a director. The company plans to buy commercial property with funds from abroad. What should the bank do?",
+  { id: "SHELL-022", domain: 3, topic: "Shareholders acting together just below the beneficial ownership threshold", hy: true, difficulty: "hard",
+    q: "Corvo Holdings Ltd applies to open an account with Pennant Bank, in a country that follows the FATF Standards and uses a 25% ownership threshold. The share register shows four siblings with 24.5% each and an unrelated investor with 2%. A shareholders' agreement on file requires the four siblings to vote all their shares as one bloc, as decided by a majority of them, and bars any of them from selling without the others' consent. The chief executive is a salaried manager with no shares. The company plans to buy commercial property with funds from abroad. Under INR.10, how should the bank approach Corvo's beneficial ownership?",
     options: [
-      "Record that there is no beneficial owner, because no shareholder exceeds 25%, and identify a senior managing official",
-      "Rely on the share register, because registered shareholders are the beneficial owners unless the customer says otherwise",
-      "Treat the split as a red flag, identify and verify the uncle as controlling through other means, and apply EDD",
-      "Decline the application, because ownership just below the threshold proves that the company was set up to launder"
+      "Record that no natural person controls Corvo through ownership, since no one exceeds 25%, and identify the chief executive",
+      "Identify and verify all four siblings as beneficial owners, since acting together they control 98%, and treat the split as a red flag",
+      "Identify the chief executive as the only beneficial owner, since he runs the company and the shareholders are passive",
+      "Decline the application, since a holding just below the threshold proves that the structure was set up to launder"
     ],
-    answer: [2],
-    explanation: "The FATF-Egmont indicators include several shareholders each holding just below the threshold that triggers enhanced measures. Under INR.10, where no one has a controlling ownership interest or there is doubt, the bank must identify natural persons who exercise control by other means, here the uncle who holds powers of attorney from all four siblings, and the unusual structure and foreign funds justify EDD. The runner-up, naming a senior managing official, is only the last step of the cascade, used when no controlling person can be found. A red flag calls for more due diligence, not automatic refusal.",
+    answer: [1],
+    explanation: "INR.10 requires the bank to identify the natural persons who ultimately have a controlling ownership interest, and it recognises that persons can exercise control through ownership acting alone or together. Under the shareholders' agreement the siblings vote as a single bloc holding 98%, so each should be identified and verified as a beneficial owner. The FATF-Egmont indicators also list multiple shareholders each holding just below the threshold that triggers enhanced measures, which, with the foreign funds, justifies closer scrutiny. The runner-up, naming the chief executive as senior managing official, is only the last step of the cascade, used when no one is identified through ownership or control by other means. A red flag calls for more due diligence, not automatic refusal.",
     source: [
-      { label: "FATF Recommendations (2012-2026) – INR.10, beneficial owners of legal persons (EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" },
+      { label: "FATF Recommendations (2012-2026) – INR.10 para 5(b)(i), beneficial owners of legal persons (EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" },
       { label: "FATF–Egmont (2018) Concealment of Beneficial Ownership – Annex E indicators (EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF-Egmont-Concealment-beneficial-ownership_eng.pdf" }
     ] },
 
