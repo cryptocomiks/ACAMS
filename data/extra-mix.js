@@ -85,27 +85,27 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     source: [{ label: "FATF/APG (2015) ML/TF risks and vulnerabilities associated with gold – case study 3 (Singapore government copy)", url: "https://isomer-user-content.by.gov.sg/473/89fd3fe2-b411-48d2-88ad-6075883f6ebe/ML-TF-risks-vulnerabilities-associated-with-gold.pdf" }] },
 
   { id: "MIX-008", domain: 1, topic: "Three stages of laundering in a complex gold case", hy: true, difficulty: "hard",
-    q: "Police dismantle a network that launders cannabis proceeds. Collectors, who know the cash is criminal, gather it from street dealers in Country F. An organiser drives the cash to Country B, where it is paid into the accounts of companies linked to a gold trader and used to buy gold from a wholesaler, supported by false invoices. The gold is exported to Dubai under more false invoices and sold for cash through a hawaladar, and the dealers' suppliers are paid through foreign exchange operations there. Couriers then smuggle the gold on to India, where the organiser owns several valuable properties despite living on social benefits in Country F. Which step is BEST described as layering?",
+    q: "Police dismantle a network that launders cannabis proceeds. Collectors, who know the cash is criminal, gather it from street dealers in Country F. An organiser drives the cash to Country B, where it is paid into the accounts of companies linked to a gold trader and used to buy gold from a wholesaler, supported by false invoices. The gold is exported to Dubai under more false invoices and sold for cash through a hawaladar, and the dealers' suppliers are paid through foreign exchange operations there. Couriers then smuggle the gold on to India, where the organiser holds several valuable assets despite living on social benefits in Country F. Which step is BEST described as layering?",
     options: [
       "The collectors gathering street cash from the dealers in Country F",
       "Paying the cash into the trader-linked company accounts in Country B to buy gold",
       "Exporting the gold to Dubai under false invoices and selling it through a hawaladar",
-      "The organiser owning valuable properties in India while living on benefits in Country F"
+      "The organiser holding valuable assets in India while living on benefits in Country F"
     ],
     answer: [2],
     explanation: "This case comes from the FATF/APG gold report (case study 1, French police investigation, 2014). Placement is the first entry of criminal cash into the financial system or the gold trade, here the cash paid into accounts in Belgium (Country B) to buy gold. Layering is the series of transactions that hides the trail, here exports under false invoices, sale through a hawaladar and cross-border movement. Integration is the enjoyment of the cleaned value as apparently legitimate wealth, such as the organiser's assets in India. Collecting street cash comes before placement, because the money has not yet entered the system. The cash deposits are the tempting runner-up, but they are placement.",
     source: [{ label: "FATF/APG (2015) ML/TF risks and vulnerabilities associated with gold – case study 1 (Singapore government copy)", url: "https://isomer-user-content.by.gov.sg/473/89fd3fe2-b411-48d2-88ad-6075883f6ebe/ML-TF-risks-vulnerabilities-associated-with-gold.pdf" }] },
 
-  { id: "MIX-009", domain: 1, topic: "Predicate offence vs ML offence: prosecuting cash collectors (INR.3)", hy: true, difficulty: "hard",
-    q: "In Country F, which applies the FATF Standards fully, prosecutors charge three cash collectors who picked up about EUR 10 million from street drug dealers and handed it to an organiser who converted it into gold. The collectors say they knew the money was 'dirty' but were never told which crime produced it. The dealers have fled abroad and have not been tried. Defence lawyers argue that their clients cannot be convicted of money laundering. One of the collectors also has a past conviction for tax fraud. Under FATF Recommendation 3 and its Interpretive Note, which statement is CORRECT?",
+  { id: "MIX-009", domain: 1, topic: "ML offence: foreign predicate conduct and liability of legal persons (INR.3)", hy: true, difficulty: "hard",
+    q: "Country B, which applies the FATF Standards fully, prosecutes a gold trader and two of the companies he controls. Cash from street sales of cannabis in Country F, where such sales are a crime, was driven across the border and paid into the companies' accounts to buy gold, which was then exported. Selling cannabis would also be a predicate offence in Country B. The defence makes two arguments: (1) the drug sales took place abroad, so they cannot be the predicate offence for a money laundering charge in Country B; and (2) the companies cannot be held liable, because only individuals can launder money. The trader has no previous convictions. Under FATF Recommendation 3 and its Interpretive Note, which statement is CORRECT?",
     options: [
-      "The collectors cannot be charged with money laundering, because only someone who committed the drug offence can launder its proceeds",
-      "A money laundering conviction must wait until at least one dealer has been convicted of the drug trafficking offence",
-      "Proving the cash is criminal proceeds does not require a conviction for the drug offence, and the collectors' knowledge can be inferred from objective facts",
-      "The case must be charged as drug trafficking, the predicate offence, because handling cash is part of the drug sale"
+      "Argument (1) succeeds, because the predicate offence must have been committed in the country that prosecutes the money laundering",
+      "Argument (2) succeeds, because the FATF Standards require money laundering liability only for natural persons",
+      "Both arguments fail: predicate offences extend to conduct abroad that is a crime there and would be a predicate at home, and legal persons must also face liability",
+      "Both arguments fail, but Country B must first transfer the case to Country F, where the predicate conduct occurred"
     ],
     answer: [2],
-    explanation: "INR.3 paragraph 4 states that, when proving that property is the proceeds of crime, it should not be necessary that a person be convicted of a predicate offence. Paragraph 7(a) requires that the intent and knowledge needed for money laundering can be inferred from objective factual circumstances. Laundering by third parties is the core of the offence. Self-laundering is the extension that countries may limit on fundamental principles, so the first option has it backwards. Waiting for the dealers' conviction is the tempting runner-up, but the standard rejects it. Collecting and passing on proceeds is laundering conduct (transfer or possession of proceeds), separate from the drug trafficking predicate. The old tax conviction is irrelevant.",
+    explanation: "INR.3 paragraph 5 says predicate offences for money laundering should extend to conduct that occurred in another country, which is an offence in that country and would have been a predicate offence had it occurred domestically (countries may even require only the second condition). Paragraph 7(c) requires criminal liability and sanctions for legal persons or, where that is impossible under fundamental principles of domestic law, civil or administrative liability, without prejudice to the liability of natural persons. Argument (1) is the tempting runner-up, because the drugs were sold abroad, but the standard rejects a territorial limit on predicates. Nothing in the Standards requires the case to be handed to Country F, and the trader's clean record is irrelevant.",
     source: [{ label: "FATF Recommendations (2012-2026) – R.3 and Interpretive Note (EAG-hosted copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }] },
 
   { id: "MIX-010", domain: 1, topic: "Cyber-enabled fraud cash-out: gift cards resold on the secondary market", hy: false, difficulty: "medium",
@@ -117,10 +117,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "He is cashing out scam proceeds by selling victims' gift card codes at a discount on resale sites"
     ],
     answer: [3],
-    explanation: "The Federal Reserve's FedPayments Improvement guidance explains that scammers have victims buy gift cards and read out or photograph the numbers and PINs. The criminals then drain the cards or sell them online at a discount, and the money is hard to trace. The FBI has warned that criminal activity occurs on secondary gift card market sites. Tyler receives codes from 'contacts', never buys cards himself, sells at a discount and moves the money to crypto. Together these point to a cash-out role, probably as a money mule. No cash or trade invoices are involved, and the volume and sourcing do not fit a genuine side business.",
+    explanation: "The Federal Reserve's scams mitigation toolkit (FedPayments Improvement) explains that scammers make victims buy gift cards and hand over the card numbers and PINs or photos of the cards. The criminals then quickly drain the cards or sell them online at a discounted rate, and the funds are hard to recover. Tyler receives codes from 'contacts', never buys cards himself, sells at a discount and moves the money to crypto within hours. Together these point to a cash-out role as a money mule, which FinCEN describes as a person who transfers illegally acquired money on behalf of or at the direction of another (FIN-2020-A003). No cash or trade invoices are involved, and the volume and sourcing do not fit a genuine side business.",
     source: [
-      { label: "FedPayments Improvement (Federal Reserve) – Gift cards and scam payments: protect your customers", url: "https://fedpaymentsimprovement.org/wp-content/uploads/gift-cards-scam-payments-protect-customers.pdf" },
-      { label: "FBI IC3 PSA I-061115-PSA – Gift card scams and the secondary gift card market", url: "https://www.ic3.gov/PSA/2015/PSA150611.pdf" }
+      { label: "Federal Reserve (FedPayments Improvement) scams mitigation toolkit – Gift cards and scam payments: protect your customers", url: "https://fedpaymentsimprovement.org/wp-content/uploads/gift-cards-scam-payments-protect-customers.pdf" },
+      { label: "FinCEN Advisory FIN-2020-A003 – Imposter scams and money mule schemes (definition of a money mule)", url: "https://www.fincen.gov/sites/default/files/advisory/2020-07-07/Advisory_%20Imposter_and_Money_Mule_COVID_19_508_FINAL.pdf" }
     ] },
 
   { id: "MIX-011", domain: 1, topic: "Gold purchases as a cover story for cross-border fund movements", hy: false, difficulty: "medium",
@@ -161,15 +161,15 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     source: [{ label: "Regulation (EU) 2024/1624 (AMLR) – Article 5 exemptions for certain professional football clubs", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32024R1624" }] },
 
   { id: "MIX-014", domain: 2, topic: "EU AMLR: storage in free zones and customs warehouses (Article 3(3)(j))", hy: false, difficulty: "hard",
-    q: "In 2028, Portus Vault operates secure, climate-controlled storage in a free zone in an EU Member State. It is not a bank, an art dealer or a precious-metals dealer. This month it takes in four new consignments for different clients. Which one makes Portus an obliged entity under the AMLR for that activity?",
+    q: "In 2028, Portus Vault operates secure, climate-controlled storage in a free zone in an EU Member State. It is not a bank, an art dealer or a precious-metals dealer. This month it takes in four new consignments for different clients. Treat the value of the goods stored as the value of the transaction. Which consignment makes Portus an obliged entity under the AMLR for that activity?",
     options: [
-      "A sports car with a price of EUR 180,000, stored for a private collector",
+      "A motor yacht with a price of EUR 5 million, stored ashore for a private owner",
       "Industrial turbines worth EUR 2 million, held for a manufacturer until re-export",
       "A gold necklace valued at EUR 8,000, placed in storage on its own",
       "Four wristwatches valued at EUR 12,000 each, stored together for one client"
     ],
     answer: [3],
-    explanation: "Article 3(3)(j) of the AMLR covers persons who store, trade or act as intermediaries in cultural goods and high-value goods within free zones and customs warehouses, where the transaction or linked transactions are worth at least EUR 10,000. Annex IV defines high-value goods to include clocks and watches worth more than EUR 10,000, but motor vehicles only when priced above EUR 250,000, and jewellery only above EUR 10,000. The watches qualify, and together they are worth EUR 48,000. The car is the runner-up but falls below the vehicle threshold. The necklace is below EUR 10,000, and industrial turbines are neither cultural nor high-value goods.",
+    explanation: "Article 3(3)(j) of the AMLR covers persons who store, trade or act as intermediaries in cultural goods and high-value goods within free zones and customs warehouses, where the transaction or linked transactions are worth at least EUR 10,000. Annex IV defines high-value goods to include clocks and watches worth more than EUR 10,000, but watercraft only when priced above EUR 7,500,000, and jewellery only above EUR 10,000. The watches qualify, and together they are worth EUR 48,000. The yacht is the tempting runner-up because of its price, but it falls below the EUR 7.5 million watercraft threshold, so it is not a high-value good. The necklace is below EUR 10,000, and industrial turbines are neither cultural nor high-value goods.",
     source: [{ label: "Regulation (EU) 2024/1624 (AMLR) – Article 3(3)(j) and Annex IV", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32024R1624" }] },
 
   { id: "MIX-015", domain: 4, topic: "Human trafficking SAR: victim vs subject (FIN-2020-A008)", hy: true, difficulty: "hard",
@@ -189,10 +189,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     options: [
       "Match each wire to its shipment's customs entry, invoice, weight and purity, then decide on a SAR",
       "Close the alert, because the gold price rise explains why payments exceed declared values",
-      "Share the case with the suppliers' Central American banks under the section 314(b) safe harbor",
+      "Close the account at once without filing a SAR, because only customs authorities can establish whether a customs violation occurred",
       "Tell the CFO that the bank suspects customs fraud and ask him to correct the import declarations"
     ],
     answer: [0],
-    explanation: "This case follows case study 13 of the FATF/APG gold report. A US importer brought in scrap gold at undervalued declared prices but paid the exporters overvalued amounts (USD 6.4 million declared against USD 24 million wired). The owners were charged with conspiracy to launder money, with customs violations as the predicate. Matching payments to documents shipment by shipment tests the hypothesis and supports a well-founded SAR. A 15% price rise cannot explain payments almost four times the declared value. Section 314(b) sharing is limited to US financial institutions and associations, so foreign banks are not eligible. Telling the CFO of the suspicion risks tipping off.",
+    explanation: "This case follows case study 13 of the FATF/APG gold report. A US importer brought in scrap gold at undervalued declared prices but paid the exporters overvalued amounts (USD 6.4 million declared against USD 24 million wired). The owners were charged with conspiracy to launder money, with customs violations as the predicate. Matching payments to documents shipment by shipment tests the hypothesis and supports a well-founded SAR. A 15% price rise cannot explain payments almost four times the declared value. Exiting without a SAR is wrong: a SAR needs only a reason to suspect, not proof of the predicate offence, and closing the account would not remove the duty to report. Telling the CFO of the suspicion risks tipping off.",
     source: [{ label: "FATF/APG (2015) ML/TF risks and vulnerabilities associated with gold – case study 13 (Singapore government copy)", url: "https://isomer-user-content.by.gov.sg/473/89fd3fe2-b411-48d2-88ad-6075883f6ebe/ML-TF-risks-vulnerabilities-associated-with-gold.pdf" }] }
 ]);
