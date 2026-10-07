@@ -84,7 +84,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Real estate agents are not DNFBPs unless they also hold client money for the buyer"
     ],
     answer: [1],
-    explanation: "R.22(b) covers real estate agents when they are involved in transactions for a client concerning the buying and selling of real estate, and INR.22 paragraph 1 says they should comply with R.10 with respect to both the purchasers and vendors of the property. FATF's 2022 real estate guidance repeats this and lists third-party payers and complex or opaque ownership as risk indicators. The USD/EUR 15,000 cash threshold applies to dealers in precious metals and stones, not real estate agents. Other parties' CDD does not replace the agent's own obligations.",
+    explanation: "R.22(b) covers real estate agents when they are involved in transactions for a client concerning the buying and selling of real estate, and INR.22 paragraph 1 says they should comply with R.10 with respect to both the purchasers and vendors of the property. FATF's 2022 real estate guidance lists payments by unconnected third parties, overseas accounts and ownership structures that obscure the beneficial owner as higher-risk indicators. The USD/EUR 15,000 cash threshold applies to dealers in precious metals and stones, not real estate agents. Other parties' CDD does not replace the agent's own obligations.",
     source: [
       { label: "FATF Recommendations (2026), R.22(b) and INR.22 (EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" },
       { label: "FATF Guidance for a Risk-Based Approach to the Real Estate Sector (2022) (EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_documents/Best_practicies/RBA-Real-Estate-Sector.pdf.coredownload.pdf.pdf" }
@@ -113,7 +113,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Leave the review to the agent, because the agent sold the policy and knows the customer best"
     ],
     answer: [0],
-    explanation: "An insurer must report a suspicious transaction involving a covered product that involves or aggregates at least $5,000, including one designed to evade BSA requirements through structuring (31 CFR 1025.320). FinCEN's assessment of insurance SARs describes owners of cash-intensive businesses paying into policies with multiple cash equivalents from different issuers, each below BSA thresholds, then taking policy loans and repaying them with more cash equivalents. The runner-up looks at each instrument alone, but the SAR threshold is met in aggregate and the pattern of buying instruments just under $3,000 is itself the concern. Insurers do not file CTRs, and the insurer stays responsible for reporting activity conducted through its agents.",
+    explanation: "An insurer must report a suspicious transaction involving a covered product that involves or aggregates at least $5,000, including one designed to evade BSA requirements through structuring (31 CFR 1025.320). FinCEN's assessment of insurance SARs describes owners of cash-intensive businesses paying into policies with multiple cash equivalents from different issuers, each below BSA thresholds, then taking policy loans and repaying them with more cash equivalents. The runner-up looks at each instrument alone, but the SAR threshold is met in aggregate and the pattern of buying instruments just under $3,000 is itself the concern. Insurers do not file CTRs (cash over $10,000 they receive is reported on Form 8300 under 1025.330 and 1010.330), and under 1025.320(a)(3) the insurer stays responsible for reporting activity conducted through its agents.",
     source: [
       { label: "FinCEN, Insurance Industry Suspicious Activity Reporting: An Assessment of the Second Year SAR Filings (Jan 2010)", url: "https://fincen.gov/sites/default/files/shared/Insurance_update_pub.pdf" },
       { label: "31 CFR 1025.320 – SARs by insurance companies (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1025/subpart-C/section-1025.320" }
@@ -208,7 +208,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "A £80,000 sculpture created by one of the gallery's own partners",
       "A single £9,500 painting by an unrelated artist, paid by card",
       "Storing a collector's works worth £400,000 in an ordinary London warehouse that is not a freeport",
-      "Three prints by an unrelated artist sold to one buyer in linked transactions totalling £10,400"
+      "Three original paintings by an unrelated artist sold to one buyer in linked transactions totalling £10,400"
     ],
     answer: [3],
     explanation: "Regulation 14(1)(d) defines an art market participant as a firm that trades in, or acts as an intermediary in, works of art where the transaction or a series of linked transactions amounts to £10,000 or more, or a freeport operator storing art of that value. Linked sales of £10,400 meet the test. Regulation 14(3) excludes the sale of a work created by, or attributable to, a member of the firm, so the partner's sculpture is outside it despite its value. The £9,500 sale is below the threshold, and storage counts only in a freeport. SI 2026/621 changed the threshold from €10,000 to £10,000 from 30 June 2026.",
@@ -254,7 +254,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ],
     answer: [0],
     explanation: "Under MAR Article 16(2), a person professionally arranging or executing transactions must notify the FCA without delay of reasonably suspected insider dealing or market manipulation, which is a STOR. Insider dealing is also a crime under Part V of the Criminal Justice Act 1993, so the profits are criminal property and a SAR under POCA may be required. The FCA's 2019 letter states that filing a STOR does not discharge POCA or Terrorism Act obligations, that a SAR does not discharge the MAR duty, and that firms may need to file both. The runner-up relies on intelligence sharing that the FCA said does not replace a firm's own SAR obligation.",
-    source: [{ label: "FCA letter to UK Finance on SARs and STORs (6 Sep 2019)", url: "https://www.fca.org.uk/publication/correspondence/letter-uk-finance-sars-stors.pdf" }]
+    source: [{ label: "FCA letter to UK Finance on SARs and STORs (6 Sep 2019)", url: "https://www.fca.org.uk/publication/correspondence/letter-uk-finance-sars-stors.pdf" },
+      { label: "UK MAR Article 16 (legislation.gov.uk)", url: "https://www.legislation.gov.uk/eur/2014/596/article/16" }
+    ]
   },
   {
     id: "GATE-018", domain: 1, topic: "Insider trading and market manipulation as predicate offences", hy: true, difficulty: "medium",
@@ -309,8 +311,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "It is covered only if a single customer buys more than $10,000 of cards in one day"
     ],
     answer: [0],
-    explanation: "Under 31 CFR 1010.100(ff)(4)(iii)(D), an arrangement giving access to no more than $1,000 is not a prepaid program only if it also does not permit funds to be transmitted internationally, transfers between users, or loading from non-depository sources. International use removes the exemption, which is the point counsel missed. The provider, the participant with principal oversight and control, is an MSB that must register and must verify and record the name, date of birth, address and ID number of those obtaining prepaid access (1022.210(d)(1)(iv)). The $2,000 figure concerns closed-loop products, and the $10,000 daily test concerns sellers of prepaid access.",
+    explanation: "Under 31 CFR 1010.100(ff)(4)(iii)(D), an arrangement giving access to no more than $1,000 is not a prepaid program only if it also does not permit funds to be transmitted internationally, transfers between users, or loading from non-depository sources. International use removes the exemption, which is the point counsel missed: FinCEN's 2011 final rule gives the example of a network-branded card with a $500 limit that would generally be excluded unless it can be used at foreign ATMs or merchants. The provider, the participant with principal oversight and control, is an MSB that must register and must verify and record the name, date of birth, address and ID number of those obtaining prepaid access (1022.210(d)(1)(iv)). The $2,000 figure concerns closed-loop products, and the $10,000 daily test concerns sellers of prepaid access.",
     source: [
+      { label: "FinCEN final rule on prepaid access (76 FR 45403, 29 Jul 2011)", url: "https://www.federalregister.gov/documents/2011/07/29/2011-19116/bank-secrecy-act-regulations-definitions-and-other-regulations-relating-to-prepaid-access" },
       { label: "31 CFR 1010.100(ff) – MSB definitions, prepaid program (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-A/section-1010.100" },
       { label: "31 CFR 1022.210 – AML programs for MSBs (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1022/subpart-B/section-1022.210" }
     ]
@@ -356,7 +359,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ],
     answer: [0, 2, 3],
     explanation: "Article 19(6) says real estate agents must treat both parties as customers. Notaries, lawyers and other independent legal professionals intermediating a transaction must do the same, to the extent that they are the only legal professional intermediating it. Persons trading in precious metals and stones, high-value goods and cultural goods must treat the supplier of goods as a customer as well as the direct customer. For payment initiation services the customer is the merchant, not a bank. The recitals add that the person for whose benefit a transaction is carried out does not mean the recipient of a transfer the bank makes for its customer.",
-    source: [{ label: "Regulation (EU) 2024/1624 (AMLR), Art. 19(6)", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }]
+    source: [{ label: "Regulation (EU) 2024/1624 (AMLR), Art. 19(6) and recital 51", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }]
   },
   {
     id: "GATE-025", domain: 3, topic: "Payment providers using agents: FATF R.14", hy: false, difficulty: "medium",
