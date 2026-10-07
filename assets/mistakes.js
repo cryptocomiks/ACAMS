@@ -70,7 +70,7 @@
     }).join("") : '<p class="muted" style="margin:0">Nothing here for this filter. Nice.</p>') + "</div>";
     app.innerHTML = html;
 
-    function train(ids, label) { if (ids.length) A.startSession("practice", { ids: ids, label: label }); }
+    function train(ids, label) { if (ids.length) A.startSession("practice", { ids: ids, label: label, planTask: "missed" }); }
     document.getElementById("mmTop").onclick = function () { train(top.map(function (m) { return m.q.id; }), "Most missed"); };
     var ma = document.getElementById("mmAll");
     if (ma) ma.onclick = function () { train(list.slice(20).map(function (m) { return m.q.id; }), "Most missed"); };

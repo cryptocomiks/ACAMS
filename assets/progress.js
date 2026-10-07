@@ -10,9 +10,10 @@
     gam: "cams.gam.v1",         // gamification state, see gam()
     srs: "cams.srs.v1",         // { qid: { box, due, last } }
     cards: "cams.cards.v1",     // { cardId: { box, due, last } }
-    learn: "cams.learn.v1"      // { moduleId: firstReadTimestamp }
+    learn: "cams.learn.v1",     // { moduleId: firstReadTimestamp }
+    study: "cams.study.v1"      // 30-day plan: { examDate, startDate, diag, log: { day: { r: reviews, c: cards } }, updated }
   };
-  var SYNCED = [KEYS.stats, KEYS.history, KEYS.gam, KEYS.srs, KEYS.cards, KEYS.learn];
+  var SYNCED = [KEYS.stats, KEYS.history, KEYS.gam, KEYS.srs, KEYS.cards, KEYS.learn, KEYS.study];
 
   // Leitner boxes: days until the next review for each box.
   var INTERVALS = [0, 1, 3, 7, 16, 35];
@@ -273,7 +274,28 @@
     // A miss drops to box 0 (back in 10 minutes); getting it right then climbs 1, 3, 7, 16, 35 days.
     var box = !c ? (ok ? 2 : 0) : (ok ? Math.min(INTERVALS.length - 1, c.box + 1) : 0);
     var due = ok ? now + INTERVALS[box] * 864e5 - 36e5 : now + 10 * 6e4;
+    // With an exam date set, nothing is scheduled past the last days before the exam: every item gets one more pass.
+    var exam = examTime();
+    if (ok && exam && due > exam - 2 * 864e5 && now < exam - 3 * 864e5) due = Math.max(now + 864e5 - 36e5, exam - 2 * 864e5);
     return { box: box, due: due, last: now };
+  }
+  // ---------- 30-day plan state ----------
+  function study() { return load(KEYS.study, {}) || {}; }
+  function saveStudy(st) { st.updated = Date.now(); save(KEYS.study, st); }
+  function examTime() {
+    var e = study().examDate;
+    if (!e) return 0;
+    var p = e.split("-");
+    return new Date(+p[0], +p[1] - 1, +p[2], 9).getTime();
+  }
+  function studyTick(field, n) {
+    var st = study();
+    if (!st.examDate) return;
+    var k = dayKey();
+    st.log = st.log || {};
+    st.log[k] = st.log[k] || {};
+    st.log[k][field] = (st.log[k][field] || 0) + (n || 1);
+    saveStudy(st);
   }
   function srsUpdate(qid, ok) {
     var srs = load(KEYS.srs, {});
@@ -298,6 +320,7 @@
     var notDue = cur && cur.due > Date.now();
     // Re-practising a card early never promotes it (that would defeat the spacing); forgetting it resets it.
     if (!(notDue && ok)) { c[cardId] = srsNext(cur, ok); save(KEYS.cards, c); }
+    studyTick("c");
     var g = gam();
     g.counts.cards = (g.counts.cards || 0) + 1;
     if (!notDue) addXp(g, XP.card);
@@ -427,7 +450,7 @@
     var gain = opts.noXp ? 0 : ok ? (opts.review ? XP.reviewRight : XP.right) : XP.wrong;
     if (ok && opts.combo >= 3) gain += Math.min(opts.combo - 2, 5) * 2;
     if (ok && opts.speedBonus) gain += opts.speedBonus;
-    if (opts.review) { g.reviews++; questEvent("review", 1, g); }
+    if (opts.review) { g.reviews++; questEvent("review", 1, g); studyTick("r"); }
     addXp(g, gain);
     questEvent("answer", 1, g);
     if (ok && opts.combo) { questEvent("combo", opts.combo, g); record("combo", opts.combo, g); }
@@ -594,7 +617,7 @@
   // ---------- Import / export / merge (used by sync) ----------
   function exportAll() {
     return { v: 2, stats: load(KEYS.stats, {}), history: load(KEYS.history, []), gam: load(KEYS.gam, {}), srs: load(KEYS.srs, {}),
-      cards: load(KEYS.cards, {}), learn: load(KEYS.learn, {}) };
+      cards: load(KEYS.cards, {}), learn: load(KEYS.learn, {}), study: load(KEYS.study, {}) };
   }
   function isEmpty(d) {
     return !d || (!Object.keys(d.stats || {}).length && !(d.history || []).length && !(d.gam && d.gam.xp));
@@ -661,6 +684,12 @@
     out.srs = mergeMap(a.srs, b.srs, newer);
     out.cards = mergeMap(a.cards, b.cards, newer);
     out.learn = mergeMap(a.learn, b.learn, function (x, y) { return Math.min(x, y); });
+    // Plan settings: the most recently edited copy wins; daily counters keep the higher value per day.
+    var sa = a.study || {}, sb = b.study || {}, sn = (sb.updated || 0) > (sa.updated || 0) ? sb : sa;
+    out.study = {};
+    Object.keys(sn).forEach(function (k) { if (k !== "log") out.study[k] = sn[k]; });
+    out.study.log = mergeMap(sa.log, sb.log, function (x, y) { return mergeMap(x, y, max); });
+    if (RESET && (out.study.updated || 0) < RESET) out.study = {};
     return out;
   }
   function importAll(d) {
@@ -671,6 +700,7 @@
       localStorage.setItem(KEYS.srs, JSON.stringify(d.srs || {}));
       localStorage.setItem(KEYS.cards, JSON.stringify(d.cards || {}));
       localStorage.setItem(KEYS.learn, JSON.stringify(d.learn || {}));
+      localStorage.setItem(KEYS.study, JSON.stringify(d.study || {}));
     } catch (e) { /* ignore */ }
   }
   function clearAll() {
@@ -694,6 +724,7 @@
     dueIds: dueIds, masteredCount: masteredCount, domainAccuracy: domainAccuracy, weakTopics: weakTopics, strongTopics: strongTopics,
     topicKey: topicKey, heat: heat, lastDays: lastDays, readiness: readiness, seeded: seeded, hash: hash,
     srs: function () { return load(KEYS.srs, {}); },
+    study: study, saveStudy: saveStudy, examTime: examTime,
     exportAll: exportAll, importAll: importAll, merge: merge, isEmpty: isEmpty, clearAll: clearAll, resetAll: resetAll, save: save
   };
 })();

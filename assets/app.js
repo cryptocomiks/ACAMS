@@ -143,11 +143,11 @@
     if (mode === "daily") return PG.dailyIds(BANK).map(function (id) { return BY_ID[id]; }).filter(Boolean);
     var pool = filteredPool(opts);
     if (mode === "survival") return ranked(pool, stats);
-    var n = Math.min((MODES[mode] || MODES.practice).n, opts.limit || Infinity, pool.length);
+    var n = Math.min(opts.count || (MODES[mode] || MODES.practice).n, opts.limit || Infinity, pool.length);
     var chosen = [];
     // Practice: up to a quarter of the set are missed questions due again, so mistakes keep coming back until learnt.
     var dueSet = {};
-    if (mode === "practice" && PG && !opts.ids && opts.source !== "mistakes") {
+    if (mode === "practice" && PG && !opts.ids && !opts.diag && opts.source !== "mistakes") {
       var inPool = {};
       pool.forEach(function (q) { inPool[q.id] = 1; });
       PG.dueIds(BY_ID).filter(function (id) { return inPool[id] && stats[id] && stats[id].last === false; })
@@ -156,7 +156,7 @@
     }
     var target = n;
     n -= chosen.length;
-    if ((!opts.domain || opts.domain === "all") && opts.source !== "mistakes" && !opts.ids) {
+    if ((!opts.domain || opts.domain === "all") && opts.source !== "mistakes" && (!opts.ids || opts.diag)) {
       // Mirror the exam blueprint weights (30/20/30/20).
       var quotas = {}, assigned = 0;
       Object.keys(DOMAINS).forEach(function (d) { quotas[d] = Math.round(n * DOMAINS[d].weight); assigned += quotas[d]; });
@@ -186,7 +186,7 @@
   function startSession(mode, opts) {
     opts = opts || {};
     // Free plan: some modes are Premium, Practice is capped at the questions left today.
-    var free = PL && !PL.premium() && !opts.retry;
+    var free = PL && !PL.premium() && !opts.retry && !opts.diag;   // replaying mistakes and the plan diagnostic are free
     if (free) {
       var gate = PL.check(mode, opts);
       if (gate !== "ok") { PL.paywall(gate); return false; }
@@ -488,6 +488,7 @@
         "Your free questions come back tomorrow. The daily challenge is still open, or keep going now with Premium." +
         '</span></div><a class="btn primary sm" href="#/premium">👑 See Premium</a></div>';
     }
+    if (window.CAMSStudy) html += window.CAMSStudy.homeCard();
     if (returning) html += todayPanel();
 
     // Modes
@@ -1166,6 +1167,8 @@
       s.newBadges = PG.BADGES.filter(function (b) { return now[b.id] && (s.badgesAtStart || []).indexOf(b.id) < 0; });
       if (window.CAMSLeaderboard && s.dailySaved) window.CAMSLeaderboard.schedule();
     }
+    if (o.planTask && answered && window.CAMSStudy) window.CAMSStudy.taskDone(o.planTask);
+    if (o.diag && answered && window.CAMSStudy) window.CAMSStudy.recordDiag(s.items.map(function (it) { return { d: BY_ID[it.qid].domain, ok: isCorrect(it) }; }));
     remove(KEYS.session);
     reviewFilter = "all";
     FX.play("end");
@@ -1275,7 +1278,8 @@
       '<div class="result-title">' + esc(title) + "</div>" +
       '<p class="muted" style="margin:0">' + esc(sub) + "</p>" +
       (s.mode === "exam" ? '<p class="muted small" style="margin:6px 0 0">Aim for 80%+ consistently in mock exams before booking the real one.</p>' : "") +
-      "</div></div>" + rewardsHtml(s) + mistakesHtml(s) + keepGoingHtml(s) +
+      "</div></div>" + (s.opts && s.opts.diag ? '<div class="learn-loop"><div class="ll-ic" aria-hidden="true">🗓</div><div class="ll-body"><b>Diagnostic done. Your 30-day plan is ready.</b><span>It starts with your weakest domains and tells you exactly what to do each day.</span></div><div class="ll-actions"><a class="btn primary sm" href="#/plan">Open my plan</a></div></div>' : "") +
+      rewardsHtml(s) + mistakesHtml(s) + keepGoingHtml(s) +
       (s.mode === "daily" && !s.replay && !s.dailyLate ? '<div class="share"><pre id="shareTxt">' + esc(shareText(s)) + '</pre><button class="btn sm" id="copyShare">Copy result</button> <a class="link-btn small" href="#/ranks">See today\'s leaderboard</a></div>' : "") +
       '<h3 style="margin-top:20px">By domain</h3>' + (function (h) { return isPremium() ? h : PL.lockOverlay(h, "stats", "Your score by domain"); })('<div class="bars">' +
       Object.keys(DOMAINS).filter(function (d) { return byDomain[d]; }).map(function (d) {
@@ -1395,7 +1399,8 @@
     app.innerHTML = '<div class="card"><h2>No questions loaded</h2><p class="muted">The question files in /data could not be loaded.</p></div>';
   } else {
     if (PG) PG.applyFreezes();
-    // Let learn.js / leaderboard.js register their routes first.
-    setTimeout(route, 0);
+    // Let the scripts loaded after this one (learn, leaderboard, plan…) register their routes first.
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", route);
+    else setTimeout(route, 0);
   }
 })();
