@@ -902,3 +902,11 @@ kbd { font: inherit; font-size: 11px; padding: 1px 6px; border-radius: 5px; back
 .m-plan { font-size: 14px; margin: 6px 0 10px; }
 .lb-list li.bot .nm, .pod.bot .pname { color: var(--muted); } .lb-list li.bot .av, .pod.bot .pav { background: rgba(118,118,128,.18); }
 .lb-botnote { text-align: center; margin-top: 12px; }
+
+.energy-chip { background: rgba(255,204,0,.18); color: var(--text) !important; font-weight: 700; text-decoration: none; }
+.energy-chip.empty { background: rgba(118,118,128,.14); color: var(--muted) !important; }
+.premium-tab svg { color: #ff9f0a; }
+.dose-done { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: linear-gradient(135deg, rgba(52,199,89,.14), rgba(255,204,0,.14)); }
+.dose-done > div:nth-child(2) { flex: 1; min-width: 220px; } .dose-done b { display: block; font-size: 17px; } .dose-done span { font-size: 14px; color: var(--muted); }
+.dd-check { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--good); color: #fff; font-size: 22px; font-weight: 800; }
+.dd-actions { display: flex; gap: 8px; flex-wrap: wrap; }

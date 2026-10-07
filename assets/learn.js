@@ -95,7 +95,7 @@
         var ms = modStats(m, st), isRead = !!read[m.id];
         return '<a class="module reveal in ' + (DOMAIN_COLORS[m.domain] || "") + (isRead ? " read" : "") + '" href="#/learn/' + m.id + '" style="animation-delay:' + i * 30 + 'ms">' +
           '<div class="mod-top"><span class="mod-icon" aria-hidden="true">' + m.icon + '</span><span class="tag">' + (m.id === "m00" ? "Exam" : "Domain " + m.domain) + "</span>" +
-          (isRead ? '<span class="tag good">✓ Read</span>' : "") + (PL && !PL.premium() ? (lessonOpen(m.id) ? '<span class="tag good">Free</span>' : '<span class="tag">👑 Premium</span>') : "") + "</div>" +
+          (isRead ? '<span class="tag good">✓ Read</span>' : "") + (PL && !PL.premium() && lessonOpen(m.id) ? '<span class="tag good">Free</span>' : "") + "</div>" +
           '<div class="mod-title">' + esc(m.title) + '</div><div class="mod-sum">' + esc(m.summary || "") + "</div>" +
           '<div class="mod-meta"><span>⏱ ' + (m.minutes || Math.max(3, Math.round(words(m) / 200))) + " min</span>" +
           ((m.cards || []).length ? "<span>🃏 " + m.cards.length + "</span>" : "") +
@@ -314,7 +314,8 @@
     PL.bindLocks(app);
   }
   function renderSprint(which) {
-    if (PL && !PL.premium()) return lockedPage("🔢", "Numbers sprint is Premium", "sprint");
+    var freeRun = PL && !PL.premium();
+    if (freeRun && PL.sprintUsedToday()) return lockedPage("🔢", "Today's free sprint is done", "sprint");
     var nums = allNumbers();
     if (which) { var f = nums.filter(function (n) { return n.m.id === which; }); if (f.length >= 4) nums = f; }
     if (!nums.length) return empty();
@@ -326,7 +327,7 @@
       '<p class="muted">60 seconds. Thresholds, deadlines, percentages and recommendation numbers. As many as you can.</p>' +
       '<div class="sp-best">' + (best != null ? "🏆 Your best: <b>" + best + "</b>" : "No record yet") + " · " + nums.length + " facts in the pool</div>" +
       '<button class="btn primary lg" id="spGo">Start</button></div></div>';
-    $("spGo").onclick = function () { countdown(alive, function () { run(nums, alive); }); };
+    $("spGo").onclick = function () { if (freeRun) PL.useSprint(); countdown(alive, function () { run(nums, alive); }); };
   }
   function countdown(alive, cb) {
     var n = 3;
@@ -395,7 +396,10 @@
         '<div class="count-big small">' + score + '</div><div class="result-title">correct in 60 seconds</div><p class="muted">+' + r.xp + " XP</p>" +
         (uniq.length ? '<div class="missed"><div class="dlabel">Review the ones you missed</div>' + uniq.map(function (m) { return '<div class="miss"><span>' + md(m.q) + "</span><b>" + md(m.a) + "</b></div>"; }).join("") + "</div>" : "") +
         '<div class="actions" style="justify-content:center"><a class="btn" href="#/learn">Back to the course</a><button class="btn primary" id="spAgain">Play again</button></div></div></div>';
-      $("spAgain").onclick = function () { countdown(alive, function () { run(nums, alive); }); };
+      $("spAgain").onclick = function () {
+        if (PL && !PL.premium() && PL.sprintUsedToday()) return PL.paywall("sprint");
+        countdown(alive, function () { run(nums, alive); });
+      };
     }
   }
 

@@ -52,7 +52,7 @@ Tant que ces champs sont vides, la page Premium s'affiche mais le bouton dit « 
 - Abonnement annulé : le Premium reste jusqu'à la fin de la période payée. Exam Pass : 6 mois, sans renouvellement.
 
 ## À savoir
-- Le site est statique : les limites du plan gratuit (20 questions/jour, flou) sont appliquées dans le navigateur. Un utilisateur
+- Le site est statique : les limites du plan gratuit (15 questions/jour, flou) sont appliquées dans le navigateur. Un utilisateur
   très technique pourrait les contourner ; la vraie valeur payante, c'est l'expérience complète et le suivi.
 - Pour vendre, il te faut des mentions légales, des CGV et une politique de confidentialité, et gérer la TVA selon ton statut
   (Stripe Tax peut la calculer). Demande-moi si tu veux un modèle de pages.

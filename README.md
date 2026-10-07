@@ -49,8 +49,10 @@ Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être a
 
 ## Formules (Free / Premium)
 
-- **Free, sans compte** : 20 questions par jour en Practice (y compris par thème), le défi du jour, réponses et explications,
-  2 leçons du cours, 1 Mock exam d'essai. Score de préparation, graphiques et points faibles affichés floutés.
+- **Free, sans compte** : 15 questions par jour utilisables dans tous les modes (Practice, Lightning, Survival, Smart review, thèmes,
+  filtres), le défi du jour, 1 Mock exam complet, 1 Numbers sprint par jour, 2 leçons. Rien n'est bloqué à l'arrivée : le Premium
+  n'est proposé qu'une fois les 15 questions faites (carte « Daily dose done ») ou via l'onglet Premium. Score de préparation,
+  graphiques et points faibles affichés floutés.
 - **Premium** (Stripe, compte requis) : tout en illimité. 9,99 €/mois · 24,99 €/3 mois · 39,99 € Exam Pass 6 mois (paiement unique) · 59,99 €/an,
   environ 30 % sous les concurrents. Mise en route : `supabase/stripe.md`. Code : `assets/plan.js`, `supabase/premium.sql`,
   `supabase/functions/stripe-webhook/`.

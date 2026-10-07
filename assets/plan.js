@@ -1,13 +1,14 @@
 /* CAMS Exam Trainer — plans: Free (no account needed) and Premium (Stripe).
- * Free: one practice session of 20 questions a day, the daily challenge, 2 lessons, one Mock exam trial;
- *       advanced stats are shown blurred. Premium: everything, unlimited.
+ * Free: 15 questions a day to use in ANY mode (try everything first), plus the daily challenge, one full Mock exam,
+ *       one Numbers sprint a day and 2 lessons; advanced stats are shown blurred. Premium is only offered once the
+ *       15 questions are used (or from the Premium tab). Premium: everything, unlimited.
  * Premium status comes from the `entitlements` table (written only by the Stripe webhook, see supabase/stripe.md).
  * Note: this is a static site, so limits are enforced in the browser; the paid value is the full experience. */
 (function () {
   "use strict";
   var cfg = window.CAMS_CONFIG || {};
   var stripe = cfg.stripe || {};
-  var FREE_DAILY = 20;
+  var FREE_DAILY = 15;
   var FREE_LESSONS = ["m00", "m01"];
   var KEY_FREE = "cams.free.v1", KEY_ENT = "cams.plan.v1", KEY_PENDING = "cams.checkout.v1";
   var listeners = [];
@@ -69,21 +70,23 @@
     return s;
   }
   function freeLeft() { return premium() ? Infinity : Math.max(0, FREE_DAILY - freeState().used); }
-  function useFree(n) { if (premium()) return; var s = freeState(); s.used += n || 1; save(KEY_FREE, s); emit(); }
+  function useFree(n) {
+    if (premium()) return;
+    var s = freeState(); s.used += n || 1; save(KEY_FREE, s);
+    var left = FREE_DAILY - s.used;
+    if (left === 3 && window.CAMSUI) window.CAMSUI.toast('<span class="ti">⚡</span><div><b>3 free questions left today</b><span>Make them count!</span></div>');
+  }
+  function sprintUsedToday() { return freeState().sprint === today(); }
+  function useSprint() { var s = freeState(); s.sprint = today(); save(KEY_FREE, s); }
   function examTrialUsed() { return !!load(KEY_FREE, {}).examTrial; }
   function useExamTrial() { var s = freeState(); s.examTrial = Date.now(); save(KEY_FREE, s); }
 
   // What a free user may do. Returns "ok", or the paywall reason.
   function check(mode, opts) {
     if (premium()) return "ok";
-    opts = opts || {};
     if (mode === "daily") return "ok";
-    if (mode === "practice") {
-      if (opts.source && opts.source !== "fresh" && opts.source !== "topic") return "filters";
-      return freeLeft() > 0 ? "ok" : "quota";
-    }
-    if (mode === "exam") return examTrialUsed() ? "exam" : "ok";
-    return mode;   // review, lightning, survival
+    if (mode === "exam") return examTrialUsed() ? "exam" : "ok";   // one full Mock exam to try the real thing
+    return freeLeft() > 0 ? "ok" : "quota";                          // every other mode uses the daily questions
   }
   function lessonFree(id) { return premium() || FREE_LESSONS.indexOf(id) >= 0; }
 
@@ -115,7 +118,7 @@
 
   // ---------- UI pieces ----------
   var REASONS = {
-    quota: ["You've used today's 20 free questions", "Come back tomorrow for 20 more, or go Premium and keep going right now."],
+    quota: ["Daily dose done: 15/15 ✓", "Great session. Your 15 free questions come back tomorrow, or keep the momentum going now with Premium."],
     exam: ["Your free Mock exam is used", "Premium gives you unlimited timed Mock exams, the best way to know you're ready."],
     review: ["Smart review is Premium", "Spaced repetition brings back the questions you got wrong, just before you forget them."],
     lightning: ["Lightning is Premium", "15 questions, 30 seconds each, speed bonus. Addictive."],
@@ -124,7 +127,7 @@
     stats: ["Unlock your full analytics", "See your predicted exam score, weak topics and progress by domain."],
     lesson: ["This lesson is Premium", "The full course: 13 lessons written for the CAMS 7th edition, with flashcards."],
     cards: ["Flashcards are Premium", "Hundreds of cards with spaced repetition. Two lessons' decks are free."],
-    sprint: ["Numbers sprint is Premium", "60 seconds of thresholds, deadlines and percentages."],
+    sprint: ["Today's free sprint is done", "Premium gives you unlimited 60-second sprints on thresholds, deadlines and percentages."],
     ranks: ["Leaderboards are Premium", "Compete every week and on the daily challenge."],
     upgrade: ["Go Premium", "Everything you need to pass CAMS, unlimited."]
   };
@@ -164,7 +167,7 @@
     pw.innerHTML = '<div class="modal-back"></div><div class="modal-card wide" role="dialog" aria-modal="true" aria-labelledby="pwTitle"><button class="modal-x" aria-label="Close">×</button>' +
       '<div class="pw-crown" aria-hidden="true">👑</div><h2 id="pwTitle">' + esc(r[0]) + '</h2><p class="muted">' + esc(r[1]) + "</p>" +
       plansHtml(true) + benefitsHtml(6) +
-      (reason === "quota" ? '<p class="small muted pw-free">Free plan: 20 questions a day + the daily challenge. Your streak and XP keep counting.</p>' : "") +
+      (reason === "quota" ? '<p class="small muted pw-free">Free plan: 15 questions a day in any mode + the daily challenge. Your streak, XP and progress are kept.</p>' : "") +
       '<p class="small muted pw-free"><a href="#/premium" id="pwMore">Compare Free and Premium</a> · Secure payment by Stripe</p></div>';
     document.body.appendChild(pw);
     pw.querySelector(".modal-back").onclick = closePaywall;
@@ -202,9 +205,9 @@
     } else {
       html += plansHtml(false);
       html += '<div class="card fade-in compare"><table><thead><tr><th></th><th>Free</th><th>Premium</th></tr></thead><tbody>' + [
-        ["Practice questions", "20 a day", "Unlimited (510)"], ["Daily challenge", "✓", "✓"], ["Answers and sourced explanations", "✓", "✓"],
-        ["Train by theme", "Within the 20 a day", "Unlimited"], ["Mock exams (timed)", "1 trial", "Unlimited"], ["Smart review (spaced repetition)", "—", "✓"],
-        ["Lightning and Survival", "—", "✓"], ["Exam readiness and predicted score", "Blurred", "✓"], ["Weak topics and charts", "Blurred", "✓"],
+        ["Questions", "15 a day, any mode", "Unlimited (510)"], ["Daily challenge", "✓", "✓"], ["Answers and sourced explanations", "✓", "✓"],
+        ["Practice, Lightning, Survival, Smart review, by theme", "Within the 15 a day", "Unlimited"], ["Mock exams (timed, 30 questions)", "1 free", "Unlimited"],
+        ["Numbers sprint", "1 a day", "Unlimited"], ["Exam readiness and predicted score", "Blurred", "✓"], ["Weak topics and charts", "Blurred", "✓"],
         ["Course lessons", "2 of 13", "All 13 + flashcards + sprint"], ["Leaderboards", "View", "Compete"], ["Sync across devices", "With a free account", "✓"]
       ].map(function (r) { return "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td><td><b>" + r[2] + "</b></td></tr>"; }).join("") + "</tbody></table></div>";
       html += '<div class="card fade-in">' + benefitsHtml() + "</div>";
@@ -234,6 +237,7 @@
     FREE_DAILY: FREE_DAILY, FREE_LESSONS: FREE_LESSONS, PLANS: PLANS,
     premium: premium, entitlement: entitlement, refresh: refresh, setEntitlement: setEntitlement,
     freeLeft: freeLeft, useFree: useFree, examTrialUsed: examTrialUsed, useExamTrial: useExamTrial,
+    sprintUsedToday: sprintUsedToday, useSprint: useSprint,
     check: check, lessonFree: lessonFree, paywall: paywall, closePaywall: closePaywall,
     lockOverlay: lockOverlay, bindLocks: bindLocks, buy: buy, resumeCheckout: resumeCheckout,
     hasPayments: function () { return !!(stripe.monthly || stripe.quarterly || stripe.pass6 || stripe.annual); },

@@ -137,7 +137,7 @@
     var stats = load(KEYS.stats, {});
     if (mode === "review" || opts.source === "review") {
       var due = PG ? PG.dueIds(BY_ID) : [];
-      return shuffle(due.slice(0, MODES.review.n).map(function (id) { return BY_ID[id]; }));
+      return shuffle(due.slice(0, Math.min(MODES.review.n, opts.limit || Infinity)).map(function (id) { return BY_ID[id]; }));
     }
     if (mode === "daily") return PG.dailyIds(BANK).map(function (id) { return BY_ID[id]; }).filter(Boolean);
     var pool = filteredPool(opts);
@@ -176,7 +176,7 @@
     if (free) {
       var gate = PL.check(mode, opts);
       if (gate !== "ok") { PL.paywall(gate); return false; }
-      if (mode === "practice") opts.limit = Math.min(PL.freeLeft(), PL.FREE_DAILY);
+      if (mode !== "daily" && mode !== "exam") opts.limit = Math.min(PL.freeLeft(), PL.FREE_DAILY);
     }
     var qs = pickQuestions(mode, opts);
     // A filter with nothing in it (no mistakes yet, etc.) must never block training: fall back to all questions.
@@ -200,7 +200,7 @@
     session = {
       mode: mode,
       opts: opts,
-      free: !!(free && mode === "practice"),
+      free: !!(free && mode !== "daily" && mode !== "exam"),   // counts against the 15 free questions
       startedAt: Date.now(),
       endsAt: mode === "exam" ? Date.now() + qs.length * SECONDS_PER_QUESTION * 1000 : null,
       current: 0,
@@ -261,7 +261,7 @@
   function premiumChip() {
     if (!PL || PL.premium()) return "";
     var left = PL.freeLeft();
-    return '<a class="chip premium-chip" href="#/premium" title="Free plan: ' + left + ' of ' + PL.FREE_DAILY + ' questions left today">👑 <span class="hide-sm">Premium · </span>' + left + "/" + PL.FREE_DAILY + "</a>";
+    return '<a class="chip energy-chip' + (left ? "" : " empty") + '" href="#/premium" title="Free plan: ' + left + " of " + PL.FREE_DAILY + ' free questions left today">⚡ ' + left + '<span class="hide-sm"> left today</span></a>';
   }
   function homeChips() {
     if (!PG) return premiumChip();
@@ -420,11 +420,7 @@
     ];
     var free = PL && !PL.premium();
     if (free) tiles.forEach(function (t) {
-      if (t.mode === "practice") t.sub = PL.freeLeft() + " of " + PL.FREE_DAILY + " free questions left today · answer right away";
-      else if (t.mode === "exam" && !PL.examTrialUsed()) t.lock = "1 free trial";
-      else if (t.mode && t.mode !== "daily") { t.lock = "Premium"; t.disabled = false; }
-      else if (t.href === "#/sprint") t.lock = "Premium";
-      else if (t.href === "#/cards/all") t.lock = "2 decks free";
+      if (t.mode === "exam") t.lock = PL.examTrialUsed() ? "Premium" : "1 free";
     });
     return '<div class="modes-grid">' + tiles.map(function (t, i) {
       var attr = t.href ? 'href="' + t.href + '"' : 'href="#" data-mode="' + t.mode + '"';
@@ -447,7 +443,7 @@
     var g = PG ? PG.gam() : { xp: 0, records: {} };
     var due = PG ? PG.dueIds(BY_ID).length : 0;
     var returning = g.xp > 0;
-    var prefs0 = { domain: prefs.domain || "all", source: isPremium() ? prefs.source || "fresh" : "fresh" };
+    var prefs0 = { domain: prefs.domain || "all", source: prefs.source || "fresh" };
     setView("home");
 
     var html = "";
@@ -469,10 +465,10 @@
       '<a class="link-btn" href="#/learn">Open the course</a></div>' +
       (returning ? "" : videoHtml()) + "</section>";
 
-    if (PL && !PL.premium()) {
-      var left = PL.freeLeft();
-      html += '<div class="free-bar fade-in"><div><b>' + (left ? "Free plan: " + left + " of " + PL.FREE_DAILY + " questions left today" : "You've used today's free questions") + '</b><span>' +
-        (left ? "Plus the daily challenge. Go Premium for unlimited practice, mock exams and full analytics." : "Come back tomorrow for 20 more, or unlock unlimited practice now.") +
+    if (PL && !PL.premium() && !PL.freeLeft()) {
+      var left = 0;
+      html += '<div class="free-bar fade-in"><div><b>' + "Daily dose done: " + PL.FREE_DAILY + "/" + PL.FREE_DAILY + " ✓" + '</b><span>' +
+        "Your free questions come back tomorrow. The daily challenge is still open, or keep going now with Premium." +
         '</span></div><a class="btn primary sm" href="#/premium">👑 See Premium</a></div>';
     }
     if (returning) html += todayPanel();
@@ -483,7 +479,7 @@
       '<p class="subhead reveal">Six ways to test yourself, plus flashcards and a numbers sprint to lock in the facts.</p>' +
       '<div class="settings reveal">' +
       '<div class="seg-group"><label>Domain</label>' + seg("domain", [["all", "All", null], ["1", "D1", countDomain(1)], ["2", "D2", countDomain(2)], ["3", "D3", countDomain(3)], ["4", "D4", countDomain(4)]], prefs0.domain) + "</div>" +
-      '<div class="seg-group"><label>Questions</label>' + seg("source", [["fresh", "Unseen first", null], ["hy", (isPremium() ? "" : "🔒 ") + "Most tested", hyCount], ["hard", (isPremium() ? "" : "🔒 ") + "Hard only", hardCount], ["mistakes", (isPremium() ? "" : "🔒 ") + "My mistakes", mistakes]], prefs0.source) + "</div>" +
+      '<div class="seg-group"><label>Questions</label>' + seg("source", [["fresh", "Unseen first", null], ["hy", "Most tested", hyCount], ["hard", "Hard only", hardCount], ["mistakes", "My mistakes", mistakes]], prefs0.source) + "</div>" +
       '</div><p class="small muted reveal" style="text-align:center;margin:10px 0 0">Filters apply to Practice, Mock exam, Lightning and Survival.</p>' +
       modeTiles(due, g.records || {}) + "</div></section>";
 
@@ -517,7 +513,6 @@
       var name = group.getAttribute("data-seg");
       Array.prototype.forEach.call(group.querySelectorAll("button"), function (b) {
         b.onclick = function () {
-          if (name === "source" && b.getAttribute("data-val") !== "fresh" && !isPremium()) return PL.paywall("filters");
           current[name] = b.getAttribute("data-val");
           Array.prototype.forEach.call(group.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
           opts();
@@ -1012,6 +1007,7 @@
     on("prev", function () { go(s.current - 1); });
     on("next", function () {
       if (s.mode === "survival") {
+        if (s.free && PL && PL.freeLeft() <= 0) return finish(true);   // free questions used: end the run here
         while (s.pool.length && !BY_ID[s.pool[0]]) s.pool.shift();
         if (!s.pool.length) return finish();
         s.items.push(makeItem(BY_ID[s.pool.shift()]));
@@ -1163,12 +1159,19 @@
   }
 
   function keepGoingHtml(s) {
+    // Free plan, questions used up: a friendly "daily dose done" card is the only place Premium is offered.
+    if (PL && !PL.premium() && !PL.freeLeft()) {
+      return '<div class="keep-going dose-done"><div class="dd-check">✓</div><div><b>Daily dose done: ' + PL.FREE_DAILY + "/" + PL.FREE_DAILY + '</b><span>Nice work. Your free questions come back tomorrow' +
+        (PG && !PG.dailyAttemptUsed() ? ", and today's daily challenge is still open." : ".") + ' Want to keep the momentum?</span></div>' +
+        '<div class="dd-actions">' + (PG && !PG.dailyAttemptUsed() ? '<button class="btn sm" data-next="daily">📅 Daily challenge</button>' : "") +
+        '<button class="btn primary sm" data-paywall="quota">👑 Keep going with Premium</button></div></div>';
+    }
     var th = themes();
     // Weakest themes first (unseen count as weak), so the next session targets gaps.
     th.sort(function (a, b) { return (a.acc == null ? -1 : a.acc) - (b.acc == null ? -1 : b.acc) || a.seen - b.seen; });
     return '<div class="keep-going"><div class="dlabel">Keep going: no daily limit</div>' +
-      (function () { var k = isPremium() ? "" : "👑 "; return '<div class="kg-modes"><button class="btn sm" data-next="practice">💡 Practice' + (isPremium() ? " · 30 mixed" : " · " + PL.freeLeft() + " free left") + '</button><button class="btn sm" data-next="exam">' + (isPremium() || !PL.examTrialUsed() ? "" : k) + '⏱ Mock exam</button>' +
-      '<button class="btn sm" data-next="lightning">' + k + '⏳ Lightning</button><button class="btn sm" data-next="survival">' + k + '❤️ Survival</button>'; })() +
+      '<div class="kg-modes"><button class="btn sm" data-next="practice">💡 Practice</button><button class="btn sm" data-next="exam">⏱ Mock exam</button>' +
+      '<button class="btn sm" data-next="lightning">⏳ Lightning</button><button class="btn sm" data-next="survival">❤️ Survival</button>' +
       (PG && PG.dueIds(BY_ID).length ? '<button class="btn sm" data-next="review">🔁 Smart review</button>' : "") + "</div>" +
       (th.length ? '<p class="small muted" style="margin:14px 0 8px">Or pick a theme (weakest first):</p>' + themeChips(th.slice(0, 6)) : "") + "</div>";
   }
@@ -1257,7 +1260,7 @@
     each("[data-next]", function (b) {
       b.onclick = function () {
         var m = b.getAttribute("data-next"), prefs = load(KEYS.prefs, {});
-        startSession(m, m === "review" ? { domain: "all", source: "review" } : { domain: prefs.domain || "all", source: isPremium() ? prefs.source || "fresh" : "fresh" });
+        startSession(m, m === "review" ? { domain: "all", source: "review" } : m === "daily" ? { domain: "all" } : { domain: prefs.domain || "all", source: prefs.source || "fresh" });
       };
     });
     bindThemes(app);
