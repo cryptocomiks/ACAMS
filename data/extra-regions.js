@@ -32,36 +32,36 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "RGN-003", domain: 2, topic: "Vietnam (APG): 'strongly urges' with expired deadlines is not a call for action", hy: true, difficulty: "hard",
+    id: "RGN-003", domain: 2, topic: "Vietnam (APG): reading a 'strongly urges' statement after all deadlines expired", hy: true, difficulty: "hard",
     changed: "FATF June 2026 statement on Vietnam (all action-plan deadlines expired May 2025)",
-    q: "Kestrel Bank's country-risk analyst updates the Vietnam profile after the FATF's June 2026 plenary. The FATF statement says Vietnam has taken 'some steps', but all action-plan deadlines expired in May 2025, and the FATF 'strongly urges' Vietnam to implement its plan swiftly. The analyst drafts a memo saying Vietnam is now subject to an FATF call for action, so R.19 enhanced due diligence must be applied to all Vietnamese customers. Kestrel's largest Vietnamese exposure is a garment exporter. It also banks a Hanoi fintech that plans to add crypto trading. Which correction to the memo is MOST accurate?",
+    q: "Kestrel Bank's country-risk analyst updates the Vietnam profile after the FATF's June 2026 plenary. The FATF statement says Vietnam has taken 'some steps' since its 2023 commitment, but it 'strongly urges' Vietnam to implement its action plan swiftly because all deadlines expired in May 2025. Kestrel's Vietnamese exposures are a garment exporter paid by letters of credit, a state-owned power utility, and a Hanoi fintech that plans to offer crypto trading to retail customers. Which TWO statements belong in the analyst's memo? (Choose two.)",
     options: [
-      "The memo is correct, because expired action-plan deadlines automatically move a country onto the FATF call-for-action list",
-      "The memo is correct only for Vietnamese banks, because R.19 countermeasures apply only to correspondent relationships",
-      "Vietnam should be dropped from the profile, because the FATF stops monitoring a country once its deadlines have expired",
-      "Vietnam is still under increased monitoring, not a call for action; the urging and unregulated VASPs inform risk, notably the fintech's"
+      "Vietnam remains on the list of jurisdictions under increased monitoring; the expired deadlines have not moved it to another FATF list",
+      "The fintech's crypto plans map directly to an open action-plan item on regulating virtual assets and virtual asset service providers",
+      "The FATF has closed Vietnam's action plan because its deadlines expired, and a new mutual evaluation will replace it",
+      "The garment exporter is the priority exposure, because the action plan names trade-based money laundering as Vietnam's main risk",
+      "The FATF has made an initial determination that Vietnam substantially completed its plan, so an on-site visit is now pending"
     ],
-    answer: [3],
-    explanation: "The FATF's statement on Vietnam appears in its list of jurisdictions under increased monitoring. For those, the FATF says it does not call for EDD and expects the information to be used in a risk-based analysis. R.19 EDD and countermeasures apply to high-risk jurisdictions subject to a call for action, which is a separate list. The expired deadlines and the 'strongly urges' wording are serious risk signals, not a change of list. Item 4 of Vietnam's action plan, regulating virtual assets and VASPs, makes the fintech's crypto plans the most relevant exposure.",
+    answer: [0, 1],
+    explanation: "The June 2026 statement on Vietnam sits in the FATF's list of jurisdictions under increased monitoring. The expired deadlines and the 'strongly urges' wording signal slow progress and higher risk, but they do not by themselves change the list, and the ten-item action plan stays open. Item 4 requires Vietnam to take action to regulate virtual assets and VASPs, so a Vietnamese fintech launching retail crypto trading operates where the framework is still flagged as deficient. The plan does not name trade-based money laundering. The 'initial determination' and on-site visit wording appears in the June 2026 statements on Monaco and Bulgaria, not Vietnam.",
     source: [
-      { label: "FATF – Jurisdictions under Increased Monitoring, 19 June 2026, Vietnam (copy hosted by FIAU Malta)", url: "https://fiaumalta.org/app/uploads/2026/06/FATF-On-going-Process-19-June-2026-Increased-monitoring.pdf" },
-      { label: "FATF Recommendations (2026 ed.), R.19 – EAG copy", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
+      { label: "FATF – Jurisdictions under Increased Monitoring, 19 June 2026, Vietnam (copy hosted by FIAU Malta)", url: "https://fiaumalta.org/app/uploads/2026/06/FATF-On-going-Process-19-June-2026-Increased-monitoring.pdf" }
     ]
   },
   {
-    id: "RGN-004", domain: 2, topic: "Papua New Guinea (APG) grey listing: a respondent with MVTS and FX dealer customers", hy: false, difficulty: "hard",
-    changed: "FATF grey list: Papua New Guinea added February 2026",
-    q: "Southern Cross Bank in Brisbane provides Australian dollar clearing to Kumul Commercial Bank, a respondent in Papua New Guinea. In February 2026 the FATF placed Papua New Guinea under increased monitoring. Kumul's customers include 30 foreign-exchange dealers and money transfer operators, which generate about 40% of the flows through the account. Kumul has no adverse media, its CBDDQ was refreshed in 2025, and its head office recently moved to a new building in Port Moresby. The relationship manager warns that a Pacific remittance corridor relies on this account. What is the BEST next step?",
+    id: "RGN-004", domain: 2, topic: "Papua New Guinea (APG): a February statement carried into the June 2026 list because reporting was deferred", hy: false, difficulty: "hard",
+    changed: "FATF grey list: Papua New Guinea added February 2026; June 2026 list repeats the February statement (reporting deferred)",
+    q: "Southern Cross Bank in Brisbane clears Australian dollars for Kumul Commercial Bank in Papua New Guinea, which the FATF placed under increased monitoring in February 2026. About 40% of the flows through the account come from Kumul's FX dealer and money transfer customers. Reading the FATF's June 2026 list, an analyst sees that Papua New Guinea's entry is headed 'Statement from February 2026'. She concludes that the FATF found no progress at the June plenary and proposes moving Kumul to the bank's highest risk category. What is the MOST accurate reading of the June 2026 entry?",
     options: [
-      "Exit the relationship, because grey-listed respondents with money transfer customers cannot be adequately mitigated",
-      "Send Kumul a targeted request on how it assesses, monitors and controls its FX dealer and MVTS customers, then adjust controls",
-      "Ask Kumul for full customer files on each of the 30 FX dealers and MVTS operators before processing any further payments",
-      "Keep the current rating and controls, because the FATF statement does not call for enhanced due diligence on the country"
+      "Papua New Guinea chose to defer reporting, so the FATF repeated its February statement, which may not reflect the latest status; the bank should look to other sources too",
+      "The FATF reviewed Papua New Guinea in June 2026 and found no progress, so it re-issued the February statement unchanged as a warning",
+      "The repeated statement means Papua New Guinea's action plan is suspended until the FATF carries out an on-site visit",
+      "Re-issuing an older statement signals that Papua New Guinea will move to the call-for-action list at the next plenary"
     ],
-    answer: [1],
-    explanation: "Papua New Guinea's action plan includes improving risk-based supervision of banks, MVTS/FX dealers and higher-risk DNFBPs, and fixing technical deficiencies, including on PEPs and STR reporting. Because local supervision of these customers is weak, Kumul's own controls over them become the key question for its correspondent. The runner-up, keeping everything unchanged, is wrong: the FATF does not call for EDD, but it expects the listing to inform each institution's risk analysis. Exiting would cut a remittance corridor the FATF says should not be disrupted. Demanding full files on the respondent's customers goes beyond what correspondent due diligence requires.",
+    answer: [0],
+    explanation: "The June 2026 statement explains that the FATF gives jurisdictions not facing immediate deadlines some flexibility to report progress voluntarily. Kuwait and Papua New Guinea chose to defer reporting, so the statements issued previously were included, with the caveat that they may not reflect the most recent status of their AML/CFT regimes. The heading is therefore a procedural note, not a finding of no progress, which is the runner-up's mistake. Southern Cross should keep using the February action plan, which includes improving risk-based supervision of banks, MVTS/FX dealers and higher-risk DNFBPs, to focus its review of Kumul's controls over those customers, and add more recent information where it can.",
     source: [
-      { label: "FATF – Jurisdictions under Increased Monitoring, 19 June 2026, Papua New Guinea (Feb 2026 statement) (copy hosted by FIAU Malta)", url: "https://fiaumalta.org/app/uploads/2026/06/FATF-On-going-Process-19-June-2026-Increased-monitoring.pdf" }
+      { label: "FATF – Jurisdictions under Increased Monitoring, 19 June 2026, introduction and Papua New Guinea (Feb 2026 statement) (copy hosted by FIAU Malta)", url: "https://fiaumalta.org/app/uploads/2026/06/FATF-On-going-Process-19-June-2026-Increased-monitoring.pdf" }
     ]
   },
   {
@@ -85,14 +85,14 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "RGN-006", domain: 2, topic: "Which FSRB evaluates which jurisdiction (EAG, APG, CFATF, MENAFATF, ESAAMLG)", hy: false, difficulty: "medium",
     q: "A correspondent-banking team is building a tool that links each respondent's country to the body that carries out its mutual evaluation, so analysts can find the right report. Which TWO pairings are correct? (Choose two.)",
     options: [
-      "British Virgin Islands – MONEYVAL, which evaluates the UK's overseas territories",
+      "British Virgin Islands – MONEYVAL, the Council of Europe's evaluation body",
       "Kazakhstan and the Kyrgyz Republic – the Eurasian Group (EAG)",
       "Kuwait – the Asia/Pacific Group on Money Laundering (APG)",
       "Kenya – GIABA, the West African regional body",
       "Papua New Guinea and Lao PDR – the Asia/Pacific Group on Money Laundering (APG)"
     ],
     answer: [1, 4],
-    explanation: "The EAG has nine member states: Belarus, China, India, Kazakhstan, the Kyrgyz Republic, Russia, Tajikistan, Turkmenistan and Uzbekistan. The FATF's 2026 statements say Papua New Guinea and Lao PDR work with the APG. The same statements say the Virgin Islands (UK) works with the CFATF, Kuwait with MENAFATF and Kenya with ESAAMLG. GIABA covers West Africa, for example Nigeria.",
+    explanation: "The EAG has nine member states: Belarus, China, India, Kazakhstan, the Kyrgyz Republic, Russia, Tajikistan, Turkmenistan and Uzbekistan. The FATF's 2026 statements say Papua New Guinea and Lao PDR work with the APG. The same statements say the Virgin Islands (UK) works with the CFATF, Kuwait with MENAFATF and Kenya with ESAAMLG. GIABA is the West African body: the June 2026 statements pair Côte d'Ivoire with GIABA. MONEYVAL covers Council of Europe states such as Monaco, not the UK's Caribbean territories.",
     source: [
       { label: "EAG – Members (nine member states)", url: "https://eurasiangroup.org/en/members" },
       { label: "FATF – Jurisdictions under Increased Monitoring, 19 June 2026 (FSRB named for each jurisdiction) (copy hosted by FIAU Malta)", url: "https://fiaumalta.org/app/uploads/2026/06/FATF-On-going-Process-19-June-2026-Increased-monitoring.pdf" }
@@ -108,7 +108,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Close the account the same day and transfer the balance to whichever account Mr Lin nominates"
     ],
     answer: [2],
-    explanation: "On 4 July 2025 MAS imposed S$27.45 million in composition penalties on nine financial institutions linked to the case. All nine failed to follow up on red flags about clients' source of wealth, and two failed to take adequate and timely risk mitigation after filing STRs. Filing an STR does not end the bank's duty to manage the relationship. The runner-up, waiting for STRO, is exactly the passivity MAS penalised; restricting or reviewing an account does not require disclosing the STR. Raising the discrepancies with Mr Lin risks tipping him off, and paying out to any account he names lets the funds move on.",
+    explanation: "On 4 July 2025 MAS imposed S$27.45 million in composition penalties on nine financial institutions linked to the case. Among its findings, two institutions failed to take adequate and timely risk mitigation measures, such as enhanced monitoring or reviewing the client's risk classification, after filing STRs. Filing an STR does not end the bank's duty to manage the relationship. The runner-up, waiting for STRO, is exactly the passivity MAS penalised; restricting or reviewing an account does not require disclosing the STR. Raising the discrepancies with Mr Lin risks tipping him off, and paying out to any account he names lets the funds move on.",
     source: [
       { label: "MAS – Regulatory actions against 9 financial institutions for AML-related breaches (4 July 2025)", url: "https://www.mas.gov.sg/regulation/enforcement/enforcement-actions/2025/mas-takes-regulatory-actions-against-9-financial-institutions-for-aml-related-breaches" }
     ]
@@ -186,7 +186,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Lumen needs a licence from the SFC as a virtual asset trading platform rather than from the HKMA"
     ],
     answer: [0],
-    explanation: "Under section 5 of the Stablecoins Ordinance, in force since 1 August 2025, a regulated stablecoin activity includes issuing a specified stablecoin outside Hong Kong, in the course of business, that purports to keep a stable value by reference to the Hong Kong dollar. Under section 8, carrying on that activity without an HKMA licence is an offence. The location factors (management, minting, reserves) decide only whether a coin is issued 'in Hong Kong', which is a separate trigger. The runner-up, marketing, is relevant to 'holding out' and offering, but it is not needed here because the HKD reference alone brings Lumen in.",
+    explanation: "Under section 5 of the Stablecoins Ordinance, in force since 1 August 2025, a regulated stablecoin activity includes issuing a specified stablecoin outside Hong Kong, in the course of business, that purports to keep a stable value by reference to the Hong Kong dollar. Under section 8, carrying on that activity without an HKMA licence is an offence. The location factors (day-to-day management, incorporation, minting, reserves and the bank accounts for minting and redemption flows) decide only whether a coin is issued 'in Hong Kong', which is a separate trigger. The runner-up, marketing, is relevant to 'holding out' and offering, but it is not needed here because the HKD reference alone brings Lumen in.",
     source: [
       { label: "HKMA – Explanatory Note on Licensing of Stablecoin Issuers (sections 5 and 8 of the Ordinance)", url: "https://www.hkma.gov.hk/media/eng/doc/key-functions/ifc/stablecoin-issuers/Explanatory_Notes_on_Licensing_of_Stablecoin_Issuers_eng.pdf" },
       { label: "HKSAR Government press release – Implementation of regulatory regime for stablecoin issuers (29 July 2025)", url: "https://www.info.gov.hk/gia/general/202507/29/P2025072900703.htm" }
@@ -241,17 +241,17 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "RGN-016", domain: 2, topic: "Canada: STRs on suspected sanctions evasion (PCMLTFA, since 2024)", hy: true, difficulty: "hard",
+    id: "RGN-016", domain: 2, topic: "Canada: STRs on suspected sanctions evasion (PCMLTFA and FINTRAC guidance)", hy: true, difficulty: "hard",
     q: "A Calgary bank's investigator reviews Borealis Drilling Ltd. It has paid CAD 2.3 million to a Kyrgyz trading company for drilling equipment. Open sources show the equipment was re-exported to a Russian company owned by a person listed in regulations under the Special Economic Measures Act. Last week Borealis also tried to send a further CAD 600,000, which the bank stopped. The investigator also suspects that the payments launder the proceeds of a tax fraud. Which TWO actions follow FINTRAC's guidance? (Choose two.)",
     options: [
       "File two separate STRs, one for money laundering and one for sanctions evasion, so each suspicion is tracked",
-      "File one STR covering both suspicions, using the suspicion type for money laundering and sanctions evasion",
+      "File one STR that covers both suspected offences, with all the required information for each of them",
       "Include the stopped CAD 600,000 payment, because attempted transactions must also be reported",
       "Report only to Global Affairs Canada, because sanctions evasion falls outside FINTRAC's reporting regime",
       "Hold off on the STR until the Kyrgyz company itself is confirmed as a listed person"
     ],
     answer: [1, 2],
-    explanation: "Reporting entities must report completed and attempted transactions where there are reasonable grounds to suspect they relate to a sanctions evasion offence. Such an offence is a breach of a restriction or prohibition under the United Nations Act, the Special Economic Measures Act or the Sergei Magnitsky Law. When a transaction may relate to both ML/TF and sanctions evasion, FINTRAC expects one report covering each suspected offence, with the combined suspicion type. Indirect dealings through an intermediary can be evasion, so the intermediary need not be listed itself. Any duty to disclose a listed person's property to the RCMP or CSIS applies in addition to the STR.",
+    explanation: "FINTRAC's guidance requires reporting of all completed and attempted transactions where there are reasonable grounds to suspect they relate to a sanctions evasion offence, meaning a breach of a restriction or prohibition under the United Nations Act, the Special Economic Measures Act or the Sergei Magnitsky Law. Where a transaction is suspected of relating to both an ML/TF offence and sanctions evasion, FINTRAC says to submit one report containing the details and required information for each suspected offence, so two separate STRs (the runner-up) is wrong. The trigger is reasonable grounds to suspect evasion, including by someone acting on behalf of a sanctioned person, so the bank need not wait for the Kyrgyz intermediary to be listed. Any duty to disclose a listed person's property to the RCMP or CSIS applies in addition to the STR.",
     source: [
       { label: "FINTRAC – Report suspected sanctions evasion", url: "https://fintrac-canafe.canada.ca/guidance-directives/transaction-operation/sanctions/sanctions-eng" }
     ]
@@ -273,36 +273,35 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "RGN-018", domain: 2, topic: "UAE: STRs from ADGM and mainland entities go to the UAE FIU via goAML", hy: false, difficulty: "medium",
-    changed: "UAE Federal Decree-Law No. 10 of 2025 replaced Decree-Law No. 20 of 2018",
-    q: "Saffron Capital has two UAE entities: an asset manager licensed by the FSRA in Abu Dhabi Global Market (ADGM) and a mainland Dubai company. In October 2026 the group MLRO concludes that a client used both entities to layer funds. The ADGM entity's new analyst drafts an STR addressed to the FSRA as the ADGM regulator. The analyst also proposes that the mainland company file through the ADGM entity's goAML account. Which response is correct?",
+    id: "RGN-018", domain: 2, topic: "UAE: an ADGM firm and a mainland affiliate (who receives the STR, and whose goAML registration)", hy: false, difficulty: "medium",
+    changed: "UAE Federal Decree-Law No. 10 of 2025 is now the federal AML/CFT law; STRs are still filed with the UAE FIU through goAML",
+    q: "Saffron Capital has two UAE entities: an asset manager licensed by the FSRA in Abu Dhabi Global Market (ADGM) and a trading company on the Dubai mainland. In October 2026 the group MLRO concludes that a client layered funds through both. The ADGM entity's new analyst proposes two shortcuts: send the ADGM entity's STR to the FSRA, as its regulator, for onward transmission, and let the mainland company file through the ADGM entity's goAML account to avoid registering it. Which TWO statements are correct? (Choose two.)",
     options: [
-      "Each entity reports to the UAE FIU through goAML, under its own registration for its jurisdiction; the FSRA does not receive the STR",
-      "The ADGM entity reports to the FSRA, which forwards the STR to the FIU, and the mainland company files through the ADGM account",
-      "Only the mainland company reports, because federal AML law does not apply inside ADGM as a financial free zone",
-      "The group files a single STR through the mainland company's goAML account, because the FIU accepts one report per group"
+      "The ADGM entity must report its suspicion directly to the UAE FIU through goAML, not to the FSRA",
+      "The mainland company needs its own goAML registration; a firm operating in more than one UAE jurisdiction registers separately for each",
+      "The FSRA receives STRs from ADGM firms and decides which of them to pass on to the UAE FIU",
+      "Federal AML law does not apply inside ADGM, so the ADGM entity reports only under the FSRA's own rulebook",
+      "One group STR filed through either entity's goAML account satisfies both entities' reporting duties"
     ],
-    answer: [0],
-    explanation: "The FSRA has told ADGM firms that federal AML law obliges every relevant person to report suspicious activity directly to the UAE FIU through goAML. Its AML Rulebook adds the duty to have processes for reporting to the FIU. A firm operating in more than one jurisdiction within the UAE must complete a separate goAML registration for each. Federal Decree-Law No. 10 of 2025 has since replaced the 2018 law, but STRs still go to the UAE FIU through goAML.",
+    answer: [0, 1],
+    explanation: "FSRA Notice FSRA/FCPU/15/2019 tells ADGM relevant persons that federal AML law obliges them to report suspicious activity directly to the UAE FIU through its electronic system, goAML, and that the FSRA's AML Rulebook adds a duty to have a robust process for reporting to the FIU. The FSRA's role is to verify and approve its firms' goAML registrations, not to receive STRs, so the runner-up confuses supervision with reporting. The notice also requires a relevant person operating in more than one UAE jurisdiction to complete a separate registration for each, so the mainland company cannot borrow the ADGM entity's account. The notice cites the 2018 law; the UAE FIU now lists Federal Decree-Law No. 10 of 2025, and its STR process still runs through goAML.",
     source: [
       { label: "ADGM FSRA Notice FSRA/FCPU/15/2019 – Reporting suspicious activities to the FIU through goAML", url: "https://assets.adgm.com/download/assets/FSRA+Notice+No15+of+2019REPORTING+STR+TO+FIU+THROUGH+goAML+SYSTEM.pdf/dd3b04047b3611ef9d885a5d901a4b6b" },
-      { label: "UAE FIU – Understanding the Law (Federal Decree-Law No. 10 of 2025)", url: "https://www.uaefiu.gov.ae/en/policies-guidance/understanding-the-law/" }
+      { label: "UAE FIU – Understanding the Law (Federal Decree-Law No. 10 of 2025; STR process through goAML)", url: "https://www.uaefiu.gov.ae/en/policies-guidance/understanding-the-law/" }
     ]
   },
   {
-    id: "RGN-019", domain: 2, topic: "Mobile money in Kenya: tiered simplified CDD loses its basis once suspicion arises", hy: true, difficulty: "hard",
-    changed: "FATF R.1/INR.1 revised February 2025 (allow and encourage simplified measures)",
-    q: "PesaLink Mobile, a mobile money provider in Kenya, offers a 'Tier 1' wallet with low balance and transaction limits, opened with simplified checks. The national risk assessment rates it lower risk. Monitoring finds that 42 Tier 1 wallets were all registered from the same handset over two days. Each receives dozens of small transfers from unrelated senders, and the funds are cashed out within hours at one agent near the Somali border. That agent is one of PesaLink's top performers. Kenya has been under FATF increased monitoring since February 2024. What is the BEST response?",
+    id: "RGN-019", domain: 2, topic: "Kenya (ESAAMLG) grey listing: trusts and beneficial ownership in the action plan", hy: true, difficulty: "hard",
+    q: "Thornbury Bank in London is onboarding the Savanna Family Trust, set up under Kenyan law by a Nairobi businessman. The trust owns a stake in a mobile money agent network and a block of flats in Mombasa. The trustee, a Nairobi company, provides a certified trust deed, a letter naming the beneficiaries, and a tax compliance certificate from the Kenya Revenue Authority. Kenya has been under FATF increased monitoring since February 2024. Which part of the onboarding file is MOST directly weakened by the deficiencies in Kenya's FATF action plan?",
     options: [
-      "Raise the Tier 1 limits on the 42 wallets so that the whole activity can be observed in fewer accounts",
-      "Withdraw the Tier 1 product for all customers, because simplified measures are unsafe in a grey-listed country",
-      "Keep simplified due diligence on the 42 wallets, because the national risk assessment rates the product lower risk",
-      "Apply full CDD and enhanced monitoring to the 42 wallets and the agent, and report the suspicious activity to the FIU"
+      "The trustee's own letter naming the beneficiaries, as Kenya has yet to designate an authority to regulate trusts and collect accurate ownership data",
+      "The tax compliance certificate, because Kenya's action plan names tax evasion as the predicate offence it must prioritise",
+      "The certified trust deed, because Kenya's action plan says Kenyan courts do not yet recognise trusts set up by residents",
+      "The mobile money stake, because Kenya's action plan requires it to stop mobile money agents from serving trusts"
     ],
-    answer: [3],
-    explanation: "The FATF's revised INR.1 (February 2025) tells countries to allow and encourage simplified measures where risks are lower, including for products that widen financial inclusion. It also states that simplified measures are not permitted whenever there is a suspicion of ML/TF. The runner-up, keeping SDD because of the national rating, ignores that limit: a product-level rating does not cover wallets showing mule-like patterns. Withdrawing the whole product would be de-risking that hurts legitimate users. Kenya's action plan also stresses better understanding of preventive measures and more STR filing.",
+    answer: [0],
+    explanation: "Kenya's action plan, as restated in June 2026, includes designating an authority for the regulation of trusts and the collection of accurate and up-to-date beneficial ownership information, and remedial action for breaches of transparency requirements for legal persons and arrangements. Until that is done there is no reliable Kenyan source against which to check what the trustee says about the beneficiaries. Thornbury should therefore verify the settlor, trustee, beneficiaries and anyone else exercising control from independent evidence, and treat the trustee's letter as a claim to test. The plan does not single out tax evasion, does not question the legal recognition of trusts, and says nothing about mobile money agents serving trusts.",
     source: [
-      { label: "FATF Recommendations (2026 ed.), R.1 and INR.1 paras 2, 7 and 15 – EAG copy", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" },
       { label: "FATF – Jurisdictions under Increased Monitoring, 19 June 2026, Kenya (copy hosted by FIAU Malta)", url: "https://fiaumalta.org/app/uploads/2026/06/FATF-On-going-Process-19-June-2026-Increased-monitoring.pdf" }
     ]
   },
@@ -323,19 +322,19 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "RGN-021", domain: 2, topic: "Australia: travel rule duties of a beneficiary institution (virtual assets vs fiat), 2026", hy: true, difficulty: "hard",
-    changed: "Australian AML/CTF reforms: expanded travel rule from 31 March 2026",
-    q: "Wattle Pay, an Australian remittance provider that also runs a digital currency exchange, is the beneficiary institution for two incoming transfers in May 2026. The first is 3.2 BTC from an overseas exchange: the transfer message has the payee's full name but no payer information. The second is an AUD 9,800 remittance whose message lacks part of the payer's address. The customer receiving the bitcoin, a long-standing verified client, demands immediate access. What must Wattle Pay do under AUSTRAC's travel rule guidance?",
+    changed: "AML/CTF Amendment Act 2024: new travel rule (AML/CTF Act ss 64–66A) in force 31 March 2026",
+    q: "Wattle Pay, an Australian remittance provider that also runs a digital currency exchange, is the beneficiary institution for two incoming transfers in May 2026. The first is 3.2 BTC from a licensed overseas exchange: the transfer message has the payee's full name but no payer information. The second is an AUD 9,800 remittance whose message lacks part of the payer's address. The customer receiving the bitcoin, a long-standing verified client, demands immediate access. What must Wattle Pay do under the travel rule in the AML/CTF Act?",
     options: [
       "Make both transfers available now, then ask the ordering institutions to send the missing information within three business days",
-      "Withhold the bitcoin until payer data arrives (save narrow documented exceptions), and treat the AUD remittance under its risk policy",
+      "Withhold the bitcoin until the payer information arrives (save a narrow, evidenced exception), and handle the AUD remittance under its AML/CTF program",
       "Decline both transfers, because a beneficiary institution must reject every transfer message that has any missing information",
       "Make the bitcoin available because the customer is fully verified, but decline the AUD remittance until the full address arrives"
     ],
     answer: [1],
-    explanation: "Under AUSTRAC's travel rule guidance, a beneficiary institution may decline to make value available when a transfer message is missing information or contains inaccurate information. It must decline when the value is virtual assets or when releasing it would breach targeted financial sanctions. For virtual assets, payer information, tracing information and the payee's full name are generally needed first, with narrow exceptions that require reasonable grounds and a documented risk assessment. The runner-up, declining both, wrongly applies the mandatory rule to the AUD remittance, where Wattle Pay has a risk-based choice. The customer's verified status does not change the virtual asset rule.",
+    explanation: "Since 31 March 2026, section 65 of the AML/CTF Act has required a beneficiary institution to take reasonable steps to monitor whether it has received the required information. If information is missing or inaccurate, it must, in line with its AML/CTF program, refuse to make the value available or take such other action as it determines: a risk-based choice for the AUD remittance. For virtual assets, section 66A(6) is stricter: the institution must not make the value available until it has received or otherwise obtained the required information. The only exception, in section 66A(10), applies where it has established on reasonable grounds that an institution in the chain cannot pass the information on securely and it manages the resulting risks under its program, and it bears an evidential burden. The runner-up, declining both, applies the virtual asset rule to the AUD remittance. The customer's verified status does not change section 66A(6).",
     source: [
-      { label: "AUSTRAC – Travel rule obligations for beneficiary institutions", url: "https://www.austrac.gov.au/industry-and-business/obligations-and-guidance/additional-guidance/travel-rule/travel-rule-obligations-beneficiary-institutions" },
-      { label: "AUSTRAC – Travel rule quick guide for beneficiary institutions (February 2026)", url: "https://www.austrac.gov.au/sites/default/files/2026-02/Quick%20guide%20-%20Travel%20rule%20for%20beneficiary%20institutions%20-%20February%202026.pdf" }
+      { label: "Anti-Money Laundering and Counter-Terrorism Financing Act 2006, Compilation No. 61 (4 June 2026), ss 65 and 66A; endnotes (Act No. 110 of 2024 commencement 31 March 2026) – legislation.gov.au", url: "https://www.legislation.gov.au/C2006A00169/2026-06-04/2026-06-04/text/original/epub/OEBPS/document_1/document_1.html" },
+      { label: "AUSTRAC – Travel rule obligations for beneficiary institutions", url: "https://www.austrac.gov.au/industry-and-business/obligations-and-guidance/additional-guidance/travel-rule/travel-rule-obligations-beneficiary-institutions" }
     ]
   },
   {
@@ -371,18 +370,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "RGN-024", domain: 2, topic: "FSRB mutual evaluations: same Standards, Universal Procedures and joint evaluations", hy: true, difficulty: "medium",
-    q: "At a credit committee, a senior banker argues that a respondent's mutual evaluation report should carry little weight because it was produced by an FSRB, the APG, and 'FSRB reports are lighter than FATF reports'. He adds that the respondent's country, which belongs to both the FATF and the APG, will be assessed twice in the next round, once by each body. Which statement BEST corrects him?",
+    id: "RGN-024", domain: 2, topic: "Joint FATF/APG mutual evaluations: who leads and where the report is adopted", hy: true, difficulty: "medium",
+    q: "A credit committee is reviewing a respondent bank in a country that belongs to both the FATF and the APG. The country's fifth-round mutual evaluation is due. A senior banker says the committee should wait for two reports, one from each body, and rely on whichever rates the country lower. A colleague adds that even if there is only one report, the APG Plenary will re-debate it in full and can overturn the FATF's ratings. Which statement BEST describes the process under the APG's procedures?",
     options: [
-      "FSRB reports apply regional standards adopted by each FSRB's own plenary, so analysts should weight them below FATF reports",
-      "FSRB reports remain drafts until the FATF Plenary re-rates them, so analysts should always use the FATF version of a report",
-      "He is wrong about the weight, but right that a country belonging to both bodies is assessed separately by each of them",
-      "FSRBs apply the FATF Standards and Methodology under common procedures with quality checks, and dual members get one joint evaluation"
+      "The APG leads the evaluation and adopts the report first, after which the FATF Plenary endorses it without discussion",
+      "Two separate evaluations take place, and the lower of the two ratings for each Recommendation and Immediate Outcome prevails",
+      "There is one joint evaluation, but the APG Plenary then debates it in full and may re-rate the country independently",
+      "There is one joint evaluation led by the FATF and discussed first in the FATF; the APG Plenary's later discussion is abbreviated"
     ],
     answer: [3],
-    explanation: "The APG's procedures apply the FATF Standards and Methodology. They rest on the Universal Procedures that all assessment bodies share, with the aim that evaluations by the FATF, FSRBs, the IMF and the World Bank are equivalent and of a high standard. Draft reports go through quality and consistency review across the Global Network. APG members that are also FATF members undergo a single joint evaluation by the FATF and the APG.",
+    explanation: "Paragraph 14 of the APG's Global Fifth Round Procedures (March 2026) says APG members that are also FATF members undergo a joint mutual evaluation by the FATF and the APG, scheduled by the FATF. Section VI adds that the FATF is generally the principal organiser and provides three assessors, with one or two from the FSRB, and that the first discussion of the report takes place in the FATF, with a presumption that the FATF's view is conclusive. Paragraph 148 sets out an abbreviated APG Plenary discussion of a joint report already adopted by the FATF. The runner-up, a full re-debate with independent re-rating, ignores that presumption. There is no 'lower rating prevails' rule, because there is only one report.",
     source: [
-      { label: "APG Global Fifth Round Mutual Evaluation Procedures (March 2026), paras 1–3, 14 and Q&C sections", url: "https://www.apgml.org/sites/default/files/2026-03/APG%20Global%205th%20Round%20ME%20Procedures%20(March%202026)_0.pdf" }
+      { label: "APG Global Fifth Round Mutual Evaluation Procedures (March 2026), paras 14, 148 and 161–162", url: "https://www.apgml.org/sites/default/files/2026-03/APG%20Global%205th%20Round%20ME%20Procedures%20(March%202026)_0.pdf" }
     ]
   },
   {
