@@ -250,18 +250,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "SANP-017", difficulty: "hard", domain: 3, topic: "EU instant payments: event-driven screening of the customer base (Reg. 2024/886)", hy: true,
-    q: "Banca Aurelia, an Italian bank, offers SEPA instant credit transfers. It screens its whole customer base against EU targeted financial sanctions every night at 23:00. On 14 October 2026, a Council regulation listing 40 new persons enters into force at 10:00. At 15:00, one of the newly listed persons, a customer, sends an instant transfer of EUR 18,000, which completes within seconds. The head of sanctions proposes adding EU-list screening of payer and payee to every instant transfer. Which change BEST meets Regulation (EU) 2024/886?",
+    id: "SANP-017", difficulty: "hard", domain: 3, topic: "EU instant payments: penalties for failing the customer-screening duty (Reg. 2024/886)", hy: true,
+    q: "Banca Aurelia, an Italian bank owned by a French banking group, offers SEPA instant credit transfers. Its sanctions team screens customers every night but cannot yet rescreen the customer base as soon as new EU listings enter into force. It asks the management board to fund that change. The CFO objects: 'At worst, a breach means a modest fine on the bank, based on our own Italian turnover, and no individual can be fined.' Which statement correctly describes the penalties that Regulation (EU) 2024/886 requires Member States to provide for breaches of Article 5d?",
     options: [
-      "Keep the nightly run unchanged, because the Regulation requires customer verification at least once every calendar day and nothing more",
-      "Screen the payer and payee of each instant transfer against EU targeted sanctions lists while it is being executed, as proposed",
-      "Rescreen the whole customer base immediately whenever new or amended EU listings enter into force, as well as the daily run",
-      "Move to weekly customer-base screening and add real-time screening only for instant transfers above EUR 10,000"
+      "Fines must be based only on the Italian bank's own turnover, and only the bank as a legal person can be fined",
+      "Each breach carries a fixed fine of EUR 5 million for the bank, while individuals face only internal disciplinary measures",
+      "A penalty can arise only if a payment actually reaches a listed person; a missed rescreen with no such payment cannot be penalised",
+      "The maximum fine for the bank must be at least 10% of total annual net turnover, measured on the ultimate parent's consolidated accounts, and individuals can face maximum fines of at least EUR 5 million"
     ],
-    answer: [2],
-    explanation: "Article 5d(1) requires PSPs offering instant credit transfers to verify their customers immediately after new or amended targeted financial restrictive measures enter into force, and at least once every calendar day. The runner-up, nightly screening only, misses the 'immediately' trigger, which is how the 15:00 transfer slipped through. Article 5d(2) bars the payer's and payee's PSPs from screening payer and payee against EU targeted financial sanctions during execution. Controls for AML/CFT or for non-EU or non-targeted measures remain allowed.",
+    answer: [3],
+    explanation: "Article 11(1b) of Regulation 260/2012, inserted by Regulation 2024/886, requires Member States to provide, for infringements of Article 5d, maximum administrative fines of at least 10% of total annual net turnover for legal persons and at least EUR 5 million for natural persons. Where the PSP is a subsidiary, the relevant turnover is that of the ultimate parent's consolidated accounts. Recital 27 adds that penalties should be possible against members of senior management or the management body. The infringement is the failure to verify customers immediately after new listings and at least daily, so no prohibited payment is needed. The runner-up, own turnover only, ignores the group rule.",
     source: [
-      { label: "Regulation (EU) 2024/886 (Instant Payments Regulation), Article 5d", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R0886" }
+      { label: "Regulation (EU) 2024/886 (Instant Payments Regulation), Articles 5d and 11(1b), recital 27", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R0886" }
     ]
   },
   {
