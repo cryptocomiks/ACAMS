@@ -808,7 +808,8 @@
       (timed && !revealed ? '<div class="hg-wrap">' + FX.hourglass() + '<span class="hg-sec" id="hgSec"></span></div>' : "") +
       '<div class="qhead"><div class="qcount">' + countLabel + "</div>" +
       '<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag blue">Domain ' + q.domain + "</span>" +
-      (practice && q.topic ? '<span class="tag">' + esc(q.topic) + "</span>" : "") +
+      (revealed && q.topic ? '<span class="tag">' + esc(q.topic) + "</span>" : "") + // topic only after answering: it can give the answer away
+
       (practice && q.hy ? '<span class="tag hy">Frequently tested</span>' : "") +
       (q.difficulty === "hard" ? '<span class="tag hard">Hard</span>' : "") + "</div></div>" +
       (s.mode === "survival" ? "" : '<div class="progress"><div style="width:' + pct(answeredCount, total) + '%"></div></div>') +
