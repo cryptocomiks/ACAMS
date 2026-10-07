@@ -34,7 +34,7 @@ de la banque liées et sources officielles. Lire une leçon jusqu'au bout rappor
 
 ## D'où viennent les réponses
 
-510 questions au total, toutes vérifiées source par source (lien officiel sur chaque question). Aucune question officielle ACAMS ni « dump ».
+610 questions au total, toutes vérifiées source par source (lien officiel sur chaque question). Aucune question officielle ACAMS ni « dump ».
 
 Les questions sont originales (style examen), ce ne sont pas des questions officielles ACAMS (confidentielles).
 Chaque réponse a été vérifiée contre les textes officiels en septembre 2026 et chaque question porte un champ
