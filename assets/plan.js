@@ -27,6 +27,7 @@
     ["⏳", "Lightning & Survival", "The fun modes that make you come back"],
     ["📚", "Full course", "13 lessons, flashcards and the numbers sprint"],
     ["🏆", "Leaderboards", "Weekly and daily rankings"],
+    ["🎓", "Readiness certificate", "Reach the bar and get a certificate to share on LinkedIn"],
     ["☁️", "Sync on all devices", "Phone, tablet and computer"]
   ];
 
@@ -129,6 +130,7 @@
     cards: ["Flashcards are Premium", "Hundreds of cards with spaced repetition. Two lessons' decks are free."],
     sprint: ["Today's free sprint is done", "Premium gives you unlimited 60-second sprints on thresholds, deadlines and percentages."],
     ranks: ["Leaderboards are Premium", "Compete every week and on the daily challenge."],
+    cert: ["Your certificate is ready 🎓", "You hit the readiness bar. Premium unlocks your certificate to download, print and share on LinkedIn."],
     upgrade: ["Go Premium", "Everything you need to pass CAMS, unlimited."]
   };
   function plansHtml(compact) {
@@ -208,7 +210,7 @@
         ["Questions", "15 a day, any mode", "Unlimited (510)"], ["Daily challenge", "✓", "✓"], ["Answers and sourced explanations", "✓", "✓"],
         ["Practice, Lightning, Survival, Smart review, by theme", "Within the 15 a day", "Unlimited"], ["Mock exams (timed, 30 questions)", "1 free", "Unlimited"],
         ["Numbers sprint", "1 a day", "Unlimited"], ["Exam readiness and predicted score", "Blurred", "✓"], ["Weak topics and charts", "Blurred", "✓"],
-        ["Course lessons", "2 of 13", "All 13 + flashcards + sprint"], ["Leaderboards", "View", "Compete"], ["Sync across devices", "With a free account", "✓"]
+        ["Course lessons", "2 of 13", "All 13 + flashcards + sprint"], ["Leaderboards", "View", "Compete"], ["Exam readiness certificate", "Track the goals", "Download and share"], ["Sync across devices", "With a free account", "✓"]
       ].map(function (r) { return "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td><td><b>" + r[2] + "</b></td></tr>"; }).join("") + "</tbody></table></div>";
       html += '<div class="card fade-in">' + benefitsHtml() + "</div>";
       html += '<div class="card fade-in faq"><div class="dlabel">Questions</div>' + [

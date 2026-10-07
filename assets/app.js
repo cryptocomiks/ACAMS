@@ -650,6 +650,7 @@
       }).join("") + '</div><p class="small muted" style="margin:12px 0 0">Readiness blends accuracy by domain (weighted 30/20/30/20), how much of the bank you have covered, mastered questions and your last 3 mock exams. Aim for 80+ before booking.</p></div></div>';
 
     lockSince("Your exam readiness and predicted score");
+    if (window.CAMSCert) html += window.CAMSCert.cardHtml();   // the certificate goal is visible to everyone
 
     // KPI row
     html += '<div class="dash fade-in">' +

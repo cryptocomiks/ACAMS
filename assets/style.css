@@ -910,3 +910,19 @@ kbd { font: inherit; font-size: 11px; padding: 1px 6px; border-radius: 5px; back
 .dose-done > div:nth-child(2) { flex: 1; min-width: 220px; } .dose-done b { display: block; font-size: 17px; } .dose-done span { font-size: 14px; color: var(--muted); }
 .dd-check { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--good); color: #fff; font-size: 22px; font-weight: 800; }
 .dd-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- Readiness certificate ---------- */
+.cert-card { display: flex; gap: 18px; align-items: flex-start; margin-top: 20px; background: linear-gradient(135deg, rgba(184,150,62,.12), var(--tile) 55%); }
+.cert-ic { font-size: 44px; line-height: 1; } .cert-body { flex: 1; min-width: 0; } .cert-body h3 { margin: 2px 0 4px; }
+.cert-goals { display: grid; gap: 10px; margin: 12px 0 14px; }
+.cg-h { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; margin-bottom: 4px; } .cg.done .cg-h span { color: var(--good); }
+.cert-tools { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 16px; } .cert-tools .fld { flex: 1 1 260px; }
+.cert-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.cert-frame { border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+.cert-frame canvas { display: block; width: 100%; height: auto; }
+@media print {
+  body * { visibility: hidden !important; }
+  .cert-frame, .cert-frame * { visibility: visible !important; }
+  .cert-frame { position: fixed; inset: 0; box-shadow: none; border-radius: 0; }
+  @page { size: A4 landscape; margin: 0; }
+}
