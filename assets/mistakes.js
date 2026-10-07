@@ -98,7 +98,7 @@
   var community = null, communityAt = 0, flushTimer = null, disabled = false;
   function lget(k, fb) { try { var r = localStorage.getItem(k); return r ? JSON.parse(r) : fb; } catch (e) { return fb; } }
   function lset(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignore */ } }
-  function client() { var a = window.CAMSAccount; return a && a.client && a.client(); }
+  function client() { var a = window.CAMSAccount, c = a && a.client && a.client(); return c && typeof c.rpc === "function" ? c : null; }
   function uid() { var a = window.CAMSAccount, u = a && a.user && a.user(); return u && u.id; }
   function firstAnswer(qid, ok) {
     var q = lget(QKEY, []);
