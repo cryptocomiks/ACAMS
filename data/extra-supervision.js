@@ -66,7 +66,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "SUPV-005", domain: 2, topic: "FCA publicity of enforcement investigations (ENFG 4, June 2025)", hy: false, difficulty: "medium", changed: "FCA PS25/5: new Enforcement Guide (ENFG), June 2025",
-    q: "In its 2026 annual report, Ashdown Bank plc, a UK listed bank, states that the FCA has opened an enforcement investigation into its anti-money laundering controls over correspondent banking. A journalist then asks the FCA to confirm the investigation. Ashdown's head of regulatory affairs asks what the FCA may say under its Enforcement Guide, which applies to investigations opened since June 2025. What is the CORRECT answer?",
+    q: "In its 2026 annual report, Ashdown Bank plc, a UK listed bank, states that the FCA has opened an enforcement investigation into its anti-money laundering controls over correspondent banking. A journalist then asks the FCA to confirm the investigation. Ashdown's head of regulatory affairs asks what the FCA may say under its Enforcement Guide (ENFG), which replaced the old Enforcement Guide on 3 June 2025. What is the CORRECT answer?",
     options: [
       "The FCA may confirm that it is investigating Ashdown and the subject matter, to the extent Ashdown has already made this public",
       "The FCA must name Ashdown, because it now announces every investigation into a regulated firm when it is in the public interest",
@@ -120,7 +120,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The bank can be liable only under section 196 of the Economic Crime and Corporate Transparency Act 2023, which still applies to a listed set of economic crimes"
     ],
     answer: [2],
-    explanation: "Section 250 of the Crime and Policing Act 2026, in force from 29 June 2026, provides that where a senior manager acting within the actual or apparent scope of their authority commits an offence, the organisation also commits it. A senior manager is someone who plays a significant role in decisions about, or in managing, the whole or a substantial part of the activities, which describes Reyes. The section replaced ECCTA sections 196-198, which applied only to listed economic crimes, so the section 196 answer is out of date. The narrow identification doctrine is no longer the only route. A 'reasonable procedures' defence belongs to failure-to-prevent offences, not to this attribution rule.",
+    explanation: "Section 250 of the Crime and Policing Act 2026, in force from 29 June 2026 (s.255(3)(k)), so before Reyes acted in August 2026, provides that where a senior manager acting within the actual or apparent scope of their authority commits an offence, the organisation also commits it. A senior manager is someone who plays a significant role in decisions about, or in managing, the whole or a substantial part of the activities, which describes Reyes. The section replaced ECCTA sections 196-198, which applied only to listed economic crimes, so the section 196 answer is out of date. The narrow identification doctrine is no longer the only route. A 'reasonable procedures' defence belongs to failure-to-prevent offences, not to this attribution rule.",
     source: [
       { label: "Crime and Policing Act 2026, s.250 – liability where a senior manager commits an offence (legislation.gov.uk)", url: "https://www.legislation.gov.uk/ukpga/2026/20/section/250" },
       { label: "ECCTA 2023 s.196 – omitted 29.6.2026 (legislation.gov.uk)", url: "https://www.legislation.gov.uk/ukpga/2023/56/section/196" }
@@ -146,7 +146,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "SUPV-010", domain: 2, topic: "DOJ Corporate Enforcement Policy: 120-day window after an internal whistleblower report (calculation)", hy: false, difficulty: "hard", changed: "DOJ Department-wide Corporate Enforcement and Voluntary Self-Disclosure Policy, March 2026",
     q: "On Monday 4 May 2026, an analyst at Granite Ridge Payments, a US money transmitter, reports through the internal hotline that a regional manager has been processing payments for an unlicensed money transmitting business. On 20 May 2026 the same analyst also files a submission under the DOJ's Corporate Whistleblower Awards Pilot Program. The company's internal investigation confirms the misconduct in July. Under the whistleblower exception in the DOJ's March 2026 Corporate Enforcement Policy, what is the latest date by which Granite Ridge can self-report to the DOJ and still be able to qualify for a declination?",
     options: [
-      "Thursday 2 July 2026, 60 days after the internal report",
+      "Friday 3 July 2026, 60 days after the internal report",
       "It can no longer qualify, because the whistleblower reached the DOJ before the company did",
       "Tuesday 1 September 2026, but it should report as soon as reasonably practicable before then",
       "Thursday 17 September 2026, 120 days after the whistleblower's submission to the DOJ"
@@ -200,7 +200,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "FATF R.26 requires supervisors to take legal or regulatory measures to prevent criminals or their associates from holding a significant or controlling interest in a financial institution. Annex 5 of the Basel guidelines adds that the prudential supervisor assessing an acquirer should obtain information from the AML/CFT supervisor, and should consider whether the acquirer is or has been associated with money laundering, the source of the acquisition funds, and links to jurisdictions with strategic deficiencies. Under the Basel Annex, an ongoing investigation can lead to further inquiries, conditional approval or refusal, so a lack of conviction does not settle the matter. Bank-level CDD and inspections after completion come too late to keep a suspect owner out.",
     source: [
       { label: "FATF Recommendations (2026) – R.26 (official EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" },
-      { label: "BCBS Sound management of ML/FT risks (rev. July 2020), Annex 5 paras 13-16 and Box 1", url: "https://www.bis.org/bcbs/publ/d505.pdf" }
+      { label: "BCBS Sound management of ML/FT risks (rev. July 2020), Annex 5 paras 13-16 and Box 1", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" }
     ]
   },
   {
@@ -298,7 +298,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "SUPV-020", domain: 2, topic: "Case lessons: BaFin special commissioner and growth limits (N26, 2021)", hy: false, difficulty: "medium",
-    q: "In 2021 BaFin ordered N26 Bank to remedy deficiencies in IT monitoring and customer due diligence and appointed a special commissioner under section 45c of the German Banking Act. Later that year it capped new customer growth at 50,000 a month, and it fined the bank EUR 4.25 million for submitting a high number of suspicious transaction reports late. A compliance director at another digital bank asks what role a special commissioner plays in this kind of AML remediation. Which answer is BEST?",
+    q: "In May 2021 BaFin ordered N26 Bank to remedy anti-money laundering deficiencies in IT monitoring and customer due diligence and appointed a special commissioner under section 45c of the German Banking Act. In June 2021 it fined the bank EUR 4.25 million for submitting a high number of suspicious transaction reports late. In October 2021, citing shortcomings in IT and outsourcing risk management, it capped new customer growth at 50,000 a month. A compliance director at another digital bank asks what role a special commissioner plays in this kind of AML remediation. Which answer is BEST?",
     options: [
       "The commissioner monitors how the ordered measures are implemented and keeps BaFin informed of progress, while management stays responsible for the fixes",
       "The commissioner takes over the bank's management and becomes its MLRO until BaFin lifts the order",
@@ -306,10 +306,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The commissioner decides which customers the bank may onboard under the monthly growth limit"
     ],
     answer: [0],
-    explanation: "BaFin's May 2021 notice states that the special commissioner was appointed to monitor implementation of the AML order and to give BaFin ongoing updates on progress. Its October 2021 notice says the commissioner would also monitor the growth-limitation measures, which BaFin could relax step by step after assessing progress with the commissioner. The bank remained responsible for carrying out the measures; the commissioner did not replace management or the MLRO. A report that could be kept from the supervisor would defeat the commissioner's purpose. The growth cap is a business restriction BaFin set, not a customer-by-customer approval process.",
+    explanation: "BaFin's May 2021 notice states that the special commissioner was appointed to monitor implementation of the AML order and to give BaFin ongoing updates on progress. Its November 2021 notice of the 5 October 2021 order says a special commissioner would also monitor the growth-limitation measures, which BaFin could adjust step by step after assessing progress in consultation with the commissioner, and links the cap to freeing resources for customer identification, transaction monitoring and suspicious transaction reporting. The bank remained responsible for carrying out the measures; the commissioner did not replace management or the MLRO. A report that could be kept from the supervisor would defeat the commissioner's purpose. The growth cap is a business restriction BaFin set, not a customer-by-customer approval process.",
     source: [
       { label: "BaFin (May 2021) – N26: order to prevent ML/TF; appointment of a special commissioner", url: "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Massnahmen/60b_KWG_84_WpIG_und_57_GwG/meldung_210512_57_GwG_N26_en.html" },
-      { label: "BaFin (Nov 2021) – N26: measures to limit growth and appointment of a special commissioner", url: "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Massnahmen/60b_KWG_84_WpIG_und_57_GwG/meldung_211109_60b_N26_en.html" }
+      { label: "BaFin (9 Nov 2021) – N26: measures to limit growth (order of 5 Oct 2021), special commissioner, and the EUR 4.25m STR fine of 25 June 2021", url: "https://www.bafin.de/SharedDocs/Veroeffentlichungen/EN/Massnahmen/60b_KWG_84_WpIG_und_57_GwG/meldung_211109_60b_N26_en.html" }
     ]
   },
   {
@@ -324,7 +324,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [1],
     explanation: "Annex 5 of the Basel guidelines says prudential and AML/CFT supervisors should share relevant information on pending or imposed enforcement actions with domestic and international counterparts in a timely manner, consistent with legal requirements. They should give enough detail about the AML/CFT deficiencies for each supervisor to assess the impact, as early and often as possible, to manage effects on financial stability such as capital, liquidity or curtailed activities. Waiting until publication defeats that aim, and handing the task to the bank is not supervisory cooperation. Leaving out the home supervisor ignores the cross-border group dimension the Annex stresses.",
     source: [
-      { label: "BCBS Sound management of ML/FT risks (rev. July 2020), Annex 5 paras 21-26", url: "https://www.bis.org/bcbs/publ/d505.pdf" }
+      { label: "BCBS Sound management of ML/FT risks (rev. July 2020), Annex 5 paras 21-26", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" }
     ]
   },
   {
@@ -354,7 +354,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [2],
     explanation: "Annex 5 of the Basel guidelines states that under the risk-based approach, using the size of operations or profits or losses of a bank as the main ML/FT risk indicator is not appropriate for concluding that a bank is low risk, because ML/FT risk can arise from small parts of a bank or from a small bank. Pellucid's correspondent services to payment providers in high-risk jurisdictions, with nested downstream customers, point to high inherent risk. FATF's Methodology (criterion 26.5) likewise ties supervisory intensity to each institution's risk profile. An auditor's comfort letter or an asset-growth trigger would not fix the flawed risk model.",
     source: [
-      { label: "BCBS Sound management of ML/FT risks (rev. July 2020), Annex 5 para 12", url: "https://www.bis.org/bcbs/publ/d505.pdf" },
+      { label: "BCBS Sound management of ML/FT risks (rev. July 2020), Annex 5 para 12", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" },
       { label: "FATF Methodology (2026) – criterion 26.5 (official EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Methodology_2026_eng.pdf" }
     ]
   },
@@ -369,7 +369,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "An OCC-appointed monitor replaces the bank's BSA officer and approves each new customer relationship"
     ],
     answer: [0, 2],
-    explanation: "The OCC fact sheet says the asset cap limits the combined total consolidated assets of TD Bank, N.A. and TD Bank USA, N.A. to the level reported at 30 September 2024 for the duration of the order. If actionable articles are not met on time, the OCC may require reductions of up to 7%, and up to a further 7% for each further year of non-compliance. The bank also needs OCC non-objection to open branches or enter new markets. New products need non-objection until policies improve, and afterwards only medium- or high-risk products do, so there is no blanket product ban. The order requires an independent third-party assessment and a SAR lookback, but no monitor replaces the BSA officer.",
+    explanation: "The OCC fact sheet says the asset cap limits the combined total consolidated assets of TD Bank, N.A. and TD Bank USA, N.A. to the level reported at 30 September 2024 for the duration of the order. If actionable articles are not met on time, the OCC may require reductions of up to 7%, and up to a further 7% for each further year of non-compliance. The bank also needs OCC non-objection to open branches or enter new markets. New products need non-objection until policies improve, and afterwards only medium- or high-risk products do, so there is no blanket product ban. The OCC order requires an independent third-party assessment of the BSA/AML program and a suspicious activity lookback, but it installs no one to replace the BSA officer or approve customers; the bank must correct its own program.",
     source: [
       { label: "OCC fact sheet (Oct 2024) – TD Bank enforcement actions: asset cap and business restrictions", url: "https://www.occ.gov/news-issuances/news-releases/2024/nr-occ-2024-116a.pdf" },
       { label: "OCC news release 2024-116 – TD Bank cease and desist order and civil money penalty", url: "https://www.occ.gov/news-issuances/news-releases/2024/nr-occ-2024-116.html" }
@@ -385,7 +385,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The penalty falls to £96,000 under the 20% stage 1 discount, and the prohibition is lifted on settlement"
     ],
     answer: [0],
-    explanation: "DEPP 6.7.3G gives a 30% discount for settlement in stage 1, so £120,000 becomes £84,000. Individuals can settle as well as firms. DEPP 6.7.6G applies the discount to the length of a suspension, restriction or time-limited prohibition, but says no discount is available for a permanent disciplinary prohibition. The runner-up wrongly turns a permanent ban into a fixed term. The 20% figure applied only under transitional rules for cases where stage 1 had begun before 1 March 2017.",
+    explanation: "DEPP 6.7.3G gives a 30% discount for settlement in stage 1, so £120,000 becomes £84,000. Individuals can settle as well as firms. DEPP 6.7.6G applies the discount to the length of a suspension, restriction, condition or time-limited disciplinary prohibition, but says no settlement discount is available for a permanent disciplinary prohibition, and the scheme in DEPP 6.7 does not shorten a prohibition order either. The runner-up wrongly turns a permanent ban into a fixed term. The 20% figure applied only under transitional rules for cases where stage 1 had begun before 1 March 2017.",
     source: [
       { label: "FCA Handbook DEPP 6.7 – settlement discount scheme (incl. 6.7.6G on prohibitions)", url: "https://www.handbook.fca.org.uk/handbook/DEPP/6/7.html" }
     ]
