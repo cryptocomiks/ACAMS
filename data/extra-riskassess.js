@@ -3,7 +3,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "RISK-001", difficulty: "hard", domain: 3, topic: "Country risk model: matching sources to sub-factors (EBA risk factor guidelines)", hy: true,
     q: "Lindgren Bank, an EU credit institution, is rebuilding its country risk model. Analyst Oskar Brandt wants to score each country's 'quality of the AML/CFT regime' factor using only a well-known corruption perceptions index, because it is free, updated every year and covers 180 countries. Country M scores well on that index, so it would be rated low risk. However, Country M's latest FSRB mutual evaluation rates its bank supervision (IO.3) and preventive measures (IO.4) as low effectiveness, and the FATF added it to its list of jurisdictions under increased monitoring last year. Lindgren's customers from Country M are mostly import-export firms, and the bank plans to open a correspondent relationship with a bank there. What is the BEST change to the methodology?",
     options: [
-      "Score regime quality from several sources, such as mutual evaluations and FATF lists, and use the index for predicate-offence risk",
+      "Score regime quality from several sources, such as mutual evaluations and FATF lists, and use the index for predicate offences",
       "Keep the corruption index as the only source, but add a manual one-band uplift for any country currently on a FATF list",
       "Replace the corruption index with the FATF lists alone, because they are the authoritative source on AML/CFT regime quality",
       "Rate Country M low as the index suggests, and apply enhanced due diligence only to the planned correspondent relationship"
@@ -35,7 +35,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Accept the overrides, because a relationship manager's long personal knowledge of a client is a recognised mitigating factor"
     ],
     answer: [1],
-    explanation: "The Wolfsberg FAQs on Risk Assessments say the rationale for any override must be thoroughly documented, supported and approved by someone with appropriate authority, and that the need for overrides may indicate a weakness in the methodology. The EBA Risk Factors Guidelines (3.6) require firms to be able to override automated scores where necessary, with the rationale documented, and say economic or profit considerations must not influence the risk rating. Here, conflicted staff downgrade ratings without independent approval. Removing overrides altogether conflicts with 3.6. The runner-up, re-testing EDD files, does not fix the control gap: the downgraded customers are no longer in the high-risk population being tested.",
+    explanation: "The EBA Risk Factors Guidelines (3.6) require firms to be able to override automated scores where necessary, with the rationale documented, and say economic or profit considerations must not influence the risk rating. The Wolfsberg FAQs on Risk Assessments, discussing overrides of risk assessment ratings, add that the rationale for any override must be thoroughly documented, supported and approved by someone with appropriate authority, and that the need for overrides may indicate a weakness in the methodology. Here, conflicted staff downgrade ratings without independent approval. Removing overrides altogether conflicts with 3.6. The runner-up, re-testing EDD files, does not fix the control gap: the downgraded customers are no longer in the high-risk population being tested.",
     source: [
       { label: "Wolfsberg FAQs on Risk Assessments (2015), Q3 and 6.2.1 – documented and approved overrides", url: "https://db.wolfsberg-group.org/assets/3deb66d7-6aca-490c-bcd9-c1a3d34a807b/17.%20Wolfsberg-Risk-Assessment-FAQs-2015.pdf" },
       { label: "EBA ML/TF Risk Factors Guidelines (EBA/GL/2021/02), Guideline 3.6", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }
@@ -228,33 +228,32 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     source: [{ label: "FATF Guidance for a Risk-Based Approach: The Banking Sector (2014), paras 54-57", url: "https://www.aml.gov.sa/en-us/GuidanceReports/Guidance%20For%20%20RBA%20The%20Banking%20Sector.pdf" }]
   },
   {
-    id: "RISK-017", difficulty: "hard", domain: 3, topic: "Mapping inherent risk and control strength to residual risk (Wolfsberg three-tier scale)", hy: true,
-    q: "Dunmore Bank uses the Wolfsberg three-tier residual risk definitions in its enterprise-wide risk assessment. Its 2026 results for five business lines are: retail deposits, inherent low-to-moderate with sufficient controls; correspondent banking, inherent high with adequate controls; trade finance, inherent moderate-to-high with insufficient controls; payroll cards, inherent low-to-moderate with inadequate controls; private banking, inherent high with insufficient controls and a remediation programme approved last month. Which TWO business lines should be rated HIGH residual risk? (Choose two.)",
+    id: "RISK-017", difficulty: "hard", domain: 3, topic: "Generic industry inherent risk ratings vs the firm's own inherent risk assessment (Wolfsberg 6.1.6)", hy: true,
+    q: "Kestrel Bank is running its first enterprise-wide risk assessment using the Wolfsberg FAQs methodology. To save time, the project lead proposes to copy the example standard inherent risk ratings in the FAQs' Appendix H (for example, international correspondent banking high, asset management low to moderate, retail banking moderate to high) as the inherent ratings of the bank's own business lines, without collecting client, product, channel or geography data. Kestrel's retail arm serves mainly salaried local customers, while its small asset management unit takes in money from offshore companies in several high-risk jurisdictions. Which TWO statements are consistent with the Wolfsberg FAQs? (Choose two.)",
     options: [
-      "Retail deposits",
-      "Correspondent banking",
-      "Trade finance",
-      "Payroll cards",
-      "Private banking"
+      "Generic industry ratings can be a useful reference, but they should not be used on their own in place of an inherent risk assessment",
+      "The Appendix H ratings are an industry standard, so supervisors expect banks to adopt them for each business line without change",
+      "Each line's inherent risk should come from scoring its own clients, products, channels, geographies and other qualitative factors",
+      "The generic ratings are acceptable if controls are assessed in full, because control strength is what drives the residual rating",
+      "The asset management unit can keep a low-to-moderate rating, because asset management is a lower-risk segment across the industry"
     ],
-    answer: [2, 4],
-    explanation: "The Wolfsberg FAQs define high residual risk as moderate-to-high inherent risk with controls that are not sufficient to manage it. That covers trade finance and private banking. An approved remediation programme does not lower residual risk until it is working, because the assessment is a point-in-time view. Moderate residual risk covers either low-to-moderate inherent risk with inadequate controls (payroll cards) or high inherent risk with adequate controls (correspondent banking). Low residual risk is low-to-moderate inherent risk with sufficient controls (retail deposits).",
-    source: [{ label: "Wolfsberg FAQs on Risk Assessments (2015), 6.2-6.3 – residual risk definitions", url: "https://db.wolfsberg-group.org/assets/3deb66d7-6aca-490c-bcd9-c1a3d34a807b/17.%20Wolfsberg-Risk-Assessment-FAQs-2015.pdf" }]
+    answer: [0, 2],
+    explanation: "Section 6.1.6 of the Wolfsberg FAQs says inherent risk is found by applying and aggregating each business line's client, product and service, channel, geography and other qualitative risk factors. Generic or relative ratings for banking businesses are useful, but should not be used on their own in the absence of inherent risk assessments. Appendix H itself says its examples are neither exhaustive nor binding, and that the firm should fully document its own approach. Kestrel shows why: its asset management unit, generically low to moderate, takes offshore money from high-risk jurisdictions. A full control assessment cannot fix a wrong inherent rating, because residual risk depends on both.",
+    source: [{ label: "Wolfsberg FAQs on Risk Assessments (2015), 6.1.6 and Appendix H – generic inherent risk ratings", url: "https://db.wolfsberg-group.org/assets/3deb66d7-6aca-490c-bcd9-c1a3d34a807b/17.%20Wolfsberg-Risk-Assessment-FAQs-2015.pdf" }]
   },
   {
-    id: "RISK-018", difficulty: "hard", domain: 3, topic: "Presenting high residual risk to the board: deciding what to accept", hy: true,
-    q: "Marlow Bank's business-wide risk assessment rates residual risk in its banking-as-a-service (BaaS) line as high. The line has 120 fintech partners, oversight of their onboarding is weak, and monitoring cannot see end-customer data for 30% of its volume. The business head stresses that the line earns 18% of revenue. The draft assessment lists the findings but proposes no decision, and the board-approved risk appetite statement does not mention BaaS. The CCO presents the assessment to the board next week. What is the MOST appropriate way to present this finding?",
+    id: "RISK-018", difficulty: "hard", domain: 3, topic: "Subsidiary adopting a group-wide risk assessment: tailoring it (EBA 1.14-1.15)", hy: true,
+    q: "Velmar Bank is an EU subsidiary of a banking group headquartered in a non-EU country that credible indices associate with a high level of corruption. The group sends each subsidiary its group-wide ML/TF risk assessment, which says nothing about corruption risk linked to the head office country. Velmar's board proposes to adopt the group document unchanged as its own business-wide risk assessment, because group compliance designed it and the group's auditors reviewed it. Velmar has a large trade finance book, and about 15% of its corporate customers were referred by group companies in the head office country. What should Velmar's compliance officer advise?",
     options: [
-      "As information only, because setting risk appetite for a business line is a matter for the business head who owns its revenue",
-      "With its drivers and options (fix controls, cap growth, exit partners), asking the board to decide what residual risk to accept",
-      "With the rating lowered to moderate in the board pack, because a high rating with no approved appetite statement would put the bank in breach",
-      "After the partner-oversight remediation is complete, so that the board sees a final residual risk rating"
+      "Adopt the group assessment unchanged, because a single group methodology keeps the results consistent across all subsidiaries",
+      "Adopt the group assessment once group compliance confirms in writing that corruption risk is not material for the group",
+      "Check whether the group assessment is specific enough for Velmar's business, and add the head office corruption risk to it",
+      "Replace the group assessment with an off-the-shelf consultancy model, so that it is independent of the parent group's views"
     ],
-    answer: [1],
-    explanation: "The FATF's 2014 banking guidance (para 76) says senior management should decide the measures needed to mitigate identified risks and the extent of residual risk the bank is prepared to accept. The EBA guidelines (1.17-1.18) require senior management to get enough information to understand and take a view on the risks, and the business-wide assessment to reflect the firm's risk appetite. The Wolfsberg FAQs say results should inform risk appetite and decisions on commercial exits. Leaving the decision to the revenue owner, softening the rating or delaying the report all deny the board an accurate view.",
+    answer: [2],
+    explanation: "Guideline 1.14 of the EBA Risk Factors Guidelines says a firm that is part of a group with a group-wide risk assessment should consider whether it is granular and specific enough to reflect the firm's business and the risks from the group's links to countries, and complement it if necessary. If the group is headquartered in a country associated with a high level of corruption, the firm should reflect this even if the group-wide assessment is silent. Guideline 1.15 says a group assessment applied unquestioningly, or an off-the-shelf one not adapted to the firm, is unlikely to meet the legal requirement. A written assurance from group compliance is the runner-up, but it leaves the gap unassessed by Velmar, and an audit review does not tailor the document.",
     source: [
-      { label: "FATF Guidance for a Risk-Based Approach: The Banking Sector (2014), paras 76-77", url: "https://www.aml.gov.sa/en-us/GuidanceReports/Guidance%20For%20%20RBA%20The%20Banking%20Sector.pdf" },
-      { label: "EBA ML/TF Risk Factors Guidelines (EBA/GL/2021/02), Guidelines 1.17-1.18", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }
+      { label: "EBA ML/TF Risk Factors Guidelines (EBA/GL/2021/02), Guidelines 1.14-1.15", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }
     ]
   },
   {
@@ -340,19 +339,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     source: [{ label: "EBA ML/TF Risk Factors Guidelines (EBA/GL/2021/02), Guidelines 1.2, 1.11-1.20", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }]
   },
   {
-    id: "RISK-025", difficulty: "hard", domain: 3, topic: "Customer risk rating weights: one factor must not dominate", hy: false,
-    q: "Saltmarsh Bank, an EU credit institution, uses a customer risk rating model that gives geography a 70% weight, with customer type, product and channel sharing the remaining 30%. Because almost all customers are domestic and the home country is rated low risk, 99.6% of customers score low. They include 300 cash-intensive businesses whose turnover is far above their declared activity, and 12 domestic politically exposed persons. The model team says the result is 'mathematically correct' and was validated against the documented specification. The bank's risk appetite statement sets a low tolerance for cash-based money laundering. What is the BEST action?",
+    id: "RISK-025", difficulty: "hard", domain: 3, topic: "Weighting a country link against product features (EBA 3.2-3.5)", hy: false,
+    q: "Saltmarsh Bank, an EU credit institution, offers a retirement savings plan that can be funded only by monthly payroll deductions through the customer's identified EU employer. It accepts no other third-party payments and pays out only at retirement age, to an account in the customer's name. The bank's customer risk model has a rule that rates as high risk any customer with personal links to a jurisdiction associated with higher ML/TF risk. Applicant Nadia Karim, a salaried nurse living in the EU, was born in Country Q, which has high levels of corruption but is not on any EU or FATF list, and she still owns a family flat there. She is not a PEP, and screening finds no adverse information. What does the EBA guidance on weighting risk factors suggest?",
     options: [
-      "Keep the model because it was validated, and add a separate monthly report on cash-intensive businesses",
-      "Raise the home country's rating to medium, so that more customers move up one risk band",
-      "Replace the weighted model with a rule that rates all business customers high and all individuals low",
-      "Recalibrate so no single factor dominates, document why, and override the ratings of the customers already identified"
+      "Rate her high, because any personal link to a higher-risk jurisdiction must lead to a high overall rating",
+      "Weigh the country link against the plan's features, which may make it less relevant, and document why",
+      "Disregard the country link, because geographic factors are excluded when the product itself is low risk",
+      "Apply enhanced due diligence, because EU law requires it for customers born in high-corruption countries"
     ],
-    answer: [3],
-    explanation: "Guideline 3.6 of the EBA Risk Factors Guidelines says weighting must not be unduly influenced by just one factor, must not make it impossible to classify relationships as high risk, and must not override situations the law treats as high risk. PEPs, for example, always require EDD. Firms must also be able to override automated scores, with documented reasons. AMLA's draft BWRA guidelines likewise say no single risk factor should disproportionately drive the outcome, and weighting decisions must be documented. A model that matches its specification can still be wrong. A side report leaves the ratings and CDD levels wrong, and a blanket rule replaces one blunt factor with another.",
+    answer: [1],
+    explanation: "The EBA Risk Factors Guidelines ask firms to take a holistic view of all the risk factors they identify (3.2). Unless the law says otherwise, isolated risk factors do not necessarily move a relationship into a higher or lower risk category (3.3). When weighting, firms make an informed judgement about relevance. The guidelines' own example is that a customer's personal links to a higher-risk jurisdiction may be less relevant in light of the features of the product sought (3.5). Here, funding only by payroll, no other third-party payments and no early access limit the plan's use for ML/TF. The link is weighed, not ignored, and 3.6 still requires that weighting never makes a high rating impossible. EDD is mandatory for PEPs and EU-listed high-risk third countries, not for a birthplace.",
     source: [
-      { label: "EBA ML/TF Risk Factors Guidelines (EBA/GL/2021/02), Guidelines 3.3-3.6", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" },
-      { label: "AMLA consultation on draft guidelines on the business-wide risk assessment (2026), paras 15-16", url: "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-guidelines-business-wide-risk-assessment_en" }
+      { label: "EBA ML/TF Risk Factors Guidelines (EBA/GL/2021/02), Guidelines 3.2-3.6", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }
     ]
   }
 ]);
