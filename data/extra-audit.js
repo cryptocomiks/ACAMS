@@ -162,12 +162,13 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "SwiftNest, the largest fintech partner of Pinecrest Bank, provides 35% of the bank's deposits and pays the bank a fee for each active account. SwiftNest plans a marketing campaign to triple its users within six months. Under contract, SwiftNest performs first-level alert review, but its alert backlog already exceeds the agreed service level. Pinecrest's own BaaS oversight team has two staff. SwiftNest's CEO calls the campaign 'the bank's best revenue opportunity this year'. What should Pinecrest's BSA officer recommend to senior management?",
     options: [
       "Allow growth only within limits tied to proven control capacity at SwiftNest and the bank, with concentration limits and an exit plan",
-      "Approve the campaign, because SwiftNest is contractually responsible for reviewing the alerts its users generate",
-      "Terminate the relationship immediately, because the backlog already exceeds the contract's service level",
-      "Approve the campaign but require SwiftNest to certify each year that its AML program is effective"
+      "Approve the campaign, because the extra deposits will lower the bank's funding costs and strengthen its liquidity",
+      "Approve the campaign once SwiftNest raises its per-account fee, so the bank can hire oversight staff after the growth arrives",
+      "Approve the campaign but add contract penalties for each month that SwiftNest's alert backlog exceeds the service level"
     ],
     answer: [0],
-    explanation: "The July 2024 joint statement of the Federal Reserve, FDIC and OCC warns that partners may have incentives to grow in ways that do not match the bank's regulatory obligations. It also warns that operations can fail to keep pace with rapid growth, and that heavy deposit concentration can make a bank reluctant to end an arrangement. It lists concentration limits and exit strategies as effective practices, and it says the bank remains responsible for AML/CFT compliance when third parties do the work. An annual certification is the runner-up, but it does nothing about current capacity. Abrupt termination is not a planned exit.",
+    explanation: "The July 2024 joint statement of the Federal Reserve, FDIC and OCC warns that a partner may be incentivised to grow in ways that do not match the bank's regulatory obligations, that risk management and operations can struggle to keep pace with rapid growth, and that relying on one partner for a large share of deposits or revenue creates funding concentration and liquidity risk and can make the bank reluctant to end the arrangement. It lists concentration limits and exit strategies among effective practices, and the bank remains responsible for compliance when third parties do the work. Contract penalties are the runner-up, but they compensate the bank after the fact and do nothing about current capacity. Fees that pay for staff only after the growth arrives leave the gap open, and the extra deposits are the concentration risk, not a reason to approve. In September 2026 the agencies proposed rescinding the joint statement, but as of October 2026 that is only a proposal.",
+    changed: "Sept 2026: the agencies proposed rescinding the July 2024 joint statement as part of new third-party risk guidance; not final as of Oct 2026",
     source: [{ label: "Fed/FDIC/OCC Joint Statement on Banks' Arrangements with Third Parties to Deliver Deposit Products (25 July 2024)", url: "https://www.federalreserve.gov/newsevents/pressreleases/files/bcreg20240725c1.pdf" }]
   },
   {
@@ -279,8 +280,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "A monitor is likely unnecessary, but only if the bank agrees to pay a higher fine in its place"
     ],
     answer: [1],
-    explanation: "The May 2025 memorandum says a monitor should never be imposed as a punishment. Prosecutors must weigh the risk of recurrence, whether another government body (such as the primary regulator) can provide enough oversight, the effectiveness of the compliance program and culture at the time of resolution (including changes in leadership), and how mature and well tested the controls are. If the regulator can provide sufficient oversight, no monitor is needed. Imposing a monitor because the failures lasted for years is the runner-up, but the memo rules out punitive monitors. Monitors are not standard, and a fine is not a substitute for one.",
-    source: [{ label: "DOJ Criminal Division, Memorandum on Selection of Monitors in Criminal Division Matters (12 May 2025)", url: "https://www.justice.gov/criminal/media/1400036/dl" }]
+    explanation: "The May 2025 memorandum says a monitor should never be imposed as a punishment. Prosecutors must weigh the risk of recurrence, whether another government body (such as the primary regulator) can provide enough oversight, the effectiveness of the compliance program and culture at the time of resolution (including changes in leadership), and how mature and well tested the controls are. If the regulator can provide sufficient oversight, no monitor is needed. Imposing a monitor because the failures lasted for years is the runner-up: long-lasting misconduct is one factor listed in JM 9-28.1700, but a monitor may never be imposed as a punishment, and here the forward-looking factors point the other way. Monitors are not standard, and a fine is not a substitute for one.",
+    source: [
+      { label: "DOJ Criminal Division, Memorandum on Selection of Monitors in Criminal Division Matters (12 May 2025)", url: "https://www.justice.gov/criminal/media/1400036/dl" },
+      { label: "DOJ Justice Manual 9-28.1700 – use of independent compliance monitors", url: "https://www.justice.gov/jm/jm-9-28000-principles-federal-prosecution-business-organizations" }
+    ]
   },
   {
     id: "AUDIT-021", domain: 3, topic: "Breach of a regulatory restriction during remediation (Monzo lesson)", hy: true, difficulty: "hard",
@@ -292,7 +296,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Ask the product team to add the restriction check to the journey in the next quarterly release"
     ],
     answer: [0],
-    explanation: "In July 2025 the FCA fined Monzo £21.1 million. Its controls had not kept pace with its almost tenfold growth, and it repeatedly breached a requirement not to open accounts for high-risk customers, onboarding more than 34,000 of them between 2020 and 2022. A breach of an agreed restriction has to be stopped at once, its scope established, and the regulator told: Principle 11 requires firms to disclose anything the FCA would reasonably expect notice of. A fix in the next quarterly release is the runner-up, but it keeps the breach running for months. The lack of fraud losses is irrelevant to the restriction.",
+    explanation: "In July 2025 the FCA fined Monzo £21.1 million. Its controls had not kept pace with its almost tenfold growth, and it repeatedly breached a requirement not to open accounts for high-risk customers, signing up more than 34,000 of them between August 2020 and June 2022. A breach of an agreed restriction has to be stopped at once, its scope established, and the regulator told: Principle 11 requires firms to disclose anything the FCA would reasonably expect notice of. A fix in the next quarterly release is the runner-up, but it keeps the breach running for months. The lack of fraud losses is irrelevant to the restriction.",
     source: [
       { label: "FCA press release (July 2025) – Monzo fined £21m for failings in financial crime controls", url: "https://www.fca.org.uk/news/press-releases/fca-fines-monzo-21m-failings-financial-crime-controls" },
       { label: "FCA Handbook PRIN 2.1 – Principle 11, relations with regulators", url: "https://www.handbook.fca.org.uk/handbook/PRIN/2/1.html" }
