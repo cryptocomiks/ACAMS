@@ -34,10 +34,10 @@ de la banque liées et sources officielles. Lire une leçon jusqu'au bout rappor
 
 ## D'où viennent les réponses
 
-610 questions au total, toutes vérifiées source par source (lien officiel sur chaque question). Aucune question officielle ACAMS ni « dump ».
+1001 questions distinctes au total (D1 297 · D2 201 · D3 302 · D4 201, soit la pondération 30/20/30/20 de l'examen), dont 540 « hard » et une large part de cas pratiques (client, montants, pays, signaux d'alerte, « que faire en premier ? »). Chaque question est rédigée puis relue par un vérificateur indépendant, source par source (lien officiel sur chaque question). Aucune question officielle ACAMS ni « dump ».
 
 Les questions sont originales (style examen), ce ne sont pas des questions officielles ACAMS (confidentielles).
-Chaque réponse a été vérifiée contre les textes officiels en septembre 2026 et chaque question porte un champ
+Chaque réponse a été vérifiée contre les textes officiels (septembre-octobre 2026) et chaque question porte un champ
 `source` (lien affiché sous l'explication) : recommandations FATF, 31 CFR (eCFR), FinCEN (règles, FAQ, advisories),
 OFAC (FAQ, règlements), Federal Reserve / OCC, Wolfsberg, Egmont, UNODC, EUR-Lex / AMLA, legislation.gov.uk.
 Le site du FATF bloque les accès automatisés : le contenu a été lu dans les copies officielles hébergées par des
