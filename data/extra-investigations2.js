@@ -265,7 +265,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "INVT-019", domain: 4, topic: "Records of closed alerts and partnership sharing under the AMLR (Art. 77(1))", hy: true, difficulty: "hard",
     q: "In August 2027, after the EU AMLR has started to apply, investigators at Hollis Bank in Frankfurt close an alert on customer Ansgar Wolff after concluding that his large transfers are explained by a documented property sale, so no suspicious transaction report is made. The same month, the bank shares information on another customer through a partnership for information sharing under Chapter VI of the AMLR. To cut storage costs, the head of investigations proposes keeping only a 'closed - explained' code for alerts with no report, and redacting other banks' customer names from the partnership records. The bank's CFO notes the property sale was profitable for Mr Wolff. Which approach meets Article 77 of the AMLR?",
     options: [
-      "Keep a record of the assessment, with the information and circumstances considered and its result, and keep the partnership documents and a log of each sharing instance, unredacted",
+      "Keep an unredacted record of the assessment (information, circumstances and result) and of the partnership documents and each sharing instance",
       "Keep only the disposition code, because a record of the assessment is required only where the assessment leads to a suspicious transaction report",
       "Keep a full record of the assessment, but redact other banks' customer names in the partnership records to meet data minimisation",
       "Keep no record for alerts closed without a report, and keep the partnership records for 10 years from the date of each instance of sharing"
@@ -349,17 +349,17 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "INVT-025", domain: 1, topic: "Bribery red flags in a customer's use of an intermediary (Wolfsberg ABC Guidance)", hy: false, difficulty: "medium",
-    q: "Corporate customer Ostrava Build Ltd wins a EUR 60 million road contract from a transport ministry. Its bank's investigator reviews payments to Dravo Consult, a local agent hired to 'manage permits'. Dravo has 20 years of experience with permits in the region, invoices Ostrava monthly in line with project milestones, and is audited by a well-known firm. Ostrava's emails show that the ministry's procurement director recommended Dravo. Days after the award, Dravo asked for 60% of its total fee to be paid to a company in a third country where neither Dravo nor the project is located. Which TWO facts are the strongest bribery red flags? (Choose two.)",
+    id: "INVT-025", domain: 1, topic: "Bribery red flags: former officials and fee changes near contract award (Wolfsberg ABC Guidance)", hy: false, difficulty: "medium",
+    q: "Corporate customer Ostrava Build Ltd wins a EUR 60 million road contract from a transport ministry. Its bank's investigator reviews payments to Dravo Consult, a local agent hired to 'manage permits'. Dravo has 20 years of experience with permits in the region, invoices monthly in line with project milestones, and is paid into its own account in the country where the work is done. Its founder retired four months before the tender from a senior post in the ministry department that awarded the contract. A week after the award, Dravo demanded that its fee be raised from 2% to 6% of the contract value. Dravo's director drives an expensive car. Which TWO facts are the strongest bribery red flags? (Choose two.)",
     options: [
       "Dravo has 20 years of experience with permits in the region",
       "Dravo invoices monthly in line with the project's milestones",
-      "The ministry's procurement director recommended hiring Dravo",
-      "60% of the fee was requested after the award, to a third country",
-      "Dravo's accounts are audited by a well-known accounting firm"
+      "Dravo's founder recently left a senior post in the awarding department",
+      "Dravo demanded a much higher fee a week after the contract award",
+      "Dravo is paid into its own account in the country of the project"
     ],
     answer: [2, 3],
-    explanation: "Appendix A of the Wolfsberg ABC Guidance lists as red flags an intermediary suggested by a public official connected to the matter, and requests for payment of a commission, or a large part of it, before or immediately on award of the contract. It also lists payment to an entity in a country that is not the intermediary's principal place of business or where the services are performed. Relevant experience, milestone-based invoicing and an external audit point the other way. The guide lists lack of experience and deviation from progress payment models as red flags.",
+    explanation: "Appendix A of the Wolfsberg ABC Guidance lists as red flags a recent senior public official of the same government department responsible for the award of the contract, and a demand to adjust remuneration during the engagement, particularly close to the award of business. Relevant experience, milestone-based invoicing and payment to the contracting entity in the country where the services are performed point the other way: the Guidance lists lack of experience, deviation from progress payment models and payment to another entity or country as red flags. The director's car is a distractor with no link to the contract.",
     source: [{ label: "Wolfsberg Group, Anti-Bribery and Corruption Compliance Programme Guidance (2023), Appendix A", url: "https://db.wolfsberg-group.org/assets/8cbe37e5-9286-4315-81f7-21e9ac70d8d2/Wolfsberg%20ABC%20Guidance%202023.pdf" }]
   }
 ]);
