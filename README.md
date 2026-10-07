@@ -34,7 +34,7 @@ de la banque liées et sources officielles. Lire une leçon jusqu'au bout rappor
 
 ## D'où viennent les réponses
 
-410 questions au total, toutes vérifiées source par source (lien officiel sur chaque question). Aucune question officielle ACAMS ni « dump ».
+510 questions au total, toutes vérifiées source par source (lien officiel sur chaque question). Aucune question officielle ACAMS ni « dump ».
 
 Les questions sont originales (style examen), ce ne sont pas des questions officielles ACAMS (confidentielles).
 Chaque réponse a été vérifiée contre les textes officiels en septembre 2026 et chaque question porte un champ
@@ -82,7 +82,7 @@ assets/fx.js          sons, confettis, célébrations, sablier
 assets/style.css      styles (clair/sombre)
 data/course/          leçons du cours (m00 à m13)
 data/domain1-4.js     banque de base (150 questions, par domaine)
-data/extra-*.js     lots thématiques : affaires réelles, Europe/UK, pièges, secteurs, monde, KYC avancé, enquêtes, sanctions (260)
+data/extra-*.js     lots thématiques : affaires réelles, Europe/UK, pièges, secteurs, monde, KYC avancé, enquêtes, sanctions, professions et secteurs à risque, crimes sous-jacents, programme AFC, outils et technologies (360)
 assets/video/       vidéo + poster
 assets/fonts/       Inter (licence OFL)
 video-src/          source de la vidéo (animation + son)

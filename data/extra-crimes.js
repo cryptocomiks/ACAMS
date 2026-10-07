@@ -1,7 +1,7 @@
 window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   {
     id: "CRIME-001", domain: 2, topic: "Criminal Finances Act 2017: foreign tax evasion offence (s.46)", hy: true, difficulty: "hard",
-    q: "Lionbank is incorporated in Singapore and has a London branch that serves UK corporate clients. A Singapore-based relationship manager, acting for the bank, knowingly helps a German client hide investment income from the German tax authority through an undisclosed structure. All of the relationship manager's conduct takes place in Singapore. The client's conduct is a crime in Germany and would be a crime if it involved UK tax. Germany has made no request to the UK, and Lionbank's prevention procedures cover UK taxes only. Under the UK Criminal Finances Act 2017, what is Lionbank's MOST likely position?",
+    q: "Lionbank is incorporated in Singapore and has a London branch that serves UK corporate clients. A Singapore-based relationship manager, acting for the bank, knowingly helps a German client hide investment income from the German tax authority through an undisclosed structure. All of the relationship manager's conduct takes place in Singapore. The client's evasion and the relationship manager's help are both crimes in Germany, and both would be crimes if UK tax were involved. Germany has made no request to the UK, and Lionbank's prevention procedures cover UK taxes only. Under the UK Criminal Finances Act 2017, what is Lionbank's MOST likely position?",
     options: [
       "No exposure, because none of the facilitation conduct took place in the United Kingdom",
       "No exposure, because the foreign tax offence applies only to bodies incorporated in the UK",
@@ -58,7 +58,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Laundering of US drug proceeds by over-invoicing fuel sold to a Mexican buyer"
     ],
     answer: [1],
-    explanation: "FinCEN's June 2026 supplemental alert describes cartel 'fiscal fuel theft' (huachicol fiscal): US fuel is smuggled into Mexico, often misdescribed as lubricants or waste oils, to evade Mexico's IEPS import tax. CNE-permit companies may not import fuel, so payments from a Mexican company without a SENER permit are 'highly indicative' of smuggling. The runner-up, northbound crude theft, was the focus of FinCEN's May 2025 alert, but here refined fuel moves south. Nothing points to over-invoicing, and the truck and warehouse details are noise. SARs should use the key term FIN-2026-FISCALFUELTHEFT.",
+    explanation: "FinCEN's June 2026 supplemental alert describes cartel 'fiscal fuel theft' (huachicol fiscal): US fuel is smuggled into Mexico, often misdescribed as lubricants or waste oils, to evade Mexico's IEPS import tax. CNE-permit companies may not import fuel, so payments from a Mexican company without a SENER permit are 'highly indicative' of smuggling. The runner-up, northbound crude theft, was the focus of FinCEN's May 2025 alert, but here refined fuel moves south. Nothing points to over-invoicing. Tanker trucks and a warehouse are ordinary assets for a fuel trader, unlike the luxury goods, real estate and investment purchases the alert flags as laundering of proceeds. SARs should use the key term FIN-2026-FISCALFUELTHEFT.",
     source: [
       { label: "FinCEN FIN-2026-Alert003 (June 2026) – fuel smuggling and tax evasion schemes", url: "https://www.fincen.gov/system/files/2026-06/FinCEN-Alert-Fiscal-Fuel-Theft.pdf" }
     ]
@@ -180,7 +180,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "They are Telegram-based markets that escrow payments and link scammers to launderers"
     ],
     answer: [3],
-    explanation: "FinCEN describes guarantee marketplaces as online markets, typically networks of Chinese-language Telegram chat groups, that act as trusted intermediaries and hold a buyer's payment in escrow until delivery. They sell money laundering, account-creation and phishing services and connect scam center operators with professional money launderers such as Chinese money laundering networks. They are not insurers, licensed escrow agents or analytics providers. FinCEN found that Huione Group laundered at least $4 billion in illicit proceeds between August 2021 and January 2025.",
+    explanation: "FinCEN describes guarantee marketplaces as online markets, typically networks of Chinese-language Telegram chat groups, that act as trusted intermediaries and hold a buyer's payment in escrow until delivery. They sell money laundering, account-creation and phishing services and connect scam center operators with professional money launderers such as Chinese money laundering networks. They are not insurers, licensed escrow agents or analytics providers. FinCEN says Huione Group laundered $4 billion worth of illicit proceeds between August 2021 and January 2025.",
     source: [
       { label: "FinCEN FIN-2026-Alert005 (Sept 2026) – digital asset investment scam centers", url: "https://www.fincen.gov/system/files/2026-08/FinCEN-Alert-Scam-Centers.pdf" }
     ]
@@ -333,7 +333,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Illegal logging and associated timber trade"
     ],
     answer: [2],
-    explanation: "FinCEN's November 2021 notice (FIN-2021-NTC4) names five environmental crimes: wildlife trafficking, illegal logging, illegal fishing, illegal mining, and waste and hazardous substances trafficking. It gives the export of hazardous waste without the receiving country's permission as a typical example of waste trafficking, which can happen at the collection, transport, sorting, recycling or disposal stage. Here the company is paid to take the waste and then ships it under a false description. SARs should use the key term FIN-2021-NTC4, select field 38(z) and include the keyword 'waste trafficking'.",
+    explanation: "FinCEN's November 2021 notice (FIN-2021-NTC4) names five environmental crimes: wildlife trafficking, illegal logging, illegal fishing, illegal mining, and waste and hazardous substances trafficking. Citing the EPA, it gives the export of hazardous waste without the receiving country's permission as a typical example of waste trafficking, which can happen at the collection, transport, sorting, recycling or disposal stage. Here the company is paid to take the waste and then ships it under a false description. SARs should use the key term FIN-2021-NTC4, select field 38(z) and include the keyword 'waste trafficking'.",
     source: [
       { label: "FinCEN FIN-2021-NTC4 (Nov 2021) – environmental crimes", url: "https://www.fincen.gov/system/files/2021-11/FinCEN%20Environmental%20Crimes%20Notice%20508%20FINAL.pdf" }
     ]
