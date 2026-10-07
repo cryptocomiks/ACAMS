@@ -159,10 +159,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "DATA-011", domain: 4, topic: "Identity proofing steps: resolution, validation, verification", hy: false, difficulty: "medium",
     q: "A fintech's remote onboarding vendor labels each step of its identity proofing flow. Using the definitions in NIST SP 800-63A-4, which labels are correct? (Choose two.)",
     options: [
-      "Comparing the applicant's live selfie with the photo on the passport is identity resolution",
+      "Comparing the applicant's live selfie with the photo on the passport to confirm they match is identity resolution",
       "Checking the passport's security features and chip data to confirm the document is genuine is evidence validation",
-      "Confirming that the passport is genuine and unaltered is identity verification",
-      "Checking the applicant's address against a credit bureau file is identity verification",
+      "Confirming that the passport is genuine, unaltered and issued by a real authority is identity verification",
+      "Checking the applicant's stated home address against a credit bureau file is identity verification",
       "Confirming that the claimed identity corresponds to a single, unique individual in the population served is identity resolution"
     ],
     answer: [1, 4],
