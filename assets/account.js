@@ -32,6 +32,7 @@
     user: function () { return user; },
     client: function () { return client; },
     name: function () { return displayName(); },
+    profile: function () { return user ? profile() : null; },
     open: function (view) { openModal(view || "signup"); },
     // Updates the account's metadata (e.g. leaderboard membership) and returns the updated user.
     setMeta: function (data) {
@@ -60,6 +61,44 @@
     return (u.user_metadata && u.user_metadata.display_name) || (u.email || "").split("@")[0];
   }
 
+  // ---------- Profile: photo, title, LinkedIn (kept in the account metadata; photo in Storage "avatars") ----------
+  var TITLES = ["AML Analyst", "KYC Analyst", "Compliance Officer", "MLRO", "AML Consultant", "Financial Crime Investigator",
+    "Sanctions Specialist", "Fraud Analyst", "Risk Manager", "Internal Auditor", "Regulator", "Student"];
+  function profile(u) {
+    u = u || user;
+    var m = (u && u.user_metadata) || {};
+    var av = typeof m.avatar_url === "string" && /^https:\/\/[a-z0-9]+\.supabase\.co\/storage\/v1\/object\/public\/avatars\//.test(m.avatar_url) ? m.avatar_url : "";
+    return { name: displayName(u), title: String(m.title || "").slice(0, 60), linkedin: normLinkedIn(m.linkedin || "") || "", avatar: av };
+  }
+  // Accepts a full profile URL or just the handle; returns the canonical URL, "" for empty, null if invalid.
+  function normLinkedIn(v) {
+    v = String(v || "").trim();
+    if (!v) return "";
+    var m = v.match(/^(?:https?:\/\/)?(?:[a-z]{2,3}\.)?linkedin\.com\/in\/([A-Za-z0-9_%-]{2,100})\/?(?:[?#].*)?$/i) || v.match(/^@?([A-Za-z0-9_-]{2,100})$/);
+    return m ? "https://www.linkedin.com/in/" + m[1] + "/" : null;
+  }
+  function avatarHtml(p, cls) {
+    return p.avatar ? '<img class="' + (cls || "") + '" src="' + esc(p.avatar) + '" alt="" referrerpolicy="no-referrer">' : esc((p.name || "?").charAt(0).toUpperCase());
+  }
+  // Center-crops and resizes a picked image to a 256 x 256 JPEG.
+  function resizeImage(file) {
+    return new Promise(function (resolve, reject) {
+      if (!file || !/^image\//.test(file.type)) return reject(new Error("Choose an image file (JPG, PNG or WebP)."));
+      if (file.size > 15 * 1024 * 1024) return reject(new Error("This image is too large (15 MB max)."));
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () {
+        var s = Math.min(img.naturalWidth, img.naturalHeight), c = document.createElement("canvas");
+        c.width = c.height = 256;
+        c.getContext("2d").drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, 0, 0, 256, 256);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (b) { b ? resolve(b) : reject(new Error("Could not read this image.")); }, "image/jpeg", 0.85);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error("Could not read this image.")); };
+      img.src = url;
+    });
+  }
+  var pendingPhoto = null;   // { blob, preview } or { remove: true }
+
   // ---------- Header slot ----------
   function renderSlot() {
     if (!slot) return;
@@ -67,7 +106,7 @@
     if (user) {
       var n = displayName();
       slot.innerHTML = '<button class="avatar" id="accBtn" aria-label="Account: ' + esc(n) + '" title="' + esc(n) + '">' +
-        esc(n.charAt(0).toUpperCase() || "?") + '<i class="sync-dot ' + state + '"></i></button>';
+        avatarHtml(profile()) + '<i class="sync-dot ' + state + '"></i></button>';
     } else {
       slot.innerHTML = '<button class="btn sm" id="accBtn">Sign in</button>';
     }
@@ -129,14 +168,24 @@
     } else if (view === "account") {
       var g = PG.gam(), lv = PG.levelFor(g.xp), st = PG.streak(g);
       var stateText = { idle: "Synced", syncing: "Syncing…", saved: "All changes saved", error: "Sync failed, will retry", offline: "Offline, will sync later" }[state] || "Synced";
-      html = '<div class="m-avatar">' + esc(displayName().charAt(0).toUpperCase()) + '</div><h2 id="mTitle">' + esc(displayName()) + "</h2>" +
+      var pf = profile();
+      pendingPhoto = null;
+      html = '<div class="m-avatar" id="mAv">' + avatarHtml(pf) + '</div><h2 id="mTitle">' + esc(displayName()) + "</h2>" +
+        (pf.title ? '<p class="m-title">' + esc(pf.title) + (pf.linkedin ? ' · <a href="' + esc(pf.linkedin) + '" target="_blank" rel="noopener nofollow">LinkedIn</a>' : "") + "</p>" : "") +
         '<p class="muted small">' + esc(user.email) + "</p>" +
         '<div class="m-stats"><div><b>Lv ' + lv.level + "</b><span>" + esc(PG.titleFor(lv.level)) + "</span></div><div><b>" + g.xp.toLocaleString() +
         "</b><span>XP</span></div><div><b>🔥 " + st.current + "</b><span>streak</span></div><div><b>" + Object.keys(g.badges).length + "</b><span>badges</span></div></div>" +
         '<p class="m-sync"><i class="sync-dot ' + state + '"></i>' + stateText + "</p>" +
         (window.CAMSPlan ? (window.CAMSPlan.premium() ? '<p class="m-plan">👑 Premium · <a href="#/premium">Manage</a></p>' : '<p class="m-plan">Free plan · <a href="#/premium">Go Premium</a></p>') : "") +
-        '<form id="mForm" novalidate>' + field("mName", "Display name", "text", 'maxlength="40" value="' + esc((user.user_metadata && user.user_metadata.display_name) || "") + '" placeholder="Shown on the leaderboard if you join"') +
-        '<div class="m-msg" id="mMsg" role="status"></div><button class="btn m-submit" type="submit">Save name</button></form>' +
+        '<form id="mForm" class="m-profile" novalidate><div class="dlabel" style="margin:4px 0 8px">Your profile</div>' +
+        '<div class="m-photo"><label class="btn sm" for="mPhoto">📷 ' + (pf.avatar ? "Change photo" : "Add a photo") + '</label><input id="mPhoto" type="file" accept="image/jpeg,image/png,image/webp" hidden>' +
+        (pf.avatar ? '<button class="link-btn small" id="mNoPhoto" type="button">Remove photo</button>' : "") + "</div>" +
+        field("mName", "Display name", "text", 'maxlength="40" value="' + esc((user.user_metadata && user.user_metadata.display_name) || "") + '" placeholder="Shown on the leaderboard if you join"') +
+        field("mJob", "Title", "text", 'maxlength="60" list="mJobs" value="' + esc(pf.title) + '" placeholder="e.g. AML Consultant"') +
+        '<datalist id="mJobs">' + TITLES.map(function (t) { return '<option value="' + esc(t) + '">'; }).join("") + "</datalist>" +
+        field("mIn", "LinkedIn", "url", 'maxlength="140" value="' + esc(pf.linkedin) + '" placeholder="linkedin.com/in/your-name"') +
+        '<p class="muted small" style="margin:-2px 0 10px">Shown on the leaderboard if you join it, and on your certificate.</p>' +
+        '<div class="m-msg" id="mMsg" role="status"></div><button class="btn primary m-submit" type="submit">Save profile</button></form>' +
         '<button class="btn danger m-out" id="mOut" type="button">Sign out</button>';
     }
     body.innerHTML = html;
@@ -148,6 +197,17 @@
     if (fg) fg.onclick = function () { openModal("forgot"); };
     var out = body.querySelector("#mOut");
     if (out) out.onclick = signOut;
+    var ph = body.querySelector("#mPhoto");
+    if (ph) ph.onchange = function () {
+      var f = ph.files && ph.files[0];
+      resizeImage(f).then(function (blob) {
+        pendingPhoto = { blob: blob, preview: URL.createObjectURL(blob) };
+        body.querySelector("#mAv").innerHTML = '<img src="' + pendingPhoto.preview + '" alt="">';
+        msg("Photo ready: click Save profile.", "ok");
+      }, function (e) { msg(e.message, "err"); });
+    };
+    var np = body.querySelector("#mNoPhoto");
+    if (np) np.onclick = function () { pendingPhoto = { remove: true }; body.querySelector("#mAv").textContent = displayName().charAt(0).toUpperCase(); msg("Photo will be removed when you save.", "ok"); };
     var form = body.querySelector("#mForm");
     if (form) form.onsubmit = function (e) { e.preventDefault(); submit(view, form); };
     var first = body.querySelector("input");
@@ -206,11 +266,26 @@
       });
     } else if (view === "account") {
       var nv = (name.value || "").trim().slice(0, 40);
-      p = client.auth.updateUser({ data: { display_name: nv } }).then(function (r) {
+      var jv = (form.querySelector("#mJob").value || "").trim().slice(0, 60);
+      var li = normLinkedIn(form.querySelector("#mIn").value);
+      if (li === null) { busy(form, false); return msg("Enter a LinkedIn profile link like linkedin.com/in/your-name.", "err"); }
+      var uid = user.id, photo = pendingPhoto;
+      var avatarStep = !photo ? Promise.resolve(profile().avatar)
+        : photo.remove ? client.storage.from("avatars").remove([uid + "/avatar.jpg"]).then(function () { return ""; }, function () { return ""; })
+        : client.storage.from("avatars").upload(uid + "/avatar.jpg", photo.blob, { upsert: true, contentType: "image/jpeg", cacheControl: "3600" }).then(function (r) {
+          if (r.error) throw new Error(/bucket|not found/i.test(r.error.message || "") ? "Photo storage is not set up yet (run supabase/profile.sql)." : r.error.message);
+          return client.storage.from("avatars").getPublicUrl(uid + "/avatar.jpg").data.publicUrl + "?v=" + Date.now();
+        });
+      p = avatarStep.then(function (av) {
+        return client.auth.updateUser({ data: { display_name: nv, title: jv, linkedin: li, avatar_url: av } });
+      }).then(function (r) {
         if (r.error) throw r.error;
         user = r.data.user;
+        pendingPhoto = null;
         renderSlot();
-        msg("Saved.", "ok");
+        if (window.CAMSLeaderboard) window.CAMSLeaderboard.schedule();
+        openModal("account");
+        msg("Profile saved.", "ok");
       });
     }
     } catch (e) { p = Promise.reject(e); }

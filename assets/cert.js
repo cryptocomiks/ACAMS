@@ -106,9 +106,11 @@
     x.fillStyle = "#6b6b70"; x.font = "30px Georgia, serif"; x.fillText("This certifies that", W / 2, 430);
     x.fillStyle = "#1d1d1f"; x.font = "italic bold 84px Georgia, serif"; x.fillText(name || "Your Name", W / 2, 540);
     x.strokeStyle = "#b8963e"; x.lineWidth = 2; x.beginPath(); x.moveTo(W / 2 - 420, 570); x.lineTo(W / 2 + 420, 570); x.stroke();
+    var pf = window.CAMSAccount && window.CAMSAccount.profile && window.CAMSAccount.profile(), dy = 0;
+    if (pf && pf.title) { x.fillStyle = "#8a6d22"; x.font = "600 28px -apple-system, Helvetica, Arial"; x.fillText(pf.title.toUpperCase(), W / 2, 618); dy = 34; }
     x.fillStyle = "#3a3a3c"; x.font = "30px Georgia, serif";
-    x.fillText("has reached the readiness level for the ACAMS CAMS examination (7th edition)", W / 2, 640);
-    x.fillText("on the CAMS Exam Trainer: readiness " + (c.score || 80) + "/100, three mock exams passed (average " + (c.examAvg || 75) + "%).", W / 2, 690);
+    x.fillText("has reached the readiness level for the ACAMS CAMS examination (7th edition)", W / 2, 650 + dy);
+    x.fillText("on the CAMS Exam Trainer: readiness " + (c.score || 80) + "/100, three mock exams passed (average " + (c.examAvg || 75) + "%).", W / 2, 700 + dy);
     // seal
     x.save(); x.translate(W - 300, H - 300);
     x.fillStyle = "#b8963e"; x.beginPath();

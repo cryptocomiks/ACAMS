@@ -10,6 +10,11 @@
   var tab = "week";
   var timer = null, lastSync = 0, missing = false;
   var TABLE_MISSING = /42P01|PGRST205|relation .*leaderboard|leaderboard.*(does not exist|not find)/i;
+  // Profile columns (title, LinkedIn, photo) come from supabase/profile.sql; without them the board works as before.
+  var COLS_MISSING = /42703|PGRST204|column .*(title|linkedin|avatar_url)|(title|linkedin|avatar_url).*column/i;
+  var noProfileCols = false;
+  var AV_RE = /^https:\/\/[a-z0-9]+\.supabase\.co\/storage\/v1\/object\/public\/avatars\//;
+  var IN_RE = /^https:\/\/([a-z]{2,3}\.)?linkedin\.com\/in\/[A-Za-z0-9_%-]{2,100}\/?$/;
 
   var PL = window.CAMSPlan || null;
   function premium() { return !PL || PL.premium(); }
@@ -73,6 +78,8 @@
     };
     var d = PG.dailyResult();
     if (d) { r.daily_date = PG.dayKey(); r.daily_score = d.score; r.daily_ms = Math.round(d.ms); }
+    var pf = acct().profile ? acct().profile() : null;
+    if (pf && !noProfileCols) { r.title = pf.title || null; r.linkedin = pf.linkedin || null; r.avatar_url = pf.avatar || null; }
     return r;
   }
   function isMissing(e) { return TABLE_MISSING.test(((e && (e.message || "")) || "") + " " + ((e && e.code) || "")); }
@@ -82,9 +89,10 @@
     var c = client(), u = acct().user();
     if (!c || !u || !joined() || !premium()) return Promise.resolve();   // only Premium members are published
     lastSync = Date.now();
-    return c.from("leaderboard").upsert(row()).then(function (res) {
-      if (res && res.error) throw res.error;
-      missing = false;
+    var up = function () { return c.from("leaderboard").upsert(row()).then(function (res) { if (res && res.error) throw res.error; missing = false; }); };
+    return up().catch(function (e) {
+      if (!noProfileCols && COLS_MISSING.test((e && e.message) + " " + (e && e.code))) { noProfileCols = true; return up(); }
+      throw e;
     }).catch(function (e) { if (isMissing(e)) missing = true; });
   }
   function schedule() {
@@ -217,11 +225,17 @@
   function load() {
     var c = client(), u = acct().user(), body = $("lbBody");
     if (!c || !body) return;
-    var q = c.from("leaderboard").select("user_id,name,xp_week,xp_total,streak,level,daily_score,daily_ms,daily_date,week,visible").eq("visible", true);
-    if (tab === "week") q = q.eq("week", PG.weekKey()).order("xp_week", { ascending: false });
-    else if (tab === "daily") q = q.eq("daily_date", PG.dayKey()).order("daily_score", { ascending: false }).order("daily_ms", { ascending: true });
-    else q = q.order("xp_total", { ascending: false });
-    q.limit(50).then(function (res) {
+    var query = function () {
+      var q = c.from("leaderboard").select("user_id,name,xp_week,xp_total,streak,level,daily_score,daily_ms,daily_date,week,visible" + (noProfileCols ? "" : ",title,linkedin,avatar_url")).eq("visible", true);
+      if (tab === "week") q = q.eq("week", PG.weekKey()).order("xp_week", { ascending: false });
+      else if (tab === "daily") q = q.eq("daily_date", PG.dayKey()).order("daily_score", { ascending: false }).order("daily_ms", { ascending: true });
+      else q = q.order("xp_total", { ascending: false });
+      return q.limit(50).then(function (res) {
+        if (res.error && !noProfileCols && COLS_MISSING.test(res.error.message + " " + res.error.code)) { noProfileCols = true; return query(); }
+        return res;
+      });
+    };
+    query().then(function (res) {
       if (res.error) throw res.error;
       if (!$("lbBody")) return;
       drawBoard(body, res.data || [], u);
@@ -244,7 +258,9 @@
     var meId = u ? u.id : "me-local", m = mine();
     var rows = real.slice(), me = rows.filter(function (r) { return r.user_id === meId; })[0];
     if (!me && (tab !== "daily" || m.daily != null)) {
-      me = { user_id: meId, you: true, name: "You", xp_week: m.week, xp_total: m.total, streak: m.streak, level: PG.levelFor(m.total).level };
+      var pf = acct().profile ? acct().profile() : null;
+      me = { user_id: meId, you: true, name: "You", xp_week: m.week, xp_total: m.total, streak: m.streak, level: PG.levelFor(m.total).level,
+        title: pf && pf.title, avatar_url: pf && pf.avatar };
       if (m.daily != null) { var d = PG.dailyResult(); me.daily_score = d.score; me.daily_ms = d.ms; }
       rows.push(me);
     }
@@ -270,7 +286,25 @@
     // Names are user-provided: set them as text, never as HTML.
     var order = [1, 0, 2].filter(function (i) { return podium[i]; });
     Array.prototype.forEach.call(body.querySelectorAll(".pod:not(.empty) .pname"), function (el, k) { el.textContent = nm(podium[order[k]]); });
-    Array.prototype.forEach.call(body.querySelectorAll(".lb-list .nm"), function (el, k) { el.textContent = nm(rows[k]); });
+    Array.prototype.forEach.call(body.querySelectorAll(".lb-list .nm"), function (el, k) {
+      var r = rows[k];
+      el.textContent = nm(r);
+      if (r.bot) return;
+      if (r.linkedin && IN_RE.test(r.linkedin)) {
+        var a = document.createElement("a");
+        a.className = "lb-in"; a.href = r.linkedin; a.target = "_blank"; a.rel = "noopener nofollow"; a.textContent = "in";
+        a.setAttribute("aria-label", "LinkedIn profile"); el.appendChild(a);
+      }
+      if (r.title) { var t = document.createElement("small"); t.textContent = String(r.title).slice(0, 60); el.appendChild(t); }
+    });
+    // Profile photos: only from this project's public avatars bucket.
+    var setAv = function (el, r) {
+      if (!r || r.bot || !r.avatar_url || !AV_RE.test(r.avatar_url)) return;
+      var img = document.createElement("img"); img.alt = ""; img.referrerPolicy = "no-referrer"; img.src = r.avatar_url;
+      el.textContent = ""; el.appendChild(img);
+    };
+    Array.prototype.forEach.call(body.querySelectorAll(".lb-list .av"), function (el, k) { setAv(el, rows[k]); });
+    Array.prototype.forEach.call(body.querySelectorAll(".pod:not(.empty) .pav"), function (el, k) { setAv(el, podium[order[k]]); });
   }
 
   A.route("ranks", render);

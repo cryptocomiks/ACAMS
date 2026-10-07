@@ -63,7 +63,7 @@ Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être a
 - **Sans compte** : tout marche, la progression reste dans le navigateur.
 - **Avec compte** (Supabase, email + mot de passe) : progression synchronisée entre appareils (fusion à chaque envoi :
   un onglet resté ouvert n'écrase jamais la progression faite ailleurs). Activation : voir `supabase/README.md`
-  (créer le projet, lancer `supabase/schema.sql`, `supabase/leaderboard.sql` puis `supabase/community.sql`, coller l'URL et la clé *anon* dans `assets/config.js`).
+  (créer le projet, lancer `supabase/schema.sql`, `supabase/leaderboard.sql`, `supabase/community.sql` puis `supabase/profile.sql`, coller l'URL et la clé *anon* dans `assets/config.js`).
 - **Classements** (onglet Ranks) : XP de la semaine, défi du jour, all-time. Participation volontaire avec un nom public
   choisi, on peut quitter à tout moment. Les scores sont calculés dans le navigateur ; le serveur les garde plausibles
   (voir `supabase/leaderboard.sql`).
@@ -71,6 +71,8 @@ Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être a
   objectif quotidien (10/20/30/50), 3 quêtes par jour + coffre bonus, records perso, calendrier d'activité, 26 badges,
   score de préparation à l'examen. Sons doux (coupés par défaut, bouton 🔊 en haut).
 - **Révision intelligente** : répétition espacée (Leitner) — une question ratée revient dans la même session (seconde chance, options mélangées), puis en révision après 10 min, 1, 3, 7, 16 et 35 jours ; la pratique mélange automatiquement les erreurs à revoir et la page de résultats propose « Retry my mistakes »
+- **Profil** : photo (recadrée en 256 × 256 et stockée dans le bucket Supabase `avatars`), titre (ex. « AML Consultant ») et lien LinkedIn,
+  affichés dans le compte, sur le classement (si on l'a rejoint) et sur le certificat. Nécessite `supabase/profile.sql`.
 - **Most missed** (`#/mistakes`) : toutes les questions ratées, classées de la plus ratée à la moins ratée, entraînement en un clic sur le top 20.
   Onglet **Community traps** : les questions que les apprenants ratent le plus au premier essai (anonyme, une réponse par personne
   et par question, affiché à partir de 5 apprenants). Nécessite `supabase/community.sql`.
