@@ -19,10 +19,11 @@
     { id: "pass6", name: "Exam Pass · 6 months", price: "39.99", per: "one-time", monthly: 6.67, note: "One payment, no renewal: covers a full prep", save: 33, best: true },
     { id: "annual", name: "Annual", price: "59.99", per: "/ year", monthly: 5.0, note: "Billed yearly, cancel anytime", save: 50 }
   ];
+  var BANK_SIZE = (window.CAMS_QUESTIONS || []).length;
   var BENEFITS = [
-    ["♾️", "Unlimited questions", "All 610 verified questions, every day, by theme or mixed"],
+    ["♾️", "Unlimited questions", "All " + BANK_SIZE + " verified questions, with practical cases, every day, by theme or mixed"],
     ["⏱", "Mock exams", "Timed 30-question exams that mirror the real blueprint"],
-    ["🔁", "Smart review", "Spaced repetition brings back exactly what you forget"],
+    ["🔁", "Smart review", "Missed questions come back: a second chance in the session, then spaced repetition"],
     ["📈", "Exam readiness & analytics", "Predicted score, weak topics, trends by domain"],
     ["⏳", "Lightning & Survival", "The fun modes that make you come back"],
     ["📚", "Full course", "13 lessons, flashcards and the numbers sprint"],
@@ -207,7 +208,7 @@
     } else {
       html += plansHtml(false);
       html += '<div class="card fade-in compare"><table><thead><tr><th></th><th>Free</th><th>Premium</th></tr></thead><tbody>' + [
-        ["Questions", "15 a day, any mode", "Unlimited (610)"], ["Daily challenge", "✓", "✓"], ["Answers and sourced explanations", "✓", "✓"],
+        ["Questions", "15 a day, any mode", "Unlimited (" + BANK_SIZE + ")"], ["Daily challenge", "✓", "✓"], ["Answers and sourced explanations", "✓", "✓"],
         ["Practice, Lightning, Survival, Smart review, by theme", "Within the 15 a day", "Unlimited"], ["Mock exams (timed, 30 questions)", "1 free", "Unlimited"],
         ["Numbers sprint", "1 a day", "Unlimited"], ["Exam readiness and predicted score", "Blurred", "✓"], ["Weak topics and charts", "Blurred", "✓"],
         ["Course lessons", "2 of 13", "All 13 + flashcards + sprint"], ["Leaderboards", "View", "Compete"], ["Exam readiness certificate", "Track the goals", "Download and share"], ["Sync across devices", "With a free account", "✓"]
