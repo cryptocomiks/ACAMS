@@ -36,26 +36,29 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Complicit: providing her office as a registered address shows that she knowingly helped hide the owner"
     ],
     answer: [1],
-    explanation: "In the FATF-Egmont continuum, 'innocent involvement' means no red flag indicators were apparent, while 'unwitting' means basic CDD was done but red flags were missed or their significance misunderstood. FATF guidance treats payments from un-associated or unknown third parties, and registered office facilities without a proper explanation, as risk indicators, so red flags were present and the runner-up, innocent involvement, does not fit. Wilful blindness requires a deliberate choice not to ask further questions, and complicity requires actual knowledge, which the facts exclude.",
+    explanation: "In the FATF-Egmont continuum, 'innocent involvement' means no red flag indicators were apparent, while 'unwitting' means basic CDD was done but red flags were missed or their significance misunderstood. FATF guidance treats payments from un-associated or unknown third parties, and registered office facilities without a proper explanation, as risk indicators; 'travels a lot' does not explain why a new client needs her address. Red flags were present and the runner-up, innocent involvement, does not fit. Wilful blindness requires a deliberate choice not to ask further questions, and complicity requires actual knowledge, which the facts exclude.",
     source: [
       { label: "FATF-Egmont Group – Concealment of Beneficial Ownership (2018), para 108 and Figure 1 (EAG copy)", url: "https://eurasiangroup.org/files/uploads/files/FATF-Egmont-Concealment-beneficial-ownership_eng.pdf" },
-      { label: "FATF RBA Guidance for the Accounting Profession (2019), para 75(w) (copy hosted by Saudi Arabia's AML Permanent Committee)", url: "https://www.aml.gov.sa/en-us/GuidanceReports/RBA%20Accounting%20Profession.pdf" }
+      { label: "FATF RBA Guidance for the Accounting Profession (2019), para 75(w) (copy hosted by Saudi Arabia's AML Permanent Committee)", url: "https://www.aml.gov.sa/en-us/GuidanceReports/RBA%20Accounting%20Profession.pdf" },
+      { label: "FATF Guidance for a Risk-Based Approach: Legal Professionals (June 2019), para 104(y)(ii) (copy hosted by Malta's FIAU)", url: "https://fiaumalta.org/app/uploads/2020/10/20190916-FATF-Guidance-for-Legal-Professionals.pdf" }
     ]
   },
   {
-    id: "PROF-004", domain: 1, topic: "Law firm client account used as a banking facility", hy: true, difficulty: "hard",
-    q: "Lindqvist & Hale LLP, a London law firm, holds a client account at Northbridge Bank. Over five months the account received GBP 2.3 million from Corvane Holdings, a BVI company owned by a long-standing private client of the firm. In the same period, the firm paid out of that client's ledger school fees, a yacht crew's salaries, a car dealer's invoice and transfers to the client's relatives in three countries. The partner explains that the client 'finds it easier to have us handle his payments' and that every payment was properly recorded on the client ledger. The firm also acted for the client on a lease renewal during the period and billed GBP 6,000. Which concern is MOST significant?",
+    id: "PROF-004", domain: 1, topic: "SRA Accounts Rule 3.3: which client account payments are connected to regulated services", hy: true, difficulty: "hard",
+    q: "Northbridge Bank's financial crime team reviews a month of payments out of the client account of Lindqvist & Hale LLP, a law firm in England regulated by the Solicitors Regulation Authority (SRA). Which payments are consistent with rule 3.3 of the SRA Accounts Rules, as the SRA explains it in its warning notice and case studies? (Choose two.)",
     options: [
-      "The client account is being used as a banking facility for payments with no underlying legal service",
-      "The firm holds the client's money in a pooled client account rather than a separate designated account",
-      "The firm billed only GBP 6,000 in fees on a client ledger that handled GBP 2.3 million",
-      "The funds came from a company incorporated in an offshore financial centre"
+      "On a house sale the firm handled, paying the estate agent's commission out of the sale proceeds before sending the balance to the seller",
+      "Paying the school fees and household bills of a long-standing private client who lives abroad, from money he keeps on account because he finds online banking inconvenient",
+      "On a remortgage, paying off the borrower's credit card balances because the lender's mortgage offer lists those specific debts as a condition of completion",
+      "Holding money for a newly arrived client who has no UK bank account yet and says she will instruct the firm once a business deal comes through",
+      "Receiving stamp duty from a client to whom the firm gave only stand-alone tax advice on a purchase it did not handle, and paying it to HMRC for her"
     ],
-    answer: [0],
-    explanation: "Rule 3.3 of the SRA Accounts Rules says a client account must not be used to provide banking facilities to clients or third parties, and payments through it must relate to the firm's delivery of regulated services. The FATF's legal professionals guidance (paras 44-45) adds that no funds may pass through a client account without an underlying legal transaction or purpose, and that criminals value client accounts because of the respectability a lawyer adds. Proper ledger entries do not cure the problem, and the small lease matter does not explain personal payments. The offshore source and the low fees are supporting risk factors, not the core issue, and pooled client accounts are normal practice.",
+    answer: [0, 2],
+    explanation: "Rule 3.3 says a client account must not be used to provide banking facilities, and payments into or out of it must be in respect of the firm's delivery of regulated services. The SRA's warning notice says usual payments related to the transaction, such as estate agents' fees on a conveyancing matter, are not affected, and its case studies treat paying debts named as a condition of a mortgage offer as part of the regulated service. Paying a client's routine outgoings for convenience is no longer justifiable: convenience, or lacking a UK bank account, is not a legitimate reason. The runner-up, paying stamp duty, fails because the firm did not act on the purchase, and a retainer for stand-alone advice gives no reason for the money to pass through client account rather than be paid by the client directly.",
     source: [
       { label: "SRA Accounts Rules, rule 3.3 – no banking facilities through client account", url: "https://www.sra.org.uk/solicitors/standards-regulations/accounts-rules/" },
-      { label: "FATF Guidance for a Risk-Based Approach: Legal Professionals (June 2019), paras 43-45", url: "https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Rba-legal-professionals.html" }
+      { label: "SRA – Warning notice: Improper use of client account as a banking facility (updated March 2023)", url: "https://www.sra.org.uk/solicitors/guidance/improper-client-account-banking-facility/" },
+      { label: "SRA – Case studies: Improper use of client account as a banking facility (updated March 2023)", url: "https://www.sra.org.uk/solicitors/guidance/improper-use-client-account-banking-facility/" }
     ]
   },
   {
@@ -165,16 +168,17 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     source: [{ label: "FATF RBA Guidance for the Accounting Profession (2019), paras 23 and 30 (Saudi AML Permanent Committee copy)", url: "https://www.aml.gov.sa/en-us/GuidanceReports/RBA%20Accounting%20Profession.pdf" }]
   },
   {
-    id: "PROF-012", domain: 1, topic: "TCSPs: indicators of an undisclosed nominee arrangement", hy: true, difficulty: "hard",
-    q: "Arlen Shipping Services Ltd banks with Meridian Bank. Its sole director, Ms. Paola Ferri, is an employee of Coralstone Corporate Services, a licensed corporate service provider in an offshore centre, and she is a director of 37 unconnected companies. Over three months, payment instructions for Arlen arrive by email from an address belonging to 'D.K.', who is neither an officer nor a shareholder, and Ms. Ferri countersigns each one within minutes, including a USD 2.1 million transfer to a new beneficiary. Arlen's shareholder is a company administered by Coralstone. Arlen files its accounts on time, and Coralstone has a clean regulatory record. Which conclusion is MOST supported?",
+    id: "PROF-012", domain: 1, topic: "FATF TCSP guidance: indicators of an undisclosed nominee arrangement", hy: true, difficulty: "hard",
+    q: "During a periodic review, Meridian Bank notes several facts about its customer Arlen Shipping Services Ltd. Coralstone Corporate Services, a corporate service provider licensed and supervised in an offshore centre, administers the company. Under the FATF's risk-based guidance for trust and company service providers (TCSPs), which facts are indicators that an undisclosed nominee arrangement may exist? (Choose two.)",
     options: [
-      "Ms. Ferri is the beneficial owner, because as sole director she controls Arlen as its senior managing official",
-      "Nothing is unusual, because a licensed provider supplying professional directors offers a lawful, recognised service",
-      "Coralstone is acting as a shell bank, because it serves many companies without a physical presence of its own",
-      "The indicators point to an undisclosed nominee arrangement, so the bank should identify 'D.K.' and who really controls Arlen"
+      "Arlen's sole director and registered shareholder, Ms. Paola Ferri, is a salaried Coralstone administrator, while Arlen owns vessels worth USD 40 million",
+      "Coralstone is shown on Arlen's public records as the provider of its registered office and company secretary",
+      "Payment instructions arrive by email from 'D.K.', who is neither an officer nor a shareholder, and Ms. Ferri approves each one within minutes without asking questions",
+      "Arlen files its annual accounts on time, audited by an external firm",
+      "Coralstone is licensed and supervised by the offshore centre's financial services regulator"
     ],
-    answer: [3],
-    explanation: "The FATF TCSP guidance (para 204) lists indicators of an undisclosed nominee arrangement, including a director holding many appointments to unconnected companies, a TCSP accustomed to acting on the instructions of someone who is not the director, and instructions approved extremely quickly without challenge. All three are present. The runner-up is half right: providing directors is lawful (para 200), but only where the role is transparent; here the real decision-maker is hidden. A nominee director is not the beneficial owner, and a service provider is not a bank, so the shell bank label is wrong.",
+    answer: [0, 2],
+    explanation: "Paragraph 204 of the FATF TCSP guidance lists indicators of an undisclosed nominee arrangement. They include a director or shareholder whose profile, or whose source of wealth, is inconsistent with the entity's activities and assets; a TCSP used to acting on the instructions of someone who is not the director; and instructions that are approved extremely quickly without challenge. The runner-up, Coralstone as registered office and secretary, is the transparent model that paragraph 200 describes: legitimate when the provider's role is visible on the entity's records. Timely audited accounts and the provider's licence are not nominee indicators and do not rule out a hidden controller, so the bank should identify 'D.K.' and who really controls Arlen.",
     source: [
       { label: "FATF Guidance for a Risk-Based Approach: Trust and Company Service Providers (June 2019), paras 198-204 (copy hosted by Malta's FIAU)", url: "https://fiaumalta.org/app/uploads/2020/10/20190916-FATF-Guidance-for-Trust-and-Company-Service-Providers.pdf" }
     ]
@@ -227,6 +231,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "PROF-016", domain: 3, topic: "UK MLRs reg. 37: simplified due diligence on a pooled client account", hy: true, difficulty: "hard",
+    changed: "SI 2026/621 (30 June 2026) added reg. 29(10)-(18) pooled account duties for accounts opened from that date; reg. 37(5) conditions unchanged",
     q: "A UK bank applies simplified due diligence (SDD) to the pooled client account of Ferris Molina LLP, a UK law firm supervised for AML purposes, having assessed the relationship as low risk. The account receives EUR 900,000 from a company in a country on the FATF increased-monitoring list. When the bank asks on whose behalf the money is held, the firm replies that client confidentiality prevents it from naming the client but that the matter is 'a routine property deal'. The firm has banked with the bank for 15 years without incident. What should the bank do FIRST?",
     options: [
       "Continue SDD, because a supervised law firm is responsible for its own clients' due diligence",
@@ -235,8 +240,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Stop applying SDD to the pooled account, since a condition for it is no longer met, and review the activity for suspicion"
     ],
     answer: [3],
-    explanation: "Regulation 37(5) of the UK MLRs allows SDD on a pooled account held by a supervised relevant person only if the relationship is low risk and information on the identity of the persons on whose behalf money is held is available to the bank on request. Regulation 37(8) forbids continuing SDD if the risk assessment changes or the bank suspects money laundering. The refusal breaks condition (b) and, with a high-risk-country source, calls for an assessment of whether a SAR is needed. The runner-up, continuing SDD, treats the firm's supervised status as enough, but that is only one of the conditions. Closing and returning funds before assessing suspicion is premature, and the supervisor does not answer the bank's own CDD questions.",
-    source: [{ label: "UK MLRs 2017, regulation 37(5), (6) and (8) (legislation.gov.uk, as amended to 2026)", url: "https://www.legislation.gov.uk/uksi/2017/692/regulation/37" }]
+    explanation: "Regulation 37(5) of the UK MLRs allows SDD on a pooled account held by a supervised relevant person only if the relationship is low risk and information on the identity of the persons on whose behalf money is held is available to the bank on request. Regulation 37(8) forbids continuing SDD if the risk assessment changes or the bank suspects money laundering. The refusal breaks condition (b) and, with a high-risk-country source, calls for an assessment of whether a SAR is needed. The runner-up, continuing SDD, treats the firm's supervised status as enough, but that is only one of the conditions. Closing and returning funds before assessing suspicion is premature, and the supervisor does not answer the bank's own CDD questions. Since 30 June 2026, for pooled accounts opened from that date, regulation 29(14) and (18) also oblige the account holder to give this information on request, and confidentiality is no bar (only legal professional privilege is).",
+    source: [
+      { label: "UK MLRs 2017, regulation 37(5), (6) and (8) (legislation.gov.uk, as amended to 2026)", url: "https://www.legislation.gov.uk/uksi/2017/692/regulation/37" },
+      { label: "The Money Laundering and Terrorist Financing (Amendment) Regulations 2026 (SI 2026/621), reg. 15 (new reg. 29(10)-(18))", url: "https://www.legislation.gov.uk/uksi/2026/621/made" }
+    ]
   },
   {
     id: "PROF-017", domain: 3, topic: "EU AMLR Article 66: disclosure of nominee arrangements to obliged entities", hy: false, difficulty: "hard",
@@ -277,7 +285,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The exemption does not apply where she knows the client seeks advice for money laundering or its predicate offences, which may be inferred from objective facts"
     ],
     answer: [3],
-    explanation: "Article 70(2) of the AMLR exempts notaries, lawyers, other independent legal professionals, auditors, external accountants and tax advisers from reporting information obtained when ascertaining a client's legal position or representing the client in judicial proceedings. The exemption does not apply when they take part in money laundering, give advice for that purpose, or know that the client seeks advice for money laundering or its predicate offences; knowledge or purpose may be inferred from objective factual circumstances. The runner-up stops at the first sentence of the rule. Tax advisers are expressly covered, and Article 70(1) only lets Member States route reports through a self-regulatory body, which must forward them to the FIU promptly and unfiltered.",
+    explanation: "Article 70(2) of the AMLR exempts notaries, lawyers, other independent legal professionals, auditors, external accountants and tax advisers from reporting information obtained when ascertaining a client's legal position or representing the client in judicial proceedings. The exemption does not apply when they take part in money laundering, give advice for that purpose, or know that the client seeks advice for money laundering or its predicate offences; knowledge or purpose may be inferred from objective factual circumstances. Recital 143 protects advice sought on the pending proceedings themselves, but the request to hide profits from invoices for services never supplied is a separate request for help with laundering. The runner-up stops at the first sentence of the rule. Tax advisers are expressly covered, and Article 70(1) only lets Member States route reports through a self-regulatory body, which must forward them to the FIU promptly and unfiltered.",
     source: [{ label: "Regulation (EU) 2024/1624 (AMLR), Article 70 and recital 143 (EUR-Lex)", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }]
   },
   {

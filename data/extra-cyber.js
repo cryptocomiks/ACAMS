@@ -65,16 +65,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "CYBR-005", domain: 1, topic: "SIM swap account takeover and SMS one-time passcodes (FBI PSA I-020822-PSA)", hy: true, difficulty: "hard",
-    q: "At 01:40 on a Sunday, Owen Pryce's phone suddenly shows 'No service'. At 02:05 someone uses the 'forgot password' function of his bank's app, receives the one-time passcode by text message, resets the password, adds a new payee and sends $48,000 to a cryptocurrency exchange. The login came from a device the bank has never seen. Owen often posts about his cryptocurrency gains on social media, and last month he used public Wi-Fi at an airport. A check of his phone on Monday finds no malware. Which typology is MOST likely, and which control would BEST have reduced the risk?",
+    id: "CYBR-005", domain: 1, topic: "SIM swap through a mobile carrier insider: reading the bribe payments (FBI PSA I-020822-PSA)", hy: true, difficulty: "hard",
+    q: "Over three weeks, Kestrel Bank's fraud team links 11 account takeovers. In each, the customer's phone suddenly lost service, a 'forgot password' reset was completed with a one-time passcode sent by text message, and the money was sent to a cryptocurrency exchange. All 11 customers use the same mobile carrier. Separately, monitoring flags Kestrel's own customer Dylan Marsh, 24, a sales associate at one of that carrier's retail stores. In the same period he received 11 peer-to-peer payments of $400 to $600 from senders with no visible link to him, each arriving the day before one of the takeovers. None of the stolen funds reached his account. He recently moved to a new apartment. Which explanation is MOST likely?",
     options: [
-      "Banking trojan malware; antivirus software on the customer's phone",
-      "Credential stuffing; stronger password complexity rules for online banking",
-      "Interception on public Wi-Fi; a mandatory VPN for all mobile banking sessions",
-      "SIM swap account takeover; an authenticator app or security key instead of SMS codes"
+      "Dylan is a money mule who receives a share of the stolen funds and passes the rest on to the criminals",
+      "Dylan is a carrier insider who is paid to move victims' phone numbers to SIM cards the criminals control",
+      "Dylan's store was hit by phishing malware, and the payments are refunds he collects for customers' phone repairs",
+      "Dylan runs an unlicensed money transmitting business for coworkers who need to send money abroad"
     ],
-    answer: [3],
-    explanation: "The FBI's 2022 PSA explains that after a SIM swap the victim's calls and texts go to the criminal's device, who then uses 'forgot password' requests and SMS one-time passcodes to reset passwords and take over accounts. Sudden loss of service is the tell. The FBI recommends stronger MFA such as biometrics, physical security tokens or standalone authenticator apps, and warns people not to advertise crypto holdings online. Password rules are the runner-up, but the attacker reset the password using the SMS code, so its strength did not matter. The clean phone rules out malware, and the airport Wi-Fi is a decoy.",
+    answer: [1],
+    explanation: "The FBI's 2022 PSA says criminals carry out SIM swaps by social engineering the carrier, by phishing carrier employees with malware, or through an insider threat: paying a mobile carrier employee to switch the victim's number to a SIM card in the criminal's possession. Once the number moves, texts go to the criminal, who uses 'forgot password' requests and SMS passcodes to take over accounts. Small payments to a carrier store employee just before each takeover fit a bribe. Money mule is the runner-up, but the stolen funds went to a crypto exchange, not to Dylan, and his payments came before the thefts. The FBI also urges stronger MFA than SMS codes, such as authenticator apps or security keys.",
     source: [
       { label: "FBI IC3 PSA I-020822-PSA (Feb 8, 2022) – SIM swap schemes", url: "https://www.ic3.gov/PSA/2022/PSA220208" }
     ]
@@ -95,16 +95,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "CYBR-007", domain: 1, topic: "Scam center laundering: an exchange customer acting as an OTC broker or P2P exchanger (FIN-2026-Alert005)", hy: true, difficulty: "hard", changed: "FinCEN scam center alert FIN-2026-Alert005, Sept 2026",
-    q: "Northmark Digital, a US-registered virtual asset exchange, reviews Leung Wai-ming, who opened a retail account in 2025 describing himself as a 'part-time trader'. His monthly volume is now $38 million. He buys USDT for fiat from hundreds of unrelated counterparties and almost at once sells similar amounts to others through the exchange's order book, so his net position stays near zero. Many of his USDT deposits come from addresses that had just moved funds from Ethereum to Tron through a DeFi protocol. He files his taxes on time and recently upgraded to a premium account tier. What does this pattern MOST likely indicate?",
+    id: "CYBR-007", domain: 1, topic: "Scam center laundering: mapping a traced flow to FinCEN's three stages (FIN-2026-Alert005)", hy: true, difficulty: "hard", changed: "FinCEN scam center alert FIN-2026-Alert005, Sept 2026",
+    q: "Northmark Digital, a US virtual asset exchange, traces USDT deposited by its customer Leung Wai-ming. The funds left the accounts of 40 retail customers at two other US exchanges, passed through dozens of short-lived addresses, were pooled in one consolidation wallet, and were swapped from Ethereum to Tron through a DeFi protocol before reaching Leung. He sells the USDT for dollars and wires the proceeds to trading companies in Hong Kong. Several of the 40 customers later said they had bought the USDT on the advice of 'investment mentors' who first contacted them by wrong-number texts. Which statement BEST maps this flow to the stages described in FinCEN's September 2026 scam center alert?",
     options: [
-      "High-frequency arbitrage trading that is unusual for a retail customer but has a lawful purpose",
-      "Wash trading meant to inflate the exchange's reported volume and the market price of USDT",
-      "Operation as an unregistered OTC broker or P2P exchanger, likely helping to launder scam proceeds",
-      "A pig butchering victim whom a romance scammer is coaching to buy and sell stablecoins"
+      "The victims' purchases are placement, the cross-chain swap is integration, and Leung's wires are layering, because the money leaves the US last",
+      "Every step after the victims' first purchase is stage two, because all of it happens on a blockchain or at a digital asset exchange",
+      "The victims' purchases and transfers are stage one, the hops, pooling and cross-chain swap are stage two, and Leung's sale for dollars and wires are stage three",
+      "Leung's activity is stage one, because he is the first person in the chain to convert digital assets into fiat currency"
     ],
     answer: [2],
-    explanation: "FinCEN's September 2026 scam center alert lists as a red flag an exchange customer who uses the exchange's liquidity to execute large numbers of offsetting transactions consistent with operating as an OTC broker or P2P exchanger. It explains that launderers swap scam USDT from Ethereum to Tron through DeFi protocols and cash out through underground P2P and OTC services with weak KYC. Arbitrage is the runner-up, but it does not explain hundreds of unrelated fiat counterparties or deposits fresh from cross-chain laundering. Wash trading means trading with oneself, and a coached victim would send funds out rather than run a balanced book.",
+    explanation: "FinCEN's September 2026 alert describes three stages: victim payments (often in digital assets bought at MSBs), on-chain laundering (rapid movement through many addresses, consolidation wallets, mixers and swaps across blockchains, such as moving scam USDT from Ethereum to Tron through DeFi protocols), and integration into the formal financial system through conversion to fiat, money mules and underground P2P and OTC services. It also lists as a red flag an exchange customer who receives stablecoins that came from US exchanges and then went through on-chain laundering patterns. The placement-layering-integration option is the runner-up, but it puts the stages in the wrong order: the cross-chain swap obscures the trail (layering), and the cash-out is the final step.",
     source: [
       { label: "FinCEN Alert FIN-2026-Alert005 (Sept 3, 2026) – Money laundering by digital asset investment scam centers", url: "https://www.fincen.gov/system/files/2026-08/FinCEN-Alert-Scam-Centers.pdf" }
     ]
@@ -151,9 +151,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Structuring through funnel accounts to stay below the UK's currency transaction reporting threshold"
     ],
     answer: [0],
-    explanation: "The NCA's Operation Destabilise (December 2024) exposed the Russian-speaking Smart and TGR networks, which collected cash in one country and made the same value available in another in cryptocurrency: UK cash handovers were followed almost at once by crypto transfers of equal value. Their clients included drug gangs and ransomware actors such as Ryuk; the operation led to 84 arrests and over £20 million seized. Cuckoo smurfing is the runner-up, but it uses accounts of legitimate recipients expecting real remittances, whereas these are shell companies run by the network. The UK has no currency transaction report threshold, so the last option is wrong.",
+    explanation: "The NCA's Operation Destabilise (December 2024) exposed the Russian-speaking Smart and TGR networks, which collected cash in one country and made the same value available in another in cryptocurrency: UK cash handovers were followed almost at once by crypto transfers of equal value. Their clients included drug gangs and ransomware actors such as Ryuk. The operation had led to 84 arrests by December 2024 and, by the NCA's November 2025 update, to 128 arrests and over £25 million seized in the UK. Cuckoo smurfing is the runner-up, but it uses accounts of legitimate recipients expecting real remittances, whereas these are shell companies run by the network. The UK has no currency transaction report threshold, so the last option is wrong.",
     source: [
-      { label: "NCA news (Dec 4, 2024) – Operation Destabilise: Russian money laundering networks", url: "https://nationalcrimeagency.gov.uk/news/operation-destabilise-nca-disrupts-multi-billion-russian-money-laundering-networks-with-links-to-drugs-ransomware-and-espionage-resulting-in-84-arrests" }
+      { label: "NCA news (Dec 4, 2024) – Operation Destabilise: Russian money laundering networks", url: "https://nationalcrimeagency.gov.uk/news/operation-destabilise-nca-disrupts-multi-billion-russian-money-laundering-networks-with-links-to-drugs-ransomware-and-espionage-resulting-in-84-arrests" },
+      { label: "NCA news (Nov 21, 2025) – Operation Destabilise update: 128 arrests", url: "https://www.nationalcrimeagency.gov.uk/news/operation-destabilise-nca-exposes-billion-dollar-money-laundering-network-that-purchased-bank-to-fund-russian-war-effort" }
     ]
   },
   {
@@ -197,7 +198,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "A business email compromise attempt that will be followed by fake invoices from a spoofed supplier"
     ],
     answer: [2],
-    explanation: "The FBI's March 2025 PSA warned of letters mailed to executives claiming to come from the BianLian ransomware group and demanding $250,000 to $500,000 in bitcoin through a QR code within ten days. The FBI assessed them as a scam and found no link to the real group. It advised checking that network defenses are current with no active alerts and reporting to the FBI or IC3. A genuine attack is the runner-up, but forensic work found no intrusion, and OFAC reviews ransomware licence requests with a presumption of denial. The Mexico branch is a decoy.",
+    explanation: "The FBI's March 2025 PSA warned of letters mailed to executives claiming to come from the BianLian ransomware group and demanding $250,000 to $500,000 in bitcoin through a QR code within ten days. The FBI assessed them as a scam and said it had not identified any connection between the senders and the real group. It advised checking that network defenses are current with no active alerts and reporting to the FBI or IC3. A genuine attack is the runner-up, but forensic work found no intrusion, and OFAC reviews ransomware licence requests with a presumption of denial. The Mexico branch is a decoy.",
     source: [
       { label: "FBI IC3 PSA I-030625b-PSA (Mar 6, 2025) – Mail scam claiming ties to ransomware", url: "https://www.ic3.gov/PSA/2025/PSA250306-2" },
       { label: "OFAC Updated Advisory on Ransomware Payments (Sept 21, 2021)", url: "https://ofac.treasury.gov/media/912981/download?inline" }
@@ -316,12 +317,12 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     options: [
       "A fraudster uses stolen credentials to log in to a real customer's account: circumvention, at verification",
       "A fraudster logs in to a real customer's account with phished credentials and an intercepted passcode: compromise, at authentication",
-      "A fraudster opens an account using a stolen identity: compromise, at authentication",
-      "An applicant opens an account in another person's name using that person's stolen details: impersonation, at validation",
+      "An applicant submits forged pay stubs and bank statements to obtain a loan: impersonation, at validation",
+      "A launderer moves funds through money mules and straw buyers to hide the real transactor: compromise, at authentication",
       "An applicant exploits a weak selfie-matching step to tie a stolen ID to herself: impersonation, at authentication"
     ],
-    answer: [1, 3],
-    explanation: "FinCEN's identity FTA describes three exploitations: attackers impersonate others to evade validation, circumvent or exploit insufficient verification, and use compromised credentials to gain unauthorized access during authentication. A stolen-credential login is therefore compromise at authentication, and opening an account in a victim's name is impersonation at validation. Beating a weak matching step is circumvention at verification. FinCEN found that 69 percent of identity-related reports involved impersonation, but compromise had a disproportionately large monetary impact.",
+    answer: [1, 2],
+    explanation: "FinCEN's identity FTA describes three exploitations: attackers impersonate others to evade validation, circumvent or exploit insufficient verification, and use compromised credentials to gain unauthorized access during authentication. A login with phished credentials is account takeover, which is compromise at authentication. Forged records ('False Records') exploit the validation step and are classed as impersonation. Using mules and straw buyers, and beating a weak photo-ID or selfie check, are circumvention at verification. Note that the FTA classes identity theft used to open new accounts as compromise, not impersonation. FinCEN found that 69 percent of identity-related reports involved impersonation, but compromise had a disproportionately large monetary impact.",
     source: [
       { label: "FinCEN Financial Trend Analysis (Jan 2024) – Identity-related suspicious activity: 2021 threats and trends", url: "https://www.fincen.gov/system/files/shared/FTA_Identity_Final508.pdf" }
     ]
@@ -347,14 +348,15 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Over three weeks, Ridgeview Bank's security team blocks 37 malware intrusions into corporate clients' online banking sessions. All use the same malware family, exploit the same browser flaw and connect to the same command-and-control IP addresses, and each tried to send wires of more than $10,000. The BSA officer wants a filing approach that is efficient but complete. Which approach does FinCEN's 2016 cyber-events advisory support?",
     options: [
       "One cumulative SAR covering the similar intrusions, describing the cyber indicators in the narrative, with a CSV of event data if useful",
-      "No SAR, because every intrusion was blocked and no funds left the bank or its corporate clients' accounts",
+      "One cumulative SAR covering the 37 intrusions plus every unrelated phishing email the bank received that month, so the record is complete",
       "One SAR consisting of a CSV attachment that lists all the events, with the narrative left blank to avoid repetition",
       "Thirty-seven separate SARs, because FinCEN does not allow cyber-events affecting different customers to be combined"
     ],
     answer: [0],
-    explanation: "FinCEN's advisory FIN-2016-A005 says institutions facing many similar cyber-events may report them in a single cumulative SAR, for example several malware intrusions sharing methodology, exploited vulnerability and IP addresses. They may attach a CSV file of cyber-event and transaction data, but the CSV is part of, not a substitute for, the narrative. The blocked wires are attempted transactions over $5,000, so a SAR is required; no loss is needed.",
+    explanation: "FinCEN's advisory FIN-2016-A005 says institutions facing many similar cyber-events may report them in a single cumulative SAR, for example several malware intrusions sharing methodology, exploited vulnerability and IP addresses. They may attach a CSV file of cyber-event and transaction data, but the CSV is part of, not a substitute for, the narrative. Cumulative filing is for events that are similar in nature, so unrelated phishing emails do not belong in the same SAR. The blocked wires are attempted transactions over $5,000, so a SAR is required even though no funds were lost.",
     source: [
-      { label: "FinCEN Advisory FIN-2016-A005 (Oct 25, 2016) – Reporting cyber-related information", url: "https://www.fincen.gov/sites/default/files/advisory/2016-10-25/Cyber%20Threats%20Advisory%20-%20FINAL%20508_2.pdf" }
+      { label: "FinCEN Advisory FIN-2016-A005 (Oct 25, 2016) – Reporting cyber-related information", url: "https://www.fincen.gov/sites/default/files/advisory/2016-10-25/Cyber%20Threats%20Advisory%20-%20FINAL%20508_2.pdf" },
+      { label: "FinCEN FAQs on reporting cyber-events through SARs (Oct 25, 2016)", url: "https://www.fincen.gov/sites/default/files/shared/FAQ_Cyber_Threats_508_FINAL.PDF" }
     ]
   },
   {
