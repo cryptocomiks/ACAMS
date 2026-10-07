@@ -42,24 +42,24 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Wednesday 30 September 2026"
     ],
     answer: [1],
-    explanation: "31 CFR 501.603(b)(1) requires an initial blocking report within 10 business days from the date the property becomes blocked. Counting from 20 May and skipping the weekends and Memorial Day gives 21, 22, 26, 27, 28, 29 May and 1, 2, 3, 4 June, so the deadline is Thursday 4 June. The runner-up, 3 June, counts Memorial Day as a business day, and 1 June counts 10 calendar days. The annual report, due by 30 September and covering property held on 30 June, comes on top of the initial report and does not replace it.",
+    explanation: "31 CFR 501.603(b)(1) requires an initial blocking report within 10 business days from the date the property becomes blocked. Counting from 20 May and skipping the weekends and Memorial Day gives 21, 22, 26, 27, 28, 29 May and 1, 2, 3, 4 June, so the deadline is Thursday 4 June. The runner-up, 3 June, counts Memorial Day as a business day. 1 June comes from counting 10 calendar days (to Saturday 30 May) and rolling forward to the next business day. The annual report, due by 30 September and covering property held on 30 June, comes on top of the initial report and does not replace it.",
     source: [
       { label: "31 CFR 501.603 – initial and annual blocking reports", url: "https://www.ecfr.gov/current/title-31/section-501.603" }
     ]
   },
   {
-    id: "SANP-004", difficulty: "medium", domain: 3, topic: "Blocked letter of credit documents: how to report them", hy: false,
-    q: "Brookline Bank, a US bank, confirmed a USD 3.4 million letter of credit for a fertilizer shipment. When the beneficiary presents documents, screening shows that it became 60% owned by an SDN after the credit was issued. The bank blocks the documents and holds them; no payment has been made. The trade operations team must complete the initial blocking report. How should the bank report the blocked documents?",
+    id: "SANP-004", difficulty: "hard", domain: 3, topic: "Blocked foreign-currency funds under a letter of credit: reporting the value", hy: false,
+    q: "Brookline Bank, a US bank, confirmed a EUR 3.2 million letter of credit for a fertilizer shipment. When the beneficiary presents documents, screening shows that it became 60% owned by an SDN after the credit was issued. The bank has already received the euro cover funds from the issuing bank, so it blocks those EUR 3.2 million and holds the shipping documents. The trade operations team is completing the initial blocking report for the blocked funds. A colleague says that anything linked to a letter of credit is reported at zero. How should the bank report the value of the blocked funds?",
     options: [
-      "Report a value of USD 3.4 million, the face amount of the letter of credit, and attach nothing beyond the report form",
-      "Make no report until payment under the credit falls due, because only funds, not documents, are blocked property",
-      "Report them only in the next annual report of blocked property, because documents have no cash value",
-      "Report a value of USD 0.00, give the value of the shipment in the narrative, and attach copies of the credit, bill of lading and invoice"
+      "Report USD 0.00 and describe the euro amount in the narrative, because value under a letter of credit is always reported as zero",
+      "Report the amount in euros, the currency in which the funds were received, without converting it",
+      "Report the value in US dollars, give the euro amount and the notional exchange rate in the narrative, and attach copies of the credit and related documents",
+      "Leave the value out of the initial report and show it only in the annual report, valued as of 30 June"
     ],
-    answer: [3],
-    explanation: "Under 31 CFR 501.603(b)(1)(ii)(F), blocked trade finance documents are reported as USD 0.00, with the value of the shipment given in a narrative description. Paragraph (I) requires a copy of any letter of credit, bill of lading, invoice or other relevant document. The documents are property in which a blocked person has an interest, so the 10-business-day initial report applies; the annual report does not replace it.",
+    answer: [2],
+    explanation: "Under 31 CFR 501.603(b)(1)(ii)(F), transactions blocked in foreign currencies must be reported in US dollars, with the foreign currency amount and a notional exchange rate in the narrative. Paragraph (I) requires copies of any letter of credit, bill of lading, invoice or other relevant documents. The runner-up, USD 0.00, applies to blocked trade finance documents themselves (and to loans and other negative balances), not to blocked funds. Reporting in euros ignores the dollar rule, and the annual report, due by 30 September, comes on top of the 10-business-day initial report.",
     source: [
-      { label: "31 CFR 501.603 – reporting value of blocked trade finance documents", url: "https://www.ecfr.gov/current/title-31/section-501.603" }
+      { label: "31 CFR 501.603 – reporting the value of blocked property (foreign currency, trade documents)", url: "https://www.ecfr.gov/current/title-31/section-501.603" }
     ]
   },
   {
@@ -96,15 +96,15 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "SANP-007", difficulty: "hard", domain: 3, topic: "OFAC General Factors: five-year look-back for sanctions history", hy: false,
-    q: "In 2026, OFAC is assessing apparent violations by Ridgeway Freight, a US freight forwarder, involving shipments made in February 2025. Ridgeway's file shows a civil penalty settlement in 2017 for Sudan-related shipments, a cautionary letter in January 2019 about a Cuba-related payment, and a Finding of Violation in September 2022 for Iran-related services. Ridgeway's counsel argues that none of these matters should count, because none of them was a penalty imposed within the last three years. Which part of Ridgeway's history will OFAC generally consider under the 'sanctions history' factor?",
+    q: "In 2026, OFAC is assessing apparent violations by Ridgeway Freight, a US freight forwarder, involving shipments made in February 2023. Ridgeway's file shows a civil penalty settlement in 2017 for Sudan-related shipments, a cautionary letter in January 2019 about a Cuba-related payment, and a Finding of Violation in September 2022 for Iran-related services. Ridgeway's counsel argues that none of these matters should count, because none of them was a penalty imposed within the last three years. Which part of Ridgeway's history will OFAC generally consider under the 'sanctions history' factor?",
     options: [
-      "Only the September 2022 Finding of Violation, because OFAC generally looks back five years from the date of the transaction",
+      "Only the September 2022 Finding of Violation, because OFAC looks back five years from the start of its investigation in 2026",
       "All three matters, because the statute of limitations and OFAC's look-back period for sanctions history are both 10 years",
       "None of them, because only civil penalties count, and cautionary letters and Findings of Violation are not penalties",
-      "The 2019 cautionary letter and the 2022 Finding of Violation, because OFAC looks back five years from the start of its investigation"
+      "The January 2019 cautionary letter and the September 2022 Finding of Violation, because OFAC looks back five years from the date of the transactions"
     ],
-    answer: [0],
-    explanation: "Under General Factor D.4 of the Enforcement Guidelines, sanctions history includes prior penalties, Findings of Violation and cautionary, warning or evaluative letters, but OFAC generally considers only the five years preceding the date of the transaction giving rise to the apparent violation. From February 2025, that captures the 2022 Finding of Violation but not the 2019 letter or the 2017 settlement. The runner-up confuses the 10-year statute of limitations with this look-back, and the last option measures from the wrong date.",
+    answer: [3],
+    explanation: "Under General Factor D.4 of the Enforcement Guidelines, sanctions history includes prior penalties, Findings of Violation and cautionary, warning or evaluative letters, but OFAC generally considers only the five years preceding the date of the transaction giving rise to the apparent violation. Counting back from February 2023 captures the 2019 letter and the 2022 Finding of Violation, but not the 2017 settlement. The runner-up measures the five years from the wrong date and so drops the 2019 letter. The 10-year figure is the statute of limitations, not the look-back, and letters and findings do count.",
     source: [
       { label: "31 CFR Part 501, Appendix A – General Factor D.4 (sanctions history)", url: "https://www.ecfr.gov/current/title-31/part-501/appendix-Appendix%20A%20to%20Part%20501" }
     ]
@@ -220,16 +220,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "SANP-015", difficulty: "hard", domain: 3, topic: "Alert backlogs after mass designations: precautionary restrictions", hy: false,
-    q: "After a wave of 300 Russia-related designations, Fenwick Bank's level-3 sanctions queue holds 4,000 alerts, and some customer alerts have waited three weeks for a decision. To cut the workload, the head of operations proposes a new rule: restrict an account only once there is evidence that a designated person owns 50% or more of the customer. Until then, escalated accounts would stay fully operational. Fenwick has also hired two contractors for the queue. Which approach BEST manages the risk?",
+    id: "SANP-015", difficulty: "hard", domain: 3, topic: "Mass designations: restricting escalated accounts before the ownership decision", hy: false,
+    q: "After a wave of 300 Russia-related designations, Fenwick Bank's level-3 sanctions queue holds 4,000 alerts, and some customer alerts have waited three weeks for a decision. Until now, staff have had to restrict every account escalated to level 3 while the ownership and control review is completed. To cut the workload, the head of operations proposes restricting an escalated account only once there is evidence that a designated person owns 50% or more of the customer. Fenwick has already triaged the queue by risk and value and hired two contractors. Which approach BEST manages the sanctions risk while the backlog lasts?",
     options: [
-      "Adopt the proposal, because restricting accounts without evidence of 50% ownership would harm customers who turn out not to be linked",
-      "Restrict escalated accounts as a precaution while they are investigated, prioritise alerts by risk and value, and add capacity to clear the backlog",
-      "Close every account with any Russian nexus, which removes the backlog and the sanctions risk in one step",
-      "Pause screening of payments below GBP 10,000 until the backlog is cleared, to focus analysts on high-value alerts"
+      "Adopt the proposal, because restricting accounts without evidence of 50% ownership harms customers who turn out not to be linked",
+      "Keep restricting escalated accounts as a precaution until the review is decided, whatever stake has been found so far, and lift the restriction promptly when an alert is cleared",
+      "Leave escalated accounts open, but add more contractors and automate triage so that decisions come faster",
+      "Pause screening of payments below GBP 10,000 until the backlog is cleared, so that analysts can focus on high-value alerts"
     ],
     answer: [1],
-    explanation: "In its 2026 penalty on Citibank N.A. London Branch, OFSI found that alerts stayed undecided for weeks after the 2022 designation surge and that payments flowed from accounts that should have been frozen. It noted that changing guidance so that accounts were restricted only on evidence of 50% or greater ownership increased the risk and duration of unrestricted accounts. The runner-up reproduces that mistake. Precautionary restrictions, risk-based triage and enough resources follow the Framework's call for adequate resourcing; blanket exits and paused screening are not risk-based.",
+    explanation: "In its 2026 penalty on Citibank N.A. London Branch, OFSI found that alerts stayed undecided for weeks after the 2022 designation surge, and that payments flowed from accounts that should have been frozen. The bank had changed its guidance so that staff requested restrictions only on evidence of 50% or greater ownership, instead of restricting every escalated account. OFSI said this increased both the risk of accounts being left unrestricted and how long they stayed so. Faster decisions, the runner-up, help, but they leave escalated accounts open while the queue lasts. The proposal repeats Citibank's mistake, and paused screening is not risk-based.",
     source: [
       { label: "OFSI – Imposition of monetary penalty, Citibank N.A. London Branch (2026)", url: "https://www.gov.uk/government/publications/imposition-of-monetary-penalty-citibank-na-london-branch" }
     ]

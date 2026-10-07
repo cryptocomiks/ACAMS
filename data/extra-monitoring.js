@@ -5,7 +5,7 @@
   var WAI = { label: "Wolfsberg Principles for Using Artificial Intelligence and Machine Learning in Financial Crime Compliance (2022)", url: "https://db.wolfsberg-group.org/assets/ae8ec2d1-da45-4cef-b6c6-166e2cf17c03/Wolfsberg%20Principles%20for%20Using%20Artificial%20Intelligence%20and%20Machine%20Learning%20in%20Financial%20Crime%20Compliance.pdf" };
   var SR = { label: "Federal Reserve/OCC/FDIC, SR 26-2 attachment: Supervisory Guidance on Model Risk Management (17 April 2026)", url: "https://www.federalreserve.gov/supervisionreg/srletters/SR2602a1.pdf" };
   var SRL = { label: "Federal Reserve, SR 26-2 cover letter (supersedes SR 11-7 and SR 21-8)", url: "https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm" };
-  var FATF21 = { label: "FATF (July 2021), Opportunities and Challenges of New Technologies for AML/CFT (copy hosted by the Bank of Russia)", url: "https://www.cbr.ru/Content/Document/File/126302/OCNT.pdf" };
+  var FATF21 = { label: "FATF (July 2021), Opportunities and Challenges of New Technologies for AML/CFT (executive summary paras 6-7, para. 15 and Box 8)", url: "https://www.fatf-gafi.org/en/publications/Digitaltransformation/Opportunities-challenges-new-technologies-for-aml-cft.html" };
   var JS18 = { label: "Fed, FDIC, FinCEN, NCUA and OCC, Joint Statement on Innovative Efforts to Combat Money Laundering and Terrorist Financing (3 December 2018)", url: "https://www.fincen.gov/sites/default/files/2018-12/Joint%20Statement%20on%20Innovation%20Statement%20%28Final%2011-30-18%29_508.pdf" };
   var AIACT = { label: "Regulation (EU) 2024/1689 (AI Act), Art. 5(1)(d), recital 42 and Annex III point 5(b) (EUR-Lex)", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32024R1689" };
   var FCAAI = { label: "FCA, AI Update (2024), paras 2.3 and 3.40-3.41", url: "https://www.fca.org.uk/publication/corporate/ai-update.pdf" };
@@ -36,8 +36,8 @@
       "Record the 4 cases in the tuning report and leave them for the tuning committee to decide on in December"
     ],
     answer: [0],
-    explanation: "Below-the-line testing exists to find activity the system may be missing (false negatives); once real suspicious activity is found, it goes through the normal investigation and reporting process without waiting for tuning governance. The threshold change itself should then follow documented, controlled change management, as NYDFS Part 504.3(c)(4) requires. The runner-up, changing the threshold at once, skips that governance and still leaves the 4 known cases unhandled. Extending the sample or waiting for December delays a possible SAR.",
-    source: [WMSA, N504]
+    explanation: "Below-the-line testing exists to find activity the system may be missing (false negatives); once real suspicious activity is found, it goes through the normal investigation and reporting process without waiting for tuning governance. Under 31 CFR 1020.320(b)(3) a bank must file a SAR within 30 calendar days of initially detecting facts that may be a basis for filing, so the clock does not wait for a committee. The threshold change itself should then follow documented, controlled change management, as NYDFS Part 504.3(c)(4) requires. The runner-up, changing the threshold at once, skips that governance and still leaves the 4 known cases unhandled. Extending the sample or waiting for December delays a possible SAR.",
+    source: [WMSA, N504, { label: "31 CFR 1020.320 – Reports by banks of suspicious transactions (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1020/subpart-C/section-1020.320" }]
   },
   {
     id: "TMON-003", domain: 4, topic: "False negatives: learning from an STR that monitoring missed", hy: true, difficulty: "hard",
@@ -53,35 +53,35 @@
     source: [WMSA, FCTR]
   },
   {
-    id: "TMON-004", domain: 4, topic: "Segmentation: static onboarding segments distorting percentile thresholds", hy: false, difficulty: "hard",
-    q: "Lindqvist Bank sets its monitoring thresholds for each customer segment at the 95th percentile of that segment's monthly activity. Segments are fixed at onboarding from the customer type and stated occupation. A review finds that 1,200 accounts in the 'students' segment now behave like small businesses, receiving dozens of card-terminal and online marketplace payouts each month. Their activity has pushed the segment's 95th percentile for monthly credits from SEK 18,000 to SEK 64,000, so few student accounts now alert. The bank refreshes KYC for low-risk retail customers every five years, and the segment thresholds were last approved 14 months ago. Which change BEST addresses the root cause?",
+    id: "TMON-004", domain: 4, topic: "Feeding investigation and SAR findings back into monitoring", hy: false, difficulty: "hard",
+    q: "Investigators at Lindqvist Bank write detailed case narratives. A review of last year's 140 STRs finds that 23 of them name the same three overseas payment agents and the same handful of mobile phone numbers, but this information sits only in closed case files. The monitoring system uses only transaction data and customer static data, so customers who later deal with those agents or use those numbers are treated like any other customer. The head of monitoring wants the next investment to make better use of what investigators have already found. Which approach does the Wolfsberg Group's 2024 monitoring statement support?",
     options: [
-      "Set the student threshold back to SEK 18,000 and keep the onboarding-based segments unchanged",
-      "Add behaviour-based segmentation that regularly re-clusters customers, then recalculate thresholds",
-      "Bring forward the KYC refresh of all student accounts so that stated occupations can be updated",
-      "Replace segment thresholds with one bank-wide threshold so that no segment can drift in this way"
+      "Extract entities and patterns from case narratives and STRs into monitoring, to raise risk scores and find links",
+      "Write one new rule for each of last year's STRs, so that no pattern from a past STR can be missed again",
+      "Wait for formal FIU feedback on the 23 STRs before using any of the information they contain in monitoring",
+      "Leave the information in the case files and rely on the annual risk assessment to pick up the trend"
     ],
-    answer: [1],
-    explanation: "Wolfsberg notes that static segments rely on outdated onboarding information and do not capture the activity customers actually share; it recommends combining known attributes with dynamic statistical clustering so segments stay current. Here misclassified business-like accounts distorted the segment's percentile threshold, and those accounts may also need a CDD review. The runner-up, resetting the threshold to SEK 18,000, leaves the business-like accounts in the student segment, where they would swamp it with alerts, and the drift would recur. A KYC refresh is slow and partial, and a single threshold for everyone is a step backwards.",
+    answer: [0],
+    explanation: "Wolfsberg says FIs should consider feeding information from case investigations and SAR/STR filings back into monitoring platforms, for example by using technology to extract information from case narratives to identify emerging risk patterns. That information can inform future detection, raise the risk score of suspicious entities and reveal previously unknown relationships. The runner-up, one rule per past STR, is the 'no SAR/STR left behind' approach that Wolfsberg says leads to over-alerting and ineffective programmes. Authority feedback is valuable, but the bank does not need it before using its own investigative findings, and an annual risk assessment is too slow and too general to act on specific agents and numbers.",
     source: [WMSA]
   },
   {
-    id: "TMON-005", domain: 4, topic: "Data integrity: sudden fall in value-based alerts after a platform upgrade", hy: false, difficulty: "hard",
-    q: "On 2 September 2026 Meridian Trust Bank upgraded its payments platform. In the next two weeks, alerts from its value-based scenarios fell by 92%, while its velocity scenarios, which count transactions, were unchanged. The daily reconciliation, which compares record counts between the payments platform and the monitoring system, shows no breaks. A business manager says the drop reflects the success of a recent customer exit programme. The monitoring vendor also released a new user interface that week. What should the monitoring team do FIRST?",
+    id: "TMON-005", domain: 4, topic: "UK: automated monitoring does not replace staff suspicion reporting", hy: false, difficulty: "hard",
+    q: "Meridian Trust Bank, a UK bank, goes live with a new automated transaction monitoring system in September 2026. To fund the project, the operations director proposes three savings: stopping AML training for branch and contact-centre staff, withdrawing the internal form that staff use to report suspicions to the nominated officer, and moving the two-person internal-referral team to alert review. He argues that the new system 'sees every transaction' and that last year's high share of SARs from staff referrals (30%) only reflected the weakness of the old system. Which response is MOST consistent with FCA guidance and UK law?",
     options: [
-      "Report the fall in alerts to the board as evidence that the customer exit programme reduced risk",
-      "Ask the vendor to roll back its new user interface, which was released in the same week as the drop",
-      "Reconcile transaction amounts, not just record counts, from source to the monitoring system",
-      "Lower the thresholds of the value-based scenarios until alert volumes return to previous levels"
+      "Approve all three savings, since the automated system now reviews every transaction the bank processes",
+      "Keep staff training and the referral route resourced, since monitoring supplements but does not replace staff",
+      "Withdraw the internal form but keep the training, since staff can still mention suspicions to their line manager",
+      "Approve the savings for one year, then compare SAR numbers with last year before deciding whether to reverse them"
     ],
-    answer: [2],
-    explanation: "Only value-based scenarios dropped and the record counts match, which points to a defect in how amounts are loaded (for example decimal places or currency units). NYDFS Part 504.3(c) requires validation of data integrity and accuracy and complete, accurate transfer from source, and FCA guidance stresses understanding the data entering the system and analysing performance rule by rule. Lowering thresholds would hide the defect, and an exit programme would not affect only value-based rules. The runner-up, rolling back the user interface, targets a screen change that does not feed detection logic.",
-    source: [N504, FCTR]
+    answer: [1],
+    explanation: "FCA guidance (FCTR 4.3.2) lists as good practice the continued allocation of sufficient resources to make manual internal suspicion reporting effective, because transaction monitoring can supplement, but not replace, human awareness in day-to-day business. The law points the same way: the MLRs 2017 (reg. 24) require relevant employees to be regularly trained to recognise and deal with possible money laundering, and POCA s.330 makes it an offence for regulated-sector staff not to disclose knowledge or suspicion to the nominated officer or the NCA, so staff need a clear route to the nominated officer. The runner-up, keeping training but dropping the form, leaves suspicions with line managers, who are not the nominated officer. A one-year trial removes controls that a 30% share of SARs shows are working.",
+    source: [FCTR, { label: "Proceeds of Crime Act 2002, s.330 – failure to disclose: regulated sector (legislation.gov.uk)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/330" }, { label: "Money Laundering Regulations 2017, reg. 24 – training (legislation.gov.uk)", url: "https://www.legislation.gov.uk/uksi/2017/692/regulation/24" }]
   },
   {
     id: "TMON-006", domain: 4, topic: "SR 26-2: using a validated fraud model for a new AML purpose", hy: true, difficulty: "hard",
     changed: "SR 26-2 replaced SR 11-7 and SR 21-8, April 2026",
-    q: "Bayview National Bank ($85 billion in assets) has a validated machine-learning model that scores card transactions for fraud. To cut its AML alert backlog, the operations team wants to use the same fraud score to close transaction monitoring alerts automatically for customers scoring below 0.2. The model was trained on confirmed card fraud losses and performs well against that objective. The vendor says no further review is needed because the code will not change. Internal audit reviewed the bank's model risk management last year and rated it satisfactory. Under the interagency model risk guidance issued in April 2026 (SR 26-2), what is the BEST response?",
+    q: "Bayview National Bank ($85 billion in assets) has a validated machine-learning model that scores card transactions for fraud. To cut its AML alert backlog, the operations team wants to use the same fraud score to close transaction monitoring alerts automatically for customers scoring below 0.2. The model was trained on confirmed card fraud losses and performs well against that objective. The model's vendor says no further review is needed because the code will not change. Internal audit reviewed the bank's model risk management last year and rated it satisfactory. Under the interagency model risk guidance issued in April 2026 (SR 26-2), what is the BEST response?",
     options: [
       "Treat it as a new use: analyse whether the score is valid for closing AML alerts and review controls first",
       "Approve the change, because the model is already validated and its code and data will stay the same",
@@ -93,17 +93,17 @@
     source: [SR, SRL]
   },
   {
-    id: "TMON-007", domain: 4, topic: "ML 'booster' alert scoring: prioritising instead of blind auto-closure", hy: true, difficulty: "hard",
-    q: "Fenwick Bank's rules generate about 30,000 alerts a month, of which 1% are escalated, and a backlog of 22,000 alerts has built up. The bank builds a machine-learning 'booster' model that scores each rule alert. The project sponsor proposes closing every alert scored below 0.15 automatically, with no human review or later checks, which would remove 65% of alerts. In back-testing on 18 months of data, those low-scored alerts included 11 cases that had led to SARs, mostly involving trade-related payments. The model uses transaction data only. Which approach is MOST consistent with FATF and Wolfsberg guidance?",
+    id: "TMON-007", domain: 4, topic: "ML models and typology coverage: evidencing performance against crystallised risk", hy: true, difficulty: "hard",
+    q: "Fenwick Bank has replaced most of its monitoring rules with a machine-learning model that scores customers on about 200 behavioural features. Internal audit asks for the bank's usual 'typology coverage map', which links each red flag in published guidance to the rule that detects it. The model team explains that no single feature corresponds to one red flag. The head of compliance proposes rebuilding a rule for every published red flag and running those rules beside the model, mainly so that the map can be completed. Which approach does the Wolfsberg Group's 2024 monitoring statement support?",
     options: [
-      "Retire the rules and let the model generate alerts directly, since it is more accurate than the rules",
-      "Approve auto-closure as proposed, since 11 missed SARs among many thousands of alerts is acceptable",
-      "Reject the model and clear the backlog only by hiring enough investigators to review every alert",
-      "Use the score to prioritise alerts, with human review of higher risk and tested samples of low scores"
+      "Rebuild a rule for each published red flag beside the model, so that the coverage map is complete again",
+      "Document the model and test it against crystallised risk, such as SARs, confirmed cases and police requests",
+      "Tell internal audit that ML models need no coverage evidence, because they learn new typologies by themselves",
+      "Restrict the model to typologies that already have written rules, so that the old coverage map still applies"
     ],
-    answer: [3],
-    explanation: "Wolfsberg describes ML used as a booster to augment rules, and FATF (2021) says monitoring technology should be integrated with wider systems that keep human analysis for higher-risk alerts, with explainability and auditability. Sampling the low-scored population and fixing the trade-related blind spot keeps the model under control. The runner-up, blanket auto-closure, misreads Wolfsberg: it accepts that chasing 100% recall is ineffective, but not an unmonitored cut-off that misses a whole cluster of SARs. Retiring the rules goes beyond what the evidence supports, and rejecting the model ignores a useful prioritisation tool.",
-    source: [FATF21, WMSA]
+    answer: [1],
+    explanation: "Wolfsberg notes that, unlike rules, ML models cannot simply be mapped to red flags and typologies because they make predictions across large data sets covering many risks, so FIs need to document clearly and analyse ML models against the crystallised outcomes of detection to show how they continue to mitigate risk. It also suggests training on crystallised risk from several sources, including manually raised cases and law enforcement production orders. The runner-up, a rule per red flag, is the 'expanding red flag and typology coverage' that Wolfsberg calls ineffective when the data shows such rules produce little or nothing; published red flags are also generalised and known to criminals. ML still needs evidence, and restricting it to old typologies throws away its value.",
+    source: [WMSA]
   },
   {
     id: "TMON-008", domain: 4, topic: "Unsupervised vs supervised ML for customer grouping", hy: false, difficulty: "medium",
@@ -163,16 +163,17 @@
     options: [
       "Banks must adopt AI-based transaction monitoring by a deadline that each agency will set",
       "Banks with effective, risk-based programs will not be penalized for choosing not to innovate",
-      "A bank running an innovation pilot is exempt from filing SARs on activity the pilot identifies",
+      "A bank must obtain its regulator's written approval before it starts any innovation pilot",
       "Implementing an innovative approach will bring additional regulatory expectations for the bank",
       "FinCEN will consider exceptive relief to help test new technologies if programs stay effective"
     ],
     answer: [1, 4],
-    explanation: "The agencies said they will not penalize or criticize banks that keep effective BSA/AML programs but choose not to innovate, and that FinCEN will consider exceptive relief under 31 CFR 1010.970 to facilitate testing, provided overall program effectiveness is maintained. The statement says innovative approaches will NOT result in additional regulatory expectations, and that banks must keep meeting their BSA obligations, including SAR filing, during pilots. No technology is mandated.",
+    explanation: "The agencies said they will not penalize or criticize banks that keep effective BSA/AML programs but choose not to innovate, and that FinCEN will consider exceptive relief under 31 CFR 1010.970 to facilitate testing, provided overall program effectiveness is maintained. The statement says innovative approaches will NOT result in additional regulatory expectations. It invites early engagement with the agencies on pilots, but it does not require prior approval to start one. The agencies also say they will not advocate any particular method or technology, so nothing is mandated.",
     source: [JS18]
   },
   {
     id: "TMON-013", domain: 4, topic: "EU AI Act and AML monitoring models", hy: true, difficulty: "hard",
+    changed: "AI Act amended by the Digital Omnibus on AI, Regulation (EU) 2026/1744 (in force 27 July 2026); Art. 5(1)(d) and Annex III point 5(b) unchanged, Art. 4 AI literacy recast",
     q: "Aurelia Bank, based in Italy, uses an in-house machine-learning model that scores customers' transactions and raises alerts for human investigators, who decide whether to file a suspicious transaction report. Its data protection officer asks how the EU Artificial Intelligence Act (Regulation (EU) 2024/1689) affects this model. The bank also uses a separate AI model to set credit scores for consumer loans, and its marketing team uses a chatbot. Which statement about the AML monitoring model is MOST accurate?",
     options: [
       "It is a prohibited practice, because it predicts the risk that a natural person will commit an offence",
@@ -181,8 +182,8 @@
       "It is outside the Act entirely, because the Act does not apply to AI used by credit institutions"
     ],
     answer: [2],
-    explanation: "Article 5(1)(d) bans AI risk assessments that predict a person's offending based solely on profiling or personality traits, but not AI that supports human assessment based on objective, verifiable facts; recital 42 adds that the ban does not touch risk analytics such as assessing the likelihood of financial fraud from suspicious transactions. The runner-up confuses this model with credit scoring: Annex III point 5(b) makes creditworthiness and credit-scoring AI high-risk (except fraud detection), so it is the loan model, not the AML model, that is listed. The Act does apply to banks as deployers, for example its AI literacy duty in Article 4.",
-    source: [AIACT]
+    explanation: "Article 5(1)(d) bans AI risk assessments that predict a person's offending based solely on profiling or personality traits, but not AI that supports human assessment based on objective, verifiable facts; recital 42 adds that the ban does not touch risk analytics such as assessing the likelihood of financial fraud from suspicious transactions. The runner-up confuses this model with credit scoring: Annex III point 5(b) makes creditworthiness and credit-scoring AI high-risk (except fraud detection), so it is the loan model, not the AML model, that is listed. The Act does apply to banks as deployers: for example, Article 4, as recast by the July 2026 Digital Omnibus (Regulation (EU) 2026/1744), still requires deployers to take measures to support their staff's AI literacy. The Omnibus did not change Article 5(1)(d) or Annex III point 5(b).",
+    source: [AIACT, { label: "Regulation (EU) 2026/1744 (Digital Omnibus on AI) amending the AI Act (EUR-Lex)", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202601744" }]
   },
   {
     id: "TMON-014", domain: 4, topic: "UK: FCA approach to AI in financial crime systems", hy: false, difficulty: "medium",
@@ -251,16 +252,16 @@
     source: [WMSA]
   },
   {
-    id: "TMON-019", domain: 4, topic: "Tuning by value of output, not conversion rate: national priority scenario", hy: false, difficulty: "hard",
-    q: "Kingsbridge Bank's tuning team reviews a scenario for 'cash deposits followed by payments to online adult-services platforms', built after the national FIU named human trafficking a priority. In 12 months it produced 900 alerts and only 6 STRs, a 0.7% conversion rate against a bank-wide average of 4%. The FIU and police told the bank directly that 4 of the 6 STRs helped identify trafficking victims. A cash-structuring scenario with a 9% conversion rate has never received any feedback. The team proposes retiring the trafficking scenario to free capacity. What is the BEST decision?",
+    id: "TMON-019", domain: 4, topic: "Aligning monitoring with national priorities when none are formally published", hy: false, difficulty: "hard",
+    q: "Kingsbridge Bank operates in a country whose government has never published a formal list of national AML/CFT priorities. The tuning team must decide where to focus new monitoring development in 2027. It has the country's latest national risk assessment, which rates human trafficking and drug-related laundering as the highest threats, and a recent FIU advisory on cash-intensive businesses used by organised crime groups. The bank has almost no exposure to US dollar clearing. The head of monitoring proposes adopting FinCEN's AML/CFT National Priorities instead, because 'that is the only official priority list available'. Which approach does the Wolfsberg Group's 2024 monitoring statement support?",
     options: [
-      "Retire it, since its conversion rate is far below the bank's average and capacity is limited",
-      "Retire it but keep the six customers under enhanced monitoring for another twelve months",
-      "Keep it unchanged and add more scenarios for the same typology to increase red-flag coverage",
-      "Keep it, since feedback shows high-value output on a national priority, and tune out false positives"
+      "Discern priorities from the national risk assessment and the FIU advisory, and focus development on those threats",
+      "Adopt FinCEN's National Priorities, since they are the most detailed official list of priorities available",
+      "Spread development evenly across all published typologies until the government issues formal priorities",
+      "Focus development on the scenarios with the highest alert-to-STR conversion rates, whatever their typology"
     ],
-    answer: [3],
-    explanation: "Wolfsberg says conversion ratios measure the quantity, not the usefulness, of information, that direct feedback from authorities is the best indicator of STR value, and that monitoring should align with national priorities; decisions to keep or stop routines should weigh productivity data and the demonstrated value of STRs. Here the value is proven, so the right response is to tune for precision rather than retire. The runner-up, adding more scenarios, repeats the coverage-for-its-own-sake approach Wolfsberg criticises, and retiring the scenario discards proven value.",
+    answer: [0],
+    explanation: "Wolfsberg says FIs need to understand and align with national priorities however they are communicated: some jurisdictions publish specifically defined priorities, while others rely on more general communications, such as advisories or national risk assessments, from which priorities can be discerned. The runner-up, borrowing FinCEN's list, sets priorities for another country's threats and authorities, and this bank has little US nexus. Spreading effort across every typology is the coverage-for-its-own-sake approach Wolfsberg calls ineffective, and conversion ratios measure the quantity, not the usefulness, of the information reported.",
     source: [WMSA]
   },
   {
