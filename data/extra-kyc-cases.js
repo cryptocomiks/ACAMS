@@ -13,7 +13,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [0],
     explanation: "The EBA ML/TF Risk Factors Guidelines (3.6) say weighting must not make it impossible to rate a relationship high risk. Weighting must not override situations that the Directive or national law treat as always high risk, and firms must be able to override automatic scores and document why. A relationship involving a Commission-listed high-risk third country requires EDD under AMLD Article 18a, so the score must be overridden now. Recalibrating the weights is the runner-up, but it delays the mandatory EDD and does not stop averaging in future. The 'isolated factor' principle (3.3) applies only where the law does not say otherwise. Profit must never influence a risk rating.",
     source: [
-      { label: "EBA – Guidelines on ML/TF risk factors (EBA/GL/2021/02), Guideline 3", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }
+      { label: "EBA – Guidelines on ML/TF risk factors (EBA/GL/2021/02), Guideline 3", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" },
+      { label: "Directive (EU) 2015/849 (AMLD), Article 18a – EUR-Lex", url: "https://eur-lex.europa.eu/eli/dir/2015/849/oj" }
     ]
   },
   {
@@ -27,7 +28,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Since the 2026 amendments, country risk can no longer be taken into account when rating an individual customer"
     ],
     answer: [1],
-    explanation: "Regulation 33(3)(c)(ii) says an individual is 'established in' a country by being resident there, 'but not merely having been born in that country'. Since 30 June 2026, mandatory EDD under regulation 33(1)(b) covers only FATF call-for-action countries, and Ravi is not established in one. The bank must still weigh all risk factors (regulation 33(6)), including the regular payments to a call-for-action country, and decide the right level of CDD. The first option is the runner-up: birthplace alone does not trigger mandatory EDD. SDD is optional under regulation 37, never required. Geographic risk remains a factor.",
+    explanation: "Regulation 33(3)(c)(ii) says an individual is 'established in' a country by being resident there, 'but not merely having been born in that country'. Since 30 June 2026, mandatory EDD under regulation 33(1)(b) covers only FATF call-for-action countries, and Ravi is not established in one. His £300 transfers within the relationship are not 'relevant transactions' (transactions that themselves require CDD under regulation 27), so they do not trigger regulation 33(1)(b) either. The bank must still weigh all risk factors (regulation 33(6)), including the regular payments to a call-for-action country, and decide the right level of CDD. The first option is the runner-up: birthplace alone does not trigger mandatory EDD. SDD is optional under regulation 37, never required. Geographic risk remains a factor.",
     changed: "UK MLRs amended by SI 2026/621 (30 June 2026): mandatory country EDD narrowed to FATF call-for-action countries",
     source: [
       { label: "UK MLRs 2017, regulation 33 (as amended, legislation.gov.uk)", url: "https://www.legislation.gov.uk/uksi/2017/692/regulation/33" },
@@ -69,15 +70,15 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   {
     id: "KYCC-005", domain: 3, difficulty: "hard", hy: false,
     topic: "AMLR Art. 24: discrepancies with the central beneficial ownership register",
-    q: "In March 2028, an EU bank carries out a scheduled review of Kestrel GmbH, a standard-risk customer. The central beneficial ownership register still lists Jonas Weber as a 30% beneficial owner. The bank holds a notarised share transfer deed, confirmed by the commercial register, showing that Weber sold his entire stake eight months ago to Eva Lind, the existing majority owner. Nothing suggests an intention to conceal anything, and Kestrel's directors are cooperative. What should the bank do under Article 24 of the AMLR?",
+    q: "In March 2028, an EU bank carries out a scheduled review of Kestrel GmbH, a standard-risk customer. The central beneficial ownership register still lists Jonas Weber as a 30% beneficial owner. The bank holds a notarised share transfer deed, confirmed by the commercial register, showing that Weber sold his entire stake eight months ago to Eva Lind, the existing majority owner. Nothing suggests an intention to conceal anything, and Kestrel's directors are cooperative. The bank's policy is to use the Article 24 derogation from direct reporting whenever its conditions are met. Under Article 24 of the AMLR, what should the bank do?",
     options: [
       "Invite Kestrel to file the correct information with the central register within 14 calendar days, and report the discrepancy itself if Kestrel does not",
-      "Report the discrepancy to the central register within 14 calendar days of detecting it, whatever its cause",
+      "Rely on the derogation and simply note the discrepancy on file, since outdated data need not be corrected or reported",
       "File a suspicious transaction report, because an inaccurate register entry shows that beneficial ownership is being concealed",
       "Take no action, because the bank already knows the real owners and keeping the register accurate is the company's job"
     ],
     answer: [0],
-    explanation: "Article 24(1) generally requires discrepancies to be reported to the central register within 14 calendar days. Article 24(2)(b) allows an exception when the discrepancy comes from outdated data, the bank knows the beneficial owners from another reliable source, and there is no ground to suspect concealment. The bank then invites the customer to file the correct information within 14 calendar days and must report if the customer does not (Article 24(3)). Immediate reporting is the runner-up, but this case meets the exception, which is not available in higher-risk cases. Doing nothing is not an option, and outdated data alone does not show suspicion.",
+    explanation: "Article 24(1) generally requires discrepancies to be reported to the central register within 14 calendar days. Article 24(2)(b) allows the bank to refrain from reporting when the discrepancy comes from outdated data, the bank knows the beneficial owners from another reliable source, and there is no ground to suspect concealment. This derogation is not available in higher-risk cases under enhanced due diligence. Where the bank concludes the register is wrong, it must invite the customer to file the correct information within 14 calendar days, and must report the discrepancy itself if the customer does not (Article 24(3)). Noting the discrepancy on file is the runner-up, but the derogation only replaces direct reporting with the invitation to correct; it never lets an incorrect entry stand. Doing nothing is not an option, and outdated data alone does not show suspicion.",
     source: [
       { label: "Regulation (EU) 2024/1624 (AMLR), Article 24 – EUR-Lex", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }
     ]
@@ -158,7 +159,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The press article reporting the sale, together with an analyst's estimate of the company's value"
     ],
     answer: [2],
-    explanation: "Under the EBA definitions, source of funds is the origin of the specific funds in the relationship, while source of wealth is the origin of the customer's total wealth. The EBA's EDD examples include a copy of the contract of sale of a company. FATF PEP guidance says source-of-funds information should establish provenance and not stop at knowing which institution sent the money. The sale agreement plus the statement tracing the proceeds does both. Her CV speaks to source of wealth, not to these funds. The remitting bank's name is the runner-up but does not show where the money came from. A press article is only supporting evidence.",
+    explanation: "Under the EBA definitions, source of funds is the origin of the specific funds in the relationship, while source of wealth is the origin of the customer's total wealth. The EBA's EDD examples include a copy of the contract of sale of a company. FATF PEP guidance says source-of-funds information should establish provenance and not stop at knowing which institution sent the money. The sale agreement plus the statement tracing the proceeds does both. Her CV speaks to source of wealth, not to these funds. The remitting bank's name is the runner-up: the EBA definition of source of funds does mention the means of transfer, but knowing which bank sent the money does not show what activity generated it. A press article is only supporting evidence.",
     source: [
       { label: "EBA – Guidelines on ML/TF risk factors (EBA/GL/2021/02), definitions and Guideline 12", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" },
       { label: "FATF Guidance – Politically Exposed Persons, paras 87-88", url: "https://www.fatf-gafi.org/content/dam/fatf-gafi/guidance/Guidance-PEP-Rec12-22.pdf" }
@@ -233,17 +234,17 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "KYCC-015", domain: 3, difficulty: "medium", hy: false,
-    topic: "Event-driven review: scope of the CDD update",
-    q: "Lindqvist Marine Supplies AB is a medium-risk business customer of an EU bank, and its next periodic review is due in 2029. In October 2026, the companies register shows that a new shareholder has acquired 35% of the company. Account activity is unchanged, and the relationship manager says the change can be dealt with at the 2029 review. Which TWO statements reflect the EBA's guidance on keeping CDD up to date? (Choose two.)",
+    topic: "Event-driven review: scaling the CDD update for a lower-risk customer (EBA 4.77-4.78)",
+    q: "Elin Berg, a hospital nurse, has been a low-risk retail customer of an EU bank for 11 years; her next periodic review is due in 2030. For the past five months her account has received EUR 2,000 to 3,000 a month from three small domestic healthcare companies, consistently above the salary-only profile recorded at onboarding. Notes from her mortgage application at the bank last month say she has started a part-time nursing consultancy alongside her hospital job. Nothing else has changed. Which TWO statements reflect the EBA's guidance on keeping CDD up to date? (Choose two.)",
     options: [
-      "The change in ownership structure is information the bank should capture and assess now, not at the 2029 review",
-      "Every trigger event requires the customer to be fully re-onboarded with a complete set of new documents",
-      "Because Lindqvist is medium risk, the change can wait until the 2029 periodic review",
-      "A trigger review is needed only if the new shareholder turns out to be a PEP or a sanctioned person",
-      "The bank need not re-apply every CDD measure, but should decide which measures to apply and to what extent"
+      "Behaviour consistently out of line with the expected profile is information the bank should capture and act on now, not at the 2030 review",
+      "Every change in circumstances requires the customer to be fully re-onboarded with fresh identity documents",
+      "The bank should decide which CDD measures to update and to what extent, and here it may draw on information already obtained in the relationship",
+      "Because Elin is rated low risk and the payments are not suspicious, the profile can wait until the 2030 periodic review",
+      "Activity outside the expected profile is in itself suspicious, so the bank should file a suspicious transaction report before updating her file"
     ],
-    answer: [0, 4],
-    explanation: "EBA Risk Factors Guidelines 4.77 say firms should stay alert to information showing that the risk of a relationship has changed, giving a change in the customer's ownership structure as an example. Guideline 4.78 says a change in circumstances is likely to trigger CDD measures. Firms may not need to re-apply all of them, but should decide which ones to apply and to what extent, and in lower-risk cases they may use information obtained during the relationship. Waiting for the periodic review, or acting only on PEP or sanctions hits, ignores the trigger. Full re-onboarding is not required.",
+    answer: [0, 2],
+    explanation: "EBA Risk Factors Guideline 4.77 says firms should stay alert to, and capture, information showing that the risk of a relationship may have changed, giving behaviour consistently out of line with the expected profile as an example. Guideline 4.78 says a change in circumstances is likely to trigger CDD measures, but firms may not need to re-apply all of them: they should decide which measures to apply and to what extent, and in lower-risk cases they may draw on information obtained during the relationship, such as the mortgage file here. Waiting for the 2030 review ignores the trigger, and the low-risk rating is the reason the update can be light, not a reason to skip it. Full re-onboarding is not required, and activity that the bank can explain from its own records is not grounds for suspicion.",
     source: [
       { label: "EBA – Guidelines on ML/TF risk factors (EBA/GL/2021/02), Guidelines 4.76-4.78", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2021/963637/Final%20Report%20on%20Guidelines%20on%20revised%20ML%20TF%20Risk%20Factors.pdf" }
     ]
@@ -364,48 +365,49 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "KYCC-023", domain: 1, difficulty: "hard", hy: true,
-    topic: "Concealing beneficial ownership: informal nominees (straw men)",
-    q: "Kaspian Freight Ltd, a newly formed import company, applies for a business account. Its sole director and 100% shareholder is Lin Zhao, a 21-year-old foreign student, and projected turnover is EUR 3 million in the first year. At the onboarding meeting, an older man introduced as an 'adviser' answers most questions about suppliers and customers. Lin cannot describe the products or name the main client. She says she agreed to 'help a friend of the family' and receives EUR 500 a month. Her passport and address check out, and there is no adverse media. Which method of concealing beneficial ownership does this MOST likely show?",
+    topic: "Concealing beneficial ownership: shelf companies sold with their bank accounts",
+    q: "Harlow Components Ltd has held a business account at Brenmoor Bank since 2019. A company formation agent opened the account when it incorporated the company, and two of the agent's employees were recorded as its directors and shareholders. Since then the account has shown only small annual fee payments. In September 2026, the agent tells the bank that both directors have resigned and that the shares have been transferred to a buyer abroad, who has appointed a new director. Two weeks later, the new director asks for much higher payment limits, saying the company has 'seven years of trading history' and is bidding for a large supply contract. Which assessment is MOST accurate?",
     options: [
-      "An informal nominee, or 'straw man', fronting for the person who really controls the company",
-      "A formal nominee arrangement supplied by a professional trust or company service provider",
-      "Identity theft, in which Lin's details were used to register the company without her knowledge",
-      "A shelf company, bought with a trading history so that it appears long established"
+      "Harlow is a front company, so the bank should compare its reported revenue with the size of its genuine operations",
+      "Harlow is a shelf company sold with its pre-existing bank account; the change of control calls for full CDD on the new owners and the purpose of the account",
+      "The agent's two former employees remain Harlow's beneficial owners, because they held the shares for seven years before the transfer",
+      "Harlow is a long-standing customer with a clean history, so the bank may raise the limits and update the director's details at the next periodic review"
     ],
-    answer: [0],
-    explanation: "The FATF-Egmont report on concealment of beneficial ownership (2018) describes informal nominees as people with a personal, not professional, link to the real owner. They include family members, associates, and students or tourists persuaded to set up companies for small payments, who are rarely involved in running the company afterwards. A formal nominee arrangement is the runner-up, but it is usually a contract with a professional provider, which is not the case here. Lin knowingly agreed, so this is not identity theft. Kaspian is newly formed, not a shelf company.",
+    answer: [1],
+    explanation: "The FATF-Egmont report defines a shelf company as an incorporated company with inactive shareholders, directors and secretary that is left dormant for a long period, even if a customer relationship already exists. TCSPs sell them, often with bank accounts already opened in the company's name that stay with the company after the sale, which complicates CDD (paras 157-158). Criminals seek the corporate history to lend legitimacy to their schemes (para 159). Harlow's account shows no trading at all, so the 'trading history' claim is false, and the change of control and new purpose require the bank to identify and verify the new beneficial owners and understand the business as if onboarding. A front company is the runner-up, but it is a fully functioning business that mixes illicit and legitimate funds; Harlow has no operations. The agent's employees were nominees, not beneficial owners, and the age of the account says nothing about the new owners.",
     source: [
-      { label: "FATF-Egmont Group – Concealment of Beneficial Ownership (2018), paras 88-92", url: "https://eurasiangroup.org/files/uploads/files/FATF-Egmont-Concealment-beneficial-ownership_eng.pdf" }
+      { label: "FATF-Egmont Group – Concealment of Beneficial Ownership (2018), definitions and paras 157-159", url: "https://eurasiangroup.org/files/uploads/files/FATF-Egmont-Concealment-beneficial-ownership_eng.pdf" }
     ]
   },
   {
     id: "KYCC-024", domain: 1, difficulty: "medium", hy: false,
-    topic: "Misuse of trusts: settlor-reserved powers",
-    q: "An analyst reviews an account application for the Corvane Trust, which holds a USD 15 million investment portfolio and a London flat. The settlor is a businessman under investigation abroad for procurement fraud. He is also named as the protector and as a discretionary beneficiary. The trust deed lets him revoke the trust at any time and have the assets returned, and lets him replace the trustee. The trustee is a small trust company in a secrecy jurisdiction, and the settlor's lawyer drafted all the documents. Which money laundering risk does this structure MOST clearly present?",
+    topic: "Misuse of trusts: a trust in the share register as an extra layer",
+    q: "A bank in a country that follows the FATF Standards is onboarding Meridale Holdings Ltd, which holds a EUR 20 million portfolio of listed shares. Meridale's only shareholder is the Saffron Trust, whose trustee is a small trust company in another jurisdiction. The trust has no bank account and holds no assets other than the Meridale shares. The relationship manager proposes to record the trust company as Meridale's owner and stop there, because 'the trust holds no money, so it cannot be hiding anything'. Which assessment is MOST consistent with the FATF-Egmont findings on how trusts are misused?",
     options: [
-      "Because the trust is discretionary, its beneficiaries cannot be identified at all, which makes CDD impossible",
-      "The trustee company is effectively a shell bank, because it is based in a secrecy jurisdiction",
-      "The settlor keeps effective control of the assets while legal title sits with the trustee, hiding who really owns and controls them",
-      "The London flat indicates that the trust is being used for trade-based money laundering"
+      "Treat the structure as grounds to decline, because the report found that trusts in ownership chains are used almost exclusively by criminals",
+      "Record Meridale's senior managing official as its beneficial owner, because a trust shareholder means that no natural person owns the company",
+      "Trusts are rarely used alone and often sit in a company's share register in place of the real owner, so the bank should look through the trust to the people behind it",
+      "Record the trust company as the beneficial owner, because the trustee holds legal title to the shares and exercises the voting rights"
     ],
     answer: [2],
-    explanation: "The FATF-Egmont report explains that trusts separate legal title from beneficial interest. Deeds that let the settlor keep powers, such as revoking the trust and taking back the assets, or that make the settlor also a beneficiary, allow a person to appear to have parted with assets while still controlling them. Its case study describes a corrupt official who used a revocable trust in this way. Discretionary beneficiaries can still be identified as a class, so CDD is not impossible. A trust company is not a bank, and nothing here involves trade.",
+    explanation: "The FATF-Egmont report found that legal arrangements rarely held the proceeds of crime themselves. Their main role was to add layers of complexity, and almost every case involving a trust also involved a company, with the trust appearing in the shareholder register in place of the beneficial owner (paras 77-78). A trust that 'holds no money' is therefore no comfort. The bank should look through the trust to the natural persons that INR.10 lists for trusts: the settlor, trustee(s), protector, beneficiaries or class of beneficiaries, and anyone else with ultimate effective control. Recording the trust company is the runner-up, but legal title does not make a company a beneficial owner, which must be a natural person. The senior managing official is a fallback only when no natural person can be identified, and the report does not say that trusts are used only by criminals.",
     source: [
-      { label: "FATF-Egmont Group – Concealment of Beneficial Ownership (2018), paras 75-76", url: "https://eurasiangroup.org/files/uploads/files/FATF-Egmont-Concealment-beneficial-ownership_eng.pdf" }
+      { label: "FATF-Egmont Group – Concealment of Beneficial Ownership (2018), paras 75-78", url: "https://eurasiangroup.org/files/uploads/files/FATF-Egmont-Concealment-beneficial-ownership_eng.pdf" },
+      { label: "FATF Recommendations (2026), INR.10 para 5(b)", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
     ]
   },
   {
     id: "KYCC-025", domain: 1, difficulty: "hard", hy: false,
-    topic: "Source of wealth review: round-robin loan via sham consulting invoices",
-    q: "During a source-of-wealth review, private bank client Dmitri Valen explains that the EUR 2.5 million he wants to invest is a loan from Arcton Ltd, a Cyprus company. In his corporate files, the analyst sees that Valen's domestic trading company paid Arcton EUR 2.7 million over two years for 'consulting services', with no evidence that any services were delivered. The loan agreement has no repayment schedule and no interest. Arcton's registered director is a nominee from a corporate services firm, and Valen's trading company reported sharply lower profits over the same period. Which scheme does this MOST likely represent?",
+    topic: "Testing a suspected loan-back: who owns the lender",
+    q: "During a source-of-wealth review, private bank client Dmitri Valen explains that the EUR 2.5 million he wants to invest is a loan from Arcton Ltd, a Cyprus company. In his corporate files, the analyst sees that Valen's domestic trading company paid Arcton EUR 2.7 million over two years for 'consulting services', and the trading company reported sharply lower profits over the same period. The loan agreement has no repayment schedule and no interest. The analyst suspects a loan-back scheme. Which step would MOST directly test that suspicion?",
     options: [
-      "Trade-based money laundering through over-invoicing of goods shipped between the two companies",
-      "Cuckoo smurfing, in which criminal cash is deposited into a legitimate customer's bank account",
-      "Mirror trading, in which matched securities trades move value across borders",
-      "A loan-back scheme returning his own diverted company funds to him in the guise of a private loan"
+      "Obtain a certified copy of the loan agreement and Arcton's certificate of incorporation from the Cyprus registry",
+      "Confirm Arcton's registered director in the Cyprus companies register and screen that director against sanctions and PEP lists",
+      "Establish who beneficially owns and controls Arcton, looking through any nominees, and whether it is Valen or someone acting for him",
+      "Ask Valen to sign a declaration confirming that he has no ownership interest in Arcton or its related companies"
     ],
-    answer: [3],
-    explanation: "The FATF-Egmont report describes a loan-back or round-robin scheme in two steps. First, a business pays invoices to a foreign company it secretly controls, which reduces its taxable income. Then the pooled funds return to the owner as a private loan, often with no real repayment obligation. This hides the fact that lender and borrower have the same beneficial owner. TBML is the runner-up because invoices are involved, but no goods were shipped and the payments were for services that were never delivered. Cuckoo smurfing and mirror trading do not fit these facts.",
+    answer: [2],
+    explanation: "The FATF-Egmont report describes loan-back (round-robin) schemes in two steps: a business pays invoices to a foreign company that its owner secretly controls, reducing its taxable income, and the pooled funds then return to the owner as a loan, often with no real obligation to repay. Whatever the mechanics, the scheme exists to disguise the fact that lender and borrower have the same beneficial owner (paras 97-98). The decisive test is therefore who really owns and controls Arcton. Checking the registered director is the runner-up, but in such schemes that is often a nominee from a corporate services firm, who is never the beneficial owner. Incorporation documents and the loan agreement only show that the company and the paperwork exist. An unverified declaration from the person under suspicion has little value.",
     source: [
       { label: "FATF-Egmont Group – Concealment of Beneficial Ownership (2018), paras 97-99", url: "https://eurasiangroup.org/files/uploads/files/FATF-Egmont-Concealment-beneficial-ownership_eng.pdf" }
     ]

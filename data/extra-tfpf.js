@@ -23,7 +23,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Migrant smuggling proceeds being collected by a domestic organised crime group"
     ],
     answer: [2],
-    explanation: "The FATF's 2025 report describes financial flows from the home countries of foreign terrorist fighters to prison camps in the Iraqi-Syrian region, to smuggle ISIL affiliates and their family members out or to sustain them inside, as well as larger sums sent to pay traffickers and smugglers. It also notes that supporters collect small amounts on behalf of others and send them through MVTS. Funds pooled from unrelated people, a smuggling 'driver' and recipients near the border fit this pattern. The runner-up is wrong because a family link does not take the activity outside TF typologies: helping ISIL-linked detainees escape is exactly the flow FATF describes. The loan is repaid normally, and nothing suggests the sender profits from smuggling migrants.",
+    explanation: "The FATF's 2025 report describes financial flows from the home countries of foreign terrorist fighters to prison camps in the Iraqi-Syrian region, to smuggle ISIL affiliates and their family members out or to sustain them inside. It also notes that supporters collect small amounts, sometimes on behalf of others, and send them abroad through MSBs, and that larger sums are often used to pay traffickers and smugglers. Funds pooled from unrelated people, a smuggling 'driver' and recipients near the border fit this pattern. The runner-up is wrong because a family link does not take the activity outside TF typologies: helping ISIL-linked detainees escape is exactly the flow FATF describes. The loan is repaid normally, and nothing suggests the sender profits from smuggling migrants.",
     source: [
       { label: "FATF (2025) Comprehensive Update on Terrorist Financing Risks, paras 96-100", url: "https://eurasiangroup.org/files/uploads/files/Public_typology_reports/Comprehensive-Update-on-Terrorist-Financing-Risks-2025.pdf.coredownload.inline.pdf.pdf" }
     ] },
@@ -124,7 +124,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [2],
     explanation: "The FATF's 2025 report describes a case in which a designated organisation forced seasonal workers to hand over 25% of their daily wages as a 'coercion fee', collected the cash and sent it to border cities near the areas it controlled. Threats, a fixed share of wages, a collector and onward transfers to a border city match this extortion-based TF pattern. Labour trafficking is the runner-up, but the usual indicators, such as confiscated documents, controlled housing and wages held by the employer, are absent, and the money goes to 'the organisation', not the employer. The workers are real and the payments are not voluntary savings.",
     source: [
-      { label: "FATF (2025) Comprehensive Update on Terrorist Financing Risks, section 8 (extortion and coerced fees; case study on seasonal workers)", url: "https://eurasiangroup.org/files/uploads/files/Public_typology_reports/Comprehensive-Update-on-Terrorist-Financing-Risks-2025.pdf.coredownload.inline.pdf.pdf" }
+      { label: "FATF (2025) Comprehensive Update on Terrorist Financing Risks, case study 'Extortion of seasonal workers and real estate agents for TF purposes' (p. 87)", url: "https://eurasiangroup.org/files/uploads/files/Public_typology_reports/Comprehensive-Update-on-Terrorist-Financing-Risks-2025.pdf.coredownload.inline.pdf.pdf" }
     ] },
 
   { id: "TFPF-010", domain: 1, topic: "PF front-company networks: replacement payers", hy: true, difficulty: "hard",
@@ -138,7 +138,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [1],
     explanation: "The FATF's 2025 PF report lists as an indicator funds that 'flow cyclically between companies, with one ceasing payment and another initiating payment to the same beneficiary'. Its case study on the DPRK's Foreign Trade Bank describes over 250 front companies that cleared USD 2.5 billion through US correspondent banks, created new front companies once counterparties found the old ones suspicious, and used coded payment references. Coal is a relevant commodity, which makes it the runner-up, but it is traded legitimately worldwide and is weaker than the replacement pattern. Shared corporate-service addresses are common, and USD clearing is how the scheme reached US banks, not evidence of it.",
     source: [
-      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, Box 13 and Annex A", url: "https://www.fatf-gafi.org/en/publications/Financingofproliferation/complex-proliferation-financing-sanction-evasion-schemes.html" }
+      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, Box 13 and Annex A (transaction indicator 4) (full text as published by Latvia's Financial Intelligence Unit)", url: "https://fid.gov.lv/uploads/files/2025/Complex-PF-Sanctions-Evasions-Schemes.pdf.coredownload.inline.pdf" }
     ] },
 
   { id: "TFPF-011", domain: 1, topic: "DPRK crypto thefts: cash-out through OTC brokers and front companies", hy: true, difficulty: "hard",
@@ -152,11 +152,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [3],
     explanation: "The FATF's 2025 PF report explains that after laundering stolen virtual assets, DPRK actors often convert them into fiat currency through OTC brokers and, in some cases, direct the brokers to send the money to bank accounts of front companies that buy goods on behalf of the DPRK. Its case study describes OTC traders paying Hong Kong front companies that bought tobacco and communications devices for the DPRK. Unknown 'prepayment' customers, a broker linked to stolen assets and deliveries near the DPRK border fit this pattern. Legitimate settlement is unlikely when the customer cannot name its buyers, and nothing points to drugs or ransomware. The restaurants are a decoy.",
     source: [
-      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, para 81 and Box 24", url: "https://www.fatf-gafi.org/en/publications/Financingofproliferation/complex-proliferation-financing-sanction-evasion-schemes.html" }
+      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, para 81 and Box 24 (full text as published by Latvia's Financial Intelligence Unit)", url: "https://fid.gov.lv/uploads/files/2025/Complex-PF-Sanctions-Evasions-Schemes.pdf.coredownload.inline.pdf" }
     ] },
 
   { id: "TFPF-012", domain: 1, topic: "DPRK revenue generation: subcontracting and false origin labels", hy: false, difficulty: "medium",
-    q: "Lumen Beauty GmbH, a German importer, buys wigs and false eyelashes from a Chinese manufacturer and pays into the manufacturer's account in Hong Kong. Its bank's trade team notices that the supplier's prices are about 30% below its competitors'. A former employee of the supplier tells a journalist that semi-finished products are sent across the border to the DPRK for hand-finishing and then returned. All goods carry 'Made in China' labels. Lumen's owner says he has visited the Chinese factory twice and that its quality is excellent. What is the MOST significant risk?",
+    q: "Lumen Beauty GmbH, a German importer, buys wigs and false eyelashes from a Chinese manufacturer and pays into the manufacturer's account in Hong Kong. Its bank's trade team notices that the supplier's prices are about 30% below its competitors'. A former employee of the supplier tells a journalist that the factory sends raw hair across the border to a DPRK workshop, which makes semi-finished wigs and lashes and returns them for final processing. All goods carry 'Made in China' labels. Lumen's owner says he has visited the Chinese factory twice and that its quality is excellent. What is the MOST significant risk?",
     options: [
       "Revenue for the DPRK's weapons programmes through work subcontracted to DPRK firms, with origin hidden by third-country labels",
       "Customs duty evasion through misclassification of the hair products under a lower-duty tariff code on import into Germany",
@@ -164,9 +164,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Forced labour in the Chinese factory, which the importer has missed despite visiting the production site twice"
     ],
     answer: [0],
-    explanation: "The FATF's 2025 PF report notes that wigs and false eyelashes are a major DPRK export: the DPRK imports raw materials from a neighbouring country, makes semi-finished products and sends them back for final processing and export to third countries, and the DPRK companies involved are subordinate to UN-listed entities. Its risk indicators include third-country suppliers shifting work to a DPRK factory without telling customers and DPRK goods carrying third-country origin labels. Low prices can have many causes, and no facts point to tariff misclassification or forced labour in China. A factory visit does not reveal subcontracting across the border.",
+    explanation: "The FATF's 2025 PF report notes that wigs and false eyelashes are a major DPRK export: the DPRK imports raw materials from a neighbouring country, makes semi-finished products and sends them back for final processing and export to third countries, and the DPRK companies involved are subordinate to UN-listed entities. Its risk indicators include third-country suppliers shifting work to a DPRK factory without telling customers and DPRK goods carrying third-country origin labels. UN sanctions do not themselves ban buying DPRK-origin wigs, but the revenue may reach UN-listed entities. Low prices can have many causes, and no facts point to tariff misclassification or forced labour in China. A factory visit does not reveal subcontracting across the border.",
     source: [
-      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, para 27 and Annex A (trade indicators 21-22)", url: "https://www.fatf-gafi.org/en/publications/Financingofproliferation/complex-proliferation-financing-sanction-evasion-schemes.html" }
+      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, para 27 and Annex A (trade activity indicators 21-22) (full text as published by Latvia's Financial Intelligence Unit)", url: "https://fid.gov.lv/uploads/files/2025/Complex-PF-Sanctions-Evasions-Schemes.pdf.coredownload.inline.pdf" }
     ] },
 
   { id: "TFPF-013", domain: 1, topic: "Iranian oil: successive ship-to-ship transfers and third-country origin", hy: true, difficulty: "hard",
@@ -209,7 +209,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [0, 2, 4],
     explanation: "The FATF's 2025 PF report groups deceptive shipping tactics into altering vessel identification, ship-to-ship transfers, disabling or disguising AIS broadcasts, and falsifying documents, and describes a DPRK coal case in which a ship turned off its AIS and then broadcast a position showing it at anchor while it was under way. OFAC's April 2025 advisory adds that vessels report the MMSI of a different, non-sanctioned ship or the IMO number of a scrapped vessel to hide their identity. Here the signal stopped (going dark), showed a false position (spoofing) and carried another ship's identifiers. No vessel came alongside, so there was no STS transfer, and the flag has not changed.",
     source: [
-      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, paras 87-92 and Box 32", url: "https://www.fatf-gafi.org/en/publications/Financingofproliferation/complex-proliferation-financing-sanction-evasion-schemes.html" },
+      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, paras 87-92 and Box 32 (full text as published by Latvia's Financial Intelligence Unit)", url: "https://fid.gov.lv/uploads/files/2025/Complex-PF-Sanctions-Evasions-Schemes.pdf.coredownload.inline.pdf" },
       { label: "OFAC (16 Apr 2025) Iranian oil sanctions evasion advisory, 'Manipulating vessel location and identification data'", url: "https://ofac.treasury.gov/media/934236/download" }
     ] },
 
@@ -283,7 +283,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "The mandate of the 1718 Committee's Panel of Experts ended in April 2024 after a veto in the Security Council. In October 2024, 11 states (including Korea, Japan, the US and the UK) established the Multilateral Sanctions Monitoring Team (MSMT) to monitor and publicly report violations and evasion of UN sanctions on the DPRK. The FATF's 2025 PF report notes that the end of the Panel makes it harder to obtain reliable information on DPRK PF risk, while confirming that DPRK sanctions still apply and that the DPRK remains the most significant PF actor. The Panel's work did not move to the FATF or the 1267 Monitoring Team.",
     source: [
       { label: "UK FCDO (16 Oct 2024) Joint statement on establishing the Multilateral Sanctions Monitoring Team (MSMT)", url: "https://www.gov.uk/government/news/joint-statement-on-establishing-multilateral-sanctions-monitoring-team-msmt" },
-      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, para 22", url: "https://www.fatf-gafi.org/en/publications/Financingofproliferation/complex-proliferation-financing-sanction-evasion-schemes.html" }
+      { label: "FATF (2025) Complex Proliferation Financing and Sanctions Evasion Schemes, para 22 (full text as published by Latvia's Financial Intelligence Unit)", url: "https://fid.gov.lv/uploads/files/2025/Complex-PF-Sanctions-Evasions-Schemes.pdf.coredownload.inline.pdf" }
     ] },
 
   { id: "TFPF-021", domain: 3, topic: "Export control risk in transshipment countries: avoiding wholesale de-risking", hy: true, difficulty: "hard",
@@ -357,6 +357,6 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "Regulation 25 of the UK's Democratic People's Republic of Korea (Sanctions) (EU Exit) Regulations 2019 says a UK credit or financial institution must not open a bank account for a DPRK diplomatic mission or consular post, or for a DPRK national who is a member of one, subject only to the exceptions and licences in Part 9; breaching this is an offence. UNSCR 2321 sets a UN minimum of limiting such accounts to one per mission and one per accredited diplomat, which the EU applied as a one-account rule, but the UK rule is stricter. That makes the one-account argument the runner-up but wrong in the UK. PEP EDD does not cure a prohibition, and there is no notification route to the 1718 Committee that permits opening.",
     source: [
       { label: "legislation.gov.uk – The DPRK (Sanctions) (EU Exit) Regulations 2019, reg. 25", url: "https://www.legislation.gov.uk/uksi/2019/411/regulation/25" },
-      { label: "legislation.gov.uk – Council Decision (CFSP) 2016/849, Art. 31a (one account per DPRK mission or member)", url: "https://www.legislation.gov.uk/eudn/2016/849/article/31a" }
+      { label: "EUR-Lex – Council Decision (CFSP) 2017/345, inserting Art. 31a into Decision (CFSP) 2016/849 (one account per DPRK mission or member)", url: "https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:32017D0345" }
     ] }
 ]);

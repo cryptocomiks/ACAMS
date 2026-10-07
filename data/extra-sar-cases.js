@@ -6,32 +6,32 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Harbor Lane Bank's monitoring flags a series of rapid wires on 2 March 2026. That day the investigator finds facts that may support a SAR, but she cannot identify who controls the receiving accounts, so the bank uses the extra time the rule allows and files its initial SAR on 1 May 2026. The relationship manager is on leave until June, and the bank's policy refers to 'quarterly' reviews. The bank has chosen to follow FinCEN's continuing-activity timeline, and the suspicious wires continue through the summer. According to FinCEN's October 2025 SAR FAQs, what date range should the continuing-activity SAR cover, and by when should it be filed?",
     options: [
       "Activity from 2 March to 30 July 2026, filed by 29 August 2026",
-      "Activity from 1 April to 29 June 2026, filed by 29 July 2026",
+      "Activity from 2 April to 30 June 2026, filed by 30 July 2026",
       "Activity from 2 May to 30 July 2026, filed by 29 August 2026",
       "Activity from 2 May to 30 July 2026, filed by 30 June 2026"
     ],
     answer: [2],
-    explanation: "The FAQs give a separate timeline for an institution that cannot identify a subject and files 60 days after detection: day 0 detection, day 60 initial SAR, day 150 end of the 90-day period, day 180 continuing SAR. Here day 60 is 1 May, so the 90-day period runs from 2 May to 30 July (the activity dates must cover the whole 90-day period starting the day after the initial SAR) and the SAR is due by 29 August. The 1 April / 29 July dates would apply only if the initial SAR had been filed on day 30, and starting the range at detection would repeat activity already reported. The FAQs also stress that following this timeline is optional; the bank may instead file as appropriate within the normal deadlines.",
+    explanation: "The FAQs give a separate timeline for an institution that cannot identify a subject and files 60 days after detection: day 0 detection, day 60 initial SAR, day 150 end of the 90-day period, day 180 continuing SAR. Here day 60 is 1 May, so the 90-day period runs from 2 May to 30 July (the activity dates must cover the whole 90-day period starting the day after the initial SAR) and the SAR is due by 29 August. The 2 April / 30 June / 30 July dates are the standard day-30 timeline (days 31-120, filed on day 150), which ignores the 30 extra days the bank took; starting the range at detection would repeat activity already reported, and a 30 June deadline counts only 60 days from the initial SAR instead of 120. The FAQs also stress that following this timeline is optional; the bank may instead file as appropriate within the normal deadlines.",
     source: [
       { label: "FinCEN and federal banking agencies – SAR FAQs (9 Oct 2025), Q2-Q3 and footnote 12", url: "https://www.fincen.gov/system/files/2025-10/SAR-FAQs-October-2025.pdf" },
       { label: "31 CFR 1020.320(b)(3) – 30/60-day SAR filing deadlines (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1020/subpart-C/section-1020.320" }
     ]
   },
   {
-    id: "SARC-002", domain: 3, topic: "Sharing a SAR within the group: affiliates, parent and foreign branches (FIN-2010-G006)", hy: true, difficulty: "hard",
-    q: "Pinecrest National Bank, a US bank, files a SAR on a customer who also trades through the bank's US broker-dealer affiliate. Pinecrest's parent is a bank holding company in Canada, and Pinecrest runs a branch in London that services the customer's sterling account. The broker-dealer's compliance head asks whether she may then pass the SAR to the group's US investment adviser affiliate. The customer's son works in the London branch's operations team. Under FinCEN guidance on sharing SARs, which disclosures of the SAR are permitted? (Choose two.)",
+    id: "SARC-002", domain: 3, topic: "Sharing a SAR within the group: affiliates, foreign branches and joint-SAR preparation (FIN-2010-G006)", hy: true, difficulty: "hard",
+    q: "Pinecrest National Bank, a US bank, files a SAR on a customer whose suspicious transfers also ran through an account at the bank's US broker-dealer affiliate. Pinecrest also owns a US real-estate brokerage that manages the customer's rental properties, and runs a branch in London that services the customer's sterling account. The broker-dealer's compliance head asks whether she may then pass the SAR to the group's US investment adviser affiliate. The customer's son works in the London branch's operations team. Under FinCEN's SAR confidentiality rule and guidance on sharing SARs, which disclosures are permitted? (Choose two.)",
     options: [
       "Pinecrest sharing the SAR with its London branch so that the branch can review the sterling account",
       "Pinecrest sharing the SAR with its US broker-dealer affiliate, which is subject to a SAR rule",
       "The broker-dealer passing the SAR on to the group's US investment adviser affiliate",
-      "Pinecrest sharing the SAR with its Canadian parent holding company for enterprise-wide oversight",
-      "Pinecrest sharing the SAR with any affiliate that first signs a written confidentiality undertaking"
+      "Pinecrest giving the broker-dealer the underlying transaction records, without revealing the SAR, so that the two firms can prepare a joint SAR",
+      "Pinecrest sharing the SAR with its real-estate brokerage affiliate, provided it first signs a written confidentiality undertaking"
     ],
     answer: [1, 3],
-    explanation: "FIN-2010-G006 lets a depository institution share a SAR with an affiliate that is subject to a SAR regulation, and confirms that the 2006 guidance still applies: a US bank may share a SAR with its controlling company, whether domestic or foreign. Foreign branches of US banks count as affiliates that are not subject to a SAR regulation, so the London branch may not receive the SAR. An affiliate that has received a SAR may not pass it on to an affiliate of its own, even one subject to a SAR rule. A confidentiality undertaking does not widen these limits, and no sharing is allowed where the SAR may reach a person involved in the activity.",
+    explanation: "FIN-2010-G006 lets a depository institution share a SAR with an affiliate that is subject to a SAR regulation, such as the broker-dealer. Separately, 31 CFR 1020.320(e)(1)(ii)(A)(2)(i) allows a bank to disclose the underlying facts, transactions and documents (not the SAR itself) to another financial institution to prepare a joint SAR. Foreign branches of US banks count as affiliates that are not subject to a SAR regulation, so the London branch may not receive the SAR. An affiliate that has received a SAR may not pass it on to an affiliate of its own, even one subject to a SAR rule. The real-estate brokerage is not subject to a SAR rule, and a confidentiality undertaking does not widen these limits. No sharing is allowed where the SAR may reach a person involved in the activity.",
     source: [
       { label: "FinCEN FIN-2010-G006 – Sharing SARs by depository institutions with certain U.S. affiliates", url: "https://www.fincen.gov/sites/default/files/shared/fin-2010-g006.pdf" },
-      { label: "31 CFR 1020.320(e)(1)(ii)(B) – sharing within the corporate organizational structure (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1020/subpart-C/section-1020.320" }
+      { label: "31 CFR 1020.320(e)(1)(ii) – underlying facts for a joint SAR; sharing within the corporate structure (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1020/subpart-C/section-1020.320" }
     ]
   },
   {
@@ -124,7 +124,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "FinCEN's filing instructions allow a single Microsoft Excel-compatible CSV file of no more than 1 MB, best suited to transaction records too numerous for the narrative, and its contents must be described in Part V. No other supporting documentation may be included; it is described in the narrative, kept for five years and made available to authorities on request. 'Deemed filed' in 31 CFR 1020.320(d) means it is kept and produced on request, not submitted with the SAR. FinCEN's narrative guidance also warns against inserting tables or pre-formatted spreadsheets into the narrative.",
     source: [
       { label: "FinCEN SAR Electronic Filing Instructions – General Instruction 6 and 'Add Attachment'", url: "https://www.fincen.gov/system/files/shared/FinCEN%20SAR%20ElectronicFilingInstructions-%20Stand%20Alone%20doc.pdf" },
-      { label: "31 CFR 1020.320(d) – retention of SAR and supporting documentation (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1020/subpart-C/section-1020.320" }
+      { label: "31 CFR 1020.320(d) – retention of SAR and supporting documentation (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1020/subpart-C/section-1020.320" },
+      { label: "FinCEN – Guidance on Preparing a Complete & Sufficient SAR Narrative (2003): no tables or pre-formatted spreadsheets", url: "https://www.fincen.gov/system/files/shared/sarnarrcompletguidfinal_112003.pdf" }
     ]
   },
   {
@@ -262,7 +263,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Keeping Harlow is the bank's own decision; if it continues, it must consider whether future activity needs a DAML"
     ],
     answer: [3],
-    explanation: "UKFIU guidance says that whether to keep a client after a SAR is a decision for the reporter, based on its legal obligations and risk appetite; if it continues, it must consider whether a DAML is needed for future activity involving suspected criminal property. The UKFIU cannot give a defence to start or maintain a relationship and does not advise reporters on what to do. A DAML covers a specified prohibited act, such as paying away suspected criminal property above the threshold on exit, not the decision to exit itself. Unless law enforcement has made a request, the decision rests with the bank's governance.",
+    explanation: "UKFIU guidance says that whether to keep a client after a SAR is a decision for the reporter, based on its legal obligations and risk appetite; if it continues, it must consider whether a DAML is needed for future activity involving suspected criminal property. The UKFIU cannot give a defence to start or maintain a relationship and does not advise reporters on what to do. A DAML covers a specified prohibited act, such as paying away suspected criminal property above the threshold on exit, not the decision to exit itself, and the guidance adds that whether to continue acting for a client once a suspicion is formed is the reporter's own decision, subject to its professional or statutory obligations.",
     source: [
       { label: "NCA UKFIU – Chapter 2: Submitting a SAR (Dec 2025), FAQ Q10", url: "https://www.nationalcrimeagency.gov.uk/who-we-are/publications/775-ukfiu-chapter-2-submitting-a-sar/file" },
       { label: "NCA UKFIU – Chapter 3: Understanding DAMLs and DATFs (Dec 2025), FAQs Q7-Q10", url: "https://www.nationalcrimeagency.gov.uk/who-we-are/publications/776-ukfiu-chapter-3-understanding-damls-and-datfs/file" }
@@ -306,10 +307,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The account manager may tell the customer that a report will follow unless documents are provided",
       "Suspicions that arise from the inability to conduct CDD must be reported to the FIU",
       "A report made in good faith is protected even if the institution does not know precisely what the underlying crime is",
-      "Reports are needed only for transactions above a minimum amount set by the Member State"
+      "The report may wait until the customer has had 30 days to supply the missing CDD documents"
     ],
     answer: [2, 3],
-    explanation: "AMLR Article 69(1) requires all suspicious transactions to be reported, regardless of the amount involved, including attempted transactions and suspicions arising from the inability to conduct CDD. Article 72 protects good-faith disclosures to the FIU from any liability, even where the entity was not precisely aware of the underlying criminal activity and whether or not illegal activity occurred, so no predicate needs to be named. Article 73 prohibits telling the customer that information is being or will be reported, so the account manager's warning would be tipping off.",
+    explanation: "AMLR Article 69(1) requires obliged entities to report promptly, and states that all suspicious transactions, including attempted transactions and suspicions arising from the inability to conduct CDD, must be reported, so the report cannot be parked while the customer is given more time. Article 72 protects good-faith disclosures to the FIU from any liability, even where the entity was not precisely aware of the underlying criminal activity and whether or not illegal activity occurred, so no predicate needs to be named. Article 73 prohibits telling the customer that information is being or will be reported, so the account manager's warning would be tipping off.",
     source: [
       { label: "Regulation (EU) 2024/1624 (AMLR) – Arts. 69, 72 and 73 (EUR-Lex)", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }
     ]
@@ -334,15 +335,15 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Ellis Moore, the MLRO of a UK e-money firm, reviews five draft SARs on mule accounts that receive funds from many senders and forward them within minutes to crypto exchanges. He notes several drafting habits across the drafts. Which practices follow UKFIU guidance on completing SARs? (Choose two.)",
     options: [
       "Entering each suspicious transaction in the Suspicious Transactions fields, not only in the reason for suspicion",
-      "Uploading account statements as attachments so that law enforcement receives the underlying records",
+      "Using the firm's internal alert codes and acronyms without explanation, since UKFIU staff know industry terms",
       "Summarising adverse media by giving the article's title, date and publication, not just a link to it",
       "Splitting a long narrative across two SARs on the same subject to get around the 8,000-character limit",
       "Writing the reason for suspicion in capital letters so that the key facts stand out for the reader"
     ],
     answer: [0, 2],
-    explanation: "UKFIU guidance asks reporters to enter data in the right SAR Portal fields, including the Suspicious Transactions fields, because SARs that hold details only in free text may not appear in law enforcement searches. Open-source findings should be summarised with the article's title, date and publication name, not just a link. The Portal does not accept attachments; reporters say what further information they hold and how to request it. Reporters must not submit several SARs to get around the 8,000-character limit, and should not write in capital letters, which makes SARs hard to read.",
+    explanation: "UKFIU guidance asks reporters to enter data in the right SAR Portal fields, including the Suspicious Transactions fields, because SARs that hold details only in free text may not appear in law enforcement searches. Open-source findings should be summarised with the article's title, date and publication name, not just a link. Reporters should not assume the reader knows their sector: they should avoid jargon and define any acronyms. Reporters must not submit several SARs to get around the 8,000-character limit, and should not write in capital letters, which makes SARs hard to read.",
     source: [
-      { label: "NCA UKFIU – Chapter 2: Submitting a SAR (Dec 2025), Sections 5-6 and FAQ Q4", url: "https://www.nationalcrimeagency.gov.uk/who-we-are/publications/775-ukfiu-chapter-2-submitting-a-sar/file" }
+      { label: "NCA UKFIU – Chapter 2: Submitting a SAR (Dec 2025), Sections 5-6", url: "https://www.nationalcrimeagency.gov.uk/who-we-are/publications/775-ukfiu-chapter-2-submitting-a-sar/file" }
     ]
   },
   {
