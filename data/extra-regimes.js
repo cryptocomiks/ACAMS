@@ -192,12 +192,12 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   { id: "REGS-014", domain: 2, topic: "AMLR: EU branch of a third-country bank reports to the host FIU", hy: false, difficulty: "medium",
     q: "In 2028, the Dublin branch of Granite Lakes Bank, a US bank, finds that an Irish customer is receiving large transfers from shell companies and moving them on to crypto exchanges the same day. The US head office tells the branch that its central investigations unit will file a SAR with FinCEN covering the whole relationship. It says a separate Irish report would duplicate effort, and FinCEN can share the SAR through the Egmont Group if needed. What should the Dublin branch do?",
     options: [
+      "Have its compliance officer report to the Irish FIU, because the branch is an obliged entity under the AMLR",
       "Rely on the FinCEN SAR, because FIU-to-FIU sharing through the Egmont Group meets the Irish reporting duty",
       "Report to AMLA, because suspicious activity at branches of third-country banks is reported at EU level",
-      "Report to the Irish FIU only if the US head office approves, because the head office owns the relationship",
-      "Have its compliance officer report to the Irish FIU, because the branch is an obliged entity under the AMLR"
+      "Report to the Irish FIU only if the US head office approves, because the head office owns the relationship"
     ],
-    answer: [3],
+    answer: [0],
     explanation: "Under the AMLR, 'credit institution' includes a branch located in the Union of a credit institution with its head office in a third country, so the Dublin branch is an obliged entity in its own right. Article 69(6) requires its compliance officer to send suspicious transaction reports to the FIU of the Member State where it is established, which here is Ireland. A FinCEN SAR does not discharge that duty, AMLA is a supervisor and not an FIU, and head-office approval is not a condition for reporting.",
     source: [
       { label: "Regulation (EU) 2024/1624 (AMLR), Art. 2 (credit institution definition) and Art. 69(6)", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj/eng" }
@@ -310,12 +310,12 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "UK MLRs reg. 34A inserted by SI 2026/621, in force 1 Feb 2027",
     q: "In November 2026, Thamesgate Digital Ltd, an FCA-registered UK cryptoasset exchange, plans a long-term arrangement with Orion Exchange, a crypto exchange licensed in a non-UK country. Under it, Orion's customers will be able to trade through Thamesgate's platform, and Thamesgate will settle Orion's customer flows. Thamesgate's onboarding team plans to apply only its standard business customer CDD, and it notes that Orion already complies with the Travel Rule. Under the UK MLRs as amended in 2026, what is the BEST approach?",
     options: [
+      "Build in correspondent-style EDD, including senior management approval and an assessment of Orion's controls, because reg. 34A applies from 1 February 2027",
       "Apply standard business CDD, because the correspondent EDD rules in the MLRs apply only to credit institutions and financial institutions",
       "End the plan, because UK cryptoasset businesses are prohibited from having correspondent relationships with non-UK providers",
-      "Rely on Orion's Travel Rule compliance, because it replaces correspondent due diligence for cryptoasset businesses",
-      "Build in correspondent-style EDD, including senior management approval and an assessment of Orion's controls, because reg. 34A applies from 1 February 2027"
+      "Rely on Orion's Travel Rule compliance, because it replaces correspondent due diligence for cryptoasset businesses"
     ],
-    answer: [3],
+    answer: [0],
     explanation: "SI 2026/621 inserted regulation 34A, which applies from 1 February 2027. A cryptoasset exchange provider or custodian wallet provider that has or proposes to have a correspondent relationship with a similar provider from a third country must take extra steps. It must understand the respondent's business, assess its reputation and the quality of its supervision, assess its controls, obtain senior management approval and document responsibilities. It must also be satisfied about CDD on customers with direct access, and it must not deal with shell banks. Because the relationship will continue past that date, it should be designed to the new standard now. The Travel Rule does not replace this due diligence, and correspondent relationships are not banned.",
     source: [
       { label: "The Money Laundering and Terrorist Financing (Amendment) Regulations 2026 (SI 2026/621), reg. 20 inserting reg. 34A", url: "https://www.legislation.gov.uk/uksi/2026/621/made" }

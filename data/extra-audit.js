@@ -48,9 +48,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "AUDIT-004", domain: 3, topic: "Sanctions testing: independence and relevance of the screening test (OFAC Framework)", hy: true, difficulty: "hard",
     q: "At Fernhill Bank, the quarterly test of the payment sanctions screening system is designed and run by the sanctions operations team, which also tunes the filter's matching thresholds. Each quarter the team runs the same 500 test names, taken from a file the screening vendor supplied three years ago, and reports a 100% pass rate to the head of payment operations, to whom the team reports. Since the file was built, the bank has opened payment corridors to Central Asia, and many new designations have been added to the lists it screens against. Under OFAC's Framework for Compliance Commitments, which change would MOST improve the testing?",
     options: [
-      "Give the testing to a function independent of screening operations that reports to senior management, and build test data from the bank's current risk assessment and list updates",
+      "Have a function independent of screening operations, reporting to senior management, run tests built from current risks and list updates",
       "Expand the vendor's test file from 500 to 5,000 names and run the same test every month instead of every quarter",
-      "Ask the screening vendor to certify each year that its matching algorithm meets industry standards",
+      "Ask the screening vendor to certify each year that its matching algorithm and test file meet industry standards",
       "Lower the matching thresholds before each test so that the filter produces more alerts during testing"
     ],
     answer: [0],
@@ -332,16 +332,17 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     source: [{ label: "Regulation (EU) 2024/1624 (AMLR), Arts. 9 and 90", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj/eng" }]
   },
   {
-    id: "AUDIT-024", domain: 3, topic: "BSA officer: authority and independence in practice (FFIEC)", hy: true, difficulty: "medium",
-    q: "The board of Lakeshore Community Bank appointed an experienced BSA officer, Tom Reyes, two years ago. In the past year, management launched a real-time payments service and replaced the core banking system, and Tom learned of both only after they went live. His requests to attend the management risk committee were refused, and the chief lending officer, to whom he reports, edits his quarterly board reports first. Tom knows the BSA well and his team is fully staffed. Under the FFIEC BSA/AML Examination Manual, which conclusion are examiners MOST likely to reach?",
+    id: "AUDIT-024", domain: 3, topic: "BSA officer: evidence of authority vs title and competence (FFIEC)", hy: true, difficulty: "medium",
+    q: "An independent tester at Lakeshore Community Bank is assessing whether the BSA officer, Tom Reyes, has appropriate authority, as distinct from his competence, independence and resources. Under the FFIEC BSA/AML Examination Manual, which findings are indicators of appropriate AUTHORITY? (Choose two.)",
     options: [
-      "Tom lacks appropriate authority and independence, even though he is competent and his team is fully staffed",
-      "The program is adequate, because the board appointed a qualified and experienced BSA officer to run it",
-      "The only weakness is training, because Tom should have found out about the new products on his own",
-      "The only weakness is resources, because Tom will need more staff to cover the new payments service"
+      "Senior management asked Tom to assess the ML/TF risks of a planned real-time payments service before it was approved",
+      "The board gave Tom the title of senior vice president when it appointed him two years ago",
+      "Tom holds an AML certification and has 15 years of BSA experience at larger banks",
+      "Management sought Tom's input on the core banking system replacement and its effect on BSA monitoring",
+      "Tom's team is fully staffed, with the headcount and budget he requested last year"
     ],
-    answer: [0],
-    explanation: "The FFIEC Manual says appointing a BSA officer is not, by itself, enough to meet the program requirement. The board must give the officer appropriate authority, independence and access to resources. Signs of authority include senior management seeking the officer's input on new products and on system changes that affect BSA compliance. Signs of independence include reporting lines to the board that are not compromised and freedom from undue influence by business lines. Both are missing here. Competence and staffing are adequate, so training and resources are not the issue.",
+    answer: [0, 3],
+    explanation: "The FFIEC Manual says appointing a BSA officer is not, by itself, enough to meet the program requirement, and that the officer's title is not important; what matters is authority, independence and access to resources. It gives as indicators of appropriate authority senior management seeking the officer's input on the risks of expanding into new products, services, customer types and locations, and on operational changes such as new or adjusted systems that affect BSA compliance. A senior title is the runner-up, but the Manual says the title is not what counts. Qualifications and experience show competence, and a fully staffed team shows access to resources: both matter, but neither is evidence of authority.",
     source: [{ label: "FFIEC BSA/AML Examination Manual (2020) – BSA Compliance Officer (NCUA copy)", url: "https://ncua.gov/files/press-releases-news/bsa-aml-examination-manual-april-2020.pdf" }]
   },
   {
