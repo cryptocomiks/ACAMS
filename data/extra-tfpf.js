@@ -243,18 +243,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "BIS – Common High Priority Items List (CHPL)", url: "https://www.bis.gov/licensing/country-guidance/common-high-priority-items-list-chpl" }
     ] },
 
-  { id: "TFPF-018", domain: 1, topic: "Designated persons' proxies: the UK control test", hy: true, difficulty: "hard",
-    q: "Viktor R. owned 80% of Calder Marine Holdings Ltd, a UK company with an account at Thames Bank, from 2019. In March 2026, two weeks before the UK designated him under its Russia regime, he transferred all his shares to his long-time personal assistant, who has no other significant assets. Calder's board minutes show that the assistant votes as Viktor instructs, and Viktor still approves large payments by email. Thames Bank's screening finds no listed person among Calder's shareholders or directors, and Calder's auditors gave a clean opinion. Under OFSI's guidance, what should the bank conclude?",
+  { id: "TFPF-018", domain: 1, topic: "UK asset freeze: jointly held funds", hy: true, difficulty: "hard",
+    q: "Elena and Viktor R. have held a joint deposit account at Thames Bank since 2015. Yesterday the UK designated Viktor under its Russia regime; Elena is not designated. This morning Elena asks the bank to move the whole GBP 640,000 balance to a new account in her sole name at another bank. She provides payslips and tax returns showing that about 90% of the deposits came from her own salary and bonuses, and she points out that she is the first-named account holder. The relationship manager suggests freezing only Viktor's share. Under OFSI's guidance, what should the bank do?",
     options: [
-      "Calder is likely controlled by Viktor, so the bank should freeze its funds and report to OFSI",
-      "Calder is outside the asset freeze, because Viktor no longer holds more than 50% of its shares",
-      "Calder is affected only if it is added to the UK Sanctions List as a designated entity itself",
-      "Calder can operate normally, because the share transfer took place before the designation"
+      "Freeze only half of the balance, as Viktor's share of a two-person joint account, and release the rest to Elena",
+      "Freeze about 10% of the balance, matching Viktor's documented contributions, and release Elena's 90%",
+      "Freeze the entire balance, refuse the transfer, and report to OFSI; any release needs an OFSI licence",
+      "Make the transfer, because Elena is the first-named holder and is not on the UK Sanctions List"
     ],
-    answer: [0],
-    explanation: "OFSI's general guidance says an entity is owned or controlled by a designated person if that person holds more than 50% of shares or voting rights, can appoint or remove a majority of the board, or it is reasonable to expect that the person could ensure the entity's affairs are run according to his wishes, including through a front or another person. Such entities are subject to the asset freeze even if they are not listed. A firm that knows or has reasonable cause to suspect it holds such funds must freeze them and report to OFSI. The runner-up applies only the ownership limb and ignores control through a nominee. The timing of the transfer does not matter when control continues, and the audit opinion is irrelevant.",
+    answer: [2],
+    explanation: "OFSI's general guidance says that, for the purposes of the asset freeze, a designated person is taken to own funds even if he owns them jointly with another person or owns only part of them, and that jointly owned funds should be frozen in their entirety. The bank must therefore refuse to move any of the balance. As a relevant firm, it must report to OFSI as soon as practicable that it holds funds of a designated person, and dealing with frozen funds then needs a licence. Freezing only Viktor's documented contribution is the runner-up, but the guidance does not allow the funds to be split by contribution or by number of holders. Elena not being designated does not unfreeze a joint account, and the request to move everything the day after designation is itself a possible evasion attempt.",
     source: [
-      { label: "OFSI – UK financial sanctions general guidance, sections 3.1 and 4 (ownership and control)", url: "https://www.gov.uk/government/publications/financial-sanctions-general-guidance/uk-financial-sanctions-general-guidance" }
+      { label: "OFSI – UK financial sanctions general guidance, section 4.1.3 (joint interests) and section 5.1.1 (reporting obligations)", url: "https://www.gov.uk/government/publications/financial-sanctions-general-guidance/uk-financial-sanctions-general-guidance" }
     ] },
 
   { id: "TFPF-019", domain: 1, topic: "Sanctions evasion through family members and third parties", hy: false, difficulty: "medium",
@@ -301,18 +301,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ] },
 
   { id: "TFPF-022", domain: 3, topic: "Maritime sanctions controls for shipping finance", hy: false, difficulty: "medium",
-    q: "Nordhavn Bank is drafting controls for its oil shipping finance book after OFAC's April 2025 maritime advisory. The draft policy has five proposals. The business unit wants controls that are effective without stopping all tanker business, and the board wants them in place before the next audit. Which TWO controls are consistent with the advisory? (Choose two.)",
+    q: "Nordhavn Bank is drafting controls for its oil shipping finance book after OFAC's April 2025 advisory on Iranian oil sanctions evasion. The draft policy has five proposals. The business unit wants controls that are effective without stopping all tanker business, and the board wants them in place before the next audit. Which TWO controls are consistent with the advisory? (Choose two.)",
     options: [
-      "Research vessels by IMO number, including flag, ownership, STS and AIS history, not only by name",
+      "Check that financed vessels have adequate, legitimate insurance and are not relying on sanctioned or new and untested insurers for no clear business reason",
       "Accept certificates of origin from transshipment hubs at face value if the bill of lading is clean",
-      "Screen only the vessel name against the SDN List at the moment the payment is released",
+      "Treat any gap in a vessel's AIS signal as a confirmed sanctions violation and exit the client at once",
       "Include sanctions clauses that allow termination for deceptive practices such as repeated AIS manipulation",
       "Exit every client that owns or charters a tanker more than 15 years old, whatever its history"
     ],
     answer: [0, 3],
-    explanation: "OFAC's April 2025 advisory recommends know-your-vessel due diligence that researches the IMO number and vessel history, including travel patterns, STS history, ownership, insurance and flag history, and recommends contractual sanctions clauses, including language allowing termination for deceptive practices such as a pattern of vessel location manipulation. It says certificates of origin from jurisdictions known for hiding Iranian origin should be investigated thoroughly, not accepted at face value. Name-only screening misses vessels that change names or spoof identifiers. Age alone is not the test, and blanket exits are not what the advisory asks for.",
+    explanation: "OFAC's April 2025 advisory tells parties to verify that vessels have adequate and legitimate insurance and are not relying on sanctioned insurers, or on new and untested insurers for no apparent business reason. It also recommends contract clauses that allow exit or termination, including language authorising termination for deceptive practices such as a pattern of vessel location manipulation. The advisory says certificates of origin from jurisdictions known for hiding Iranian origin should be investigated thoroughly, not accepted at face value. AIS can be disabled for genuine safety reasons, which the ship should document, so an AIS gap calls for enhanced due diligence, not an automatic finding of a violation. Age alone is not the test, and blanket exits are not what the advisory asks for.",
     source: [
-      { label: "OFAC (16 Apr 2025) Iranian oil sanctions evasion advisory – KYC/KYV and contractual controls", url: "https://ofac.treasury.gov/media/934236/download" }
+      { label: "OFAC (16 Apr 2025) Iranian oil sanctions evasion advisory – 'Verify insurance', 'Manipulating vessel location and identification data' and 'Implement appropriate contractual controls'", url: "https://ofac.treasury.gov/media/934236/download" }
     ] },
 
   { id: "TFPF-023", domain: 2, topic: "Humanitarian carve-outs: UNSCR 2664 and OFAC's NGO general licences", hy: true, difficulty: "hard",
