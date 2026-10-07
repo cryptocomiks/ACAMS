@@ -297,19 +297,19 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "SANP-020", difficulty: "hard", domain: 2, topic: "Control without majority ownership: UK and EU tests vs OFAC's 50 Percent Rule", hy: true,
-    q: "Arctis Holdings Ltd, a Cypriot company, is a client of a global bank with operations in New York, London and Frankfurt. Mr P, who is designated by the United States (SDN List), the UK and the EU, owns 35% of Arctis. A shareholders' agreement gives him the right to appoint four of Arctis's seven directors. The other 65% is held by about 200 unrelated investors, and no other shareholder is designated. Which statement BEST describes Arctis's position?",
+    id: "SANP-020", difficulty: "hard", domain: 2, topic: "UK control test: the 'reasonable to expect' limb for a minority shareholder", hy: true,
+    q: "Albion Merchant Bank in London is onboarding Kestrel Marine Services Ltd, a UK ship agent. A person designated under the UK's Russia regime holds 25% of Kestrel's shares. The other 75% is held by four unrelated, non-designated investors with no voting agreement, and the designated person has no right to appoint or remove any director. Board minutes and emails obtained during due diligence show that, for two years, Kestrel's directors have sent every contract above GBP 50,000 to him for approval and reversed a decision when he objected. Under the UK ownership and control test, how should the bank treat Kestrel?",
     options: [
-      "Arctis is caught in all three jurisdictions, because every regime treats a right to appoint the board as blocking the entity",
-      "Arctis is treated as controlled by Mr P under the UK and EU tests, but it is not blocked under OFAC's 50 Percent Rule, which looks only at ownership",
-      "Arctis is caught nowhere, because Mr P's 35% stake is below the ownership threshold in each jurisdiction",
-      "Arctis is blocked only under OFAC rules, because the US looks at control while the UK and EU look only at ownership"
+      "As not owned or controlled, because he holds neither more than 50% of the shares or votes nor the right to appoint a majority of the board",
+      "As controlled by the designated person, because it is reasonable to expect that he can ensure Kestrel's affairs are run in accordance with his wishes",
+      "As outside the asset freeze until OFSI adds Kestrel to the UK Sanctions List, because only listed entities are subject to restrictions",
+      "As owned by the designated person, because UK sanctions treat any stake of 25% or more as ownership, in line with the beneficial ownership test"
     ],
     answer: [1],
-    explanation: "OFSI's guidance treats an entity as controlled where a designated person has the right to appoint or remove a majority of the board. The EU Best Practices list the same right as a control criterion, which brings in the presumption against making resources available to the entity. OFAC's 50 Percent Rule is based on ownership, so Arctis is not blocked by operation of law, although OFAC advises caution in dealings where an SDN has control. The runner-up wrongly applies the board-appointment test to the US as well.",
+    explanation: "Regulation 7 of the Russia (Sanctions) (EU Exit) Regulations 2019 has two conditions. The first is more than 50% of shares or voting rights, or the right to appoint or remove a majority of the board. The second is that it is reasonable, having regard to all the circumstances, to expect that the designated person could ensure the entity's affairs are conducted in accordance with his wishes. OFSI's guidance says a minority interest does not by itself meet the test, but if the affairs are conducted in accordance with the designated person's wishes, the criteria are met. The runner-up stops at the first condition. Owned or controlled entities are caught without being listed, and 25% is the CDD beneficial ownership threshold, not a sanctions test.",
     source: [
-      { label: "OFSI – UK financial sanctions general guidance, section 4 (ownership and control)", url: "https://www.gov.uk/government/publications/financial-sanctions-general-guidance/uk-financial-sanctions-general-guidance" },
-      { label: "Council of the EU – EU Best Practices (ST 11623/24), control criteria", url: "https://data.consilium.europa.eu/doc/document/ST-11623-2024-INIT/en/pdf" }
+      { label: "Russia (Sanctions) (EU Exit) Regulations 2019, regulation 7", url: "https://www.legislation.gov.uk/uksi/2019/855/regulation/7" },
+      { label: "OFSI – UK financial sanctions general guidance, section 4 (ownership and control, minority interests)", url: "https://www.gov.uk/government/publications/financial-sanctions-general-guidance/uk-financial-sanctions-general-guidance" }
     ]
   },
   {
@@ -329,7 +329,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "SANP-022", difficulty: "hard", domain: 2, topic: "OFAC recordkeeping: 10 years after unblocking (calculation)", hy: true,
-    changed: "OFAC recordkeeping extended from 5 to 10 years (final rule effective 21 Mar 2025)",
+    changed: "OFAC recordkeeping extended from 5 to 10 years (effective 12 Mar 2025; final rule 21 Mar 2025)",
     q: "In June 2017, Granite National Bank blocked USD 1.2 million belonging to an SDN and has held it in a blocked interest-bearing account ever since. In April 2026, OFAC removes the person from the SDN List, and the bank releases the funds on 15 April 2026 and files the required report. The bank's retention schedule still says 'OFAC records: five years from the date of blocking', which the records team believes allows it to purge the file now. Under 31 CFR 501.601, until when must the bank at least keep the records of this blocked property?",
     options: [
       "Until June 2022, five years after the date of blocking, so the file may already be purged",
@@ -338,10 +338,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Until June 2027, 10 years after the date of blocking"
     ],
     answer: [2],
-    explanation: "Section 501.601, as amended in 2024 with effect from 21 March 2025, requires records of blocked property to be kept for the whole period the property is blocked and for at least 10 years after it is unblocked. The runner-up, five years after unblocking, was the rule before the 2025 change, which aligned retention with the 10-year statute of limitations for IEEPA and TWEA violations. Both options counted from the blocking date are wrong, because the period runs from unblocking.",
+    explanation: "Section 501.601, as amended by an interim final rule of September 2024 that took effect on 12 March 2025 (adopted without change by a final rule of 21 March 2025), requires records of blocked property to be kept for the whole period the property is blocked and for at least 10 years after it is unblocked. The runner-up, five years after unblocking, was the rule before that change, which aligned retention with the 10-year statute of limitations for IEEPA and TWEA violations. Both options counted from the blocking date are wrong, because the period runs from unblocking.",
     source: [
       { label: "31 CFR 501.601 – records and recordkeeping requirements", url: "https://www.ecfr.gov/current/title-31/section-501.601" },
-      { label: "Federal Register (21 March 2025) – OFAC final rule extending recordkeeping to 10 years", url: "https://www.govinfo.gov/content/pkg/FR-2025-03-21/pdf/2025-04864.pdf" }
+      { label: "Federal Register (21 March 2025) – OFAC final rule adopting the 10-year recordkeeping rule", url: "https://www.govinfo.gov/content/pkg/FR-2025-03-21/pdf/2025-04864.pdf" }
     ]
   },
   {
@@ -361,33 +361,36 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   // ---------------- Domain 1: evasion red flags seen by screening teams ----------------
   {
-    id: "SANP-024", difficulty: "medium", domain: 1, topic: "Evasion: resubmitting a stopped payment with references removed", hy: false,
-    q: "Corvane Bank, a US correspondent, stops a USD 410,000 payment from its respondent Banco Meridional to a Dubai trading company. The remittance information reads 'INV 2207 – urea cargo ex Bandar Abbas'. Corvane asks for more information. Two hours later, Meridional sends a new message with the same amount, beneficiary and invoice number, but the remittance information now reads 'INV 2207 – fertiliser', with no port. Meridional is a long-standing respondent that passed its last due diligence review, and its message format recently moved to ISO 20022. What does this MOST likely indicate?",
+    id: "SANP-024", difficulty: "hard", domain: 1, topic: "Evasion: handling a stopped payment resubmitted with references removed", hy: false,
+    q: "Corvane Bank, a US correspondent, stops a USD 410,000 payment from its respondent Banco Meridional to a Dubai trading company. The remittance information reads 'INV 2207 – urea cargo ex Bandar Abbas'. Corvane asks for more information. Two hours later, Meridional sends a new message with the same amount, beneficiary and invoice number, but the remittance information now reads 'INV 2207 – fertiliser', with no port. Meridional is a long-standing respondent that passed its last due diligence review, and its messages recently moved to ISO 20022. What should Corvane do?",
     options: [
-      "A routine repair of the payment message during the move to ISO 20022 structured data",
-      "Possible stripping: removing the sanctions-relevant reference so that the payment passes the filter",
-      "A duplicate payment caused by a technical timeout, which should be cancelled as a processing error",
-      "Trade-based money laundering through over-invoicing of the urea cargo"
+      "Process the new message, because it contains no sanctions reference and the respondent passed its last due diligence review",
+      "Ask Meridional to confirm in writing that the cargo is not of Iranian origin, and process the payment once that confirmation arrives",
+      "Treat the new message as the same payment: do not process it, reject or block it as the facts require and report to OFAC, and escalate the respondent for possible stripping",
+      "Process the new message and file a SAR afterwards, because a bank cannot refuse a payment that passes its sanctions filter"
     ],
-    answer: [1],
-    explanation: "Resubmitting a stopped payment with the sanctioned-country reference (an Iranian port) deleted, while all other details stay the same, is a classic sign of stripping or manipulating payment messages to conceal sanctioned involvement. OFAC's Framework flags this concealment as a feature of the cases it pursues. The ISO 20022 migration and the respondent's clean history are decoys: a format change does not explain deleting the port. Corvane should treat the payment as possible evasion, escalate it and review the respondent relationship.",
+    answer: [2],
+    explanation: "Resubmitting a stopped payment with the reference to an Iranian port deleted, while every other detail stays the same, is a classic sign of stripping, which OFAC's Framework lists as concealment in the cases it pursues. The edited text does not change the underlying transaction: US persons may not deal in or facilitate trade in Iranian-origin goods (31 CFR 560.206), so the payment must be rejected (or blocked if a blocked person has an interest) and reported under 31 CFR 501.604 or 501.603. The runner-up, a written assurance, relies on a respondent that has just altered the message. The ISO 20022 migration does not explain deleting a port, and a filter pass does not oblige a bank to process a payment it knows is prohibited.",
     source: [
-      { label: "OFAC – A Framework for OFAC Compliance Commitments (2019), Appendix: root causes (stripping and manipulation of payment messages)", url: "https://ofac.treasury.gov/media/16331/download?inline" }
+      { label: "OFAC – A Framework for OFAC Compliance Commitments (2019), Appendix: stripping and manipulation of payment messages", url: "https://ofac.treasury.gov/media/16331/download?inline" },
+      { label: "31 CFR 560.206 – prohibited trade-related transactions with Iran (Iranian-origin goods)", url: "https://www.ecfr.gov/current/title-31/section-560.206" },
+      { label: "31 CFR 501.604 – reports of rejected transactions", url: "https://www.ecfr.gov/current/title-31/section-501.604" }
     ]
   },
   {
-    id: "SANP-025", difficulty: "medium", domain: 1, topic: "Evasion: unrelated third-party payers after a buyer's parent is designated", hy: false,
-    q: "Oakfield Machinery, a customer of an EU bank, has sold farm equipment to Taymyr Agro in Kazakhstan since 2021. Taymyr always paid from its own account at a Kazakh bank. Two months after Taymyr's parent company is designated, Oakfield's invoices to Taymyr start being paid by five different companies in the UAE, Hong Kong and Armenia. None of these payers has any visible link to Taymyr, they pay round amounts that cover several invoices at once, and two were incorporated this year. Oakfield says it does not mind who pays as long as the invoices are settled. Which typology do these facts MOST likely indicate?",
+    id: "SANP-025", difficulty: "hard", domain: 1, topic: "Evasion: servicing a blocked yacht after a post-designation 'sale'", hy: false,
+    q: "In 2024, OFAC designated Mr V, a Russian businessman, and identified his yacht Aurora Sky as blocked property. Three weeks later, the Cayman company that held the yacht for him 'sold' it to Corva Maritime Ltd, a Marshall Islands company formed the week before, for an undisclosed price. No OFAC license was obtained. In 2026, Harbor Point Marine, a Florida shipyard and a customer of a US bank, starts receiving wires from Corva through a UAE bank for a USD 1.9 million refit, crew salaries and berthing fees for the yacht. The shipyard tells the bank that Corva is not on the SDN List. What is the MOST significant concern?",
     options: [
-      "Non-standard third-party payments used to hide the involvement of a sanctioned party",
-      "Normal supply-chain financing, in which factoring companies settle invoices on the buyer's behalf",
-      "Cuckoo smurfing, in which criminal funds are deposited into a legitimate customer's account",
-      "Over-invoicing to move value from Kazakhstan into the EU"
+      "None, because neither the yacht's registered owner nor the payer is on the SDN List",
+      "The unlicensed post-designation transfer is likely void, so the yacht probably remains Mr V's blocked property and the refit, crew and berthing services are dealings in it",
+      "An export control issue only, because yachts are luxury goods whose export to Russia needs a BIS licence",
+      "Tax evasion, because flagging yachts through offshore companies is commonly used to avoid VAT"
     ],
-    answer: [0],
-    explanation: "After the parent's designation, a long-standing buyer that paid from its own account switches to several unrelated, newly formed third-party payers in other jurisdictions that pay lump sums. This non-standard payment practice is the kind OFAC's Framework lists as a root cause of violations, used to hide a sanctioned party's involvement. Genuine supply-chain finance would involve identifiable finance providers and documentation. Nothing suggests criminal cash placed into Oakfield's account (cuckoo smurfing) or mispriced invoices.",
+    answer: [1],
+    explanation: "FinCEN's March 2022 alert on high-value assets of Russian elites lists the sudden transfer of ownership of high-value assets by sanctioned persons and their proxies as a red flag, and notes that US persons are generally prohibited from dealings involving a blocked yacht, such as maintenance, hiring operating personnel or paying docking fees. Under 31 CFR 587.202, an unlicensed transfer of blocked property after designation is null and void. The runner-up looks only at the SDN List and ignores Mr V's continuing interest. Export controls and tax are secondary: the yacht is in Florida and the issue is dealing in blocked property, so the bank should escalate the wires for possible blocking and reporting.",
     source: [
-      { label: "OFAC – A Framework for OFAC Compliance Commitments (2019), Appendix: non-standard payment or commercial practices", url: "https://ofac.treasury.gov/media/16331/download?inline" }
+      { label: "FinCEN Alert FIN-2022-Alert002 – real estate, luxury goods and other high-value assets of Russian elites", url: "https://www.fincen.gov/sites/default/files/2022-03/FinCEN%20Alert%20Russian%20Elites%20High%20Value%20Assets_508%20FINAL.pdf" },
+      { label: "31 CFR 587.202 – effect of transfers violating the Russian Harmful Foreign Activities Sanctions Regulations", url: "https://www.ecfr.gov/current/title-31/section-587.202" }
     ]
   }
 ]);
