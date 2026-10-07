@@ -91,7 +91,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The German FIU, to which the STR was submitted, must agree to the disclosure"
     ],
     answer: [3],
-    explanation: "Article 75(3)(g) allows partnership members to exchange information on suspicions reported under Article 69, but Article 75(4)(k) allows this only where the FIU that received the STR has agreed to the disclosure. The runner-up, that membership lifts the disclosure ban, is wrong: Article 73's prohibition still applies, and (k) is the condition that allows this specific exchange. Telling Brack would tip her off. Pseudonymisation is a required security measure (Art. 75(4)(e)), but it does not replace FIU agreement.",
+    explanation: "Article 75(3)(g) allows partnership members to exchange information on suspicions reported under Article 69, but Article 75(4)(k) allows this only where the FIU that received the STR has agreed to the disclosure. The runner-up, that membership lifts the disclosure ban, is wrong: Article 73's prohibition still applies, and (k) is the condition that allows this specific exchange. Telling Brack would tip her off. Measures allowing pseudonymisation are part of the required security safeguards (Art. 75(4)(e)), but they do not replace FIU agreement.",
     source: [
       { label: "Regulation (EU) 2024/1624 (AMLR) – Arts. 73 and 75", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }
     ]
@@ -143,16 +143,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "PPPS-010", domain: 2, topic: "AMLR Art. 75: records of sharing and policies before joining", hy: false, difficulty: "medium",
-    q: "In March 2028 Castellan Bank's internal audit reviews the bank's first six months in an EU partnership for information sharing. Investigators have exchanged information about 85 customers, mostly through posts on a secure platform, but also in about 20 phone calls between investigators that were not logged. The bank's internal policies on partnership sharing were finalised in January 2028, two months after it started participating. The supervisor has not asked for an independent audit of the partnership. Which finding should audit rate as the MOST serious breach of Article 75?",
+    id: "PPPS-010", domain: 2, topic: "AMLR Art. 75(6)-(7): internal policies before joining a partnership; audits", hy: false, difficulty: "medium",
+    q: "In March 2028 Castellan Bank's internal audit reviews the bank's first six months in an EU partnership for information sharing. Every instance of sharing, on the secure platform and in investigators' phone calls, has been logged. However, the bank started sharing in September 2027 and approved its internal policies on partnership sharing only in January 2028; the policies still do not say which risk assessments the bank uses to decide when a customer is higher risk and can be discussed. The supervisor has not asked for an independent audit of the partnership. Which finding should audit rate as the MOST serious breach of Article 75?",
     options: [
-      "The supervisor has not required an independent audit of how the partnership is functioning",
-      "Not every instance of sharing was recorded, and the policies were finalised only after participation began",
-      "Investigators used phone calls, since Article 75 requires all sharing to go through a secure electronic platform",
+      "No independent audit of how the partnership functions has been commissioned",
+      "The partnership policies were approved only after sharing began and do not identify the risk assessments used to decide when sharing is allowed",
+      "Investigators shared information by phone, since Article 75 requires all sharing to go through a secure electronic platform",
       "Customers were not personally notified before their data were exchanged within the partnership"
     ],
     answer: [1],
-    explanation: "Article 75(4)(a) requires obliged entities to record all instances of information sharing within the partnership. Article 75(6) requires the internal policies and procedures, covering the extent of sharing, roles and responsibilities, and the risk assessments used, to be drawn up before participation begins. An independent audit is needed only where supervisors deem it necessary (Art. 75(7)). Article 75 does not prescribe a channel, and it does not require customers to be notified individually, which could in any case conflict with the Article 73 prohibition of disclosure.",
+    explanation: "Article 75(6) requires obliged entities to set out partnership sharing in their internal policies and procedures, including the assessment that determines how much is shared, the roles and responsibilities of the parties, and the risk assessments used to identify higher-risk situations in which information can be shared. Those policies must be drawn up before the entity participates. Castellan breached both the timing and the content requirements. An independent audit is needed only where supervisors deem it necessary (Art. 75(7)), so its absence is not a breach. Article 75 does not prescribe a channel, provided every instance is recorded (Art. 75(4)(a)), and it does not require customers to be notified individually, which could conflict with the Article 73 prohibition of disclosure.",
     source: [
       { label: "Regulation (EU) 2024/1624 (AMLR) – Art. 75(4), (6) and (7)", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }
     ]
@@ -291,13 +291,14 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Whether the investigators have signed a confidentiality agreement, since that resolves any conflict with foreign bank secrecy laws"
     ],
     answer: [2],
-    explanation: "The EFIPPP guide says that when cooperation involves data from third-country branches, whether the transfer is lawful is primarily a matter for that country's law. It often makes a difference whether the data are meant to become directly accessible to EU authorities, or only to help the EU head office identify suspicious activity. Head-office use for group AML monitoring is consistent with FATF R.18 group-wide sharing. Giving investigators direct access is a different step that may need formal channels such as mutual legal assistance. A Danish order cannot override Country Z's law, and neither a DPIA nor a confidentiality agreement settles a foreign secrecy conflict.",
+    explanation: "The EFIPPP guide says that when cooperation involves data from third-country branches, whether the transfer is lawful is primarily a matter for that country's law. It often makes a difference whether the data are meant to become directly accessible to EU authorities, or only to help the EU head office identify suspicious activity. Head-office use for group AML monitoring is consistent with FATF R.18 group-wide sharing. Giving EU investigators direct access is a different step, and the branch's own law may not allow it. A Danish order cannot override Country Z's law, and neither a DPIA nor a confidentiality agreement settles a foreign secrecy conflict.",
     source: [
       { label: "EFIPPP Practical Guide (Europol, 2025) – section VI.2, data transfer from a third country", url: "https://www.europol.europa.eu/cms/sites/default/files/documents/EFIPPP_Practical_Guide.pdf" }
     ]
   },
   {
     id: "PPPS-020", domain: 2, topic: "314(b): sharing on suspected fraud without identifying laundered proceeds", hy: true, difficulty: "hard",
+    changed: "FinCEN 314(b) Fact Sheet, June 2026",
     q: "Lakeshore Credit Union's fraud team sees that member Dorian Pike has received USD 46,000 in 9 days from 11 elderly people in four states, each payment labelled 'tech support refund'. Pike forwards most of the money to an account at Ridgeway Bank. Lakeshore has not traced where the money ends up and has not yet decided whether to file a SAR. Its general counsel says Lakeshore cannot use section 314(b) to ask Ridgeway about the account, because this 'looks like fraud, not money laundering', and there is no proof that proceeds are being laundered. Both institutions are 314(b) registrants. What is the BEST response, based on FinCEN's Section 314(b) Fact Sheet?",
     options: [
       "Agree, because 314(b) covers only terrorist financing and laundering, so a fraud inquiry needs a law enforcement request",
@@ -306,7 +307,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Disagree: fraud is a specified unlawful activity, and sharing is protected without identifying specific laundered proceeds"
     ],
     answer: [3],
-    explanation: "FinCEN's Section 314(b) Fact Sheet explains that fraud offences are specified unlawful activities for money laundering. An institution that suspects activity may involve fraud can share under the safe harbor without having identified specific proceeds being laundered, and without having reached a conclusive determination that the activity is suspicious. Sharing does not depend on a filed SAR. Ridgeway may not reveal whether it has filed a SAR, because 314(b) does not authorise sharing SARs or disclosing their existence.",
+    explanation: "FinCEN's Section 314(b) Fact Sheet explains that fraud offences are specified unlawful activities for money laundering. An institution that suspects activity may involve fraud can share under the safe harbor without having identified specific proceeds of fraud being laundered: suspicion of possible money laundering is enough, and no conclusion or SAR decision is needed first. Sharing does not depend on a filed SAR. Ridgeway may not reveal whether it has filed a SAR, because 314(b) does not authorise sharing SARs or disclosing their existence.",
     source: [
       { label: "FinCEN Section 314(b) Fact Sheet (updated 12 Jun 2026) – fraud as SUA; SARs may not be shared", url: "https://www.fincen.gov/system/files/shared/314bfactsheet.pdf" },
       { label: "31 CFR 1010.540 – voluntary information sharing among financial institutions", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-E/section-1010.540" }
@@ -314,16 +315,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "PPPS-021", domain: 4, topic: "314(b) associations run by a non-financial-institution vendor", hy: false, difficulty: "hard",
-    q: "ClearSignal Inc., a US analytics company that is not a financial institution under the BSA, wants to run a contract-based, unincorporated 314(b) association through which member banks and money services businesses share real-time alerts on scam payments. A payments app that is not registered as an MSB and has no AML program asks to join. One bank asks whether members may upload copies of their SARs to speed up investigations. Which statements about the arrangement are correct under FinCEN's Section 314(b) Fact Sheet? (Choose two.)",
+    q: "ClearSignal Inc., a US analytics company that is not a financial institution under the BSA, wants to set up a 314(b) association through which member banks and money services businesses share real-time alerts on scam payments. To save cost, it plans not to incorporate the association but to govern it by a membership contract. A budgeting app that only displays users' account data, is not a BSA financial institution and has no AML program requirement, asks to join. One bank asks whether members may upload copies of their SARs to speed up investigations. Which statements about the arrangement are correct under FinCEN's Section 314(b) Fact Sheet? (Choose two.)",
     options: [
       "ClearSignal can form and operate the association even though it is not itself a BSA financial institution",
-      "The association must be incorporated, because 314(b) does not cover groups that exist only by contract",
-      "The payments app can join as a member, as long as it signs the association's confidentiality agreement",
-      "Members must keep shared information secure and use it only for the purposes allowed by the 314(b) rule",
+      "The association must be owned by, or be a corporate affiliate of, one of its member financial institutions",
+      "The budgeting app can join as a member, as long as it signs the association's confidentiality agreement",
+      "The association can exist purely by contract among its members, without being incorporated",
       "Members may upload copies of their SARs, because sharing inside a registered association is protected"
     ],
     answer: [0, 3],
-    explanation: "FinCEN's fact sheet says the organisation that forms and operates a 314(b) association need not be a regulated financial institution, and unincorporated, contract-based associations are permitted. However, every member must be a financial institution as defined in 31 CFR 1010.540(a)(1), meaning one required to have an AML program, so the unregistered app cannot join. All participants must protect the information and use it only to identify and report ML/TF, decide whether to open or maintain an account or carry out a transaction, or comply with the BSA. Section 314(b) never authorises sharing SARs or revealing their existence.",
+    explanation: "FinCEN's fact sheet says the organisation that forms and operates a 314(b) association need not be a regulated financial institution, nor a subsidiary or corporate affiliate of one. Unincorporated associations based on contracts among their participants are also permitted. However, every member must be a financial institution as defined in 31 CFR 1010.540(a)(1), meaning one required to have an AML program, so the budgeting app cannot join, whatever it signs. The association and its members must still meet the use and security requirements of 31 CFR 1010.540(b)(4), and section 314(b) never authorises sharing SARs or revealing their existence.",
     source: [
       { label: "FinCEN Section 314(b) Fact Sheet (updated 12 Jun 2026) – associations, eligibility, use and security", url: "https://www.fincen.gov/system/files/shared/314bfactsheet.pdf" },
       { label: "31 CFR 1010.540 – voluntary information sharing among financial institutions", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-E/section-1010.540" }
@@ -331,6 +332,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "PPPS-022", domain: 4, topic: "314(b) partners preparing a joint SAR vs an earlier separate SAR", hy: true, difficulty: "hard",
+    changed: "FinCEN 314(b) Fact Sheet, June 2026",
     q: "Investigators at Granite Peak Bank and Sumner Trust, both 314(b) registrants, have spent three weeks sharing records on a ring that used 23 accounts at the two banks to launder USD 1.9 million of business email compromise proceeds. None of the subjects works for either bank. The banks agree to file a joint SAR. Two months ago, before the collaboration began, Granite Peak filed its own SAR on one ring member, Calla Moreno. Sumner's investigator now asks for the draft joint SAR and whether Granite Peak 'has already reported Moreno'. What may Granite Peak do?",
     options: [
       "Share and discuss the draft joint SAR with Sumner, but not reveal its earlier SAR on Moreno",
