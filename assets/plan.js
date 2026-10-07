@@ -201,7 +201,7 @@
       '<p class="muted">' + (isP ? "Thanks for your support. Everything is unlocked." : "Unlimited practice, mock exams and analytics, for less than the price of one coffee a week.") + "</p></div>";
     if (status && !isP) html += '<div class="card fade-in" id="payWait" style="text-align:center"><b>Payment received, activating Premium…</b><p class="muted small">This takes a few seconds.</p></div>';
     if (isP) {
-      html += '<div class="card fade-in" style="text-align:center"><p>Plan: <b>' + esc((PLANS.filter(function (p) { return p.id === e.plan; })[0] || {}).name || e.plan || "Premium") + "</b>" +
+      html += '<div class="card fade-in" style="text-align:center"><p>Plan: <b>' + esc(e.plan === "lifetime" ? "Lifetime" : (PLANS.filter(function (p) { return p.id === e.plan; })[0] || {}).name || e.plan || "Premium") + "</b>" +
         (e.until ? " · " + (e.plan === "pass6" ? "valid until " : "renews or ends on ") + new Date(e.until).toLocaleDateString() : "") + "</p>" +
         (stripe.portal ? '<a class="btn" href="' + esc(stripe.portal) + '" target="_blank" rel="noopener">Manage subscription and invoices</a>' : "") + "</div>";
     } else {

@@ -4,7 +4,7 @@
 
 create table if not exists public.entitlements (
   user_id                uuid primary key references auth.users (id) on delete cascade,
-  plan                   text not null check (plan in ('monthly', 'quarterly', 'pass6', 'annual')),
+  plan                   text not null check (plan in ('monthly', 'quarterly', 'pass6', 'annual', 'lifetime')),
   status                 text not null,              -- active, trialing, paid (pass), past_due, canceled...
   current_period_end     timestamptz,
   stripe_customer_id     text,
@@ -19,3 +19,12 @@ grant select on table public.entitlements to authenticated;
 drop policy if exists "entitlements_select_own" on public.entitlements;
 create policy "entitlements_select_own" on public.entitlements
   for select to authenticated using ((select auth.uid()) = user_id);
+
+-- Allow free "lifetime" access granted by hand (e.g. the site owner). Upgrades a table created before.
+alter table public.entitlements drop constraint if exists entitlements_plan_check;
+alter table public.entitlements add constraint entitlements_plan_check check (plan in ('monthly', 'quarterly', 'pass6', 'annual', 'lifetime'));
+
+-- To give someone free Premium, replace the email and run:
+-- insert into public.entitlements (user_id, plan, status, current_period_end)
+-- select id, 'lifetime', 'active', null from auth.users where email = 'someone@example.com'
+-- on conflict (user_id) do update set plan = 'lifetime', status = 'active', current_period_end = null, updated_at = now();
