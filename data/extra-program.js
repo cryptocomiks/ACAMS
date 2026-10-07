@@ -25,7 +25,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "The FFIEC manual says there is no requirement to update the BSA/AML risk assessment on a continuous or specified periodic basis, but the bank may need to update it when it introduces new products or expands through mergers and acquisitions, as here. FinCEN's April 2026 proposed rule would require updates 'promptly' after significant changes and would make banks incorporate the AML/CFT Priorities. Comments closed on 9 June 2026, but as of early October 2026 FinCEN had not published a final rule. The runner-up correctly says there is no fixed cycle but ignores the two trigger events, and 31 CFR 1020.210 sets no 12-month deadline.",
     source: [
       { label: "FFIEC BSA/AML Manual (2020), BSA/AML Risk Assessment – no specified periodic update; update for new products, M&A (NCUA copy)", url: "https://ncua.gov/files/press-releases-news/bsa-aml-examination-manual-april-2020.pdf" },
-      { label: "FinCEN proposed rule, AML/CFT Programs (91 FR, 10 April 2026) – proposed 'promptly' updates and AML/CFT Priorities", url: "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07033.pdf" }
+      { label: "FinCEN proposed rule, AML/CFT Programs (91 FR 18704, 10 April 2026) – proposed 'promptly' updates and AML/CFT Priorities", url: "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-07033.pdf" }
     ]
   },
   {
@@ -54,7 +54,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "Executive Order 14331 (7 August 2025) says banking decisions must be made on individualized, objective and risk-based analyses, and it directed regulators to remove reputation risk from supervision. The OCC and FDIC final rule (effective 9 June 2026; 12 CFR 4.91 for the OCC) bars the agencies from criticising banks on the basis of reputation risk or encouraging account closures over politically disfavoured but lawful business. The rule expressly does not restrict BSA enforcement, so genuine red flags must still be investigated. The runner-up goes too far: the order does not stop a bank from exiting a customer whose financial crime risk it cannot manage. Asking the OCC to approve customer decisions is not how supervision works.",
     source: [
       { label: "Executive Order 14331, Guaranteeing Fair Banking for All Americans (7 Aug 2025), ss.2 and 4", url: "https://www.govinfo.gov/content/pkg/DCPD-202500835/html/DCPD-202500835.htm" },
-      { label: "OCC and FDIC final rule: Prohibition on the Use of Reputation Risk by Regulators (FR 2026-06947), 12 CFR 4.91", url: "https://public-inspection.federalregister.gov/2026-06947.pdf" }
+      { label: "OCC and FDIC final rule: Prohibition on the Use of Reputation Risk by Regulators (91 FR 18279, 10 April 2026), 12 CFR 4.91(a)-(e)", url: "https://www.govinfo.gov/content/pkg/FR-2026-04-10/pdf/2026-06947.pdf" }
     ],
     changed: "EO 14331 (Aug 2025); OCC/FDIC reputation risk rule (effective June 2026)"
   },
@@ -136,7 +136,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "A CTR for $17,300, combining the personal-account deposits with the withdrawal"
     ],
     answer: [2],
-    explanation: "Under 31 CFR 1010.313(b), multiple currency transactions by or on behalf of one person are aggregated per business day, and deposits made at night or over a weekend count on the next business day. So the Sunday night deposit counts on Monday: $3,000 + $4,500 + $3,000 = $10,500 cash in. FIN-2012-G001 confirms that deposits the same individual makes into her own account and a business account are aggregated, because she conducted both. FinCEN's CTR guidance says cash in and cash out are totalled separately and never netted, so the $9,800 withdrawal neither offsets the deposits nor adds to them. The runner-up wrongly dates the night deposit to Sunday.",
+    explanation: "Under 31 CFR 1010.313(b), multiple currency transactions by or on behalf of one person are aggregated per business day, and deposits made at night or over a weekend count on the next business day. So the Sunday night deposit counts on Monday: $3,000 + $4,500 + $3,000 = $10,500 cash in. FIN-2012-G001 confirms that deposits the same individual makes into her own account and a business account are aggregated, because she conducted both. Section 1010.313(b) aggregates 'either cash in or cash out', so cash in and cash out are totalled separately and never netted: the $9,800 withdrawal neither offsets the deposits nor adds to them, and on its own it is below the threshold. The runner-up wrongly dates the night deposit to Sunday.",
     source: [
       { label: "31 CFR 1010.313 – aggregation; night and weekend deposits count on the next business day", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-C/section-1010.313" },
       { label: "FinCEN FIN-2012-G001 – CTR aggregation (same conductor, personal and business accounts)", url: "https://www.fincen.gov/sites/default/files/shared/FIN-2012-G001.pdf" }
@@ -292,7 +292,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Individual liability applies only to directors, not to compliance staff who are employees",
       "As an officer who willfully violated the BSA, he can be assessed a civil money penalty personally",
       "Any BSA violation, however minor, automatically bars him from board service for life",
-      "If found to have committed an egregious BSA violation, he is barred from US bank boards for 10 years"
+      "If found to have committed an egregious BSA violation, he is barred from boards of US financial institutions for 10 years"
     ],
     answer: [2, 4],
     explanation: "31 U.S.C. 5321(a)(1) makes a partner, director, officer or employee who willfully violates the BSA liable for civil penalties. No personal profit is required. Section 5321(g), added by the AML Act of 2020, bars an individual who commits an egregious violation from serving on the board of a US financial institution for 10 years. An egregious violation is a criminal conviction carrying more than one year, or a willful civil violation that facilitated money laundering or terrorist financing. The facts mirror FinCEN's 2017 settlement with former MoneyGram CCO Thomas Haider, who paid $250,000 and accepted a three-year bar from compliance roles at money transmitters.",
@@ -303,7 +303,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "PROG-021", difficulty: "hard", domain: 3, topic: "Supervision: the 2026 OCC/FDIC MRA rule", hy: true,
-    q: "In November 2026, OCC examiners review a national bank with $3 billion in assets and find two issues. First, the bank failed to file CTRs on 140 reportable cash transactions over six months because of a coding error. Second, its BSA procedures manual has outdated formatting and broken cross-references, although staff follow the procedures and no harm has resulted. Under the OCC and FDIC final rule on unsafe or unsound practices and matters requiring attention (MRAs), effective 2 November 2026, how can examiners address these issues?",
+    q: "The OCC and FDIC published a final rule on unsafe or unsound practices and matters requiring attention (MRAs) on 1 September 2026; it takes effect on 2 November 2026. A national bank with $3 billion in assets has an OCC examination scheduled to start after that date. An internal review has found two issues. First, the bank failed to file CTRs on 140 reportable cash transactions over six months because of a coding error. Second, its BSA procedures manual has outdated formatting and broken cross-references, although staff follow the procedures and no harm has resulted. Once the final rule applies, how can examiners address these issues?",
     options: [
       "Neither can be an MRA, because neither has materially harmed the bank's capital, earnings or liquidity",
       "Both should be MRAs, because MRAs cover any weakness in policies or documentation",
@@ -311,8 +311,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The missed CTRs can support an MRA as a legal violation; the manual issue is a supervisory observation"
     ],
     answer: [3],
-    explanation: "Under the final rule (12 CFR 4.92(c) for the OCC), an MRA may be issued only for a practice that is contrary to prudent operation and could reasonably be expected to materially harm the bank's financial condition or the Deposit Insurance Fund, or for an actual violation of a banking or banking-related law. The preamble lists AML, CFT and sanctions laws as banking-related, so the missed CTRs qualify under the violation prong without any financial harm. That is why the runner-up, which looks only at financial harm, is wrong. The manual weakness is a supervisory observation, an informal finding that creates no expectation of board escalation or corrective action.",
-    source: [{ label: "OCC and FDIC final rule: Unsafe or Unsound Practices, Matters Requiring Attention (91 FR 56004, 1 Sept 2026)", url: "https://www.govinfo.gov/content/pkg/FR-2026-09-01/pdf/2026-17823.pdf" }],
+    explanation: "The rule is final but not yet in force; it governs OCC and FDIC supervisory findings from 2 November 2026. Under it (12 CFR 4.92(c) for the OCC), an MRA may be issued only for a practice that is contrary to prudent operation and could reasonably be expected to materially harm the bank's financial condition or the Deposit Insurance Fund, or for an actual violation of a banking or banking-related law. The preamble lists AML, CFT and sanctions laws as banking-related, so the missed CTRs qualify under the violation prong without any financial harm. That is why the runner-up, which looks only at financial harm, is wrong. The manual weakness meets neither prong, so it can only be a supervisory observation, an informal finding that creates no expectation that it goes to the board or that the bank takes corrective action (4.92(g)). Referral to FinCEN is not a substitute: the rule lets the OCC issue an MRA for a BSA violation.",
+    source: [{ label: "OCC and FDIC final rule: Unsafe or Unsound Practices, Matters Requiring Attention (91 FR 56004, 1 Sept 2026; effective 2 Nov 2026) – 12 CFR 4.92(c), (g) and preamble on banking-related laws", url: "https://www.govinfo.gov/content/pkg/FR-2026-09-01/pdf/2026-17823.pdf" }],
     changed: "OCC/FDIC MRA and unsafe-or-unsound rule (effective 2 Nov 2026)"
   },
   {
@@ -338,15 +338,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Ask each fintech to certify every year that its AML program is effective and complies with the BSA"
     ],
     answer: [1],
-    explanation: "The July 2024 joint statement of the Federal Reserve, FDIC and OCC says that when third parties perform compliance functions such as suspicious activity monitoring and reporting, CIP and CDD, the bank remains responsible for any failure. It names lack of access to records as a key risk. The 2023 interagency third-party guidance says contracts typically give the bank the right to audit and require remediation, and that termination should be planned for an orderly transition. An annual certification, the runner-up, gives no access to data and does not clear the backlog. Abrupt mass closure is not a planned exit.",
+    explanation: "The July 2024 joint statement of the Federal Reserve, FDIC and OCC says that when third parties perform compliance functions such as suspicious activity monitoring and reporting, CIP and CDD, the bank remains responsible for any failure. It names lack of access to records as a key risk. The 2023 interagency third-party guidance says contracts typically give the bank the right to audit and require remediation, and that termination should be planned for an orderly transition. An annual certification, the runner-up, gives no access to data and does not clear the backlog. Abrupt mass closure is not a planned exit. In September 2026 the agencies proposed replacing the 2023 guidance and its supplements, but as of October 2026 that is only a proposal and the existing guidance still applies.",
     source: [
       { label: "Joint Statement on Banks' Arrangements with Third Parties to Deliver Bank Deposit Products and Services (25 July 2024)", url: "https://www.federalreserve.gov/newsevents/pressreleases/files/bcreg20240725c1.pdf" },
-      { label: "Interagency Guidance on Third-Party Relationships: Risk Management (88 FR 37920, June 2023)", url: "https://www.govinfo.gov/content/pkg/FR-2023-06-09/pdf/2023-12340.pdf" }
+      { label: "Interagency Guidance on Third-Party Relationships: Risk Management (88 FR 37920, June 2023)", url: "https://www.govinfo.gov/content/pkg/FR-2023-06-09/pdf/2023-12340.pdf" },
+      { label: "OCC, Fed, FDIC and NCUA: Proposed Third-Party Risk Management Guidance (FR 2026-18859, 15 Sept 2026) – proposal only", url: "https://www.govinfo.gov/content/pkg/FR-2026-09-15/pdf/2026-18859.pdf" }
     ]
   },
   {
     id: "PROG-024", difficulty: "hard", domain: 3, topic: "CTRs: FinCEN southwest border GTO (2026)", hy: false,
-    q: "In October 2026, a registered MSB that cashes checks and exchanges currency operates in a ZIP code covered by FinCEN's southwest border Geographic Targeting Order published in September 2026. A customer exchanges $4,500 in US currency for Mexican pesos. Later that day the MSB deposits $60,000 in cash from its daily receipts at its commercial bank. Which statement is correct?",
+    q: "In October 2026, a registered MSB that cashes checks and exchanges currency operates in a New Mexico ZIP code covered by FinCEN's southwest border Geographic Targeting Order published in September 2026, and was also covered by the previous order. A customer exchanges $4,500 in US currency for Mexican pesos. Later that day the MSB deposits $60,000 in cash from its daily receipts at its commercial bank. Which statement is correct?",
     options: [
       "Neither transaction is reportable by the MSB, because neither exceeds $10,000 per customer",
       "The MSB must report the $4,500 exchange on a CTR within 15 days, as for any CTR",
@@ -354,8 +355,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The GTO replaces the $10,000 CTR rule, so the MSB now reports only cash transactions of $1,000 to $10,000"
     ],
     answer: [2],
-    explanation: "The GTO (effective 3 September 2026, running to 1 March 2027) requires covered MSBs to report cash transactions of $1,000 to $10,000, including currency exchanges, on a CTR within 30 days, after meeting the ID requirements of 31 CFR 1010.312. Transactions between a covered business and a commercial bank are excluded. The GTO does not change existing duties: CTRs for cash over $10,000 and SARs are still required, which rules out the claim that it replaces the $10,000 rule. The 15-day deadline applies to ordinary CTRs under 31 CFR 1010.306, not to GTO reports.",
-    source: [{ label: "FinCEN Geographic Targeting Order, southwest border MSBs (91 FR, 4 Sept 2026)", url: "https://www.govinfo.gov/content/pkg/FR-2026-09-04/pdf/2026-18194.pdf" }],
+    explanation: "The GTO (effective 3 September 2026, running to 1 March 2027) requires covered MSBs to report each transaction in currency of $1,000 or more but not more than $10,000, including currency exchanges, on a CTR within 30 days, and to meet the ID requirements of 31 CFR 1010.312 before completing the transaction. (Certain Texas MSBs protected by court injunctions are excluded, which is why the stem places the MSB in New Mexico.) Transactions between a covered business and a commercial bank are excluded. The GTO does not change existing duties: CTRs for cash over $10,000 and SARs are still required, which rules out the claim that it replaces the $10,000 rule. The 15-day deadline applies to ordinary CTRs under 31 CFR 1010.306, not to GTO reports.",
+    source: [{ label: "FinCEN Geographic Targeting Order, southwest border MSBs (91 FR 56776, 4 Sept 2026) – paras 1-8", url: "https://www.govinfo.gov/content/pkg/FR-2026-09-04/pdf/2026-18194.pdf" }],
     changed: "FinCEN southwest border MSB GTO (Sept 2026)"
   },
   {
