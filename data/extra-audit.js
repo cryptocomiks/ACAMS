@@ -22,7 +22,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Ask the first line to certify in writing that the 2,140 customers are the complete high-risk population"
     ],
     answer: [1],
-    explanation: "The FFIEC Manual expects independent testing to assess whether the information technology sources, systems and processes that support the program are complete and accurate. A sample only supports a conclusion about the population it was drawn from. Here the population left out about 11,900 customers whose risk was never rated, and that gap is itself a significant finding. A larger sample from the same incomplete report is the runner-up, but it does not fix the population. A first-line certification is not independent evidence. The FCA's 2024 fine on Metro Bank shows the cost of such data gaps: an error in how data was fed into its system left more than 60 million transactions unmonitored for over four years.",
+    explanation: "The FFIEC Manual expects independent testing to assess whether the information technology sources, systems and processes that support the program are complete and accurate. A sample only supports a conclusion about the population it was drawn from. Here the population left out about 11,900 customers whose risk was never rated, and that gap is itself a significant finding. A larger sample from the same incomplete report is the runner-up, but it does not fix the population. A first-line certification is not independent evidence. The FCA's November 2024 fine on Metro Bank (£16.7 million) shows the cost of such data gaps: an error in how data was fed into its monitoring system meant that, between June 2016 and December 2020, more than 60 million transactions worth over £51 billion were not adequately monitored.",
     source: [
       { label: "FFIEC BSA/AML Examination Manual (2020) – Independent Testing: IT sources complete and accurate (NCUA copy)", url: "https://ncua.gov/files/press-releases-news/bsa-aml-examination-manual-april-2020.pdf" },
       { label: "FCA press release (Nov 2024) – Metro Bank fined £16.7m for financial crime failings", url: "https://www.fca.org.uk/news/press-releases/fca-fines-metro-bank-16m-financial-crime-failings" }
@@ -45,31 +45,31 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "AUDIT-004", domain: 3, topic: "Sanctions testing: responding to a confirmed negative test result", hy: true, difficulty: "hard",
-    q: "During quarterly sanctions testing, Fernhill Bank's testing team runs 500 test names through the payment screening system. It confirms that a configuration change seven weeks ago raised the fuzzy-matching threshold so high that transliterated variants of listed names no longer generate alerts. The vendor says a permanent fix and a root-cause analysis will take about six weeks. The bank processes about 9,000 international payments a day, and the head of operations is worried about alert volumes. What should the sanctions compliance officer do FIRST?",
+    id: "AUDIT-004", domain: 3, topic: "Sanctions testing: independence and relevance of the screening test (OFAC Framework)", hy: true, difficulty: "hard",
+    q: "At Fernhill Bank, the quarterly test of the payment sanctions screening system is designed and run by the sanctions operations team, which also tunes the filter's matching thresholds. Each quarter the team runs the same 500 test names, taken from a file the screening vendor supplied three years ago, and reports a 100% pass rate to the head of payment operations, to whom the team reports. Since the file was built, the bank has opened payment corridors to Central Asia, and many new designations have been added to the lists it screens against. Under OFAC's Framework for Compliance Commitments, which change would MOST improve the testing?",
     options: [
-      "Put compensating controls in place now, such as restoring the old setting or adding manual review",
-      "Wait for the vendor's root-cause analysis, so that the fix addresses the real underlying problem",
-      "File a voluntary self-disclosure with OFAC before taking any other step on the screening system",
-      "Retrain payment operations staff on name variations and transliteration of listed names"
+      "Give the testing to a function independent of screening operations that reports to senior management, and build test data from the bank's current risk assessment and list updates",
+      "Expand the vendor's test file from 500 to 5,000 names and run the same test every month instead of every quarter",
+      "Ask the screening vendor to certify each year that its matching algorithm meets industry standards",
+      "Lower the matching thresholds before each test so that the filter produces more alerts during testing"
     ],
     answer: [0],
-    explanation: "OFAC's Framework for Compliance Commitments says that when an organisation learns of a confirmed negative testing result or audit finding, it should take immediate and effective action to identify and implement compensating controls until the root cause is found and fixed. Waiting six weeks for the vendor is the runner-up, but it keeps a known gap open across about 9,000 payments a day. The bank should also look back over the seven weeks of payments and then decide whether any apparent violation needs disclosure. Training does not fix a system setting.",
-    source: [{ label: "OFAC, A Framework for OFAC Compliance Commitments (2019) – Testing and Auditing, commitment III", url: "https://ofac.treasury.gov/media/16331/download?inline" }]
+    explanation: "OFAC's Framework expects the testing or audit function to be accountable to senior management, independent of the audited activities and functions, and to have sufficient authority, skills, expertise and resources. Testing should suit the level and sophistication of the sanctions compliance program and give a comprehensive and objective assessment of the organisation's OFAC risk assessment and internal controls. Here the team tests its own tuning, reports to the business it serves, and uses a stale file that reflects neither the new corridors nor new designations, so a 100% pass rate proves little. A larger, more frequent run of the same vendor file is the runner-up, but it adds volume, not independence or relevance. A vendor certification is not the bank's own test, and lowering thresholds for the test changes the control instead of testing it.",
+    source: [{ label: "OFAC, A Framework for OFAC Compliance Commitments (2019) – Testing and Auditing, commitments I-II", url: "https://ofac.treasury.gov/media/16331/download?inline" }]
   },
   {
-    id: "AUDIT-005", domain: 3, topic: "Three lines of defence in practice: who does what", hy: true, difficulty: "medium",
-    q: "A bank is mapping its AML/CFT activities to the three lines of defence in the Basel Committee's guidelines on the sound management of ML/FT risks. Which allocations are consistent with those guidelines? (Choose two.)",
+    id: "AUDIT-005", domain: 3, topic: "Internal audit's AML/CFT audit policy: scope and frequency (Basel para 26)", hy: true, difficulty: "medium",
+    q: "The audit committee of Ostrava Commercial Bank asks internal audit to set out its AML/CFT audit policy in line with the Basel Committee's guidelines on the sound management of ML/FT risks. Which elements belong in that policy? (Choose two.)",
     options: [
-      "Relationship managers and their supervisors identify, assess and control the ML/FT risks of the customers they bring in",
-      "Internal audit designs the new transaction monitoring scenarios and then audits how effective they are",
-      "The chief AML/CFT officer reports to the head of corporate banking, whose unit produces most of the alerts",
-      "The chief AML/CFT officer's team carries out sample testing of compliance and reviews exception reports",
-      "Relationship managers make the final decision on whether a suspicious transaction is reported to the FIU"
+      "Audits of the effectiveness of compliance oversight and quality control, including the parameters used for automatic alerts",
+      "Internal audit setting and approving the transaction monitoring alert parameters, so that they meet audit standards",
+      "A fixed annual audit of every AML/CFT area, with the same scope whatever the risk of each area",
+      "Risk-based audit scope and frequency, with periodic bank-wide audits and proactive follow-up of findings",
+      "Internal audit acting as the bank's contact point with the FIU and supervisors on AML/CFT matters"
     ],
     answer: [0, 3],
-    explanation: "Basel places the business units in the first line, in charge of identifying, assessing and controlling the risks of their business (para 19). In the second line, the chief AML/CFT officer monitors compliance with AML/CFT duties, which includes sample testing and reviewing exception reports (para 22), and is responsible for reporting suspicious transactions (para 25). The officer should be free of business-line influence and have a direct line to senior management or the board (paras 23-24). Internal audit, the third line, must evaluate controls independently (para 26), so it cannot design the scenarios it later audits.",
-    source: [{ label: "BCBS, Sound management of risks related to ML/FT (rev. July 2020), paras 19-26", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" }]
+    explanation: "Paragraph 26 of the Basel guidelines says a bank should have policies for auditing (i) the adequacy of its AML/CFT policies and procedures against identified risks, (ii) how effectively staff apply them, (iii) the effectiveness of compliance oversight and quality control, including the parameters of criteria for automatic alerts, and (iv) the effectiveness of training. Audit scope, methodology and frequency should be based on risk, internal auditors should periodically audit AML/CFT on a bank-wide basis, and they should follow up their findings proactively. A fixed, identical annual scope is not risk-based. Internal audit tests alert parameters rather than setting them, because it must evaluate controls independently. Paragraph 22 makes the chief AML/CFT officer, not internal audit, the contact point for supervisors and FIUs.",
+    source: [{ label: "BCBS, Sound management of risks related to ML/FT (rev. July 2020), paras 22 and 26", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" }]
   },
   {
     id: "AUDIT-006", domain: 3, topic: "Board oversight: direct access to audit and supervisory findings (EBA/GL/2022/05)", hy: false, difficulty: "medium",
@@ -114,19 +114,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     source: [{ label: "FFIEC BSA/AML Examination Manual (2020) – Scoping and Planning: Independent Testing (NCUA copy)", url: "https://ncua.gov/files/press-releases-news/bsa-aml-examination-manual-april-2020.pdf" }]
   },
   {
-    id: "AUDIT-009", domain: 3, topic: "M&A due diligence: issues found before closing", hy: true, difficulty: "hard",
-    q: "Ashford Bancorp has signed an agreement to buy Kestrel Pay, a money transmitter with 600 agent locations, and plans to close in ten weeks. Ashford's compliance due diligence finds that Kestrel's monitoring of agent cash activity was switched off for 14 months during a system upgrade, and that Kestrel filed no SARs on agent activity during that period. Kestrel's management calls the issue 'historical' and says the purchase price already reflects it. The deal team wants to close on time and leave compliance to the integration phase. Kestrel's brand is popular with Ashford's retail customers. What should Ashford's chief compliance officer do?",
+    id: "AUDIT-009", domain: 3, topic: "M&A: connecting due diligence findings to integration (DOJ ECCP)", hy: true, difficulty: "hard",
+    q: "Ashford Bancorp bought Kestrel Pay, a money transmitter with 600 agent locations, 18 months ago. Before closing, Ashford's compliance due diligence memo listed six issues, including weak monitoring of agent cash activity and a backlog of agent onboarding reviews. The memo went to the deal team, which used it to negotiate a price reduction and an escrow, and then filed it. The integration team never received it, and none of the six issues was given an owner. Internal audit's first review of Kestrel now finds that two of the issues have since led to missed SARs on agent activity. Which weakness should internal audit report as the ROOT CAUSE?",
     options: [
-      "Agree to close on schedule, because the acquired firm's issues can be handled through standard integration work",
-      "Recommend that the deal be terminated, because any unfiled-SAR issue makes an acquisition target unacceptable",
-      "Escalate so that a lookback, remediation and deal protections are agreed before closing, and the findings shape the risk assessment",
-      "Rely on the seller's warranties of BSA compliance, because they transfer the regulatory liability back to the seller"
+      "No process connected the due diligence findings to integration, with an owner, tracking and remediation for each issue",
+      "The due diligence was too narrow, because it should have included a site visit to every agent location before closing",
+      "The price reduction and escrow were too small to cover the cost of the issues found in due diligence",
+      "The post-acquisition audit came too late, because internal audit should have reviewed Kestrel in the first month"
     ],
-    answer: [2],
-    explanation: "OFAC's Framework says compliance should take part in M&A due diligence so that issues are found, escalated to senior levels, dealt with before the transaction closes and built into the risk assessment. The DOJ's Evaluation of Corporate Compliance Programs adds that pre-acquisition due diligence lets the buyer negotiate who bears the cost of misconduct, while weak due diligence lets misconduct continue after the deal. Closing on time and fixing it later is the runner-up, but the acquirer would then inherit an open gap in monitoring and reporting. Warranties shift money between the parties, not regulatory obligations. Automatic termination ignores the risk-based option of fixing the problem first.",
+    answer: [0],
+    explanation: "The DOJ's Evaluation of Corporate Compliance Programs asks what process a company has for tracking and remediating misconduct or misconduct risks identified during due diligence, and how far compliance shapes the integration strategy. It notes that due diligence lets a buyer negotiate for the cost of misconduct to be borne by the target, but that flawed pre- or post-acquisition due diligence and integration can allow misconduct to continue. Here due diligence worked: it found the issues and shaped the price. The failure was that the findings stopped with the deal team. A late post-acquisition audit is the runner-up, but an earlier audit would only have found the problem sooner; the root cause is that nobody owned the known issues. Wider due diligence was not needed to find issues already identified, and a larger escrow shifts money, not the duty to monitor and report.",
     source: [
-      { label: "OFAC, A Framework for OFAC Compliance Commitments (2019) – Risk Assessment: mergers and acquisitions", url: "https://ofac.treasury.gov/media/16331/download?inline" },
-      { label: "DOJ Criminal Division, Evaluation of Corporate Compliance Programs (Sept 2024) – Mergers and Acquisitions", url: "https://www.justice.gov/criminal/criminal-fraud/page/file/937501/dl" }
+      { label: "DOJ Criminal Division, Evaluation of Corporate Compliance Programs (Sept 2024) – Mergers and Acquisitions: process connecting due diligence to implementation", url: "https://www.justice.gov/criminal/criminal-fraud/page/file/937501/dl" }
     ]
   },
   {

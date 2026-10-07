@@ -43,7 +43,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [0],
     explanation: "The Wolfsberg Principles say a correspondent may consider, but not rely solely on, the fact that a respondent operates in a regulatory environment recognised as adequate. That environment must be assessed together with information on the specific respondent. Trigger events such as financial crime-related adverse media 'shall prompt a re-evaluation of the relationship'. A branch operating under an offshore banking licence is a factor that may call for EDD. The runner-up, waiting for the annual review, ignores the trigger-event rule. The CBDDQ is only one source of information and does not replace the correspondent's own risk assessment.",
     source: [
-      { label: "Wolfsberg Correspondent Banking Principles (2022), section 4 and FAQs 2-3", url: "https://db.wolfsberg-group.org/assets/d39a5072-7fb6-4e31-9a87-9e54021ce71f/Wolfsberg%20Correspondent%20Banking%20Principles%202022.pdf" }
+      { label: "Wolfsberg Correspondent Banking Principles (2022), section 4 and FAQs 2 and 7", url: "https://db.wolfsberg-group.org/assets/d39a5072-7fb6-4e31-9a87-9e54021ce71f/Wolfsberg%20Correspondent%20Banking%20Principles%202022.pdf" }
     ]
   },
   {
@@ -154,15 +154,15 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "FATF-011", domain: 2, topic: "R.39: extradition of a country's own national", hy: false, difficulty: "medium",
-    q: "Country H charges Ilir M. with laundering EUR 12 million of fraud proceeds and asks Country J to extradite him. Ilir is a national of J and now lives there, and J's constitution bars the extradition of its nationals. J's justice ministry also notes that J calls its offence 'concealment of criminal assets' rather than 'money laundering'. Ilir owns a large property portfolio in J and is a party to a pending civil suit. Under Recommendation 39, what should J do?",
+    q: "Country H charges Ilir M. with laundering EUR 12 million of fraud proceeds and asks Country J to extradite him. Ilir is a national of J and now lives there, and J's constitution bars the extradition of its nationals. Ilir owns a large property portfolio in J and is a party to a pending civil suit. Under Recommendation 39, what should J do?",
     options: [
       "Refuse the request and close the file, since the constitutional bar ends J's obligations",
-      "Refuse the request on dual criminality grounds, since J's offence has a different name",
+      "Defer any decision until Ilir's civil suit in J is resolved, since pending domestic proceedings take priority",
       "At H's request, submit the case without undue delay to its own authorities for prosecution, and cooperate with H on evidence",
       "Extradite Ilir despite the constitution, since the FATF Standards override domestic constitutional law"
     ],
     answer: [2],
-    explanation: "Under R.39, each country should either extradite its own nationals or, if it refuses solely on grounds of nationality, submit the case without undue delay to its own authorities for prosecution, at the requesting country's request. The two countries should cooperate on procedural and evidentiary aspects. Where dual criminality is required, it is met if both countries criminalise the underlying conduct, whatever they call the offence. The property portfolio and the civil suit are irrelevant to the extradition question.",
+    explanation: "Under R.39, each country should either extradite its own nationals or, if it refuses solely on grounds of nationality, submit the case without undue delay to its own authorities for prosecution, at the requesting country's request. The two countries should cooperate on procedural and evidentiary aspects, and J's authorities should handle the case as they would any other serious domestic offence. The runner-up, refusing and closing the file, ignores this 'extradite or prosecute' duty. R.39 also says countries should act without undue delay, so an unrelated civil suit is no reason to defer. The FATF Standards do not override a constitutional bar on extraditing nationals, which is why the alternative of domestic prosecution exists.",
     source: [
       { label: "FATF Recommendations (updated June 2026), R.39 – EAG copy", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
     ]
@@ -184,7 +184,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "FATF-013", domain: 2, topic: "INR.40: onward use of information from a foreign supervisor", hy: false, difficulty: "medium",
-    q: "The banking supervisor of Country T is examining the group-wide controls of a bank headquartered in T. It asks the supervisor in Country V, which oversees the group's subsidiary there, for samples of customer files and transaction records, and V provides them under the two supervisors' MoU. T's supervisor then finds evidence of a possible crime and wants to pass the files to T's prosecutors. T's supervisor is under no legal obligation to report the matter. Under the Interpretive Note to Recommendation 40, what must T's supervisor do?",
+    q: "The banking supervisor of Country T is examining the group-wide controls of a bank headquartered in T. It asks the supervisor in Country V, which oversees the group's subsidiary there, for samples of customer files and transaction records, and V provides them under the two supervisors' MoU, which says nothing about onward disclosure. T's supervisor then finds evidence of a possible crime and wants to pass the files to T's prosecutors. T's supervisor is under no legal obligation to report the matter. Under the Interpretive Note to Recommendation 40, what must T's supervisor do?",
     options: [
       "Pass the files to the prosecutors, since information may be used for any purpose once lawfully received",
       "Destroy the files, since information exchanged between supervisors may never leave the supervisory function",
@@ -192,7 +192,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Obtain prior authorisation from V's supervisor before passing the files on to the prosecutors"
     ],
     answer: [3],
-    explanation: "INR.40 para 12 lets financial supervisors exchange AML/CFT information, including customer files and transaction samples, particularly within a group. Under para 14, any dissemination or use of that information, for supervisory or non-supervisory purposes, is subject to prior authorisation by the requested supervisor. The only exception is when the requesting supervisor is under a legal obligation to disclose, and it must then promptly inform the requested authority. Neither unrestricted use nor destruction is correct, and the customer or the subsidiary has no consent role.",
+    explanation: "INR.40 para 12 lets financial supervisors exchange AML/CFT information, including customer files and transaction samples, particularly within a group. Under para 14, any dissemination or use of that information, for supervisory or non-supervisory purposes, is subject to prior authorisation by the requested supervisor. The only exception is when the requesting supervisor is under a legal obligation to disclose, and it must then promptly inform the requested authority. Prior authorisation can also be deemed given by an MoU, but this MoU is silent on onward disclosure. Neither unrestricted use nor destruction is correct, and the customer or the subsidiary has no consent role.",
     source: [
       { label: "FATF Recommendations (updated June 2026), INR.40 paras 3, 12 and 14 – EAG copy", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
     ]
@@ -223,7 +223,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Refuse the request because Y and Z have not signed a bilateral MoU on information exchange"
     ],
     answer: [0, 3],
-    explanation: "The Principles allow an FIU to refuse to provide information if the requesting FIU cannot protect it effectively (para 31). Cooperation may also be refused for lack of reciprocity or recurring inadequate cooperation (para 33). All refusals must be justified, and FIUs should make every effort to explain them. A request may not be refused because it also involves fiscal matters (para 30). An MoU is needed only where a country's law requires one (para 17), and the scenario does not suggest that.",
+    explanation: "The Principles allow an FIU to refuse to provide information if the requesting FIU cannot protect it effectively (para 31). Cooperation may also be refused for lack of reciprocity or recurring inadequate cooperation (para 33). All refusals must be justified, and FIUs should make every effort to explain them. A request may not be refused because it also involves fiscal matters (para 30). FIUs should use the most efficient means to cooperate, and where an MoU is needed they should negotiate it in a timely way (para 17). The lack of an MoU is not a listed ground for refusal, and insisting on one would be an unduly restrictive condition (para 30).",
     source: [
       { label: "Egmont Group – Principles for Information Exchange between FIUs (rev. July 2025), paras 17 and 30-33", url: "https://egmontgroup.org/wp-content/uploads/2022/07/EG-Principles-for-Information-Exchange-Revised-July-2025.pdf" }
     ]
@@ -241,7 +241,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "UNSCR 1373 has no UN list. Designations are made at the national or supranational level, either on a country's own motion or at another country's request (INR.6 para 3). A country receiving a request should promptly decide whether it is supported by reasonable grounds or a reasonable basis, applying its own legal standard. Designations should not depend on a criminal proceeding (para 4(b) and (d)). The freezing obligation is triggered by the receiving country's own designation (para 5), so there is no automatic freeze, but declining because there is no UN listing is wrong too.",
     source: [
       { label: "FATF Recommendations (updated June 2026), INR.6 paras 3-5 – EAG copy", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" },
-      { label: "UN Counter-Terrorism Committee – resolution 1373 (2001) and the Committee monitoring its implementation", url: "https://www.un.org/securitycouncil/ctc/node/38670" }
+      { label: "UN Security Council resolution 1373 (2001), para 1(c) freeze without delay – UNODC copy", url: "https://www.unodc.org/pdf/crime/terrorism/res_1373_english.pdf" }
     ]
   },
   {
@@ -288,7 +288,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "UNSCR 2664 (2022) created a humanitarian carve-out from UN asset freezes, but for the 1267 ISIL/Al-Qaida regime it was limited to two years. In December 2024, resolution 2761 decided that it would continue to apply to that regime. In June 2026, the FATF revised INR.6 (para 5bis and footnote 17) to require compliance with UNSCRs 2664, 2761 and 2615. Payments necessary for the timely delivery of humanitarian assistance by the actors listed in 2664 para 1 are therefore not a breach of the freeze. The carve-out is limited to those actors and to humanitarian purposes, so it is not a blanket licence for any NGO payment.",
     source: [
       { label: "FATF Recommendations (updated June 2026), INR.6 para 5bis, footnotes 15 and 17, and table of amendments (June 2026) – EAG copy", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" },
-      { label: "UN press release SC/15924 (6 Dec 2024) – resolution 2761 extends the humanitarian carve-out for the ISIL/Al-Qaida regime", url: "https://press.un.org/en/2024/sc15924.doc.htm" }
+      { label: "UN press release SC/15924 (6 Dec 2024) – resolution 2761 extends the humanitarian carve-out for the ISIL/Al-Qaida regime", url: "https://press.un.org/en/2024/sc15924.doc.htm" },
+      { label: "UN Security Council – resolutions adopted in 2024 (S/RES/2761 (2024), 6 December 2024, general issues related to sanctions)", url: "https://main.un.org/securitycouncil/en/content/resolutions-adopted-security-council-2024" }
     ]
   },
   {
@@ -303,7 +304,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [2],
     explanation: "Paragraph 43 of the Basel guidelines says that customers have the right to move their business, but a bank should still do its own due diligence. If it has reason to believe another bank refused the applicant because of concerns about illicit activity, it should consider classifying the applicant as higher risk and applying EDD, filing an STR and/or not accepting the customer, according to its own risk assessment. Accepting at standard risk ignores the warning. An automatic ban is not required. Making the decision depend on another bank's internal file is not what the guidelines call for.",
     source: [
-      { label: "BCBS – Sound management of risks related to ML and FT (rev. July 2020), para 43", url: "https://www.bis.org/bcbs/publ/d505.pdf" }
+      { label: "BCBS – Sound management of risks related to ML and FT (rev. July 2020), para 43", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" }
     ]
   },
   {
@@ -318,7 +319,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [0],
     explanation: "The Basel guidelines require group policies for finding out whether other branches or subsidiaries hold accounts for the same customer (para 79). Significant relationships should be monitored on a consolidated basis, whether the assets are on balance sheet, off balance sheet, under management or held on a fiduciary basis, and wherever they are held (para 73). Subsidiaries and branches should proactively tell head office about higher-risk customers (para 77). Mixed groups should share customer information across banking and securities business (para 82). Moving the fiduciary assets onto the balance sheet would not fix the missing group-wide view, and local re-rating unit by unit repeats the original problem.",
     source: [
-      { label: "BCBS – Sound management of risks related to ML and FT (rev. July 2020), paras 73, 77, 79 and 82", url: "https://www.bis.org/bcbs/publ/d505.pdf" }
+      { label: "BCBS – Sound management of risks related to ML and FT (rev. July 2020), paras 73, 77, 79 and 82", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" }
     ]
   },
   {
@@ -333,12 +334,12 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [3],
     explanation: "Paragraph 44 of the Basel guidelines says that confidential numbered accounts should not function as anonymous accounts and are subject to exactly the same CDD as all other accounts. The holder's identity must be verified and known to enough staff for effective due diligence, especially where other risk factors are present. The bank's control functions, in particular the chief AML/CFT officer, and its supervisors must have full access to this information. Numbered accounts are not banned outright, but knowledge held by one person, or a yearly self-certification, does not meet the standard.",
     source: [
-      { label: "BCBS – Sound management of risks related to ML and FT (rev. July 2020), para 44", url: "https://www.bis.org/bcbs/publ/d505.pdf" }
+      { label: "BCBS – Sound management of risks related to ML and FT (rev. July 2020), para 44", url: "https://www.bis.org/publications/202007-guidelines-sound-management-risks-related-money-laundering-and-financing-terrorism-revisions-supervisory.pdf" }
     ]
   },
   {
     id: "FATF-023", domain: 2, topic: "OECD CRS: Controlling Persons of a trust and the FATF link", hy: false, difficulty: "hard",
-    q: "Fjord Bank, in a country that applies the OECD Common Reporting Standard (CRS), opens an account for the Solvik Trust, which is a Passive NFE for CRS purposes. The trustee is a licensed trust company. The settlor is Solvik Holdings Ltd, a company owned 60% by Ingrid S. and 40% by her brother. The beneficiaries are Ingrid's three children, and a lawyer acts as protector but has never used his powers. The onboarding team recorded only the trustee as a Controlling Person because it 'is the only party exercising control'. What should the bank's CRS and AML teams conclude?",
+    q: "Fjord Bank, in a country that applies the OECD Common Reporting Standard (CRS), opens an account for the Solvik Trust, which is a Passive NFE for CRS purposes. The sole trustee is Ingrid's uncle, a retired engineer acting as an unpaid private trustee. The settlor is Solvik Holdings Ltd, a company owned 60% by Ingrid S. and 40% by her brother. The beneficiaries are Ingrid's three children, and a lawyer acts as protector but has never used his powers. The onboarding team recorded only the trustee as a Controlling Person because it 'is the only party exercising control'. What should the bank's CRS and AML teams conclude?",
     options: [
       "The record is correct, since only persons who actually exercise control over a trust are its Controlling Persons",
       "The settlor, trustee, protector and beneficiaries are always Controlling Persons, and because the settlor is a company, its own Controlling Persons must be identified too",
@@ -352,20 +353,19 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "FATF-024", domain: 2, topic: "Who assesses a country: FATF, FSRBs, IMF and World Bank", hy: true, difficulty: "medium",
-    q: "A small island state that is not a FATF member is due to be assessed in the current round. Its finance minister asks how the process works. Which statements are accurate? (Choose two.)",
+    id: "FATF-024", domain: 2, topic: "Mutual evaluation: how assessors treat the NRA and country context", hy: true, difficulty: "hard",
+    q: "Country Q, a small island state that is not a FATF member, is preparing for its fifth-round mutual evaluation by its FSRB. Its national risk assessment (NRA) rates ML risk in the real estate sector as low, although the press reports heavy foreign cash purchases of villas. Q's economy is largely cash-based, and a two-year political crisis has left its courts badly backlogged. The finance minister asks how the assessors will treat the NRA and this context. Which statements are consistent with the FATF Methodology? (Choose two.)",
     options: [
-      "The IMF sets the AML/CFT standards against which the state will be assessed",
-      "An FSRB assessment uses the FSRB's own methodology, which differs from the FATF Methodology",
-      "The assessment may be carried out by the state's FSRB, or by the IMF or World Bank, all using the FATF Methodology",
-      "The World Bank decides whether the state is placed on the list of jurisdictions under increased monitoring",
-      "AML/CFT issues are also considered in other IMF work, such as the Financial Sector Assessment Program"
+      "The assessors will use the NRA as an initial basis for understanding risk, but need not accept its conclusions and will rely on other credible sources too",
+      "If the assessors and the authorities cannot agree on the key risks, the assessors must base the risk-based parts of the assessment on the NRA",
+      "As a small, less-developed state, Q will have its ratings judged against a lighter standard than FATF members",
+      "Weak structural elements, such as the court backlog, may explain low effectiveness and should be noted in the report, but they do not excuse poor implementation",
+      "As Q is not a FATF member, its FSRB will assess it under the FSRB's own methodology rather than the FATF Methodology"
     ],
-    answer: [2, 4],
-    explanation: "The FATF Methodology applies to mutual evaluations by the FATF and FSRBs and to third-party assessments by the IMF and World Bank, so all of them use the same method. The IMF says that the FATF has primary responsibility for the AML/CFT standards, and that AML/CFT is also considered in IMF work such as the FSAP. The FATF, not the World Bank, identifies jurisdictions under increased monitoring, working with the FSRBs on their progress.",
+    answer: [0, 3],
+    explanation: "Para 8 of the Methodology says assessors should use the country's own risk assessment as an initial basis for understanding the risks, but should not accept it uncritically and need not follow all its conclusions. They should also name the other credible sources they relied on. The runner-up is wrong because, where there is no agreement, the assessors explain the difference in the MER and use their own understanding of the risks for risk-based elements such as supervision. Missing structural elements, such as an efficient judicial system, may explain weak effectiveness and should be identified in the MER (para 10). However, ratings are judged on a universal standard applied to all countries, and context is not an excuse for poor implementation (para 13). Footnote 1 confirms that FSRB evaluations and IMF and World Bank assessments all use the same Methodology.",
     source: [
-      { label: "FATF Methodology (updated June 2026), Introduction para 4 and footnote 1 – EAG copy", url: "https://eurasiangroup.org/files/uploads/files/FATF_Methodology_2026_eng.pdf" },
-      { label: "IMF factsheet – The Fight Against Money Laundering and Terrorism Financing", url: "https://www.imf.org/en/about/factsheets/sheets/2023/fight-against-money-laundering-and-terrorism-financing" }
+      { label: "FATF Methodology (updated June 2026), Introduction paras 8, 10 and 13 and footnote 1 – EAG copy", url: "https://eurasiangroup.org/files/uploads/files/FATF_Methodology_2026_eng.pdf" }
     ]
   },
   {
