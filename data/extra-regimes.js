@@ -28,18 +28,18 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "Regulation (EU) 2024/1624 (AMLR), Art. 18 – outsourcing", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj/eng" }
     ] },
 
-  { id: "REGS-003", domain: 2, topic: "Singapore MAS Notice 626: overseas subsidiaries apply the higher of the two standards", hy: true, difficulty: "hard",
-    q: "Merlion Harbour Bank, incorporated in Singapore, owns a bank subsidiary in Country V. Country V requires CDD on occasional cash transactions from a lower threshold than Singapore does. Its data-localisation law also forbids sending customer-level data abroad, so the subsidiary cannot feed the group's transaction monitoring hub in Singapore. The subsidiary's CEO proposes applying the Singapore threshold, because that is 'group policy', and simply leaving the subsidiary out of group monitoring. Country V has a strong FATF mutual evaluation. Under MAS Notice 626, what is the BEST approach?",
+  { id: "REGS-003", domain: 2, topic: "Singapore MAS Notice 626: overseas subsidiaries apply the higher standard point by point", hy: true, difficulty: "hard",
+    q: "Merlion Harbour Bank, incorporated in Singapore, owns a bank subsidiary in Country V. The two rulebooks differ on two points. Country V requires CDD on occasional cash transactions from a lower amount than Singapore does. But Country V does not require banks to identify the beneficial owners of trusts that open accounts, which MAS Notice 626 requires. Nothing in Country V's law stops a bank from doing more than the local minimum. The subsidiary's CEO proposes keeping Country V's rulebook, because 'Country V's rules are stricter overall'. Country V has a strong FATF mutual evaluation. Under MAS Notice 626, what should the parent require?",
     options: [
-      "Apply Singapore's threshold for consistency, and leave the subsidiary out of group monitoring because host law forbids data transfers",
-      "Apply Country V's rules alone, since the subsidiary is locally licensed and the host's evaluation is strong",
-      "Wind down the subsidiary, because MAS Notice 626 does not allow subsidiaries that cannot share customer data with the group",
-      "Apply Country V's lower threshold, apply other measures to manage the monitoring gap, report the conflict to MAS and follow its directions"
+      "Apply Singapore's rules throughout, because the group policy must meet MAS Notice 626 and the home rule always prevails",
+      "Apply Country V's rules throughout, because the subsidiary is locally licensed and the host's mutual evaluation is strong",
+      "Compare the two rulebooks as a whole and apply whichever is stricter overall, as the CEO proposes",
+      "Apply the higher standard on each point: Country V's lower cash threshold and Singapore's trust beneficial ownership requirement"
     ],
     answer: [3],
-    explanation: "Paragraph 15.8 requires overseas branches and subsidiaries to apply the higher of the Singapore and host standards, to the extent host law permits. Here the host's CDD threshold is the stricter one. Where host law prevents the higher standard from being fully applied, as with the data-transfer ban, paragraph 15.9 requires additional measures, a report to MAS and compliance with MAS directions. The CEO's plan is wrong on both points: 'group policy' does not mean the home rule where the host's is stricter, and the gap cannot simply be left open. The strong mutual evaluation does not change these obligations.",
+    explanation: "Paragraph 15.4 requires a Singapore-incorporated bank to extend its group AML/CFT policy to all branches and subsidiaries. Paragraph 15.8 adds that where the host's AML/CFT requirements differ from Singapore's, the overseas branch or subsidiary must apply the higher of the two standards, to the extent host law permits. That works requirement by requirement, so the subsidiary applies Country V's stricter cash threshold and Singapore's trust beneficial ownership rule. Choosing one whole rulebook as 'stricter overall' (the runner-up) would drop the stricter element of the other. A home-rule-always approach ignores the host's stricter threshold, and the strong mutual evaluation does not lower either standard.",
     source: [
-      { label: "MAS Notice 626 (last revised 30 June 2025), paras 15.4-15.9 – group policy", url: "https://www.mas.gov.sg/-/media/amld-amendments---30-june-2025/mas-notice-626.pdf" }
+      { label: "MAS Notice 626 (last revised 30 June 2025), paras 15.4 and 15.8 – group policy", url: "https://www.mas.gov.sg/-/media/amld-amendments---30-june-2025/mas-notice-626.pdf" }
     ] },
 
   { id: "REGS-004", domain: 2, topic: "Hong Kong: overseas subsidiary unable to apply AMLO record-keeping standards", hy: false, difficulty: "hard",
