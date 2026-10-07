@@ -45,10 +45,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "RISK-004", difficulty: "hard", domain: 3, topic: "Methodology changes and year-on-year comparability", hy: false,
     q: "Fernhill Bank's 2026 enterprise-wide risk assessment shows residual risk in trade finance falling from high to moderate. In the same cycle, the risk team cut the weight given to geography from 40% to 20% and added two new control categories. Trade finance volumes, clients and control test results are almost the same as in 2025. The draft board paper presents the improvement as proof that last year's remediation worked, and the business plans to use the new rating to argue for more trade with high-risk corridors. The methodology change was agreed by email within the risk team. What should the MLRO do BEFORE the paper goes to the board?",
     options: [
-      "Reverse the methodology change, so that the 2026 results use exactly the same weights as the 2025 assessment",
-      "Present the moderate rating as drafted, because a risk team may refine its weights in every annual cycle",
+      "Reverse the methodology change, so that the 2026 results use exactly the same weights as the 2025 assessment did",
+      "Present the moderate rating as drafted, because a risk team may refine its weights in each annual cycle as it sees fit",
       "Ask internal audit to validate the new weights independently before any 2026 result is reported to the board",
-      "Get the change formally approved and show its effect on the comparison, for example by restating 2025 under the new method"
+      "Get the change formally approved and show its effect, for example by restating the 2025 results under the new method"
     ],
     answer: [3],
     explanation: "The Wolfsberg FAQs on Risk Assessments say methodology changes from one year to the next must be clearly documented and approved by the relevant governance function, and their effect on comparing results year on year must be assessed. Otherwise large changes in results cannot be justified or understood. Here the fall in residual risk comes from the method, not from lower risk or better controls, so the board paper would mislead. Reversing the change blocks a possibly valid improvement. An audit review is optional under the FAQs and does not correct the misleading comparison. The EBA guidelines (1.17) require senior management to get enough information to understand the risks.",
@@ -69,7 +69,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "The Wolfsberg FAQs on Risk Assessments list 'other qualitative risk factors', including integration of IT systems, recent AML compliance staff turnover, reliance on third parties and recent or planned acquisitions and new products. Such changes can increase the likelihood of control breakdowns, and new controls take time to work, so the assessment should consider whether inherent risk has temporarily risen. The runner-up reflects only the acquisition and ignores two current weaknesses that control testing may not yet show. The sponsorship is irrelevant. AMLA's draft BWRA guidelines also mention mergers and strategic changes as indicators to consider.",
     source: [
       { label: "Wolfsberg FAQs on Risk Assessments (2015), 6.1.5 – other qualitative risk factors", url: "https://db.wolfsberg-group.org/assets/3deb66d7-6aca-490c-bcd9-c1a3d34a807b/17.%20Wolfsberg-Risk-Assessment-FAQs-2015.pdf" },
-      { label: "AMLA consultation on draft guidelines on the business-wide risk assessment (2026)", url: "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-guidelines-business-wide-risk-assessment_en" }
+      { label: "AMLA consultation on draft guidelines on the business-wide risk assessment (April-July 2026; not yet final), para 23", url: "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-guidelines-business-wide-risk-assessment_en" }
     ]
   },
   {
@@ -139,7 +139,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Ask the supervisor for an exemption, because FATF R.1 lets any firm with no known cases skip a PF risk assessment"
     ],
     answer: [0],
-    explanation: "The FATF's 2021 PF guidance says the absence of known cases does not necessarily mean a firm faces low or no PF risk. Designated networks route activity through international financial, trading, shipping and company formation centres, whatever their distance from the DPRK or Iran. Firms can use scenario building, expert focus groups and UN Panel of Experts reports where local cases are lacking. The runner-up, screening without assessing, meets R.7 but not the separate R.1 duty to identify and assess PF risk. Exemptions are a country decision for a type of institution with assessed low risk, not a firm-level choice.",
+    explanation: "The FATF's 2021 PF guidance says the absence of known cases does not necessarily mean a firm faces low or no PF risk. Designated networks route activity through international financial, trading, shipping and company formation centres, whatever their distance from the DPRK or Iran. Firms can use scenario building, expert focus groups and typology reports where local cases are lacking: past UN Panel of Experts reports and, since that Panel's mandate ended in 2024, the Multilateral Sanctions Monitoring Team's reports. The runner-up, screening without assessing, meets R.7 but not the separate R.1 duty to identify and assess PF risk. Exemptions are a country decision for a type of institution with assessed low risk, not a firm-level choice.",
     source: [
       { label: "FATF Guidance on Proliferation Financing Risk Assessment and Mitigation (2021), paras 33-35 and boxes", url: "https://www.aml.gov.sa/en-us/GuidanceReports/Guidance%20on%20Proliferation%20Financing%20Risk%20Assessment%20and%20Mitigation.pdf" },
       { label: "FATF Recommendations (2026), INR.1 paras 3-4 and 17", url: "https://eurasiangroup.org/files/uploads/files/FATF_Recommendations_2026_eng.pdf" }
@@ -205,7 +205,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "RISK-015", difficulty: "hard", domain: 3, topic: "Keeping the business-wide risk assessment current between scheduled updates (EBA 1.7)", hy: false,
     q: "Ostrava Credit, an EU bank, updates its business-wide risk assessment every March. In October its MLRO, Petra Kral, starts preparing the next update and finds that the only inputs are last year's assessment and current customer statistics. During the year the bank made 40 internal suspicious activity reports about student accounts used as money mules, failed an internal audit of sanctions screening, and heard repeated warnings from branch staff about cash deposits linked to a new car-wash chain. None of this was logged for the risk assessment. The board meets quarterly. Which control should Petra put in place to close this gap?",
     options: [
-      "A process to log relevant issues all year, such as internal reports and audit failures, and to reflect new risks as soon as possible",
+      "A process to log relevant issues all year, such as internal reports and audit failures, and reflect new risks promptly",
       "A switch from an annual to a quarterly full refresh of the business-wide risk assessment, timed to match the board meetings",
       "A rule that the business-wide assessment may use only quantitative statistics, so that anecdotal inputs do not distort it",
       "An annual questionnaire sent to branch managers each February, so that front-office views are collected just before the update"
@@ -319,10 +319,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "There is no gap, because EU sanctions are rule-based and strict liability, so they are excluded from any risk assessment"
     ],
     answer: [1],
-    explanation: "Article 10(1) AMLR requires obliged entities to identify and assess their ML/TF risks and also the risks of non-implementation and evasion of targeted financial sanctions. Article 2(1)(49) defines targeted financial sanctions as asset freezes and prohibitions on making funds available under Council Decisions (Article 29 TEU) and Council Regulations (Article 215 TFEU), which include the Russia and Belarus regimes. The FATF's R.1 definition of PF risk is narrower, covering only R.7 sanctions. AMLA's draft BWRA guidelines allow this risk to be built into the ML/TF assessment or covered in a separate one, but the rule-based freezing duties still apply. AMLA does not approve individual assessments.",
+    explanation: "Article 10(1) AMLR requires obliged entities to identify and assess their ML/TF risks and also the risks of non-implementation and evasion of targeted financial sanctions. Article 2(1)(49) defines targeted financial sanctions as asset freezes and prohibitions on making funds available under Council Decisions (Article 29 TEU) and Council Regulations (Article 215 TFEU), which include the Russia and Belarus regimes. The FATF's R.1 definition of PF risk is narrower, covering only R.7 sanctions. AMLA's draft BWRA guidelines (paras 12-13; consulted on until July 2026 and not yet final) let firms build this risk into the ML/TF assessment or cover it in a separate one, and stress that the rule-based TFS obligations still apply. AMLA does not approve individual assessments.",
     source: [
       { label: "Regulation (EU) 2024/1624 (AMLR), Articles 2(1)(49) and 10 (EUR-Lex)", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" },
-      { label: "AMLA consultation on draft guidelines on the business-wide risk assessment (2026)", url: "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-guidelines-business-wide-risk-assessment_en" }
+      { label: "AMLA consultation on draft guidelines on the business-wide risk assessment (April-July 2026; not yet final), paras 12-13", url: "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-guidelines-business-wide-risk-assessment_en" }
     ]
   },
   {
