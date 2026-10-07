@@ -1,31 +1,32 @@
 window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   {
-    id: "TRNG-001", difficulty: "hard", domain: 3, topic: "Training effectiveness: behaviour indicators vs completion rates", hy: true,
-    q: "Sundvik Bank, a Nordic retail bank, rolled out a new 40-minute e-learning module on cash-based money laundering to 1,800 branch staff in January 2026. By June, 99% had completed it and the average end-of-module quiz score was 94%. The quiz can be retaken until passed and uses the same ten questions each time. Over the same period, internal suspicion reports from branches fell by 35%, and quality assurance found that tellers still recorded the account holder instead of the person actually depositing the cash in 1 in 8 sampled transactions. The module came from a well-known external provider and won an industry award. The board asks the AML/CFT compliance officer whether the training is working. What is the BEST basis for her answer?",
+    id: "TRNG-001", difficulty: "hard", domain: 3, topic: "Fixing training that has not changed behaviour: lessons learned and targeted redesign", hy: true,
+    q: "Sundon Bank, a UK retail bank, gave all 1,800 branch staff a 40-minute e-learning module on cash-based money laundering in January 2026. Completion is 99% and the average quiz score is 94%, but the quiz uses the same ten questions each time and can be retaken until passed. QA still finds that tellers record the account holder instead of the person actually paying in the cash in 1 in 8 sampled deposits, and three recent branch cases involved third parties paying cash into student accounts that tellers did not question. The MLRO has already told the board that the module has not changed behaviour, and the board has approved a budget to fix it. What is the BEST way to redesign the training?",
     options: [
-      "Completion and quiz scores show staff learned the material, so the training works and the fall in reports reflects lower risk",
-      "Indicators of changed behaviour, such as the volume and quality of internal reports and QA error rates, which suggest it is not yet effective",
-      "The provider's industry award and accreditation, which give independent assurance that the content is of good quality",
-      "A staff attestation that each employee has read and understood the module and the related branch procedures"
+      "Re-issue the same module to all 1,800 staff with the pass mark raised to 100%, so that everyone shows full knowledge",
+      "Build targeted, practical training for tellers on the actual failures, using the QA findings and branch cases, with varied testing, then re-measure",
+      "Replace the e-learning with a full-day classroom course for every member of staff, since online training cannot change behaviour",
+      "Ask each teller to sign an attestation that they will record the depositor's identity, and add it to the branch procedures manual"
     ],
     answer: [1],
-    explanation: "The EBA Guidelines on AML/CFT compliance officers (para. 60) ask the officer to set indicators to check whether training is effective, and the DOJ's Evaluation of Corporate Compliance Programs asks whether training has changed employee behaviour or operations, not only whether staff took part. Falling referrals and a persistent 1-in-8 recording error show the behaviour has not changed. The runner-up, completion and quiz scores, measures attendance: a quiz that can be retaken on the same ten questions shows little about learning. An award or an attestation says nothing about what staff do at the counter.",
+    explanation: "The DOJ's Evaluation of Corporate Compliance Programs asks whether training addresses lessons learned from prior compliance incidents, whether it is tailored to the audience, how employees who fail testing are dealt with and whether training changes behaviour. The FCA lists failing to identify training needs as poor practice and training with a strong practical side and some form of testing as good practice (FCG 2.2.6). Here the needs are known: recording the depositor and spotting third-party cash. The runner-up, re-running the same module with a higher pass mark, repeats what failed: JMLSG 7.42 warns that re-showing the same material gives diminishing returns, and a retakeable ten-question quiz measures recall, not conduct. JMLSG 7.42 also says no single method fits all and online learning suits many staff, so classroom training for everyone is not required; an attestation is not training.",
     source: [
-      { label: "EBA/GL/2022/05 Guidelines on the AML/CFT compliance officer, paras 58-60", url: "https://www.eba.europa.eu/sites/default/files/document_library/Publications/Guidelines/2022/EBA-GL-2022-05%20GLs%20on%20AML%20compliance%20officers/1035126/Guidelines%20on%20AMLCFT%20compliance%20officers.pdf" },
-      { label: "DOJ Evaluation of Corporate Compliance Programs (Sept 2024) – Training and Communications", url: "https://www.justice.gov/criminal/criminal-fraud/page/file/937501/dl" }
+      { label: "DOJ Evaluation of Corporate Compliance Programs (Sept 2024) – Training and Communications", url: "https://www.justice.gov/criminal/criminal-fraud/page/file/937501/dl" },
+      { label: "FCA Handbook – FCG 2.2.6 Staff recruitment, vetting, training, awareness and remuneration", url: "https://www.handbook.fca.org.uk/handbook/FCG/2/2.html" },
+      { label: "JMLSG Guidance Part I (updated Aug 2025), Chapter 7 (7.42)", url: "https://www.jmlsg.org.uk/wp-content/uploads/2025/09/JMLSG-Guidance-Part-I_June-2023-updated-Aug-2025.pdf" }
     ]
   },
   {
-    id: "TRNG-002", difficulty: "hard", domain: 3, topic: "Board training: depth and content for directors", hy: true,
-    q: "Three new independent directors join the board of Ridgeway Community Bank, a US state member bank: a retired hospital administrator, a software executive and a former auditor of manufacturing companies. None has banking experience. The training manager proposes that they complete the same four-hour teller module used for branch staff, which covers CTR forms, structuring examples and cash-handling steps. The CEO suggests instead that they skip BSA training, because the BSA officer reports to the board every quarter. The bank's next examination is in five months. What approach BEST reflects the FFIEC BSA/AML Examination Manual?",
+    id: "TRNG-002", difficulty: "hard", domain: 3, topic: "Buying BSA training from an outside provider: tailoring and documentation (FFIEC)", hy: true,
+    q: "To cut costs, Ridgeway Community Bank, a US state member bank, plans to replace its in-house BSA/AML training with a generic online course sold by a state bankers' association to about 60 banks. The course explains the BSA, CTRs and SAR rules well, but it does not cover Ridgeway's own BSA/AML procedures. Most of Ridgeway's risk comes from agricultural lending and seasonal cash from farm-produce businesses. The association will email each bank a completion certificate for every employee. What approach BEST reflects the FFIEC BSA/AML Examination Manual?",
     options: [
-      "Exempt the directors, because the BSA officer's quarterly reports already give them what they need for oversight",
-      "Give them the teller module, because the same content for all staff ensures a consistent understanding across the bank",
-      "Foundational training on the BSA and the bank's risk profile, enough for oversight, with updates on new developments",
-      "Enrol them in the BSA officer's specialist certification course, so they can challenge alert decisions in detail"
+      "Use the course without changes, because the BSA's requirements are the same for every bank and the course covers them well",
+      "Drop the plan, because BSA training must be designed and delivered by the bank's own BSA compliance officer",
+      "Use the course, but add training on the bank's own procedures and risks, tailored by role, and keep full records of the training",
+      "Use the course and keep only the certificates, because the association now carries responsibility for the bank's training"
     ],
     answer: [2],
-    explanation: "The FFIEC manual says the board should receive foundational training and be told of changes in the BSA. Directors may not need the same depth as operations staff, but they need enough understanding of the bank's risk profile and BSA requirements to oversee the programme: approving it, ensuring the BSA function's independence and providing resources. Quarterly reports do not replace that training. A teller module is built for tellers, since training should be tailored to each role, and a specialist certification goes far beyond what directors need for oversight.",
+    explanation: "The FFIEC manual allows a bank to rely on another financial institution or other party for training, but says appropriate documentation should be kept. Training should cover BSA requirements, supervisory guidance and the bank's own policies, procedures and processes, be tailored to each person's responsibilities, and include examples tailored to each operational area, such as money laundering through lending arrangements for loan staff. The runner-up, using the course unchanged, covers the law but not Ridgeway's procedures or its lending and cash risks. Using an outside provider is allowed, but it does not move responsibility for the training programme away from the bank, and certificates alone are not the full documentation the manual expects.",
     source: [
       { label: "FFIEC BSA/AML Examination Manual (April 2020) – BSA/AML Training", url: "https://ncua.gov/files/press-releases-news/bsa-aml-examination-manual-april-2020.pdf" }
     ]
@@ -40,7 +41,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Disagree: a manual is reference material, not training, and untrained staff may have a POCA defence, exposing the society"
     ],
     answer: [3],
-    explanation: "JMLSG Part I (7.43) says procedures manuals help raise awareness and supplement training, but their main purpose is reference and they are not written as training material. Under POCA s.330(7) a staff member who did not know or suspect, and was not given training by the employer, has a defence to the failure-to-disclose offence; JMLSG 7.15 warns this may leave the firm open to prosecution or regulatory sanction, so firms should assess the effectiveness of training, not just collect acknowledgements. The runner-up about classroom training is wrong: JMLSG 7.42 accepts a mix of methods, including online learning.",
+    explanation: "JMLSG Part I (7.43) says procedures manuals help raise awareness and supplement training, but their main purpose is reference and they are not written as training material. Under POCA s.330(7) a staff member who did not know or suspect, and was not given training by the employer, has a defence to the failure-to-disclose offence (JMLSG 7.14); JMLSG 7.15 warns this may leave the firm open to prosecution or regulatory sanction, so firms should assess the effectiveness of training, not just collect acknowledgements. The runner-up about classroom training is wrong: JMLSG 7.42 accepts a mix of methods, including online learning.",
     source: [
       { label: "JMLSG Guidance Part I (updated Aug 2025), Chapter 7", url: "https://www.jmlsg.org.uk/wp-content/uploads/2025/09/JMLSG-Guidance-Part-I_June-2023-updated-Aug-2025.pdf" }
     ]
@@ -163,7 +164,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Ask internal audit to review the core banking migration first, since the system change most likely explains the improvement"
     ],
     answer: [0],
-    explanation: "The FCA expects senior management to receive informative, objective information sufficient to meet their AML obligations (FCG 3.2.1), and MI should help them understand the firm's risks and stay within appetite (FCG 2.2.2). The FCA's monitoring review also warns against measures that improve statistics without improving outcomes and stresses consistent measurement from one period to the next (FCTR 4.3). A footnote, the runner-up, still presents a misleading green status; the system migration is a decoy, because the cause is already known.",
+    explanation: "The FCA expects senior management to receive informative, objective information sufficient to meet their AML obligations (FCG 3.2.1), and MI should help them understand the firm's risks and stay within appetite (FCG 2.2.2). The FCA's transaction monitoring review also warns against changing settings simply to improve performance statistics and stresses consistent measurement from one period to the next (FCTR 4.3.2); the same logic applies to any control metric. A footnote, the runner-up, still presents a misleading green status; the system migration is a decoy, because the cause is already known.",
     source: [
       { label: "FCA Handbook – FCG 3.2 Themes (governance and MLRO)", url: "https://www.handbook.fca.org.uk/handbook/FCG/3/2.html" },
       { label: "FCA Handbook – FCTR 4.3 Transaction monitoring: good and poor practice", url: "https://www.handbook.fca.org.uk/handbook/FCTR/4/3.html" }
@@ -195,7 +196,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Drop all productivity measures, since any throughput metric for analysts conflicts with regulatory expectations"
     ],
     answer: [2],
-    explanation: "The FCA expects staff who review and investigate alerts to be subject to effective operational control and quality assurance, and warns against improving performance statistics without improving outcomes (FCTR 4.3). The Wolfsberg Group notes that volume metrics measure quantity, not the usefulness of the work. The incentive is driving the quality fall, so it must change and the closures made under it re-reviewed. Dropping all productivity measures, the runner-up, goes too far: throughput is legitimate when balanced with quality, and 100% QA keeps the bad incentive.",
+    explanation: "The FCA expects staff who review and investigate alerts to be subject to effective operational control and quality assurance, and warns against changes made simply to improve performance statistics (FCTR 4.3.2). The Wolfsberg Group notes that volume metrics measure quantity, not the usefulness of the work. The incentive is driving the quality fall, so it must change and the closures made under it re-reviewed. Dropping all productivity measures, the runner-up, goes too far: throughput is legitimate when balanced with quality, and 100% QA keeps the bad incentive.",
     source: [
       { label: "FCA Handbook – FCTR 4.3 Transaction monitoring: good and poor practice", url: "https://www.handbook.fca.org.uk/handbook/FCTR/4/3.html" },
       { label: "Wolfsberg Group – Statement on Effective Monitoring for Suspicious Activity, Part I (2024)", url: "https://db.wolfsberg-group.org/assets/e3d83d2f-fad9-46d2-b5a9-3cf4e932f53f/Wolfsberg%20Group%20MSA%20Statement%20Part%20I.pdf" }
