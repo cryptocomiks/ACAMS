@@ -11,6 +11,47 @@
   var timer = null, lastSync = 0, missing = false;
   var TABLE_MISSING = /42P01|PGRST205|relation .*leaderboard|leaderboard.*(does not exist|not find)/i;
 
+  var PL = window.CAMSPlan || null;
+  function premium() { return !PL || PL.premium(); }
+
+  // Rival bots: clearly labelled practice opponents that keep the board lively while few people play.
+  // Their scores follow the viewer's own level (a few just above, a few just below), and they make room
+  // as real players join: they only fill the board up to MIN_ROWS.
+  var MIN_ROWS = 8;
+  var BOT_NAMES = ["Ada", "Basel", "Cleo", "Dara", "Egmont", "Fitz", "Gaia", "Hugo", "Iris", "Jules", "Kira", "Leo"];
+  var BOT_MULT = [1.55, 1.28, 1.1, 0.94, 0.8, 0.64, 0.48, 0.33];
+  function rivals(tab, realCount, mine) {
+    var n = Math.max(0, MIN_ROWS - realCount);
+    if (!n) return [];
+    var r = PG.seeded(PG.hash("rivals" + tab + (tab === "daily" ? PG.dayKey() : PG.weekKey())));
+    var names = BOT_NAMES.slice();
+    for (var i = names.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)), t = names[i]; names[i] = names[j]; names[j] = t; }
+    var out = [];
+    for (var k = 0; k < n; k++) {
+      var m = BOT_MULT[k % BOT_MULT.length] * (0.92 + r() * 0.16);
+      var row = { user_id: "bot-" + k, bot: true, name: names[k % names.length] };
+      if (tab === "week") row.xp_week = Math.max(20, Math.round(Math.max(mine.week, 220) * m / 5) * 5);
+      else if (tab === "all") row.xp_total = Math.max(50, Math.round(Math.max(mine.total, 600) * m / 10) * 10);
+      else { row.daily_score = Math.max(3, Math.min(10, Math.round((mine.daily != null ? mine.daily : 7) * m))); row.daily_ms = Math.round(55000 + r() * 150000); }
+      var xp = row.xp_total || Math.max(mine.total, 600) * m;
+      row.level = PG.levelFor(xp).level;
+      row.streak = Math.max(0, Math.round((mine.streak || 3) * m));
+      out.push(row);
+    }
+    return out;
+  }
+  function sortRows(rows) {
+    return rows.sort(function (a, b) {
+      if (tab === "week") return (b.xp_week || 0) - (a.xp_week || 0);
+      if (tab === "all") return (b.xp_total || 0) - (a.xp_total || 0);
+      return (b.daily_score || 0) - (a.daily_score || 0) || (a.daily_ms || 0) - (b.daily_ms || 0);
+    });
+  }
+  function mine() {
+    var g = PG.gam(), d = PG.dailyResult();
+    return { week: PG.weekXp(g), total: g.xp, streak: PG.streak(g).current, daily: d ? d.score : null };
+  }
+
   function acct() { return window.CAMSAccount || { enabled: false, user: function () { return null; } }; }
   function client() { return acct().client ? acct().client() : null; }
   function $(id) { return document.getElementById(id); }
@@ -39,7 +80,7 @@
   // Publishes this user's row. Does nothing unless they joined.
   function sync() {
     var c = client(), u = acct().user();
-    if (!c || !u || !joined()) return Promise.resolve();
+    if (!c || !u || !joined() || !premium()) return Promise.resolve();   // only Premium members are published
     lastSync = Date.now();
     return c.from("leaderboard").upsert(row()).then(function (res) {
       if (res && res.error) throw res.error;
@@ -80,7 +121,7 @@
   function joinHtml() {
     var name = publicName();
     return '<div class="card lb-join fade-in"><div class="lbj-icon" aria-hidden="true">🏆</div><div class="lbj-body">' +
-      "<h2>Join the leaderboard</h2>" +
+      "<h2>Join the leaderboard" + (premium() ? "" : ' <span class="tag">👑 Premium</span>') + "</h2>" +
       '<p class="muted small">Compete on weekly XP and the daily challenge. Other signed-in users will see the name you choose below, your XP, level, streak and daily score. Nothing else (no email). You can leave at any time.</p>' +
       '<form id="lbJoinForm" class="lbj-form" novalidate><label class="fld"><span>Public name</span><input id="lbName" type="text" maxlength="40" autocomplete="nickname" placeholder="e.g. Alex, AML-Ninja" value="' + esc(name) + '"></label>' +
       '<button class="btn primary" type="submit" id="lbJoin">Join</button></form><div class="m-msg" id="lbMsg" role="status"></div></div></div>';
@@ -101,8 +142,11 @@
     }
     if (!u) {
       html += '<div class="card lb-empty fade-in"><div style="font-size:48px">🏆</div><h2>Join the leaderboard</h2><p class="muted">Create a free account to compete on weekly XP and the daily challenge. Joining is optional, and only the public name you choose is shown.</p>' +
-        '<div class="actions" style="justify-content:center"><button class="btn primary" id="lbSignup">Create account</button><button class="btn" id="lbSignin">Sign in</button></div></div>';
+        '<div class="actions" style="justify-content:center"><button class="btn primary" id="lbSignup">Create account</button><button class="btn" id="lbSignin">Sign in</button></div></div>' +
+        '<div class="card lb-card fade-in" id="lbBody"></div>';
       app.innerHTML = html;
+      tab = "week";
+      drawBoard($("lbBody"), [], null);
       $("lbSignup").onclick = function () { acct().open("signup"); };
       $("lbSignin").onclick = function () { acct().open("signin"); };
       FX.countUp(app);
@@ -141,6 +185,7 @@
       var name = $("lbName").value.trim().replace(/\s+/g, " ").slice(0, 40), m = $("lbMsg"), b = $("lbJoin");
       if (name.length < 2) { m.textContent = "Choose a public name (2 characters or more)."; m.className = "m-msg err"; return; }
       if (/@/.test(name)) { m.textContent = "Please don't use an email address as your public name."; m.className = "m-msg err"; return; }
+      if (!premium()) { PL.paywall("ranks"); return; }
       b.disabled = true;
       acct().setMeta({ display_name: name, lb_join: true }).then(function () {
         A.toast('<span class="ti">🏆</span><div><b>You joined the leaderboard</b><span>As ' + esc(name) + ". Good luck!</span></div>");
@@ -179,44 +224,53 @@
     q.limit(50).then(function (res) {
       if (res.error) throw res.error;
       if (!$("lbBody")) return;
-      var rows = res.data || [];
-      var me = rows.filter(function (r) { return r.user_id === u.id; })[0];
-      if (!rows.length) {
-        body.innerHTML = '<p class="muted" style="text-align:center;margin:18px 0">' + (tab === "daily" ? "Nobody has played today's challenge yet. Be the first!" : "No scores yet this week. Answer a few questions to get on the board!") + "</p>" +
-          (tab === "daily" && !PG.dailyAttemptUsed() ? '<div style="text-align:center"><button class="btn primary" id="lbPlay">Play today\'s challenge</button></div>' : "");
-        var lp = $("lbPlay"); if (lp) lp.onclick = function () { A.startSession("daily", { domain: "all" }); };
-        return;
-      }
-      function val(r) {
-        return tab === "week" ? (r.xp_week || 0).toLocaleString() + " XP" : tab === "daily" ? r.daily_score + "/10 · " + A.fmtTime((r.daily_ms || 0) / 1000) : (r.xp_total || 0).toLocaleString() + " XP";
-      }
-      var podium = rows.slice(0, 3);
-      var html = '<div class="podium">' + [1, 0, 2].map(function (i) {
-        var r = podium[i];
-        if (!r) return '<div class="pod empty"></div>';
-        return '<div class="pod p' + (i + 1) + (r.user_id === u.id ? " me" : "") + '"><div class="medal">' + ["🥇", "🥈", "🥉"][i] + '</div><div class="pav">' + esc((r.name || "?").charAt(0).toUpperCase()) +
-          '</div><div class="pname"></div><div class="pval">' + esc(val(r)) + '</div><div class="pstand">' + (i + 1) + "</div></div>";
-      }).join("") + "</div>" +
-        '<ol class="lb-list">' + rows.map(function (r, i) {
-          return '<li class="' + (r.user_id === u.id ? "me" : "") + '"><span class="rk">' + (i + 1) + '</span><span class="av">' + esc((r.name || "?").charAt(0).toUpperCase()) + '</span><span class="nm"></span>' +
-            '<span class="meta">Lv ' + (r.level || 1) + (r.streak ? " · 🔥 " + r.streak : "") + '</span><span class="vl">' + esc(val(r)) + "</span></li>";
-        }).join("") + "</ol>";
-      if (!me && joined()) html += '<p class="muted small" style="text-align:center;margin-top:12px">' + (tab === "daily" ? "Play today's challenge to appear here." : "You are not in the top 50 yet. Keep going!") + "</p>";
-      body.innerHTML = html;
-      // Names are user-provided: set them as text, never as HTML.
-      var pn = body.querySelectorAll(".pod:not(.empty) .pname");
-      var order = [1, 0, 2].filter(function (i) { return podium[i]; });
-      Array.prototype.forEach.call(pn, function (el, k) { el.textContent = podium[order[k]].name || "Player"; });
-      Array.prototype.forEach.call(body.querySelectorAll(".lb-list .nm"), function (el, k) { el.textContent = (rows[k].name || "Player") + (rows[k].user_id === u.id ? " (you)" : ""); });
+      drawBoard(body, res.data || [], u);
     }).catch(function (e) {
       if (!$("lbBody")) return;
       if (isMissing(e)) {
         var wasMissing = missing;
         missing = true;
         if (!wasMissing && $("lbJoinForm")) return render();   // hide the join form: nothing to join yet
-        body.innerHTML = '<p class="muted" style="text-align:center">The leaderboard is not set up yet. (Site owner: run <code>supabase/leaderboard.sql</code> in Supabase.)</p>';
+        drawBoard(body, [], u);
       } else body.innerHTML = '<p class="muted" style="text-align:center">Could not load the leaderboard. Check your connection and try again.</p>';
     });
+  }
+
+  function valOf(r) {
+    return tab === "week" ? (r.xp_week || 0).toLocaleString() + " XP" : tab === "daily" ? r.daily_score + "/10 · " + A.fmtTime((r.daily_ms || 0) / 1000) : (r.xp_total || 0).toLocaleString() + " XP";
+  }
+  // Real rows + the viewer (shown even before joining, as "You") + rival bots, ranked together.
+  function drawBoard(body, real, u) {
+    var meId = u ? u.id : "me-local", m = mine();
+    var rows = real.slice(), me = rows.filter(function (r) { return r.user_id === meId; })[0];
+    if (!me && (tab !== "daily" || m.daily != null)) {
+      me = { user_id: meId, you: true, name: "You", xp_week: m.week, xp_total: m.total, streak: m.streak, level: PG.levelFor(m.total).level };
+      if (m.daily != null) { var d = PG.dailyResult(); me.daily_score = d.score; me.daily_ms = d.ms; }
+      rows.push(me);
+    }
+    var realCount = rows.filter(function (r) { return !r.you; }).length;
+    rows = sortRows(rows.concat(rivals(tab, realCount, m)));
+    var podium = rows.slice(0, 3);
+    function nm(r) { return (r.name || "Player") + (r.user_id === meId && !r.you ? " (you)" : ""); }
+    var html = '<div class="podium">' + [1, 0, 2].map(function (i) {
+      var r = podium[i];
+      if (!r) return '<div class="pod empty"></div>';
+      return '<div class="pod p' + (i + 1) + (r.user_id === meId ? " me" : "") + (r.bot ? " bot" : "") + '"><div class="medal">' + ["🥇", "🥈", "🥉"][i] + '</div><div class="pav">' + (r.bot ? "🤖" : esc((r.name || "?").charAt(0).toUpperCase())) +
+        '</div><div class="pname"></div><div class="pval">' + esc(valOf(r)) + '</div><div class="pstand">' + (i + 1) + "</div></div>";
+    }).join("") + "</div>" +
+      '<ol class="lb-list">' + rows.map(function (r, i) {
+        return '<li class="' + (r.user_id === meId ? "me" : "") + (r.bot ? " bot" : "") + '"><span class="rk">' + (i + 1) + '</span><span class="av">' + (r.bot ? "🤖" : esc((r.name || "?").charAt(0).toUpperCase())) + '</span><span class="nm"></span>' +
+          '<span class="meta">' + (r.bot ? "Rival bot" : "Lv " + (r.level || 1) + (r.streak ? " · 🔥 " + r.streak : "")) + '</span><span class="vl">' + esc(valOf(r)) + "</span></li>";
+      }).join("") + "</ol>";
+    if (rows.some(function (r) { return r.bot; })) html += '<p class="muted small lb-botnote">🤖 Rival bots are practice opponents that adapt to your level. They step aside as more players join.</p>';
+    if (me && me.you) html += '<p class="muted small" style="text-align:center">' + (u ? (premium() ? "Join above to appear on the public board." : "You are shown here privately. Premium members compete on the public board.") : "Create a free account to save your progress.") + "</p>";
+    if (tab === "daily" && !PG.dailyAttemptUsed()) html += '<div style="text-align:center;margin-top:12px"><button class="btn primary" id="lbPlay">Play today\'s challenge</button></div>';
+    body.innerHTML = html;
+    var lp = $("lbPlay"); if (lp) lp.onclick = function () { A.startSession("daily", { domain: "all" }); };
+    // Names are user-provided: set them as text, never as HTML.
+    var order = [1, 0, 2].filter(function (i) { return podium[i]; });
+    Array.prototype.forEach.call(body.querySelectorAll(".pod:not(.empty) .pname"), function (el, k) { el.textContent = nm(podium[order[k]]); });
+    Array.prototype.forEach.call(body.querySelectorAll(".lb-list .nm"), function (el, k) { el.textContent = nm(rows[k]); });
   }
 
   A.route("ranks", render);

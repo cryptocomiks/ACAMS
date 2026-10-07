@@ -134,6 +134,7 @@
         '<div class="m-stats"><div><b>Lv ' + lv.level + "</b><span>" + esc(PG.titleFor(lv.level)) + "</span></div><div><b>" + g.xp.toLocaleString() +
         "</b><span>XP</span></div><div><b>🔥 " + st.current + "</b><span>streak</span></div><div><b>" + Object.keys(g.badges).length + "</b><span>badges</span></div></div>" +
         '<p class="m-sync"><i class="sync-dot ' + state + '"></i>' + stateText + "</p>" +
+        (window.CAMSPlan ? (window.CAMSPlan.premium() ? '<p class="m-plan">👑 Premium · <a href="#/premium">Manage</a></p>' : '<p class="m-plan">Free plan · <a href="#/premium">Go Premium</a></p>') : "") +
         '<form id="mForm" novalidate>' + field("mName", "Display name", "text", 'maxlength="40" value="' + esc((user.user_metadata && user.user_metadata.display_name) || "") + '" placeholder="Shown on the leaderboard if you join"') +
         '<div class="m-msg" id="mMsg" role="status"></div><button class="btn m-submit" type="submit">Save name</button></form>' +
         '<button class="btn danger m-out" id="mOut" type="button">Sign out</button>';
@@ -142,6 +143,7 @@
     Array.prototype.forEach.call(body.querySelectorAll("[data-v]"), function (b) {
       b.onclick = function () { openModal(b.getAttribute("data-v")); };
     });
+    Array.prototype.forEach.call(body.querySelectorAll('a[href^="#/"]'), function (l) { l.addEventListener("click", closeModal); });
     var fg = body.querySelector("#mForgot");
     if (fg) fg.onclick = function () { openModal("forgot"); };
     var out = body.querySelector("#mOut");
@@ -284,6 +286,7 @@
       refreshUI();
       if (announce && window.CAMSUI) window.CAMSUI.toast('<span class="ti">☁️</span><div><b>Signed in as ' + esc(displayName()) + "</b><span>Your progress is synced</span></div>");
       announce = false;
+      if (window.CAMSPlan) window.CAMSPlan.refresh().then(function () { window.CAMSPlan.resumeCheckout(); });
       return push().catch(function () { /* retried later */ });
     }).catch(function () {
       if (syncingFor !== u.id) return;

@@ -47,6 +47,15 @@ Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être a
 (pas d'obligation de documenter un « no-SAR », revue d'activité continue non obligatoire), SR 26-2 d'avril 2026
 (remplace SR 11-7 / SR 21-8), révision FATF R.1 (fév. 2025) et R.16 (juin 2025), règle finale BOI de FinCEN (août 2026).
 
+## Formules (Free / Premium)
+
+- **Free, sans compte** : 20 questions par jour en Practice (y compris par thème), le défi du jour, réponses et explications,
+  2 leçons du cours, 1 Mock exam d'essai. Score de préparation, graphiques et points faibles affichés floutés.
+- **Premium** (Stripe, compte requis) : tout en illimité. 9,99 €/mois · 24,99 €/3 mois · 39,99 € Exam Pass 6 mois (paiement unique) · 59,99 €/an,
+  environ 30 % sous les concurrents. Mise en route : `supabase/stripe.md`. Code : `assets/plan.js`, `supabase/premium.sql`,
+  `supabase/functions/stripe-webhook/`.
+- Classement : des **rivaux 🤖** (identifiés comme bots) complètent le tableau tant qu'il y a peu de joueurs, et s'adaptent au niveau.
+
 ## Comptes, progression et gamification
 
 - **Sans compte** : tout marche, la progression reste dans le navigateur.

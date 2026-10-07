@@ -8,6 +8,8 @@
   var DOMAIN_COLORS = { 1: "d1", 2: "d2", 3: "d3", 4: "d4" };
   var learnFilter = { domain: "all", q: "" };
   var token = 0;
+  var PL = window.CAMSPlan || null;
+  function lessonOpen(id) { return !PL || PL.lessonFree(id); }
   // Starts a new view. The returned check is false once the user has moved on (new view or another page),
   // so pending timeouts, observers and listeners never write into a page they don't own.
   function newView() {
@@ -93,7 +95,7 @@
         var ms = modStats(m, st), isRead = !!read[m.id];
         return '<a class="module reveal in ' + (DOMAIN_COLORS[m.domain] || "") + (isRead ? " read" : "") + '" href="#/learn/' + m.id + '" style="animation-delay:' + i * 30 + 'ms">' +
           '<div class="mod-top"><span class="mod-icon" aria-hidden="true">' + m.icon + '</span><span class="tag">' + (m.id === "m00" ? "Exam" : "Domain " + m.domain) + "</span>" +
-          (isRead ? '<span class="tag good">✓ Read</span>' : "") + "</div>" +
+          (isRead ? '<span class="tag good">✓ Read</span>' : "") + (PL && !PL.premium() ? (lessonOpen(m.id) ? '<span class="tag good">Free</span>' : '<span class="tag">👑 Premium</span>') : "") + "</div>" +
           '<div class="mod-title">' + esc(m.title) + '</div><div class="mod-sum">' + esc(m.summary || "") + "</div>" +
           '<div class="mod-meta"><span>⏱ ' + (m.minutes || Math.max(3, Math.round(words(m) / 200))) + " min</span>" +
           ((m.cards || []).length ? "<span>🃏 " + m.cards.length + "</span>" : "") +
@@ -133,7 +135,8 @@
       html += '<div class="callout most"><div class="co-h">⭐ Most tested in this lesson</div><ul>' + m.mostTested.map(function (t) { return "<li>" + md(t) + "</li>"; }).join("") + "</ul></div>";
     }
     html += '<nav class="toc" aria-label="Lesson sections">' + (m.sections || []).map(function (s, i) { return '<a href="#" data-sec="' + i + '">' + esc(s.h) + "</a>"; }).join("") + "</nav>";
-    (m.sections || []).forEach(function (s, i) {
+    var open = lessonOpen(m.id);
+    (open ? m.sections || [] : (m.sections || []).slice(0, 1)).forEach(function (s, i) {
       html += '<section class="lsec" id="sec' + i + '"><h2>' + esc(s.h) + "</h2>";
       (s.p || []).forEach(function (p) { html += "<p>" + md(p) + "</p>"; });
       if (s.list && s.list.length) html += "<ul>" + s.list.map(function (li) { return "<li>" + md(li) + "</li>"; }).join("") + "</ul>";
@@ -145,7 +148,10 @@
       if (s.remember) html += '<div class="callout remember"><div class="co-h">🧠 Remember</div>' + md(s.remember) + "</div>";
       html += "</section>";
     });
-    html += '<div id="lessonEnd"></div>' +
+    if (!open) html += '<div class="lesson-lock"><div class="ll-fade"></div><div class="card ll-card"><div class="pw-crown" aria-hidden="true">👑</div><h2>Keep reading with Premium</h2>' +
+      '<p class="muted">' + ((m.sections || []).length - 1) + " more sections, " + (m.cards || []).length + " flashcards and the numbers sprint for this lesson. Two lessons are free: " +
+      '<a href="#/learn/m00">How the CAMS exam works</a> and <a href="#/learn/m01">Money laundering</a>.</p><button class="btn primary" data-paywall="lesson">Unlock the full course</button></div></div>';
+    else html += '<div id="lessonEnd"></div>' +
       '<div class="card practice-panel"><div class="dlabel">Lock it in</div><h2>' + (read[m.id] ? "Lesson complete ✓" : "Finish the lesson to earn +" + PG.XP.lesson + " XP") + "</h2>" +
       '<div class="pp-actions">' +
       (ms.total ? '<button class="btn primary" id="lpPractice">Practise ' + Math.min(30, ms.total) + " questions" + (ms.acc != null ? " · " + ms.acc + "% so far" : "") + "</button>" : "") +
@@ -160,6 +166,7 @@
     html += '<div class="lesson-nav">' + (prev ? '<a class="ln prev" href="#/learn/' + prev.id + '"><span>‹ Previous</span><b>' + prev.icon + " " + esc(prev.title) + "</b></a>" : "<span></span>") +
       (next ? '<a class="ln next" href="#/learn/' + next.id + '"><span>Next ›</span><b>' + next.icon + " " + esc(next.title) + "</b></a>" : "<span></span>") + "</div></article>";
     app.innerHTML = html;
+    if (PL) PL.bindLocks(app);
 
     each(".toc a", function (a) {
       a.onclick = function (e) {
@@ -202,6 +209,11 @@
     var mods = course();
     if (!mods.length) return empty();
     var src = which && which !== "all" ? mods.filter(function (m) { return m.id === which; }) : mods;
+    var limited = PL && !PL.premium();
+    if (limited) {
+      if (which && which !== "all" && !lessonOpen(which)) return lockedPage("🃏", "Flashcards for this lesson are Premium", "cards");
+      src = src.filter(function (m) { return lessonOpen(m.id); });   // free plan: decks of the free lessons
+    }
     var cards = allCards(src);
     if (!cards.length) return renderIndex();
     var map = {};
@@ -213,7 +225,7 @@
     var alive = newView();
     A.setView("page cards-view");
     A.setTopbar('<span class="tag blue">🃏 Flashcards</span>');
-    var title = which && which !== "all" ? src[0].icon + " " + src[0].title : "All lessons";
+    var title = which && which !== "all" ? src[0].icon + " " + src[0].title : limited ? "Free lessons (Premium unlocks all decks)" : "All lessons";
 
     function view() {
       if (i >= deck.length) return done();
@@ -293,7 +305,16 @@
 
   // ---------- Numbers sprint ----------
   var sprintTimer = null;
+  function lockedPage(icon, title, reason) {
+    newView();
+    A.setView("page");
+    A.setTopbar(A.homeChips());
+    app.innerHTML = '<div class="sprint-page"><a class="back" href="#/learn">‹ Back</a><div class="card sprint-intro fade-in"><div class="sp-icon">' + icon + "</div><h1>" + esc(title) + "</h1>" +
+      '<p class="muted">Premium unlocks every lesson, all flashcards and the 60-second numbers sprint.</p><button class="btn primary lg" data-paywall="' + reason + '">👑 Unlock with Premium</button></div></div>';
+    PL.bindLocks(app);
+  }
   function renderSprint(which) {
+    if (PL && !PL.premium()) return lockedPage("🔢", "Numbers sprint is Premium", "sprint");
     var nums = allNumbers();
     if (which) { var f = nums.filter(function (n) { return n.m.id === which; }); if (f.length >= 4) nums = f; }
     if (!nums.length) return empty();

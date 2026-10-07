@@ -41,6 +41,8 @@
   var lastRendered = -1;
   var pendingFocus = null; // selector to refocus after a keyboard-driven re-render
   var routes = {};
+  var PL = window.CAMSPlan || null;
+  function isPremium() { return !PL || PL.premium(); }
 
   // ---------- Storage (fails silently) ----------
   function load(key, fallback) {
@@ -140,7 +142,7 @@
     if (mode === "daily") return PG.dailyIds(BANK).map(function (id) { return BY_ID[id]; }).filter(Boolean);
     var pool = filteredPool(opts);
     if (mode === "survival") return ranked(pool, stats);
-    var n = Math.min((MODES[mode] || MODES.practice).n, pool.length);
+    var n = Math.min((MODES[mode] || MODES.practice).n, opts.limit || Infinity, pool.length);
     var chosen = [];
     if ((!opts.domain || opts.domain === "all") && opts.source !== "mistakes" && !opts.ids) {
       // Mirror the exam blueprint weights (30/20/30/20).
@@ -169,6 +171,13 @@
   }
   function startSession(mode, opts) {
     opts = opts || {};
+    // Free plan: some modes are Premium, Practice is capped at the questions left today.
+    var free = PL && !PL.premium();
+    if (free) {
+      var gate = PL.check(mode, opts);
+      if (gate !== "ok") { PL.paywall(gate); return false; }
+      if (mode === "practice") opts.limit = Math.min(PL.freeLeft(), PL.FREE_DAILY);
+    }
     var qs = pickQuestions(mode, opts);
     // A filter with nothing in it (no mistakes yet, etc.) must never block training: fall back to all questions.
     if (!qs.length && mode !== "review" && mode !== "daily" && !opts.ids && (opts.source !== "fresh" || (opts.domain && opts.domain !== "all"))) {
@@ -191,6 +200,7 @@
     session = {
       mode: mode,
       opts: opts,
+      free: !!(free && mode === "practice"),
       startedAt: Date.now(),
       endsAt: mode === "exam" ? Date.now() + qs.length * SECONDS_PER_QUESTION * 1000 : null,
       current: 0,
@@ -214,6 +224,7 @@
       session.replay = PG.dailyAttemptUsed(session.dailyKey);
       if (!session.replay) PG.startDaily(session.dailyKey);
     }
+    if (free && mode === "exam") PL.useExamTrial();
     lastRendered = -1;
     pendingFocus = null;
     persist();
@@ -247,12 +258,17 @@
     if (el) { el.textContent = "⏱ " + fmtTime(left); el.classList.toggle("low", left < 300); }
     if (left <= 0) { stopTimer(); alert("Time is up! Your exam will now be submitted."); finish(); }
   }
+  function premiumChip() {
+    if (!PL || PL.premium()) return "";
+    var left = PL.freeLeft();
+    return '<a class="chip premium-chip" href="#/premium" title="Free plan: ' + left + ' of ' + PL.FREE_DAILY + ' questions left today">👑 <span class="hide-sm">Premium · </span>' + left + "/" + PL.FREE_DAILY + "</a>";
+  }
   function homeChips() {
-    if (!PG) return "";
+    if (!PG) return premiumChip();
     var g = PG.gam();
-    if (!g.xp) return "";
+    if (!g.xp) return premiumChip();
     var st = PG.streak(g);
-    return '<span class="chip flame' + (st.activeToday ? " lit" : "") + '" title="Day streak">🔥 ' + st.current + "</span>" +
+    return premiumChip() + '<span class="chip flame' + (st.activeToday ? " lit" : "") + '" title="Day streak">🔥 ' + st.current + "</span>" +
       (st.freezes ? '<span class="chip hide-sm" title="Streak freezes">❄️ ' + st.freezes + "</span>" : "") +
       '<span class="chip hide-sm" title="Level">Lv ' + PG.levelFor(g.xp).level + "</span>";
   }
@@ -282,7 +298,7 @@
   function route() {
     var path = currentPath();
     var parts = path.split("/").filter(Boolean);
-    var name = parts[0] || "home";
+    var name = (parts[0] || "home").split("?")[0];
     clearViewTimers();
     if (name !== "play") {
       // Leaving the quiz: stop its timers. An unfinished test stays resumable from Home.
@@ -402,11 +418,19 @@
       { href: "#/cards/all", icon: "🃏", title: "Flashcards", sub: n ? n + " cards · flip, recall, repeat" : "Coming with the course", cls: "", disabled: !n },
       { href: "#/sprint", icon: "🔢", title: "Numbers sprint", sub: "60 seconds · thresholds, deadlines, percentages", cls: "", rec: recs.sprint != null ? "Best " + recs.sprint : "", disabled: !n }
     ];
+    var free = PL && !PL.premium();
+    if (free) tiles.forEach(function (t) {
+      if (t.mode === "practice") t.sub = PL.freeLeft() + " of " + PL.FREE_DAILY + " free questions left today · answer right away";
+      else if (t.mode === "exam" && !PL.examTrialUsed()) t.lock = "1 free trial";
+      else if (t.mode && t.mode !== "daily") { t.lock = "Premium"; t.disabled = false; }
+      else if (t.href === "#/sprint") t.lock = "Premium";
+      else if (t.href === "#/cards/all") t.lock = "2 decks free";
+    });
     return '<div class="modes-grid">' + tiles.map(function (t, i) {
       var attr = t.href ? 'href="' + t.href + '"' : 'href="#" data-mode="' + t.mode + '"';
       return "<a " + attr + ' class="mode-tile ' + t.cls + (t.disabled ? " disabled" : "") + '" style="animation-delay:' + (i * 50) + 'ms"' + (t.disabled ? ' aria-disabled="true"' : "") + ">" +
         '<span class="mt-icon" aria-hidden="true">' + t.icon + '</span><span class="mt-title">' + t.title + '</span><span class="mt-sub">' + t.sub + "</span>" +
-        (t.rec ? '<span class="mt-rec">🏆 ' + t.rec + "</span>" : "") + '<span class="mt-go" aria-hidden="true">›</span></a>';
+        (t.lock ? '<span class="mt-lock">' + (t.lock === "Premium" ? "👑 Premium" : "✨ " + t.lock) + "</span>" : t.rec ? '<span class="mt-rec">🏆 ' + t.rec + "</span>" : "") + '<span class="mt-go" aria-hidden="true">›</span></a>';
     }).join("") + "</div>";
   }
 
@@ -423,7 +447,7 @@
     var g = PG ? PG.gam() : { xp: 0, records: {} };
     var due = PG ? PG.dueIds(BY_ID).length : 0;
     var returning = g.xp > 0;
-    var prefs0 = { domain: prefs.domain || "all", source: prefs.source || "fresh" };
+    var prefs0 = { domain: prefs.domain || "all", source: isPremium() ? prefs.source || "fresh" : "fresh" };
     setView("home");
 
     var html = "";
@@ -445,6 +469,12 @@
       '<a class="link-btn" href="#/learn">Open the course</a></div>' +
       (returning ? "" : videoHtml()) + "</section>";
 
+    if (PL && !PL.premium()) {
+      var left = PL.freeLeft();
+      html += '<div class="free-bar fade-in"><div><b>' + (left ? "Free plan: " + left + " of " + PL.FREE_DAILY + " questions left today" : "You've used today's free questions") + '</b><span>' +
+        (left ? "Plus the daily challenge. Go Premium for unlimited practice, mock exams and full analytics." : "Come back tomorrow for 20 more, or unlock unlimited practice now.") +
+        '</span></div><a class="btn primary sm" href="#/premium">👑 See Premium</a></div>';
+    }
     if (returning) html += todayPanel();
 
     // Modes
@@ -453,7 +483,7 @@
       '<p class="subhead reveal">Six ways to test yourself, plus flashcards and a numbers sprint to lock in the facts.</p>' +
       '<div class="settings reveal">' +
       '<div class="seg-group"><label>Domain</label>' + seg("domain", [["all", "All", null], ["1", "D1", countDomain(1)], ["2", "D2", countDomain(2)], ["3", "D3", countDomain(3)], ["4", "D4", countDomain(4)]], prefs0.domain) + "</div>" +
-      '<div class="seg-group"><label>Questions</label>' + seg("source", [["fresh", "Unseen first", null], ["hy", "Most tested", hyCount], ["hard", "Hard only", hardCount], ["mistakes", "My mistakes", mistakes]], prefs0.source) + "</div>" +
+      '<div class="seg-group"><label>Questions</label>' + seg("source", [["fresh", "Unseen first", null], ["hy", (isPremium() ? "" : "🔒 ") + "Most tested", hyCount], ["hard", (isPremium() ? "" : "🔒 ") + "Hard only", hardCount], ["mistakes", (isPremium() ? "" : "🔒 ") + "My mistakes", mistakes]], prefs0.source) + "</div>" +
       '</div><p class="small muted reveal" style="text-align:center;margin:10px 0 0">Filters apply to Practice, Mock exam, Lightning and Survival.</p>' +
       modeTiles(due, g.records || {}) + "</div></section>";
 
@@ -487,6 +517,7 @@
       var name = group.getAttribute("data-seg");
       Array.prototype.forEach.call(group.querySelectorAll("button"), function (b) {
         b.onclick = function () {
+          if (name === "source" && b.getAttribute("data-val") !== "fresh" && !isPremium()) return PL.paywall("filters");
           current[name] = b.getAttribute("data-val");
           Array.prototype.forEach.call(group.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
           opts();
@@ -604,7 +635,14 @@
 
     var html = '<div class="page-head fade-in"><h1>Your progress.</h1><p class="muted">Level ' + lv.level + " · " + esc(PG.titleFor(lv.level)) + " · " + g.xp.toLocaleString() + " XP</p></div>";
 
+    // Free plan: the most useful analytics are shown blurred with an unlock button.
+    var lockFrom = 0;
+    function lockSince(label) {
+      if (PL && !PL.premium()) html = html.slice(0, lockFrom) + PL.lockOverlay(html.slice(lockFrom), "stats", label);
+    }
+
     // Readiness hero
+    lockFrom = html.length;
     html += '<div class="card readiness fade-in"><div class="rd-gauge">' + CH.gauge(rd.score, { label: "Exam readiness", mark: 62.5 }) +
       '<div class="rd-num"><b data-count="' + rd.score + '">' + rd.score + "</b><span>/100</span></div></div>" +
       '<div class="rd-body"><div class="dlabel">Exam readiness</div><div class="rd-verdict v-' + rd.verdict.toLowerCase().replace(/\s+/g, "-") + '">' + esc(rd.verdict) + "</div>" +
@@ -616,6 +654,8 @@
         return '<div class="rd-part"><div class="rdp-h"><span>' + p[0] + "</span><b>" + (v == null ? "–" : v + "%") + '</b></div><div class="xpbar"><div style="width:' + (v || 0) + '%"></div></div></div>';
       }).join("") + '</div><p class="small muted" style="margin:12px 0 0">Readiness blends accuracy by domain (weighted 30/20/30/20), how much of the bank you have covered, mastered questions and your last 3 mock exams. Aim for 80+ before booking.</p></div></div>';
 
+    lockSince("Your exam readiness and predicted score");
+
     // KPI row
     html += '<div class="dash fade-in">' +
       '<div class="dtile"><div class="dlabel">Streak</div><div class="dbig">🔥 <span data-count="' + st.current + '">' + st.current + '</span></div><div class="dsub">best ' + st.best + " · ❄️ " + st.freezes + " freeze" + (st.freezes === 1 ? "" : "s") + "</div></div>" +
@@ -626,14 +666,17 @@
       "</div>";
 
     // Charts
+    lockFrom = html.length;
     html += '<div class="chart-grid">' +
       '<div class="card chart-card" id="chTrend"></div>' +
       '<div class="card chart-card" id="chDays"></div>' +
       '<div class="card chart-card" id="chDomains"></div>' +
       '<div class="card chart-card" id="chTopics"></div></div>';
+    lockSince("Score trend, accuracy by domain, weakest topics");
 
     // Review + weak topics actions
     var due = PG.dueIds(BY_ID).length;
+    lockFrom = html.length;
     html += '<div class="dgrid2">' +
       '<div class="card review-card"><div class="dlabel">Smart review</div><div class="dbig">' + due + '<small> due</small></div>' +
         '<p class="muted small">Missed questions come back after 10 minutes. Each time you get one right, it waits longer: 1, 3, 7, 16 then 35 days.</p>' +
@@ -644,6 +687,7 @@
             '<button class="btn sm" data-topic="' + esc(t.topic) + '">Practise</button></div>';
         }).join("") + "</div>" : '<p class="muted small">Your weakest topics will show up here after a few tests.</p>') +
       "</div></div>";
+    lockSince("Smart review and your weakest topics");
 
     // Records
     var R = PG.RECORDS;
@@ -729,10 +773,12 @@
         PG.resetAll(); remove(KEYS.session); if (window.CAMSSync) window.CAMSSync.schedule(); renderProgress();
       }
     };
+    if (PL) PL.bindLocks(app);
     FX.countUp(app);
     window.scrollTo(0, 0);
   }
   routes.progress = renderProgress;
+  routes.premium = function () { if (PL) PL.renderPremium(); else renderHome(); };
   routes.home = renderHome;
 
   // ---------- Toasts & celebrations ----------
@@ -926,6 +972,7 @@
     var speed = 0;
     if (ok && s.mode === "lightning" && item.endsAt) speed = Math.floor(Math.max(0, item.endsAt - Date.now()) / 5000);
     recordStat(item, { combo: item.combo, speedBonus: speed });
+    if (s.free && PL && isAnswered(item)) PL.useFree(1);
     item.fresh = true;
     if (ok) FX.play(item.combo >= 3 ? "combo" : "correct", item.combo); else FX.play("wrong");
     if (s.mode === "survival" && !ok) { s.lives = Math.max(0, s.lives - 1); s.lostAnim = true; if (s.lives <= 0) FX.play("lose"); }
@@ -1120,8 +1167,8 @@
     // Weakest themes first (unseen count as weak), so the next session targets gaps.
     th.sort(function (a, b) { return (a.acc == null ? -1 : a.acc) - (b.acc == null ? -1 : b.acc) || a.seen - b.seen; });
     return '<div class="keep-going"><div class="dlabel">Keep going: no daily limit</div>' +
-      '<div class="kg-modes"><button class="btn sm" data-next="practice">💡 Practice · 30 mixed</button><button class="btn sm" data-next="exam">⏱ Mock exam</button>' +
-      '<button class="btn sm" data-next="lightning">⏳ Lightning</button><button class="btn sm" data-next="survival">❤️ Survival</button>' +
+      (function () { var k = isPremium() ? "" : "👑 "; return '<div class="kg-modes"><button class="btn sm" data-next="practice">💡 Practice' + (isPremium() ? " · 30 mixed" : " · " + PL.freeLeft() + " free left") + '</button><button class="btn sm" data-next="exam">' + (isPremium() || !PL.examTrialUsed() ? "" : k) + '⏱ Mock exam</button>' +
+      '<button class="btn sm" data-next="lightning">' + k + '⏳ Lightning</button><button class="btn sm" data-next="survival">' + k + '❤️ Survival</button>'; })() +
       (PG && PG.dueIds(BY_ID).length ? '<button class="btn sm" data-next="review">🔁 Smart review</button>' : "") + "</div>" +
       (th.length ? '<p class="small muted" style="margin:14px 0 8px">Or pick a theme (weakest first):</p>' + themeChips(th.slice(0, 6)) : "") + "</div>";
   }
@@ -1164,13 +1211,13 @@
       (s.mode === "exam" ? '<p class="muted small" style="margin:6px 0 0">Aim for 80%+ consistently in mock exams before booking the real one.</p>' : "") +
       "</div></div>" + rewardsHtml(s) + keepGoingHtml(s) +
       (s.mode === "daily" && !s.replay && !s.dailyLate ? '<div class="share"><pre id="shareTxt">' + esc(shareText(s)) + '</pre><button class="btn sm" id="copyShare">Copy result</button> <a class="link-btn small" href="#/ranks">See today\'s leaderboard</a></div>' : "") +
-      '<h3 style="margin-top:20px">By domain</h3><div class="bars">' +
+      '<h3 style="margin-top:20px">By domain</h3>' + (function (h) { return isPremium() ? h : PL.lockOverlay(h, "stats", "Your score by domain"); })('<div class="bars">' +
       Object.keys(DOMAINS).filter(function (d) { return byDomain[d]; }).map(function (d) {
         var b = byDomain[d], dp = pct(b.ok, b.n);
         return '<div class="bar-row"><div><span>D' + d + " · " + esc(DOMAINS[d].name) + '</span><div class="bar"><div style="width:' + dp +
           "%;background:" + (dp / 100 >= PASS_RATE ? "var(--good)" : "var(--bad)") + '"></div></div></div>' +
           '<div class="num" style="text-align:right">' + b.ok + "/" + b.n + "</div></div>";
-      }).join("") + "</div>" +
+      }).join("") + "</div>") +
       '<div class="actions"><button class="btn" id="home">Home</button><div class="right">' +
       '<button class="btn primary" id="again">' + (s.mode === "daily" ? "Replay" : s.mode === "survival" || s.mode === "lightning" ? "Play again" : "New " + modeLabel(s.mode).toLowerCase()) + "</button></div></div></div>";
 
@@ -1210,10 +1257,12 @@
     each("[data-next]", function (b) {
       b.onclick = function () {
         var m = b.getAttribute("data-next"), prefs = load(KEYS.prefs, {});
-        startSession(m, m === "review" ? { domain: "all", source: "review" } : { domain: prefs.domain || "all", source: prefs.source || "fresh" });
+        startSession(m, m === "review" ? { domain: "all", source: "review" } : { domain: prefs.domain || "all", source: isPremium() ? prefs.source || "fresh" : "fresh" });
       };
     });
     bindThemes(app);
+    if (PL) PL.bindLocks(app);
+    if (PL) PL.bindLocks(app);
     var cp = $("copyShare");
     if (cp) cp.onclick = function () {
       var txt = shareText(s);
@@ -1258,6 +1307,9 @@
     toast: toast, esc: esc, pct: pct, fmtTime: fmtTime, shuffle: shuffle, revealAll: revealAll, setupReveal: setupReveal,
     addViewTimer: addViewTimer, route: function (name, fn) { routes[name] = fn; }, rerender: function () { route(); }
   };
+
+  // Plan changes (Premium activated, free quota used up) re-render the page, never an active test.
+  if (PL) PL.on(function () { if (!session || session.finished) { if (currentPath() !== "/play") route(); } });
 
   // ---------- Boot ----------
   renderSoundBtn();
