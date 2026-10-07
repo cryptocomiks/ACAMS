@@ -36,10 +36,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Treat the closed public search as a red flag about Kestrel itself and exit the relationship without further review"
     ],
     answer: [1],
-    explanation: "In Joined Cases C-37/20 and C-601/20 (22 November 2022), the CJEU invalidated only the rule giving every member of the general public access to BO information. AMLD6 (Directive 2024/1640) Art. 11(3) requires timely access for obliged entities performing CDD, and Art. 12 gives access to others with a legitimate interest. Member States had to transpose Arts. 11-13 by 10 July 2026. AMLD6 treats discrepancy reporting as a way to check the accuracy of register data and says discrepancies should be reported swiftly, so the register is a cross-check rather than proof on its own. The runner-up misuses a journalist's access, which exists for journalism, not to do a bank's CDD. Relying on the declaration ignores the conflicting article.",
+    explanation: "In Joined Cases C-37/20 and C-601/20 (22 November 2022), the CJEU invalidated only the rule giving every member of the general public access to BO information. AMLD6 (Directive 2024/1640) Art. 11(3) requires timely access for obliged entities performing CDD, and Art. 12 gives access to others with a legitimate interest. Member States had to transpose Arts. 11-13 (and 15) by 10 July 2026 (Art. 78(1)). Banks were never cut off: the ruling did not touch obliged-entity access, and Directive 2015/849 Art. 30(8), still in force until July 2027, bars relying exclusively on the register. AMLD6 recital 32 treats discrepancy reporting as a way to verify the accuracy of register data and says discrepancies should be reported swiftly, and AMLR recital 54 confirms the register is a consistency check, not the primary source for verification. The runner-up misuses a journalist's access, which exists for journalism, not to do a bank's CDD. Relying on the declaration ignores the conflicting article.",
     source: [
       { label: "CJEU, Joined Cases C-37/20 and C-601/20, WM and Sovim (22 Nov 2022)", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62020CJ0037" },
-      { label: "Directive (EU) 2024/1640 (AMLD6), recital on discrepancies and Arts. 11-13", url: "https://eur-lex.europa.eu/eli/dir/2024/1640/oj" }
+      { label: "Directive (EU) 2024/1640 (AMLD6), recital 32, Arts. 11-13 and 78", url: "https://eur-lex.europa.eu/eli/dir/2024/1640/oj" },
+      { label: "Regulation (EU) 2024/1624 (AMLR), recital 54", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }
     ]
   },
   {
@@ -53,8 +54,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Bluewater no longer reports and its US owners' data is being deleted; Pelican still reports, but only its foreign owner"
     ],
     answer: [3],
-    explanation: "FinCEN's final rule of 11 August 2026 permanently removed the duty for US companies and US persons to report beneficial ownership information. FinCEN also said it will delete previously reported information on now-exempt US persons. Foreign entities that are reporting companies must still report BOI for foreign individuals, so Pelican reports its Brazilian owner but not its US owner. The runner-up wrongly assumes FinCEN keeps the old reports. The manager's 'complete files' idea fails for both companies, and the bank's own CDD records remain the main source.",
-    source: [{ label: "FinCEN press release (11 Aug 2026): FinCEN Permanently Ends Beneficial Ownership Reporting Requirements for Millions of Small Business Owners", url: "https://www.fincen.gov/news/news-releases/fincen-permanently-ends-beneficial-ownership-reporting-requirements-millions" }]
+    explanation: "FinCEN's final rule, announced on 11 August 2026 and effective on 14 August 2026, permanently removed the duty for US companies and US persons to report beneficial ownership information. Only entities formed under foreign law and registered to do business in a US State remain reporting companies. FinCEN also said it is implementing a process to delete previously reported information about US persons. Foreign entities that are reporting companies must still report BOI for foreign individuals, so Pelican reports its Brazilian owner but not its US owner. The runner-up wrongly assumes FinCEN keeps the old reports. The manager's 'complete files' idea fails for both companies, and the bank's own CDD records remain the main source.",
+    source: [
+      { label: "FinCEN press release (11 Aug 2026): FinCEN Permanently Ends Beneficial Ownership Reporting Requirements for Millions of Small Business Owners", url: "https://www.fincen.gov/news/news-releases/fincen-permanently-ends-beneficial-ownership-reporting-requirements-millions" },
+      { label: "FinCEN, Final Rule: Questions and Answers (Aug 2026), Q3-Q5 and Q12", url: "https://www.fincen.gov/system/files/2026-08/QAs_BOIFinalRule.pdf" }
+    ]
   },
   {
     id: "INVT-005", domain: 4, topic: "Adverse media triage: false positive vs immaterial vs material hits", hy: true, difficulty: "hard",
@@ -87,7 +91,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "INVT-007", domain: 4, topic: "Blockchain clustering: CoinJoin breaks the common-input heuristic", hy: false, difficulty: "hard",
     q: "An exchange's analytics tool flags customer Lena Vogt because her withdrawal address sits in a cluster of 4,200 addresses labelled 'Darknet vendor - inferred'. Investigator Sami Rahal finds that the cluster grew suddenly after a transaction in which Lena's coins were batched with coins from dozens of other users through a coordinated mixing service. The tool links all inputs of a transaction as one owner. Lena has been a customer for six years, trades weekly, and also uses a hardware wallet. What is the BEST conclusion about the 'darknet vendor' label?",
     options: [
-      "Treat the label as unreliable for Lena, because a mixing transaction joins many owners' inputs; report the mixer use and review the risk on its own merits",
+      "Treat the label as unreliable for Lena, because a mixing transaction joins many owners' inputs; escalate the mixer use and review the risk on its own merits",
       "Accept the label, because the tool's cluster attribution is drawn from the public blockchain and so is objective evidence of who controls the addresses",
       "Ignore the alert, because mixing is a privacy feature, so the use of a coordinated mixing service tells the exchange nothing about the customer's risk",
       "Close the account at once and report Lena as the darknet vendor, because she is a member of the cluster that the analytics tool has labelled"
@@ -96,7 +100,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "Clustering works because a user often groups their own addresses as inputs to one transaction, as a 2020 DOJ forfeiture complaint explains. A coordinated mixing service such as Samourai's Whirlpool instead 'coordinated batches of Bitcoin exchanges between groups of users' to obscure where coins came from, so its inputs belong to many owners and the one-owner assumption fails. An 'inferred' label built on that link should not be treated as proof that Lena is the vendor. Mixer use is still a risk indicator that needs review, which is why ignoring the alert, the runner-up, is also wrong.",
     source: [
       { label: "DOJ, Verified Complaint for Forfeiture, US v. 113 Virtual Currency Accounts (D.D.C., 2 Mar 2020), paras. 12-15", url: "https://www.justice.gov/opa/press-release/file/1253491/download" },
-      { label: "IRS-CI press release (July 2025): Founders of Samourai Wallet cryptocurrency mixing service plead guilty", url: "https://www.irs.gov/compliance/criminal-investigation/founders-of-samourai-wallet-cryptocurrency-mixing-service-plead-guilty" }
+      { label: "IRS-CI press release (6 Aug 2025): Founders of Samourai Wallet cryptocurrency mixing service plead guilty", url: "https://www.irs.gov/compliance/criminal-investigation/founders-of-samourai-wallet-cryptocurrency-mixing-service-plead-guilty" }
     ]
   },
   {
@@ -109,7 +113,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Acknowledgement by 14 October; feedback by 5 April 2027"
     ],
     answer: [1],
-    explanation: "Article 9(1)(b) of Directive 2019/1937 requires acknowledgement of receipt within seven days of receipt, so by 12 October, and the firm's acknowledgement on 9 October was in time. Article 9(1)(f) requires feedback within a reasonable time not exceeding three months from the acknowledgement, which gives 9 January 2027. Only if no acknowledgement is sent does the three months run from the end of the seven-day period. The desk head's holiday does not change either deadline. The Directive covers breaches of Union law on preventing money laundering, and Article 8 requires internal channels in firms with 50 or more workers.",
+    explanation: "Article 9(1)(b) of Directive 2019/1937 requires acknowledgement of receipt within seven days of receipt, so by 12 October, and the firm's acknowledgement on 9 October was in time. Article 9(1)(f) requires feedback within a reasonable time not exceeding three months from the acknowledgement, which gives 9 January 2027. Only if no acknowledgement is sent does the three months run from the end of the seven-day period. The desk head's holiday does not change either deadline. The Directive covers breaches of Union law on financial services and preventing money laundering (Art. 2(1)(a)(ii)). Article 8 requires internal channels in private firms with 50 or more workers, and under Art. 8(4) that threshold does not apply at all to firms within the Annex's financial services acts, so the firm's size is irrelevant here.",
     source: [{ label: "Directive (EU) 2019/1937 (Whistleblower Directive), Arts. 2, 8 and 9", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019L1937" }]
   },
   {
@@ -122,7 +126,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Keep the identity to authorised follow-up staff and refuse both requests; retaliation such as discipline is prohibited"
     ],
     answer: [3],
-    explanation: "Article 16 of Directive 2019/1937 says the reporter's identity, and any information from which it could be deduced, must not be disclosed beyond the authorised staff who receive or follow up reports without the reporter's explicit consent. The only exception is a necessary and proportionate legal obligation in investigations by national authorities or judicial proceedings, and the reporter is normally told first. Article 19 prohibits retaliation, including disciplinary measures. HR is not authorised follow-up staff, so the runner-up fails. Henrik's defence rights are protected through the fairness of the investigation, not by naming the reporter, and confidentiality does not end when the investigation closes.",
+    explanation: "Article 16 of Directive 2019/1937 says the reporter's identity, and any information from which it could be deduced, must not be disclosed beyond the authorised staff who receive or follow up reports without the reporter's explicit consent. The only exception (Art. 16(2)) is a necessary and proportionate obligation imposed by law in investigations by national authorities or judicial proceedings, which can include safeguarding the defence rights of the person concerned, and the reporter is normally told first. An internal investigation is neither. Article 19 prohibits retaliation, including disciplinary measures. HR is not authorised follow-up staff, so the runner-up fails. Henrik's defence rights are protected through the fairness of the investigation, not by naming the reporter, and confidentiality does not end when the investigation closes.",
     source: [{ label: "Directive (EU) 2019/1937 (Whistleblower Directive), Arts. 16 and 19", url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019L1937" }]
   },
   {
@@ -169,7 +173,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "INVT-013", domain: 4, topic: "UK further information orders after a SAR (POCA s.339ZH)", hy: true, difficulty: "hard",
-    q: "Wye Payments, a UK e-money institution, submitted a SAR on its customer Kalinda Rowe in July 2026. In September the UK Financial Intelligence Unit (UKFIU) asks for her device data and three years of transactions. Wye's data protection officer says the firm should decline because no court order has been made and the information would expose the firm to legal risk. The MLRO wants to understand what happens next. Which statement is MOST accurate?",
+    q: "Wye Payments, an e-money institution in England, submitted a SAR on its customer Kalinda Rowe in July 2026. In September the UK Financial Intelligence Unit (UKFIU) asks for her device data and three years of transactions. Wye's data protection officer says the firm should decline because no court order has been made and the information would expose the firm to legal risk. The MLRO wants to understand what happens next. Which statement is MOST accurate?",
     options: [
       "The UKFIU can only ask; with no SAR-related power to compel, it must send the case to police for a production order",
       "Wye must hand over everything the UKFIU asks for at once, because any refusal of an informal request is itself an offence",
@@ -177,7 +181,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The NCA can apply to a magistrates' court for an information order; Wye could then be ordered to pay up to GBP 5,000 for non-compliance"
     ],
     answer: [3],
-    explanation: "POCA s.339ZH lets an authorised NCA officer apply to a magistrates' court for an information order requiring a regulated business to provide information relating to a matter arising from a disclosure it made. The order is made where the information would help investigate possible money laundering and it is reasonable to provide it. Failure to comply can lead to an order to pay up to GBP 5,000. Under s.339ZI, a statement given in response generally cannot be used in evidence against the person in criminal proceedings. The runner-up wrongly says there is no compelling power, refusing an informal request is not itself an offence, and seeking the customer's consent would risk tipping off.",
+    explanation: "POCA s.339ZH lets the NCA (its Director General or an authorised NCA officer) apply to a magistrates' court in England and Wales for an information order requiring a regulated business to provide information relating to a matter arising from a disclosure it made. The order is made where the information would help investigate possible money laundering and it is reasonable to provide it. Failure to comply can lead to an order to pay up to GBP 5,000. Under s.339ZI, a statement given in response generally cannot be used in evidence against the person in criminal proceedings. The runner-up wrongly says there is no compelling power, refusing an informal request is not itself an offence, and seeking the customer's consent would risk tipping off.",
     source: [
       { label: "Proceeds of Crime Act 2002, s.339ZH (information orders)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/339ZH" },
       { label: "Proceeds of Crime Act 2002, s.339ZI (statements)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/339ZI" }
@@ -196,7 +200,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     explanation: "The NCA says JMLIT was piloted in 2015, co-developed with the Home Office, City of London Police, UK Finance and banks, and has grown to over 200 partners. A March 2026 Home Office call for evidence says s.7 of the Crime and Courts Act 2013 forms the legal basis for most AML public-private sharing through JMLIT's cells. Section 7(1) allows any person to disclose information to the NCA for the exercise of any NCA function, and s.7(8) says such a disclosure does not breach confidence. The same paper describes the SAR as a separate required disclosure under POCA ss.330-331, and ECCTA 2023 sharing as a separate private-to-private route.",
     source: [
       { label: "Home Office, Economic crime information sharing: call for evidence (9 Mar 2026)", url: "https://www.gov.uk/government/calls-for-evidence/economic-crime-information-sharing/economic-crime-information-sharing-accessible" },
-      { label: "NCA: 10 year anniversary of the UK's public-private partnerships", url: "https://www.nationalcrimeagency.gov.uk/news/10-year-anniversary-of-the-uks-public-private-partnerships" }
+      { label: "NCA: 10 year anniversary of the UK's public-private partnerships", url: "https://www.nationalcrimeagency.gov.uk/news/10-year-anniversary-of-the-uks-public-private-partnerships" },
+      { label: "Crime and Courts Act 2013, s.7 (information gateways)", url: "https://www.legislation.gov.uk/ukpga/2013/22/section/7" }
     ]
   },
   {
@@ -241,6 +246,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "INVT-018", domain: 4, topic: "Informal police requests and the UK GDPR crime exemption (DPA 2018 Sch. 2 para. 2)", hy: true, difficulty: "hard",
+    changed: "Data (Use and Access) Act 2025 added 'investigation' to the Sch. 2 para. 2(1)(a) crime purposes from 5 Feb 2026",
     q: "A detective constable telephones Ouse Valley Bank's fraud team. She says a bank customer, Nadia Corrigan, is suspected of a rental-deposit fraud against 30 victims, and asks for Ms Corrigan's address history and last three months of statements to help trace her. She has no production order but follows up with a signed request on police letterhead explaining why the data is needed. The bank has not filed a SAR on Ms Corrigan. Under UK data protection law, what is the BEST approach?",
     options: [
       "Refuse, because UK GDPR forbids a bank to disclose customer data to police without a court order",
@@ -249,44 +255,42 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Decide case by case: verify the request and, if the crime exemption applies, disclose only what is needed and record why"
     ],
     answer: [3],
-    explanation: "Schedule 2, paragraph 2 of the Data Protection Act 2018 disapplies the listed UK GDPR provisions for processing for the prevention or detection of crime or the apprehension or prosecution of offenders, to the extent that applying them would be likely to prejudice those purposes. The ICO says the exemption must be applied case by case, not in a blanket way, and the reasons for relying on it should be documented. Its guidance gives the example of a bank voluntarily disclosing information to law enforcement. The exemption permits disclosure but does not compel it, so the 'refuse' and 'disclose everything' options both misstate the law. Asking Ms Corrigan for consent could alert a suspected fraudster.",
+    explanation: "Schedule 2, paragraph 2 of the Data Protection Act 2018 disapplies the listed UK GDPR provisions for processing for the prevention, investigation or detection of crime or the apprehension or prosecution of offenders ('investigation' was added by the Data (Use and Access) Act 2025 from 5 February 2026), to the extent that applying them would be likely to prejudice those purposes. The ICO says the exemption must be applied case by case, not in a blanket way, and the reasons for relying on it should be documented. Its guidance gives the example of a bank voluntarily disclosing information to law enforcement. The exemption permits disclosure but does not compel it, so the 'refuse' and 'disclose everything' options both misstate the law. Asking Ms Corrigan for consent could alert a suspected fraudster.",
     source: [
       { label: "Data Protection Act 2018, Sch. 2 para. 2 (crime and taxation: general)", url: "https://www.legislation.gov.uk/ukpga/2018/12/schedule/2/paragraph/2" },
       { label: "ICO: A guide to the data protection exemptions", url: "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/exemptions/a-guide-to-the-data-protection-exemptions/" }
     ]
   },
   {
-    id: "INVT-019", domain: 4, topic: "Documenting no-report decisions: EU AMLR Art. 77 vs FinCEN SAR FAQs", hy: true, difficulty: "hard",
-    changed: "FinCEN SAR FAQs, Oct 2025: no requirement to document no-SAR decisions",
-    q: "In August 2027, Hollis Group, a bank with a branch in Frankfurt and a branch in New York, harmonises its alert procedures. In both branches investigators close many alerts after concluding that the activity has a reasonable explanation. To cut costs, the head of investigations proposes that neither branch keep any record of why an alert was closed without a report, citing 'FinCEN's 2025 guidance'. Compliance must advise on what each branch's rules require. Which advice is correct?",
+    id: "INVT-019", domain: 4, topic: "Records of closed alerts and partnership sharing under the AMLR (Art. 77(1))", hy: true, difficulty: "hard",
+    q: "In August 2027, after the EU AMLR has started to apply, investigators at Hollis Bank in Frankfurt close an alert on customer Ansgar Wolff after concluding that his large transfers are explained by a documented property sale, so no suspicious transaction report is made. The same month, the bank shares information on another customer through a partnership for information sharing under Chapter VI of the AMLR. To cut storage costs, the head of investigations proposes keeping only a 'closed - explained' code for alerts with no report, and redacting other banks' customer names from the partnership records. The bank's CFO notes the property sale was profitable for Mr Wolff. Which approach meets Article 77 of the AMLR?",
     options: [
-      "Frankfurt must keep a record of each assessment, even with no report, while New York is not required to but may do so",
-      "Neither branch needs records, because both the AMLR and FinCEN now treat no-report decisions as undocumented by default",
-      "New York must document every no-SAR decision in detail, while Frankfurt may choose whether to keep any such records",
-      "Both branches must keep a full written analysis of every closed alert for ten years from the date of the closure"
+      "Keep a record of the assessment, with the information and circumstances considered and its result, and keep the partnership documents and a log of each sharing instance, unredacted",
+      "Keep only the disposition code, because a record of the assessment is required only where the assessment leads to a suspicious transaction report",
+      "Keep a full record of the assessment, but redact other banks' customer names in the partnership records to meet data minimisation",
+      "Keep no record for alerts closed without a report, and keep the partnership records for 10 years from the date of each instance of sharing"
     ],
     answer: [0],
-    explanation: "From 10 July 2027, AMLR Art. 77(1)(b) requires obliged entities to keep a record of the assessment under Art. 69(2), including the information and circumstances considered and the result, whether or not a suspicious transaction report is made. Art. 77(3) sets a five-year retention period. FinCEN's October 2025 SAR FAQs say there is no requirement or expectation under the BSA to document a decision not to file a SAR, though institutions may choose to do so. The proposal therefore fails for Frankfurt. The option requiring detailed US records reverses the two regimes, and the ten-year period has no basis in either.",
-    source: [
-      { label: "Regulation (EU) 2024/1624 (AMLR), Art. 77", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" },
-      { label: "FinCEN, Frequently Asked Questions Regarding Suspicious Activity Reporting Requirements (Oct 2025), Q4", url: "https://www.fincen.gov/system/files/2025-10/SAR-FAQs-October-2025.pdf" }
-    ]
+    explanation: "AMLR Art. 77(1)(b) requires a record of the assessment under Art. 69(2), including the information and circumstances considered and the results, whether or not it leads to a suspicious transaction report. Art. 77(1)(d) requires entities that take part in Chapter VI information-sharing partnerships to keep copies of the documents and information obtained and records of all instances of sharing. Art. 77(1) also says records kept under the Article must not be redacted, which defeats the runner-up's data-minimisation argument. Art. 77(3) sets 5 years from the end of the relationship or the occasional transaction, not 10 years, and the profit on the sale is irrelevant.",
+    source: [{ label: "Regulation (EU) 2024/1624 (AMLR), Arts. 69(2) and 77", url: "https://eur-lex.europa.eu/eli/reg/2024/1624/oj" }]
   },
   {
     id: "INVT-020", domain: 4, topic: "UK POCA Part 8 investigation orders: production, customer information and account monitoring", hy: false, difficulty: "medium",
     q: "A UK bank's law enforcement liaison team is updating its procedures for orders under Part 8 of the Proceeds of Crime Act 2002 (England and Wales). Which statements are correct? (Choose two.)",
     options: [
       "A customer information order can cover all financial institutions, or a description of them, and requires each to provide customer information on the named person when given written notice",
-      "An account monitoring order may require a bank to provide account information about the named person for up to 12 months from the date the order is made",
-      "Unless the judge sets another period, a production order must be complied with within seven days beginning with the day it is made",
+      "An account monitoring order can be extended or varied by the officer who applied for it, by written notice to the bank, without going back to court",
+      "A production order has effect in spite of any restriction on disclosing information, such as the bank's contractual duty of confidentiality to its customer",
       "A senior NCA officer may make a production order without going to a judge where the investigation is urgent and involves large sums",
       "A bank may refuse to comply with a customer information order notice unless the customer has given written consent to the disclosure"
     ],
     answer: [0, 2],
-    explanation: "Under POCA s.363(4)-(5), an application for a customer information order may specify all financial institutions, particular descriptions of them, or particular institutions, and each must provide the customer information it holds on the named person when given written notice. A bank may ask for evidence of the officer's authority (s.363(7)), but customer consent plays no part. Under s.345(5), the default period for a production order is seven days beginning with the day it is made. Account monitoring orders are limited to 90 days (s.370(7)), and production orders are made by a judge (s.345(1)).",
+    explanation: "Under POCA s.363(4)-(5), an application for a customer information order may specify all financial institutions, particular descriptions of them, or particular institutions, and each must provide the customer information it holds on the named person when given written notice. A bank may ask for evidence of the officer's authority (s.363(7)), but customer consent plays no part. Under s.348(4), a production order has effect in spite of any restriction on the disclosure of information, however imposed, so the bank's duty of confidence is no bar (although s.348(1) and (3) exclude privileged and excluded material). Only the court can discharge or vary an account monitoring order, on an application by the applicant or a person affected (s.375(2)-(3)), and production orders are made by a judge on an officer's application (s.345(1)).",
     source: [
       { label: "Proceeds of Crime Act 2002, s.363 (customer information orders)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/363" },
-      { label: "Proceeds of Crime Act 2002, s.345 (production orders)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/345" }
+      { label: "Proceeds of Crime Act 2002, s.345 (production orders)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/345" },
+      { label: "Proceeds of Crime Act 2002, s.348 (production orders: further provisions)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/348" },
+      { label: "Proceeds of Crime Act 2002, s.375 (account monitoring orders: supplementary)", url: "https://www.legislation.gov.uk/ukpga/2002/29/section/375" }
     ]
   },
   {
@@ -325,8 +329,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Ilse's feature obscures the coins' source by mixing; Tariq's adds hops so screening struggles to link the funds"
     ],
     answer: [3],
-    explanation: "In the Samourai Wallet case (guilty pleas July 2025), 'Whirlpool' coordinated batches of bitcoin exchanges between groups of users, obscuring the original source of holdings. 'Ricochet' let users add unnecessary intermediate transactions, or 'hops', making it much harder for monitoring entities to connect transfers to illicit activity. More than 80,000 BTC, worth over $2 billion, passed through these services. The runner-up reverses the two features. Neither feature is a fee or a travel rule tool, and the customers' stable salaries do not explain why they used them.",
-    source: [{ label: "IRS-CI press release (July 2025): Founders of Samourai Wallet cryptocurrency mixing service plead guilty", url: "https://www.irs.gov/compliance/criminal-investigation/founders-of-samourai-wallet-cryptocurrency-mixing-service-plead-guilty" }]
+    explanation: "In the Samourai Wallet case (guilty pleas 30 July 2025), 'Whirlpool' coordinated batches of bitcoin exchanges between groups of users, obscuring the original source of holdings. 'Ricochet' let users add unnecessary intermediate transactions, or 'hops', making it much harder for monitoring entities to connect transfers to illicit activity. More than 80,000 BTC, worth over $2 billion, passed through these services. The runner-up reverses the two features. Neither feature is a fee or a travel rule tool, and the customers' stable salaries do not explain why they used them.",
+    source: [{ label: "IRS-CI press release (6 Aug 2025): Founders of Samourai Wallet cryptocurrency mixing service plead guilty", url: "https://www.irs.gov/compliance/criminal-investigation/founders-of-samourai-wallet-cryptocurrency-mixing-service-plead-guilty" }]
   },
   {
     id: "INVT-024", domain: 1, topic: "Foreign bribery concealed through commissions and intermediaries (Trafigura lesson)", hy: false, difficulty: "hard",
@@ -338,8 +342,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Tax evasion by the director, who diverts his yacht business revenue into an advisory company to reduce his personal taxes"
     ],
     answer: [0],
-    explanation: "In March 2024, Trafigura pleaded guilty to conspiring to violate the FCPA and agreed to pay over $126 million. It had agreed to pay bribes of up to 20 cents per barrel on oil products traded with Petrobras, hiding them through shell companies and intermediaries who used offshore accounts to deliver cash to officials in Brazil. Meridia's per-barrel commissions, quick onward payments to shells and cash withdrawals in the officials' country fit this pattern. Over-invoicing (the runner-up) would show in cargo prices, not a consultancy's commissions. Nothing points to a sanctioned party, and the yacht business is a decoy.",
-    source: [{ label: "DOJ press release (28 Mar 2024): Swiss Commodities Trading Company Pleads Guilty to Foreign Bribery Scheme", url: "https://www.justice.gov/archives/opa/pr/swiss-commodities-trading-company-pleads-guilty-foreign-bribery-scheme" }]
+    explanation: "In March 2024, Trafigura pleaded guilty to conspiring to violate the FCPA and agreed to pay over $126 million. Between about 2003 and 2014 it bribed Petrobras officials; from 2009 it agreed to pay bribes of up to 20 cents per barrel of oil products bought from or sold to Petrobras, hiding them through shell companies and intermediaries who used offshore accounts to deliver cash to officials in Brazil. Meridia's per-barrel commissions, quick onward payments to shells and cash withdrawals in the officials' country fit this pattern. Over-invoicing (the runner-up) would show in cargo prices, not a consultancy's commissions. Nothing points to a sanctioned party, and the yacht business is a decoy.",
+    source: [
+      { label: "DOJ press release (28 Mar 2024): Swiss Commodities Trading Company Pleads Guilty to Foreign Bribery Scheme", url: "https://www.justice.gov/archives/opa/pr/swiss-commodities-trading-company-pleads-guilty-foreign-bribery-scheme" },
+      { label: "Same DOJ press release, archived copy (Internet Archive)", url: "https://web.archive.org/web/20241226135924/https://www.justice.gov/opa/pr/swiss-commodities-trading-company-pleads-guilty-foreign-bribery-scheme" }
+    ]
   },
   {
     id: "INVT-025", domain: 1, topic: "Bribery red flags in a customer's use of an intermediary (Wolfsberg ABC Guidance)", hy: false, difficulty: "medium",
