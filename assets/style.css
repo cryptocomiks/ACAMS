@@ -938,3 +938,29 @@ kbd { font: inherit; font-size: 11px; padding: 1px 6px; border-radius: 5px; back
 .learn-loop .ll-body b { display: block; font-size: 17px; }
 .learn-loop .ll-body span { font-size: 14px; color: var(--muted); }
 .learn-loop .ll-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Most missed */
+.mm-hero { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(255,59,48,.08), rgba(10,132,255,.08)); }
+.mm-nums { display: flex; gap: 26px; }
+.mm-nums b { display: block; font-size: 34px; letter-spacing: -0.03em; }
+.mm-nums span { font-size: 13px; color: var(--muted); }
+.mm-cta { display: flex; gap: 8px; flex-wrap: wrap; }
+.mm-filters { margin: 22px 0; }
+.mm-list { padding: 8px 0; }
+.mm-row { border-top: 1px solid var(--hairline); }
+.mm-row:first-child { border-top: 0; }
+.mm-row summary { list-style: none; display: flex; gap: 14px; align-items: flex-start; padding: 16px 22px; cursor: pointer; }
+.mm-row summary::-webkit-details-marker { display: none; }
+.mm-rank { font-weight: 700; color: var(--faint); min-width: 26px; padding-top: 2px; }
+.mm-body { flex: 1; min-width: 0; }
+.mm-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+.mm-q { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.mm-row[open] .mm-q { -webkit-line-clamp: unset; }
+.mm-chev { color: var(--faint); font-size: 22px; transition: transform .2s; }
+.mm-row[open] .mm-chev { transform: rotate(90deg); }
+.mm-detail { padding: 0 22px 18px 62px; }
+.mm-ans div { font-weight: 600; color: var(--good); margin: 4px 0; }
+.mm-empty { text-align: center; } .mm-big { font-size: 44px; }
+.mm-link { display: flex; align-items: center; gap: 14px; margin-top: 20px; text-decoration: none; color: inherit; }
+.mm-link > span:nth-child(2) { flex: 1; } .mm-link b { display: block; } .mm-li { font-size: 28px; }
+@media (max-width: 600px) { .mm-detail { padding-left: 22px; } .mm-nums { gap: 18px; } .mm-row summary { padding: 14px 16px; } }

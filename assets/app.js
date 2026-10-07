@@ -422,10 +422,13 @@
 
   function modeTiles(due, recs) {
     var n = window.CAMS_COURSE ? window.CAMS_COURSE.reduce(function (s, m) { return s + (m.cards || []).length; }, 0) : 0;
+    var stats = load(KEYS.stats, {});
+    var missedOpen = Object.keys(stats).filter(function (k) { return BY_ID[k] && stats[k].wrong > 0 && stats[k].last === false; }).length;
     var tiles = [
       { mode: "practice", icon: "💡", title: "Practice", sub: "30 questions · answer and explanation right away", cls: "" },
       { mode: "exam", icon: "⏱", title: "Mock exam", sub: "30 questions · 53-min timer · results at the end", cls: "dark", rec: recs.exam != null ? "Best " + recs.exam + "%" : "" },
       { mode: "review", icon: "🔁", title: "Smart review", sub: due ? due + " question" + (due > 1 ? "s" : "") + " due now" : "Nothing due right now", cls: due ? "hot" : "", disabled: !due },
+      { href: "#/mistakes", icon: "🎯", title: "Most missed", sub: missedOpen ? missedOpen + " question" + (missedOpen > 1 ? "s" : "") + " you keep missing · train on them" : "Your weak spots, ranked · nothing yet", cls: missedOpen ? "hot" : "" },
       { mode: "lightning", icon: "⏳", title: "Lightning", sub: "15 questions · 30 seconds each · speed bonus", cls: "", rec: recs.lightning != null ? "Best " + recs.lightning + "/15" : "" },
       { mode: "survival", icon: "❤️", title: "Survival", sub: "3 lives. How far can you go?", cls: "", rec: recs.survival != null ? "Best " + recs.survival : "" },
       { mode: "daily", icon: "📅", title: "Daily challenge", sub: "Same 10 questions for everyone today", cls: "", rec: recs.daily != null ? "Best " + recs.daily + "/10" : "" },
@@ -490,7 +493,7 @@
     // Modes
     html += '<section class="section alt"><div class="inner">' +
       '<h2 class="headline reveal">Pick your game.</h2>' +
-      '<p class="subhead reveal">Six ways to test yourself, plus flashcards and a numbers sprint to lock in the facts.</p>' +
+      '<p class="subhead reveal">Six ways to test yourself, your most-missed questions, plus flashcards and a numbers sprint to lock in the facts.</p>' +
       '<div class="settings reveal">' +
       '<div class="seg-group"><label>Domain</label>' + seg("domain", [["all", "All", null], ["1", "D1", countDomain(1)], ["2", "D2", countDomain(2)], ["3", "D3", countDomain(3)], ["4", "D4", countDomain(4)]], prefs0.domain) + "</div>" +
       '<div class="seg-group"><label>Questions</label>' + seg("source", [["fresh", "Unseen first", null], ["hy", "Most tested", hyCount], ["hard", "Hard only", hardCount], ["mistakes", "My mistakes", mistakes]], prefs0.source) + "</div>" +
@@ -698,6 +701,9 @@
         }).join("") + "</div>" : '<p class="muted small">Your weakest topics will show up here after a few tests.</p>') +
       "</div></div>";
     lockSince("Smart review and your weakest topics");
+    var mOpen = window.CAMSMistakes ? window.CAMSMistakes.count() : 0;
+    html += '<a class="card mm-link" href="#/mistakes"><span class="mm-li" aria-hidden="true">🎯</span><span><b>Most missed</b><span class="muted small">' +
+      (mOpen ? mOpen + " question" + (mOpen > 1 ? "s" : "") + " you still miss, ranked worst first. Train on them in one click." : "Every question you miss lands here, ranked worst first.") + '</span></span><span class="mt-go" aria-hidden="true">›</span></a>';
 
     // Records
     var R = PG.RECORDS;
@@ -1230,7 +1236,7 @@
       "<span>" + (r.length ? "Second chances: " + fixed + "/" + r.length + " fixed. " : "") +
       "Missed questions come back in Smart review in 10 minutes, then after 1, 3, 7, 16 and 35 days as you get them right.</span></div>" +
       '<div class="ll-actions"><button class="btn primary sm" id="retryMissed">🔁 Retry my ' + missed.length + " mistake" + (missed.length > 1 ? "s" : "") + " now</button>" +
-      '<button class="btn sm" data-filter="wrong">Read the explanations</button></div></div>';
+      '<button class="btn sm" data-filter="wrong">Read the explanations</button><a class="btn sm" href="#/mistakes">🎯 All my most missed</a></div></div>';
   }
 
   function shareText(s) {
@@ -1376,7 +1382,7 @@
   window.CAMSApp = {
     BANK: BANK, BY_ID: BY_ID, DOMAINS: DOMAINS, PASS_RATE: PASS_RATE,
     startSession: startSession, navigate: navigate, setView: setView, setTopbar: setTopbar, homeChips: homeChips,
-    toast: toast, esc: esc, pct: pct, fmtTime: fmtTime, shuffle: shuffle, revealAll: revealAll, setupReveal: setupReveal,
+    toast: toast, esc: esc, sourcesHtml: sourcesHtml, changedHtml: changedHtml, pct: pct, fmtTime: fmtTime, shuffle: shuffle, revealAll: revealAll, setupReveal: setupReveal,
     addViewTimer: addViewTimer, route: function (name, fn) { routes[name] = fn; }, rerender: function () { route(); }
   };
 
