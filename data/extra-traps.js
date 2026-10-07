@@ -472,9 +472,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Request a recall from the beneficiary bank and report the fraud to law enforcement, such as IC3"
     ],
     answer: [3],
-    explanation: "FinCEN's BEC advisory stresses that such transfers are often irrevocable. Recovery through FinCEN's Rapid Response Program is more successful when the fraud is reported to law enforcement within 24 hours, for example through the FBI's IC3, a local FBI field office or the Secret Service, so recall and law enforcement contact come first. The SAR is the tempting runner-up: it is still required, and contacting law enforcement does not replace it, but it can follow within the normal deadline. 314(b) sharing is useful but secondary, and closing the victim's account does not recover the funds.",
+    explanation: "FinCEN's BEC advisory stresses that such transfers are often irrevocable. Recovery through FinCEN's Rapid Response Program is more likely when the fraud is reported to law enforcement quickly (within 72 hours of the transaction, per FinCEN's April 2026 fact sheet; the 2019 advisory said 24 hours), for example through the FBI's IC3, a local FBI field office or the Secret Service, so recall and law enforcement contact come first. The SAR is the tempting runner-up: it is still required, and contacting law enforcement does not replace it, but it can follow within the normal deadline. 314(b) sharing is useful but secondary, and closing the victim's account does not recover the funds.",
     source: [
-      { label: "FinCEN Advisory FIN-2019-A005 (BEC) – Rapid Response Program, report within 24 hours, SAR still required", url: "https://www.fincen.gov/system/files/advisory/2019-07-16/Updated%20BEC%20Advisory%20FINAL%20508.pdf" }
+      { label: "FinCEN Advisory FIN-2019-A005 (BEC) – recall and law enforcement first, SAR still required", url: "https://www.fincen.gov/system/files/advisory/2019-07-16/Updated%20BEC%20Advisory%20FINAL%20508.pdf" },
+      { label: "FinCEN Rapid Response Program fact sheet (Apr 2026) – report within 72 hours", url: "https://www.fincen.gov/system/files/2026-04/RRPFactSheet.pdf" }
     ]
   },
   {

@@ -22,9 +22,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Trade-based money laundering, in which the timeshare sale disguises cross-border payments for a cartel's imports"
     ],
     answer: [2],
-    explanation: "The FinCEN/OFAC/FBI joint notice FIN-2024-NTC2 (July 2024) describes Mexico-based criminal organizations such as CJNG that target older US timeshare owners with fake buyers, then demand 'taxes' or 'fees' wired to newly formed Mexican companies, often from retirement accounts moved first into checking. Victims are later re-victimized by scammers who impersonate authorities, including OFAC and Mexico's FIU, claiming funds were 'blocked' and demanding more fees under threat of arrest. OFAC does not ask victims to wire release fees. The grandson is a decoy: nothing links him to the wires. FinCEN asks for the key term FIN-2024-NTC2 in SARs and suggests referring victims to the FBI's IC3.",
+    explanation: "The FinCEN/OFAC/FBI joint notice FIN-2024-NTC2 (July 2024) describes Mexico-based criminal organizations such as CJNG that target older US timeshare owners with fake buyers, then demand 'taxes' or 'fees' wired to newly formed Mexican companies, often from retirement accounts moved first into checking. Victims are later re-victimized by scammers who impersonate authorities, including OFAC and Mexico's FIU, claiming funds were 'blocked' and demanding more fees under threat of arrest. OFAC's own March 2023 alert warns of exactly this: scammers claim OFAC has 'blocked' timeshare tax payments and demand fees for their release, and OFAC 'does not collect, demand, or request this type of payment from members of the public'. So the genuine-blocking option is wrong. The grandson is a decoy: nothing links him to the wires. FinCEN asks for the key term FIN-2024-NTC2 in SARs and encourages institutions to refer victims to the FBI's IC3.",
     source: [
-      { label: "FinCEN, OFAC and FBI Joint Notice FIN-2024-NTC2 (July 2024) – timeshare fraud by Mexico-based TCOs", url: "https://www.fincen.gov/system/files/shared/FinCEN-Joint-Notice-Timeshare-Mexico-508C-FINAL.pdf" }
+      { label: "FinCEN, OFAC and FBI Joint Notice FIN-2024-NTC2 (July 16, 2024) – timeshare fraud by Mexico-based TCOs", url: "https://www.fincen.gov/system/files/shared/FinCEN-Joint-Notice-Timeshare-Mexico-508C-FINAL.pdf" },
+      { label: "OFAC Alert (Mar 2, 2023) – Notice of Fraudulent Communications Requesting Payments Involving OFAC", url: "https://ofac.treasury.gov/media/931466/download?inline" }
     ] },
 
   { id: "CSTD-003", domain: 1, topic: "Case study: bulk cash repatriation through armored car services (FIN-2025-Alert001)", hy: true, difficulty: "hard",
@@ -78,7 +79,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "The request to pay charitable funds into the partner director's personal account in another country"
     ],
     answer: [3],
-    explanation: "The Charity Commission's guidance on due diligence and end use of funds lists as warning signs requests for payment into an account not in the name of the partner, or in a country where the partner is not based or the project is not carried out. It also cites a case where funds paid into an intermediary's personal account in another country left trustees unable to verify that the money reached beneficiaries. The rise in transfers is explained by the appeal, the conflict region is an inherent risk factor rather than a sign of diversion, and a former MP trustee says nothing about the payment route.",
+    explanation: "The Charity Commission's guidance on due diligence and end use of funds lists as warning signs requests for payment into a different bank account, not in the name of the partner or NGO helping on the project, and requests for payment to an unknown third party. It also describes a Commission case in which funds sent to an intermediary in another country and paid into his personal bank account left the trustees unable to supervise or verify how the money was spent. The rise in transfers is explained by the appeal, the conflict region is an inherent risk factor rather than a sign of diversion, and a former MP trustee says nothing about the payment route.",
     source: [
       { label: "Charity Commission – Compliance toolkit chapter 2: due diligence, monitoring and verifying end use of funds", url: "https://www.gov.uk/government/publications/charities-due-diligence-checks-and-monitoring-end-use-of-funds/chapter-2-due-diligence-monitoring-and-end-use-of-funds" }
     ] },
@@ -121,7 +122,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "A typical diaspora remittance pattern, which is low risk because the payments are described as aid and gifts"
     ],
     answer: [2],
-    explanation: "FinCEN's advisory on Iran-backed terrorist organizations (FIN-2024-A001, May 2024) flags a company incorporated in the US or a third country whose activities occur solely in jurisdictions at high risk for terrorist activity with no relationship to its stated business; dealings with general trading companies with opaque ownership or residential addresses; transfers with vague purposes such as 'travel expenses', 'charity', 'aid' or 'gifts'; and access from IP addresses in high-risk jurisdictions. A ride-share driver as sole manager suggests a nominee. Screening alone does not discharge the SAR obligation, and waiting for a periodic review ignores current red flags.",
+    explanation: "FinCEN's advisory on Iran-backed terrorist organizations (FIN-2024-A001, May 2024) flags a company incorporated in the US or a third country whose activities occur solely in jurisdictions at high risk for terrorist activity with no relationship to its stated business; dealings with general trading companies with opaque ownership or residential addresses; and transfers to high-risk jurisdictions, inconsistent with the stated business, with vague purposes such as 'travel expenses', 'charity', 'aid' or 'gifts'. It also treats log-ins from IP addresses in high-risk jurisdictions as an aggravating sign. A ride-share driver as sole manager suggests a nominee. Screening alone does not discharge the SAR obligation, and waiting for a periodic review ignores current red flags.",
     source: [
       { label: "FinCEN Advisory FIN-2024-A001 (May 2024) – countering the financing of Iran-backed terrorist organizations", url: "https://www.fincen.gov/system/files/advisory/2024-05-07/FinCEN-Advisory-Iran-Backed-TF-508C.pdf" }
     ] },
@@ -131,11 +132,11 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     options: [
       "The genuine Treasury check removes the fraud concern, so the outflows need no further review",
       "The refund is out of line with the business's size and payroll, lands in a dormant account and is quickly dispersed; investigate and consider a SAR",
-      "The only real risk is check fraud, so once the check is confirmed unaltered the bank has nothing more to review",
+      "File a SAR only if the IRS later disallows the claim, since the bank cannot judge eligibility for a tax credit",
       "Because a third-party firm prepared the claim, any liability rests with that firm and the bank has no reporting concern"
     ],
     answer: [1],
-    explanation: "FinCEN's ERC fraud alert (FIN-2023-Alert007, November 2023) lists as red flags an ERC not commensurate with the business's size and employees, a dormant account that suddenly receives an ERC check, no payroll history, rapid P2P transfers or ATM cash withdrawals, payments to new businesses, and claims filed by third-party firms whose credentials cannot be verified. For 2021 the credit was at most USD 7,000 per employee per quarter, so two employees could yield at most USD 56,000 even over four quarters, far below USD 186,000. A genuine check can still be the proceeds of a fraudulent claim. SARs should use the key term FIN-2023-ERC.",
+    explanation: "FinCEN's ERC fraud alert (FIN-2023-Alert007, November 2023) lists as red flags an ERC not commensurate with the business's size and employees, a dormant account that suddenly receives an ERC check, no payroll history, rapid P2P transfers or ATM cash withdrawals, payments to new businesses, and claims filed by third-party firms whose credentials cannot be verified. For 2021 the credit was at most USD 7,000 per employee per quarter, so two employees could yield at most USD 56,000 even over four quarters, far below USD 186,000. A genuine check can still be the proceeds of a fraudulent claim, and a bank does not need an IRS finding to suspect it: the SAR test is knowledge, suspicion or reason to suspect, judged from the red flags. SARs should use the key term FIN-2023-ERC.",
     source: [
       { label: "FinCEN Alert FIN-2023-Alert007 (Nov 2023) – COVID-19 Employee Retention Credit fraud", url: "https://www.fincen.gov/system/files/shared/FinCEN_ERC_Fraud_Alert_FINAL508.pdf" }
     ] },
@@ -170,32 +171,34 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "FinCEN Advisory FIN-2022-A001 (Apr 2022) – kleptocracy red flags on government contracts", url: "https://www.fincen.gov/system/files/advisory/2022-04-14/FinCEN%20Advisory%20Corruption%20FINAL%20508.pdf" }
     ] },
 
-  { id: "CSTD-013", domain: 3, topic: "Case study: a money transmitter customer nesting other transmitters", hy: true, difficulty: "hard",
-    q: "Ridgeway Bank, a US regional bank, has banked Pronto Envíos Inc., a licensed and FinCEN-registered money transmitter, for five years. The account was opened for Pronto's own settlement with its paying agents abroad. A periodic review finds that Pronto now lets three smaller money transmitters, which are not Ridgeway customers, send their own customers' funds through Pronto's account; this flow is now 40% of the volume. Pronto's AML program was rated satisfactory by its state examiner last year. Ridgeway's head of payments wants to keep the relationship unchanged because it is profitable, while an analyst proposes collecting CDD on every customer of the three smaller transmitters. What is the BEST response?",
+  { id: "CSTD-013", domain: 3, topic: "Case study: an account for a foreign money transmitter is a correspondent account (31 CFR 1010.605/610)", hy: true, difficulty: "hard",
+    q: "Ridgeway Bank, a US bank, has banked Pronto Envíos Inc., a licensed and FinCEN-registered US money transmitter, for five years. Pronto asks Ridgeway to open a US dollar account directly for its paying agent in Guatemala, Cambios del Pacífico S.A., a money transmitter licensed there with eight branches and no US office. Cambios would use the account to receive settlement from Pronto and to pay its own US suppliers. The relationship manager wants to onboard Cambios as an ordinary commercial customer under the CIP and CDD rules, 'since it is not a bank'. The compliance analyst instead proposes refusing the account under the shell bank prohibition. Under the BSA regulations, which statement is CORRECT?",
     options: [
-      "Keep the relationship unchanged, because a licensed transmitter with a satisfactory examination is responsible for its own customers",
-      "Require Pronto to provide full CDD on each customer of the three smaller transmitters before any further payments",
-      "Treat the flow as a correspondent-type service: assess Pronto's controls over the three transmitters, consider a separate account, and adjust monitoring",
-      "Exit Pronto immediately, because a money transmitter may not give other money transmitters access to its bank account"
-    ],
-    answer: [2],
-    explanation: "The FATF Guidance on correspondent banking services (2016, section VI) says a bank should understand whether an MVTS customer uses its account for its own settlement or to provide correspondent services to its own customers. In the latter case the bank should apply the correspondent risk factors case by case, and it may require separate accounts for the two activities to make monitoring effective. The guidance also states that the FATF Recommendations impose no obligation to apply CDD to the MVTS provider's customers, which rules out the analyst's proposal. Leaving the profile unchanged ignores an undisclosed nested flow, and automatic exit is not required.",
-    source: [
-      { label: "FATF Guidance on Correspondent Banking Services (Oct 2016), paras 21 and 42-45", url: "https://eurasiangroup.org/files/uploads/files/FATF_documents/FATF_Guidances/Guidance-Correspondent-Banking-Services.pdf" }
-    ] },
-
-  { id: "CSTD-014", domain: 3, topic: "Case study: after acquiring a fintech, update the risk assessment", hy: false, difficulty: "hard",
-    q: "In July 2026, Harrow Valley Bank, a mid-size US bank, completed its purchase of Zipwell, a fintech app with 220,000 users that offers instant peer-to-peer payments, debit cards and in-app crypto purchases through a partner. Zipwell's customers will move onto Harrow's systems next spring. Due diligence found thin KYC for users onboarded during a 2024 growth campaign but no unfiled SARs. Harrow's BSA/AML risk assessment was last updated in March 2026, before the deal, and its independent test is scheduled for November on the usual scope. The head of integration proposes running Zipwell under Harrow's existing risk assessment and procedures until the migration. What should the BSA officer do FIRST?",
-    options: [
-      "Update the BSA/AML risk assessment for Zipwell's products, customers and geographies, and use it to set CDD, monitoring and testing scope",
-      "Postpone changes until the spring migration, when Zipwell's customers will become subject to Harrow's own systems",
-      "Ask the November independent test to review Zipwell and wait for its findings before deciding on any controls",
-      "Close all accounts opened during the 2024 growth campaign, since their KYC must be presumed unreliable"
+      "Cambios is a foreign financial institution, so the account is a correspondent account that must be covered by Ridgeway's risk-based due diligence program for such accounts",
+      "Cambios can be treated as an ordinary commercial customer, because the correspondent account rules apply only to accounts for foreign banks",
+      "The account requires the enhanced due diligence in 31 CFR 1010.610(b), because every correspondent account for a foreign money transmitter is high risk by rule",
+      "Ridgeway may not open the account, because the shell bank prohibition bars accounts for foreign financial institutions without a US office"
     ],
     answer: [0],
-    explanation: "The FFIEC BSA/AML Examination Manual says a bank may need to update its risk assessment when new products, services and customer types are introduced or the bank expands through mergers and acquisitions, and that independent testing should consider expansion through merger activity. The updated assessment comes first because it drives CDD refresh priorities, monitoring and the test's scope. Sending the issue to the November test is the runner-up, but testing evaluates controls rather than designing them. Waiting for migration leaves new risks unmanaged, and closing every campaign account is not risk-based.",
+    explanation: "Under 31 CFR 1010.605(f)(1)(iv), a 'foreign financial institution' includes any person organized under foreign law that is engaged in the business of, and readily identifiable as, a money transmitter or dealer in foreign exchange. An account to receive deposits from or make payments for it is a correspondent account for 1010.610(a), so Ridgeway's due diligence program must assess its risk (business and markets, purpose and expected activity, the home AML regime, its AML record) and apply risk-based controls with periodic review. Treating it as an ordinary customer is the runner-up, but only the enhanced due diligence in 1010.610(b) and the shell bank ban in 1010.630 are limited to foreign banks. Cambios is not a bank and has a physical presence in Guatemala, so neither applies automatically.",
     source: [
-      { label: "FFIEC BSA/AML Examination Manual (April 2020) – BSA/AML Risk Assessment and Independent Testing (NCUA copy)", url: "https://ncua.gov/files/press-releases-news/bsa-aml-examination-manual-april-2020.pdf" }
+      { label: "31 CFR 1010.605 – definitions of correspondent account and foreign financial institution (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-F/section-1010.605" },
+      { label: "31 CFR 1010.610 – due diligence programs for correspondent accounts for foreign financial institutions (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1010/subpart-F/section-1010.610" }
+    ] },
+
+  { id: "CSTD-014", domain: 3, topic: "Case study: CIP and accounts acquired in a bank merger", hy: false, difficulty: "hard",
+    q: "In July 2026, Harrow Valley Bank, a mid-size US bank, completed its purchase of Lakeview Savings and took over its 38,000 deposit accounts. Harrow has already updated its BSA/AML risk assessment for the deal. Due diligence found that, for 2,100 accounts opened online during a 2024 promotion, Lakeview kept a name, address and date of birth but no record of identity verification; several of these accounts now show rapid pass-through activity. The head of operations wants to run Harrow's full CIP on all 38,000 accounts before they migrate to Harrow's core system next spring. The integration lead says no identity work is needed at all, because the CIP rule does not apply to acquired accounts. Which approach BEST reflects the CIP rule and the agencies' expectations?",
+    options: [
+      "Run full CIP on all 38,000 accounts before migration, because they become new accounts at Harrow when moved onto its core system",
+      "Take no further identity steps, because the CIP rule excludes accounts that a bank acquires through a merger or purchase",
+      "Accept that CIP does not apply to the acquired accounts, but under its risk-based CDD verify identity where risk warrants, starting with the 2,100 promotion accounts, and monitor all acquired accounts",
+      "Close the 2,100 promotion accounts at once, because a bank may not maintain accounts whose holders' identity was never verified"
+    ],
+    answer: [2],
+    explanation: "Under 31 CFR 1020.100(a)(2)(ii), 'account' for the CIP rule does not include an account that the bank acquires through an acquisition, merger, purchase of assets or assumption of liabilities, so CIP is not triggered by the purchase or by a later system migration. The 2003 final rule explains why (the customer did not seek to open the account) but adds that it may be appropriate, as part of the bank's customer due diligence, to verify the identity of customers of acquired accounts, and that banks must have reasonable procedures to detect money laundering in any account, however acquired. Taking no action is the runner-up: it states the exclusion correctly but ignores unverified, higher-risk accounts already showing pass-through activity. Blanket CIP is not required, and automatic closure is not risk-based.",
+    source: [
+      { label: "31 CFR 1020.100 – CIP definitions: 'account' excludes accounts acquired through merger or purchase (eCFR)", url: "https://www.ecfr.gov/current/title-31/subtitle-B/chapter-X/part-1020/subpart-A/section-1020.100" },
+      { label: "Customer Identification Programs for Banks – final rule, 68 FR 25090 (May 9, 2003), preamble notes 8-9", url: "https://www.govinfo.gov/content/pkg/FR-2003-05-09/pdf/03-11019.pdf" }
     ] },
 
   { id: "CSTD-015", domain: 3, topic: "Case study: banking a foreign embassy and its diplomats (2011 interagency guidance)", hy: true, difficulty: "medium",
@@ -256,46 +259,49 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "Joint Fact Sheet on BSA Due Diligence Requirements for Charities and Non-Profit Organizations (Nov 19, 2020)", url: "https://www.fincen.gov/sites/default/files/shared/Charities%20Fact%20Sheet%2011_19_20.pdf" }
     ] },
 
-  { id: "CSTD-019", domain: 4, topic: "Case study: newly designated crypto exchange – blocking and historic lookback", hy: true, difficulty: "hard",
-    q: "On 6 October 2026, OFAC designates Kestrova, a foreign virtual currency exchange, and lists 14 of its wallet addresses on the SDN List. Pacifica Coin, a US exchange, updates its screening the next morning. Its blockchain analytics tool shows that three customers received deposits from the listed addresses months before the designation. On 6 October, hours after the listing, a fourth customer, Lena Varga, received 2.1 BTC from one of those addresses, and it is still in her account. Another customer often deposits from an unlisted address that shares a wallet with a listed address. What should Pacifica do?",
+  { id: "CSTD-019", domain: 4, topic: "Case study: a crypto exchange designated mid-day – before and after the listing", hy: true, difficulty: "hard",
+    q: "On 6 October 2026, OFAC designates Kestrova, a foreign virtual currency exchange, and lists 14 of its wallet addresses on the SDN List. Pacifica Coin, a US exchange, updates its screening list the next morning. Its blockchain analytics tool shows that three customers received deposits from the listed addresses months before the designation and have since withdrawn them. On 6 October, hours after the listing, a fourth customer, Lena Varga, received 2.1 BTC from one of those addresses, and it is still in her account. Lena says she sold Kestrova a laptop and could not have known about a designation announced that day. Which statement BEST describes Pacifica's position?",
     options: [
-      "Block Lena's 2.1 BTC and report it to OFAC within 10 business days, run a historic lookback, and assess the unlisted shared-wallet address as a sanctions risk",
-      "Take no action on Lena's deposit, because Pacifica's screening list had not yet been updated when the bitcoin arrived",
-      "Convert Lena's 2.1 BTC into US dollars held in an interest-bearing blocked account, as OFAC requires for virtual currency",
-      "Block the accounts of all four customers, because anyone who has ever received funds from Kestrova is now a blocked person"
+      "Lena's 2.1 BTC must be blocked even though it arrived before Pacifica updated its list, while the earlier deposits were not prohibited but justify a historic lookback",
+      "Lena's deposit need not be blocked, because a firm is liable only for transfers it receives after it has had a reasonable time to update its screening",
+      "All four customers must be treated as blocked persons, because receiving funds from addresses that are now listed brings them within the designation",
+      "Lena's deposit should be returned to the sending address, because Pacifica had not screened it against the updated list when it arrived"
     ],
     answer: [0],
-    explanation: "OFAC's Sanctions Compliance Guidance for the Virtual Currency Industry says blocked virtual currency must be reported within 10 business days and annually thereafter, that holders need not convert it to fiat or hold it in an interest-bearing account, and that firms may run a historic lookback after OFAC lists an address, which can also reveal unlisted addresses (for example, sharing a wallet with a listed one) that pose sanctions risk. A post-designation transfer from an SDN must be blocked whether or not the firm's list was updated, since liability is strict. Deposits received before the designation were not prohibited and do not make the recipients blocked persons.",
+    explanation: "OFAC FAQ 560 says obligations are the same for digital currency: US persons must block property and interests in property of SDNs. A transfer from Kestrova's address after the designation is property in which a blocked person has an interest, and OFAC's virtual currency guidance says civil liability is generally strict, so it does not matter that Pacifica's list or Lena's knowledge lagged; Pacifica must deny all access to the bitcoin and report it under FAQ 646. Deposits received before the designation were not prohibited and do not make those customers blocked persons, but the guidance suggests a historic lookback after OFAC lists an address, which can surface connected unlisted addresses. Returning the bitcoin would itself be an unauthorised transfer of blocked property.",
     source: [
-      { label: "OFAC – Sanctions Compliance Guidance for the Virtual Currency Industry (Oct 2021)", url: "https://ofac.treasury.gov/media/913571/download?inline" }
+      { label: "OFAC – Sanctions Compliance Guidance for the Virtual Currency Industry (Oct 2021)", url: "https://ofac.treasury.gov/media/913571/download?inline" },
+      { label: "OFAC FAQ 560 – compliance obligations are the same for digital and fiat currency", url: "https://ofac.treasury.gov/faqs/560" },
+      { label: "OFAC FAQ 646 – how to block digital currency", url: "https://ofac.treasury.gov/faqs/646" }
     ] },
 
-  { id: "CSTD-020", domain: 4, topic: "Case study: activating FinCEN's Rapid Response Program after an impersonation scam", hy: false, difficulty: "hard",
-    q: "On Monday 5 October 2026 at 10 a.m., Gloria Whitfield, 68, tells Mesa Verde Bank that on Friday she wired USD 85,000 to a bank in Hong Kong after a caller posing as the bank's fraud team said her savings were at risk. Mesa Verde's recall request through its correspondent has had no reply. The branch manager wants to email FinCEN directly with the details, while the fraud lead plans to wait until the bank's SAR is filed later in the month so that law enforcement has the full picture. What is the BEST next step to try to recover the funds?",
+  { id: "CSTD-020", domain: 4, topic: "Case study: what a complaint must contain to activate FinCEN's Rapid Response Program", hy: false, difficulty: "hard",
+    q: "On Monday 5 October 2026 at 10 a.m., Gloria Whitfield, 68, tells Mesa Verde Bank that on Friday she wired USD 85,000 to a bank in Hong Kong after a caller posing as the bank's fraud team said her savings were at risk. The bank's fraud lead decides to file a complaint with the FBI's IC3 on her behalf at once, so that law enforcement can refer the case to FinCEN's Rapid Response Program, and to file the SAR afterwards. He has gathered the information below. Under FinCEN's April 2026 Rapid Response Program fact sheet, which items are REQUIRED in the complaint for the program to be activated? (Choose two.)",
     options: [
-      "Email FinCEN directly with the wire details, since FinCEN runs the Rapid Response Program and contacts foreign FIUs",
-      "File the SAR first, because the Rapid Response Program starts when FinCEN reviews a SAR naming the beneficiary account",
-      "Help Gloria file a complaint at once with the FBI's IC3 or the Secret Service, giving victim, beneficiary and wire details, so law enforcement can refer it to FinCEN",
-      "Ask the Hong Kong beneficiary bank to freeze the funds and wait for its reply before involving any authorities"
+      "The beneficiary's account name and number, and the name and branch country of the beneficiary's bank",
+      "The SWIFT payment reference code of the wire and details of the correspondent and intermediary banks",
+      "The date of the wire and the currency and amount transferred",
+      "The phone numbers and fake names the caller used, and any messaging apps involved",
+      "Gloria's Social Security number and date of birth, so that law enforcement can confirm her identity"
     ],
-    answer: [2],
-    explanation: "FinCEN's April 2026 Rapid Response Program fact sheet says the victim or the victim's financial institution must file a complaint with law enforcement (the FBI's IC3 and/or the nearest Secret Service field office); law enforcement then refers the case to FinCEN, which works with the foreign FIU to stop and repatriate the funds. FinCEN asks victims not to contact it directly, and recovery is most likely when fraudulent wires are reported within 72 hours, so waiting for the SAR wastes the window. The complaint must include the victim's and beneficiary's account and bank details, the date, currency and amount. The SAR is still filed separately.",
+    answer: [0, 2],
+    explanation: "The fact sheet lists the information required when a complaint is filed with law enforcement: the victim's account name and number, the victim's bank and the country of the originating branch, a summary of the fraud, the beneficiary's account name and number, the beneficiary's bank and the country of its receiving branch, the date of the wire, and the currency and amount. SWIFT reference codes, correspondent and intermediary bank details, the fraudsters' fake names and the apps they used are recommended additional information, not required to activate the program. Personal identifiers such as the victim's SSN are not on the list. FinCEN asks victims not to contact it directly, and recovery is most likely when wires are reported within 72 hours.",
     source: [
       { label: "FinCEN – Fact Sheet on the Rapid Response Program (Apr 15, 2026)", url: "https://www.fincen.gov/system/files/2026-04/RRPFactSheet.pdf" }
     ] },
 
-  { id: "CSTD-021", domain: 4, topic: "Case study: cyber indicators that make a terrorist financing SAR useful", hy: false, difficulty: "medium",
-    q: "Northfield Credit Union's investigator is completing a SAR on Omar Saleh, a member whose account received 230 small P2P and crowdfunding payouts in six weeks after he posted a social media appeal for 'aid to families' alongside terrorist imagery. He sent most of the funds on to a crypto wallet, and his online banking sessions came from IP addresses in a jurisdiction known for terrorist activity. The draft narrative summarises the transfers and the social media posts. Which additional information would MOST help law enforcement?",
+  { id: "CSTD-021", domain: 4, topic: "Case study: completing a SAR on Hamas-linked crowdfunding (FIN-2024-A001)", hy: false, difficulty: "medium",
+    q: "Northfield Credit Union's investigator is completing a SAR on Omar Saleh, a member whose account received 230 small P2P and crowdfunding payouts in six weeks after he posted a social media appeal for 'aid to families in Gaza' alongside imagery of the Al-Qassam Brigades, Hamas's armed wing. He sent most of the funds on to a crypto wallet, and his online banking sessions came from IP addresses in a jurisdiction known for terrorist activity. Neither Omar nor the wallet is on the SDN List. The draft SAR selects 'Fraud – Other', because donors were misled about the cause, and cites the key term from FinCEN's 2025 ISIS advisory, which the investigator used on an earlier case. How should the SAR be completed to follow FinCEN's filing request?",
     options: [
-      "The credit union's internal risk-score history for the member and the scoring methodology of its model",
-      "A copy of the credit union's AML policy and the training records of the analyst who reviewed the alert",
-      "A list of every other member who has donated to any charity linked to the same region in the past year",
-      "The IP addresses with their timestamps, device identifiers and login details for his online banking sessions"
+      "Select the terrorist financing field for a known or suspected terrorist organization, and include the key term IRANTF-2024-A001 in field 2 and the narrative",
+      "Keep 'Fraud – Other', because misleading donors is charity fraud, and mention IRANTF-2024-A001 only in the narrative",
+      "Select the terrorist financing field and keep the ISIS advisory's key term, because that advisory covers terrorist crowdfunding",
+      "Use no terrorism field or key term unless OFAC designates Omar or the wallet, because terrorist financing fields require an SDN match"
     ],
-    answer: [3],
-    explanation: "FinCEN's advisory on Iran-backed terrorist organizations (FIN-2024-A001) notes that valuable cyber indicators for terrorist financing investigations include email addresses, IP addresses with their timestamps, login information and device identifiers, and it flags crowdfunding payouts accessed from IP addresses in high-risk jurisdictions. Internal risk scores, policies and training records do not help investigators trace the subject. Listing unrelated members who gave to a region would be speculative and is not based on any suspicion about them.",
+    answer: [0],
+    explanation: "FinCEN's advisory on Iran-backed terrorist organizations (FIN-2024-A001), which covers Hamas and its use of crowdfunding, asks filers to include the key term 'IRANTF-2024-A001' in SAR field 2 and the narrative and to select field 33(a), Terrorist Financing – known or suspected terrorist/terrorist organization. Its red flags include crowdfunding payouts accessed from IP addresses in high-risk jurisdictions, especially where contributing social media content supports terrorist campaigns. 'Fraud – Other' is the runner-up, since donors may be deceived, but it misdescribes the main suspicion; other key terms may be added in the narrative. The ISIS key term belongs to a different advisory, and a SAR needs suspicion, not an SDN match.",
     source: [
-      { label: "FinCEN Advisory FIN-2024-A001 (May 2024) – SAR cyber indicators and crowdfunding red flags", url: "https://www.fincen.gov/system/files/advisory/2024-05-07/FinCEN-Advisory-Iran-Backed-TF-508C.pdf" }
+      { label: "FinCEN Advisory FIN-2024-A001 (May 2024) – SAR filing request and crowdfunding red flags", url: "https://www.fincen.gov/system/files/advisory/2024-05-07/FinCEN-Advisory-Iran-Backed-TF-508C.pdf" }
     ] },
 
   { id: "CSTD-022", domain: 2, topic: "Case study: BSA whistleblower protection and awards (31 U.S.C. 5323)", hy: true, difficulty: "hard",
@@ -309,7 +315,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [0],
     explanation: "Section 5323 protects whistleblowers who give information to the Secretary or the Attorney General and also those who report internally to a supervisor or another person at the employer with authority to investigate or stop the misconduct. Awards for actions with monetary sanctions above USD 1 million are 10-30% of what is collected, and 'monetary sanctions' expressly exclude forfeiture and restitution. The job-duties bar on awards applies only to employees of regulators, Treasury, the DOJ or law enforcement; the definition of whistleblower includes information given to the employer 'as part of the job duties'.",
     source: [
-      { label: "31 U.S.C. 5323 – whistleblower incentives and protections (LII text of the US Code)", url: "https://www.law.cornell.edu/uscode/text/31/5323" }
+      { label: "31 U.S.C. 5323 – whistleblower incentives and protections (US Code, 2024 ed., govinfo)", url: "https://www.govinfo.gov/content/pkg/USCODE-2024-title31/html/USCODE-2024-title31-subtitleIV-chap53-subchapII-sec5323.htm" }
     ] },
 
   { id: "CSTD-023", domain: 2, topic: "Case study: casino player becomes a foreign PEP (FATF R.22 and R.12)", hy: true, difficulty: "hard",
@@ -338,7 +344,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [2, 4],
     explanation: "Under 12 U.S.C. 3423, an individual is immune for disclosing suspected exploitation of a senior citizen (65 or older) to a covered agency, which includes a state or local adult protective services agency, if trained, serving as a supervisor or in a compliance or legal function, and acting in good faith with reasonable care. The institution is immune only if, before the disclosure, every individual described in subsection (b)(1), including employees who regularly come into contact with senior citizens, had received the training. Elena is neither trained nor a supervisor or compliance officer, so the Act does not protect her call.",
     source: [
-      { label: "12 U.S.C. 3423 – Senior Safe Act immunity and training (LII text of the US Code)", url: "https://www.law.cornell.edu/uscode/text/12/3423" }
+      { label: "12 U.S.C. 3423 – Senior Safe Act immunity and training (US Code, 2024 ed., govinfo)", url: "https://www.govinfo.gov/content/pkg/USCODE-2024-title12/html/USCODE-2024-title12-chap35-sec3423.htm" }
     ] },
 
   { id: "CSTD-025", domain: 2, topic: "Case study: receiving currency from abroad – the recipient's CMIR duty", hy: false, difficulty: "hard",
