@@ -5,8 +5,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Northbridge Bank clears US dollars for Mariner Bank, a respondent in Country Z. An analyst sees that every week Mariner sends Northbridge bank-to-bank transfer instructions (Swift MT202, not MT202COV) of USD 1 to 3 million in favour of Beacon Bank in another country. The messages name only the two banks. After an RFI, Beacon confirms that each amount was credited to accounts of its corporate customers, and that Mariner had sent the customer details directly to Beacon in separate MT103 messages. Mariner's Wolfsberg CBDDQ was updated last quarter, the amounts are round, and Country Z is not on any FATF list. What is the MOST accurate assessment?",
     options: [
       "These are interbank liquidity transfers between two banks, so FATF R.16 requires no originator or beneficiary information",
-      "These are serial payments, so Northbridge should have received the MT103 itself and has no gap to address",
-      "Mariner is settling customer transfers by the cover method but with plain bank-to-bank messages, so Northbridge cannot screen or monitor the underlying parties",
+      "These are serial payments, so the MT103 sent to Beacon already gives every bank in the chain the information it needs",
+      "Mariner is sending customer transfers as plain bank-to-bank cover messages, hiding the underlying parties from Northbridge",
       "Mariner is offering nested correspondent services to Beacon, so Northbridge must perform CDD on Beacon's corporate customers"
     ],
     answer: [2],
@@ -35,8 +35,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Lindqvist Bank, in an EU Member State, receives hundreds of incoming credit transfers whose payer accounts have IBANs with its own country's code. The IBANs belong to Paynex, a domestic e-money institution. An investigation shows that Paynex issues these 'virtual IBANs' to customers of a partner payment firm based in Country H, a jurisdiction the bank rates high risk; the funds are actually held and the payers serviced in Country H. Because the IBANs look domestic, the bank's high-risk geography rules never fire. The payments are each below EUR 3,000 and carry the payer's name. Under FATF R.16 as revised in June 2025, what is the BEST assessment?",
     options: [
       "No issue arises, because the IBAN country code is the accepted way to identify where the payer's institution is located",
-      "Account numbers must not disguise the country of the institution servicing the payer's account, so this is a transparency gap the bank should address",
-      "The transfers are domestic EEA payments, so R.16 requires only an account number and no further review",
+      "Account numbers must not disguise the country of the institution servicing the payer's account, so this is a transparency gap",
+      "The transfers are domestic EEA payments, so R.16 requires only an account number or reference and no further review",
       "The transfers are below the EUR 3,000 travel-rule threshold, so originator information need not be accurate"
     ],
     answer: [1],
@@ -49,8 +49,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   { id: "PROD-004", domain: 2, topic: "Shell bank prohibition: indirect services through a respondent (31 CFR 1010.630)", hy: true, difficulty: "hard",
     q: "A US bank maintains a correspondent account for Coralline Bank in Country M. Coralline's certification under 31 CFR 1010.630, received last year, states that it does not serve foreign shell banks. Monitoring now shows regular payments through the account for 'Westbay Trust Bank Ltd', licensed by a small island jurisdiction. Westbay's only address is its registered agent's office, it has no staff in any country, and it is not affiliated with any banking group. Coralline says Westbay holds a valid banking licence, and the business line notes that Westbay is Coralline's customer, not the US bank's. What does the regulation require the US bank to do?",
     options: [
-      "Take reasonable steps to stop Coralline's account being used to serve Westbay, and ask Coralline to verify or correct its certification",
-      "Nothing, because the shell bank prohibition applies only to accounts that the US bank itself opens for a shell bank",
+      "Take reasonable steps to stop the account serving Westbay, and ask Coralline to verify or correct its certification",
+      "Nothing, because the shell bank prohibition applies only to accounts that the US bank itself opens for a foreign shell bank",
       "Treat Westbay as a regulated affiliate, because a banking licence from its home regulator means it is supervised",
       "Close Coralline's account within 10 business days, because any link to a shell bank requires immediate termination"
     ],
@@ -122,8 +122,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   { id: "PROD-009", domain: 1, topic: "Private banking: misuse of internal concentration accounts", hy: false, difficulty: "medium",
     q: "A senior private banker at Halden Private Bank processes payments for a long-standing client in an unusual way. He debits the client's account, books the funds to one of the bank's internal suspense accounts, and then sends wires from that suspense account, so receiving banks see Halden Bank as the originator. He says the client values discretion and that the client's identity is fully documented internally. The client's file is complete and the client is not a PEP. What is the MAIN problem?",
     options: [
-      "The banker should have used a numbered account, which allows the client's name to be omitted from wires",
-      "Using an internal account breaks the link between the client's identity and the movement of funds, which the bank must not allow",
+      "The banker should have used a numbered account instead, which allows the client's name to be omitted from outgoing wires",
+      "Using an internal account breaks the link between the client and the funds, which the bank must not allow",
       "Internal suspense accounts may be used for client payments only with the approval of the head of private banking",
       "There is no problem, because the client's identity is held on file and can be produced on request"
     ],
@@ -151,9 +151,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Cambio Sol, a currency exchange licensed in Country M, has held a US dollar account at a US bank for years and used to send deposits by courier pouch. Last year the bank gave it remote deposit capture (RDC). Session logs show that the scanner is operated from Country M. The deposits are mostly sequentially numbered US money orders and third-party checks endorsed over to Cambio Sol, and volumes have tripled since RDC replaced the pouch. Cambio Sol's licence is current and its local regulator has not taken action against it. What is the MOST appropriate response?",
     options: [
       "Treat the deposits like any domestic RDC activity, because the items are US-dollar instruments drawn on US banks",
-      "Apply additional due diligence and monitoring suited to a foreign MSB capturing deposits abroad, and assess suspicious activity",
-      "Rely on Cambio Sol's own AML programme, because it is licensed and supervised in Country M",
-      "Terminate all foreign MSB relationships, because RDC by foreign customers is prohibited"
+      "Apply added due diligence and monitoring for a foreign MSB capturing deposits abroad, and assess for a SAR",
+      "Rely on Cambio Sol's own AML programme, because it is licensed and supervised by its regulator in Country M",
+      "Terminate all foreign MSB relationships, because RDC use by foreign customers is prohibited under US rules"
     ],
     answer: [1],
     explanation: "The FFIEC's Risk Management of Remote Deposit Capture guidance warns that the growing use of RDC by foreign correspondents and foreign MSBs to replace pouch and instrument clearing raises money laundering risks. It says additional due diligence may be needed where the capture device is in a foreign location or the customer is high risk, with suitability reviews that may include site visits. Sequentially numbered money orders and third-party checks, with tripled volume, call for monitoring and possibly a SAR. A licence does not replace the bank's own due diligence, and RDC for foreign customers is not prohibited, so a blanket exit would be de-risking without assessment.",
@@ -178,10 +178,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   { id: "PROD-013", domain: 3, topic: "RDC monitoring controls: duplicates, limits and velocity", hy: false, difficulty: "medium",
     q: "Ridgeway Bank finds that a small business customer deposited the same USD 4,800 check through remote deposit capture and then cashed it at another bank. In the same month the customer uploaded far more files than usual, all just under its RDC deposit limit. The bank is redesigning its RDC oversight using the FFIEC's RDC guidance. Which controls does that guidance specifically describe for monitoring this kind of misuse? (Choose two.)",
     options: [
-      "Reports that recognise and intercept duplicate files and items, and that flag breaches of deposit thresholds",
+      "Reports that intercept duplicate files and items and flag breaches of deposit limits",
       "Relying on the paying bank to catch duplicates under Check 21, so the depositary bank needs no detection",
-      "Exempting existing account holders from the suitability review for RDC",
-      "Assessing RDC risk once, at product launch, and not repeating it",
+      "Exempting existing account holders from the suitability review before granting RDC",
+      "Assessing RDC risk once, at product launch, and not repeating the assessment later",
       "Velocity metrics such as file numbers and sizes, transaction value and volume, and returned items"
     ],
     answer: [0, 4],
@@ -208,9 +208,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   { id: "PROD-015", domain: 1, topic: "Transaction laundering through a merchant account", hy: true, difficulty: "hard",
     q: "Brightpay Merchant Services onboarded Bloomly Flowers, an online florist, expecting card sales of about EUR 20,000 a month. Eight months later Bloomly processes EUR 900,000 a month. Most transactions occur between midnight and 5 a.m., come from cardholders in countries where Bloomly does not deliver, and cluster at a few fixed amounts. The chargeback rate is 4%, within Brightpay's tolerance. A test purchase on a link found in a forum leads to an unlicensed online casino whose checkout shows Bloomly's name as the merchant. Bloomly's owner says the growth comes from a new marketing campaign. Which typology is MOST likely?",
     options: [
-      "Transaction laundering, in which a hidden business's payments are processed through the florist's merchant account",
+      "Transaction laundering, with a hidden business's sales processed through the florist's account",
       "Card testing, in which fraudsters make small purchases to check whether stolen card numbers work",
-      "Friendly fraud, in which genuine customers dispute legitimate purchases to obtain refunds",
+      "Friendly fraud, in which genuine cardholders dispute legitimate purchases to obtain refunds",
       "A bust-out scheme, in which the merchant builds volume and then disappears with advance settlements"
     ],
     answer: [0],
@@ -225,8 +225,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     options: [
       "Accept the product manager's view, because the exemption covers all AML/CFT obligations for the product",
       "Withdraw the exemption for the whole product line and verify every past buyer's identity before any other step",
-      "File an STR now and leave the cards active, because disabling them could tip off the buyers",
-      "Treat the pattern as unusual, disable the cards until the issuer is satisfied there is no suspicion, and report if suspicion remains"
+      "File an STR at once and leave the cards active, because disabling them could tip off the buyers",
+      "Disable the cards until the issuer is satisfied there is no suspicion, and report if suspicion remains"
     ],
     answer: [3],
     explanation: "The EBA Guidelines (10.13-10.14) state that the low-value exemption does not extend to ongoing monitoring of transactions or to identifying and reporting suspicious transactions. They name use of the product in ways it was not designed for and links between products and the same devices as patterns to detect, and note that the issuer may disable the product until it is satisfied there are no grounds for suspicion. Filing an STR at once is the runner-up, but it skips the analysis and leaves the cards available for misuse. Disabling a card is a normal control, not tipping off in itself. Re-verifying every past buyer of an exempt product goes beyond what the risk calls for as a first step.",
@@ -238,7 +238,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Harlan Vance opens an account at a retail broker-dealer and deposits a physical certificate for 4 million shares of Quorvex Biotech, quoted over the counter at USD 0.04. He says he got the shares two months ago by converting a note issued by the company. Which facts are red flags for the deposit of securities listed in FINRA Regulatory Notice 19-18? (Choose two.)",
     options: [
       "The certificate has no restrictive legend, even though he acquired the shares from the issuer only two months ago",
-      "He gives a verified US home address and a valid tax identification number",
+      "He gives a verified US home address and a tax identification number that matches his identity documents",
       "Quorvex has changed its name and business twice in the past year and reports no revenue",
       "He asks to receive account statements electronically rather than by post",
       "He pays the firm's standard commission rate on his first sale"
@@ -266,8 +266,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   { id: "PROD-019", domain: 3, topic: "Pooled accounts of an unregulated payment facilitator (EBA)", hy: false, difficulty: "hard",
     q: "An EU bank's corporate customer, Zentrix Pay, is a payment facilitator. It is not licensed or registered as an obliged entity anywhere. It receives card settlements for about 2,000 small online sub-merchants into one account at the bank and pays each sub-merchant weekly. Zentrix asks the bank to treat the account as a pooled account under simplified due diligence. It offers to let the bank sample-test its onboarding files and to sign a contract promising to provide sub-merchant data on request. What should the bank do under the EBA ML/TF Risk Factors Guidelines?",
     options: [
-      "Apply SDD, because the contract and sample-testing meet the conditions for pooled accounts",
-      "Apply full CDD, treating the sub-merchants as beneficial owners of the funds and verifying their identities",
+      "Apply SDD, because the contract and sample-testing meet the Guidelines' conditions for pooled accounts",
+      "Apply full CDD, treating the sub-merchants as beneficial owners of the funds",
       "Apply SDD to Zentrix but EDD to each sub-merchant whose turnover exceeds EUR 15,000",
       "Refuse the account, because the Guidelines prohibit pooled accounts for payment businesses"
     ],
@@ -280,7 +280,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   { id: "PROD-020", domain: 1, topic: "Trust accounts: settlor keeping effective control", hy: true, difficulty: "hard",
     q: "Fairhaven Bank holds the account of the Halvorsen Family Trust, a discretionary trust whose trustee is Northgate Trustees Ltd, a licensed corporate trustee. The settlor, Erik Halvorsen, is alive and is not a beneficiary; the beneficiaries are his three adult children. The trust's EUR 8 million came from the documented sale of Erik's company. Over the past year, Northgate made 23 payments within hours of emails from Erik's personal address: his credit card bills, his yacht crew's wages and invoices from a new company he owns. No payments went to the children. The trust deed is in order. What does this pattern MOST likely show?",
     options: [
-      "The settlor is exercising effective control over the trust, which may be a façade, so he should be treated as a person controlling it",
+      "The settlor exercises effective control, so the trust may be a façade and he should be treated as controlling it",
       "The children must be re-verified, because discretionary beneficiaries become beneficial owners when payments are made",
       "Nothing of concern, because the settlor was identified at onboarding and the source of funds is documented",
       "The trustee is acting outside its licence, so the issue is solely one for the trustee's supervisor"
@@ -324,7 +324,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Corvane Bank clears US dollars for Banco Litoral. Each day Litoral sends 3 to 5 payments of USD 300,000 to USD 900,000. Each names as originator Rapido Remesas SA, a licensed exchange house that banks with Litoral, and as beneficiary a single payment company in another region. Litoral explains that each payment combines hundreds of remittances from different senders to different recipients. Rapido's licence is current, and each payment message is fully populated for the two companies named. What is the MOST significant risk for Corvane?",
     options: [
       "Concentration risk, because a large share of Litoral's dollar flows depends on one exchange house",
-      "Payments that bundle many senders to many recipients hide the underlying parties, so Corvane cannot screen or monitor them",
+      "Bundling many senders to many recipients hides the underlying parties from Corvane's screening",
       "Bundled 'one-to-many' payroll payments, which are low risk because they come from a single originator",
       "Litoral has filled in the messages correctly, so Corvane bears no residual sanctions or AML risk"
     ],
@@ -338,9 +338,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   { id: "PROD-024", domain: 1, topic: "Correspondent account used by an undisclosed group entity", hy: false, difficulty: "hard",
     q: "Corvane Bank maintains a correspondent account for Norvale Bank, a well-supervised bank in Country N with a strong compliance record. Over two quarters, a growing share of payments through the account are ordered by Norvale Bank Offshore Ltd, a subsidiary licensed in another jurisdiction under an offshore banking licence that bars it from dealing with local residents. The subsidiary is not Corvane's customer and was never covered by its due diligence. Norvale says the subsidiary follows the group's AML policy. What should Corvane do FIRST?",
     options: [
-      "Find out how the subsidiary uses the account and perform due diligence on it, restricting its use until that is done",
+      "Perform due diligence on the subsidiary and restrict its use of the account until that is done",
       "Accept the activity, because the subsidiary is covered by the parent's group-wide AML programme",
-      "File a SAR on every payment ordered by the subsidiary to date",
+      "File a SAR covering every payment the subsidiary has ordered through the account to date",
       "Close Norvale's account, because offshore-licensed banks may not use correspondent accounts"
     ],
     answer: [0],
