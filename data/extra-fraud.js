@@ -94,7 +94,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [2],
     explanation: "In its January 2021 FCPA resolution, Deutsche Bank admitted paying business development consultants (BDCs) who acted as proxies for client decision-makers, including a company owned by the wife of a client decision-maker, used to pass over $1 million in bribes. Payments were made without invoices or evidence of services, and the bank failed to conduct meaningful due diligence on BDCs. Approving with a contract and invoices is the runner-up, but paperwork cannot cure a consultant whose only role is to channel money to the decision-maker's family, and Deutsche Bank staff created false justifications for exactly such payments. Employees of a state-owned fund can be foreign officials, and the earlier uninvoiced payment must be investigated, not ignored.",
     source: [
-      { label: "DOJ press release (Jan 2021) – Deutsche Bank FCPA and fraud resolution", url: "https://www.justice.gov/opa/pr/deutsche-bank-agrees-pay-over-130-million-resolve-foreign-corrupt-practices-act-and-fraud" }
+      { label: "DOJ press release (Jan 2021) – Deutsche Bank FCPA and fraud resolution", url: "https://www.justice.gov/archives/opa/pr/deutsche-bank-agrees-pay-over-130-million-resolve-foreign-corrupt-practices-act-and-fraud" }
     ]
   },
   {
@@ -124,7 +124,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [0],
     explanation: "In 2016 JPMorgan's Hong Kong investment bank paid a $72 million penalty under a non-prosecution agreement for its 'Sons and Daughters Program', which hired relatives and friends of Chinese officials to win banking mandates. DOJ called it 'bribery by another name' and noted that staff misused compliance questionnaires, using a template with pre-filled answers that there was 'no expected benefit' from the hire. The runner-up is wrong because the thing of value is given to the relative in order to influence the official who awards the business; the relative need not be an official. Employment and sanctions points do not address the quid pro quo.",
     source: [
-      { label: "DOJ press release (Nov 2016) – JPMorgan APAC $72 million penalty for corrupt hiring scheme", url: "https://www.justice.gov/opa/pr/jpmorgan-s-investment-bank-hong-kong-agrees-pay-72-million-penalty-corrupt-hiring-scheme" }
+      { label: "DOJ press release (Nov 2016) – JPMorgan APAC $72 million penalty for corrupt hiring scheme", url: "https://www.justice.gov/archives/opa/pr/jpmorgan-s-investment-bank-hong-kong-agrees-pay-72-million-penalty-corrupt-hiring-scheme" }
     ]
   },
   {
@@ -139,7 +139,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     answer: [0],
     explanation: "FEPA, enacted in December 2023 and placed at 18 U.S.C. § 1352 by a 2024 amendment, makes it unlawful for a foreign official to corruptly demand, seek, receive or accept anything of value from an issuer, a domestic concern, or any person while in US territory, in return for business-related influence. Penalties are fines of up to $250,000 or three times the bribe and up to 15 years in prison, and the offence has extraterritorial jurisdiction. It complements the FCPA, which covers the supply side. Presence in the United States is only one route (for 'any person'), and there is no small-payment exemption or SEC civil scheme.",
     source: [
-      { label: "18 U.S.C. § 1352 – Demands by foreign officials for bribes (Cornell LII)", url: "https://www.law.cornell.edu/uscode/text/18/1352" }
+      { label: "18 U.S.C. § 1352 – Demands by foreign officials for bribes (GovInfo, US Code)", url: "https://www.govinfo.gov/link/uscode/18/1352?link-type=html" },
+      { label: "18 U.S.C. § 1352 (Cornell LII, with amendment notes)", url: "https://www.law.cornell.edu/uscode/text/18/1352" }
     ]
   },
   {
@@ -261,8 +262,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Exposure for the Singapore matter only, because the UK calls were the manager's own personal crime"
     ],
     answer: [1],
-    explanation: "The offence has applied since 1 September 2025 to large organisations meeting two of three tests (over 250 employees, over £36 million turnover, over £18 million assets), measured across the whole organisation. Home Office guidance says it needs a UK nexus, meaning an act of the fraud took place in the UK or the gain or loss occurred there; an overseas organisation can be prosecuted if its employee commits fraud targeting UK victims. The fraud was meant to benefit the bank, and the only defence is reasonable prevention procedures. Exposure for both matters is the runner-up: the size test does cover the whole group, but the guidance says the offence does not apply to fraud committed abroad with no UK nexus, as in Singapore.",
+    explanation: "The offence has applied since 1 September 2025 to large organisations meeting two of three tests (over 250 employees, over £36 million turnover, over £18 million assets), measured across the whole organisation. Home Office guidance says it needs a UK nexus, meaning an act of the fraud took place in the UK or the gain or loss occurred there; an overseas organisation can be prosecuted if its employee commits fraud targeting UK victims. Section 199 applies to a relevant body wherever incorporated. The fraud was meant to benefit the bank, and its defence is to prove reasonable prevention procedures (or that none could reasonably be expected), which a never-reviewed programme is unlikely to show. Exposure for both matters is the runner-up: the size test does cover the whole group, but the guidance says the offence does not apply to fraud committed abroad with no UK nexus, as in Singapore.",
     source: [
+      { label: "Economic Crime and Corporate Transparency Act 2023, s.199", url: "https://www.legislation.gov.uk/ukpga/2023/56/section/199" },
       { label: "Home Office guidance to organisations on the failure to prevent fraud offence (ECCTA 2023)", url: "https://www.gov.uk/government/publications/offence-of-failure-to-prevent-fraud-introduced-by-eccta/economic-crime-and-corporate-transparency-act-2023-guidance-to-organisations-on-the-offence-of-failure-to-prevent-fraud-accessible-version" }
     ]
   },
