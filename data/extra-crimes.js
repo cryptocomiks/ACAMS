@@ -42,9 +42,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Refuse the account, because the CRS prohibits financial institutions from accepting clients whose residence was obtained by investment"
     ],
     answer: [0],
-    explanation: "The OECD warns that citizenship and residence by investment schemes can be misused to avoid CRS reporting. Potentially high-risk schemes give access to a low personal income tax rate on offshore financial assets and do not require significant time in the jurisdiction. Where there is doubt, the OECD says institutions should ask further questions: whether residence was obtained through such a scheme, whether she holds other residence rights, whether she spent more than 90 days elsewhere in the previous year, and where she filed income tax returns. A residence certificate is not conclusive, and the CRS does not bar these clients.",
+    explanation: "The OECD warns that citizenship and residence by investment schemes can be misused to avoid CRS reporting. Potentially high-risk schemes give access to a low personal income tax rate on offshore financial assets and do not require significant time in the jurisdiction. Where there is doubt, the institution should not rely on the self-certification until it has asked further questions (OECD guidance, as adopted by tax authorities such as Curaçao's Ministry of Finance in January 2026): whether residence was obtained through such a scheme, whether she holds other residence rights, whether she spent more than 90 days elsewhere in the previous year, and where she filed income tax returns. A residence certificate is not conclusive, and the CRS does not bar these clients.",
     source: [
-      { label: "OECD – Residence/citizenship by investment and the CRS (official page, confirmed via search)", url: "https://search.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/residence-citizenship-by-investment/" }
+      { label: "Curaçao Ministry of Finance – CRS guidance note on CBI/RBI circumvention schemes (12 January 2026), restating the OECD criteria and questions", url: "https://minfin.cw/wp-content/uploads/2026/01/guidance-note-on-crs-circumvention-schemes_12012026.pdf" },
+      { label: "OECD – Residence/citizenship by investment schemes (list of potentially high-risk schemes)", url: "https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/residence-citizenship-by-investment/" }
     ]
   },
   {
@@ -377,9 +378,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Decline under the scheme, because this is a civil dispute with a legitimate supplier"
     ],
     answer: [3],
-    explanation: "The PSR's reimbursement requirement covers APP scams, not civil disputes. A civil dispute is where a customer has paid a legitimate supplier for goods or services and has not received them, found them defective, or is otherwise dissatisfied. Here a genuine firm failed, with no deception at the time of payment, so the claim falls outside the scheme. She may have other remedies, such as through the insolvency. The 50:50 split is between the sending and receiving firms and does not reduce what an eligible customer receives. The optional £100 excess applies only to valid claims.",
+    explanation: "The PSR's reimbursement requirement covers APP scams, not civil disputes. A civil dispute is where a customer has paid a legitimate supplier for goods or services and has not received them, found them defective, or is otherwise dissatisfied. Here a genuine firm failed, with no deception at the time of payment, so the claim falls outside the scheme. The PSR notes that consumer law (such as the Consumer Rights Act) protects buyers in civil disputes, and she may also claim in the insolvency. The 50:50 split is between the sending and receiving firms and does not reduce what an eligible customer receives. The optional £100 excess applies only to valid claims.",
     source: [
-      { label: "PSR – APP scams information sheet for PSPs (official page, confirmed via search)", url: "https://psr.org.uk/media/u1ihsh1q/psr-app-scams-psp-information-sheet-v2.pdf" },
+      { label: "PSR – PS23/3 APP fraud reimbursement policy statement (June 2023), paras 2.5–2.6 and 5.24 on civil disputes", url: "https://www.psr.org.uk/media/iolpbw0u/ps23-3-app-fraud-reimbursement-policy-statement-final-june-2023.pdf" },
+      { label: "PSR – PS23/4 APP scams policy statement (December 2023): excess up to £100", url: "https://www.psr.org.uk/media/kwlgyzti/ps23-4-app-scams-policy-statement-dec-2023.pdf" },
       { label: "PSR – APP scams reimbursement (overview page)", url: "https://www.psr.org.uk/our-work/app-scams/" }
     ]
   }
