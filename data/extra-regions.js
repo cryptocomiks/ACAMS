@@ -6,7 +6,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     options: [
       "Stop accepting any client that holds assets through a BVI company until the FATF removes the BVI from the list",
       "Apply FATF-mandated enhanced due diligence to every BVI-linked client, as the FATF requires for listed jurisdictions",
-      "Verify each beneficial owner independently instead of relying on the TCSP's certificate, and treat BVI TCSP introductions as higher risk",
+      "Verify each beneficial owner independently, not via the TCSP's certificate, and treat BVI TCSP introductions as higher risk",
       "Ask Tidewater to certify that the BVI registry holds the same beneficial owner details, and keep the current process"
     ],
     answer: [2],
@@ -20,7 +20,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "FATF June 2026: initial determination that Monaco warrants an on-site assessment",
     q: "Marlowe Wealth, a Singapore private bank, books 60 clients through Monaco holding structures. Its country-risk committee meets in July 2026, after the FATF's June 2026 plenary. One member reads that the FATF 'made the initial determination that Monaco has substantially completed its action plan'. He proposes rating Monaco as standard risk and removing it from the bank's list of jurisdictions under increased monitoring at once. Another member notes that Monaco has a large casino sector and that most of the 60 clients are long-standing. Which statement BEST describes Monaco's status for the committee?",
     options: [
-      "Monaco is still under increased monitoring; an on-site visit must verify that reforms are implemented and sustained before removal",
+      "Monaco is still under increased monitoring; an on-site visit must confirm reforms are implemented and sustained before removal",
       "Monaco left the list at the June 2026 plenary, because substantially completing an action plan ends monitoring automatically",
       "Monaco moved to the call-for-action list, because it failed to complete its action plan within the agreed deadlines",
       "Monaco is still listed only because MONEYVAL, not the FATF, must formally adopt the decision to remove it"
@@ -36,10 +36,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "FATF June 2026 statement on Vietnam (all action-plan deadlines expired May 2025)",
     q: "Kestrel Bank's country-risk analyst updates the Vietnam profile after the FATF's June 2026 plenary. The FATF statement says Vietnam has taken 'some steps', but all action-plan deadlines expired in May 2025, and the FATF 'strongly urges' Vietnam to implement its plan swiftly. The analyst drafts a memo saying Vietnam is now subject to an FATF call for action, so R.19 enhanced due diligence must be applied to all Vietnamese customers. Kestrel's largest Vietnamese exposure is a garment exporter. It also banks a Hanoi fintech that plans to add crypto trading. Which correction to the memo is MOST accurate?",
     options: [
-      "The memo is correct, because expired deadlines automatically move a country onto the call-for-action list",
+      "The memo is correct, because expired action-plan deadlines automatically move a country onto the FATF call-for-action list",
       "The memo is correct only for Vietnamese banks, because R.19 countermeasures apply only to correspondent relationships",
       "Vietnam should be dropped from the profile, because the FATF stops monitoring a country once its deadlines have expired",
-      "Vietnam is still under increased monitoring, not a call for action; the urging and its unregulated VASP sector inform the risk assessment, notably of the fintech"
+      "Vietnam is still under increased monitoring, not a call for action; the urging and unregulated VASPs inform risk, notably the fintech's"
     ],
     answer: [3],
     explanation: "The FATF's statement on Vietnam appears in its list of jurisdictions under increased monitoring. For those, the FATF says it does not call for EDD and expects the information to be used in a risk-based analysis. R.19 EDD and countermeasures apply to high-risk jurisdictions subject to a call for action, which is a separate list. The expired deadlines and the 'strongly urges' wording are serious risk signals, not a change of list. Item 4 of Vietnam's action plan, regulating virtual assets and VASPs, makes the fintech's crypto plans the most relevant exposure.",
@@ -54,7 +54,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Southern Cross Bank in Brisbane provides Australian dollar clearing to Kumul Commercial Bank, a respondent in Papua New Guinea. In February 2026 the FATF placed Papua New Guinea under increased monitoring. Kumul's customers include 30 foreign-exchange dealers and money transfer operators, which generate about 40% of the flows through the account. Kumul has no adverse media, its CBDDQ was refreshed in 2025, and its head office recently moved to a new building in Port Moresby. The relationship manager warns that a Pacific remittance corridor relies on this account. What is the BEST next step?",
     options: [
       "Exit the relationship, because grey-listed respondents with money transfer customers cannot be adequately mitigated",
-      "Ask Kumul in a targeted request how it risk-assesses, monitors and controls its FX dealer and MVTS customers, and adjust controls",
+      "Send Kumul a targeted request on how it assesses, monitors and controls its FX dealer and MVTS customers, then adjust controls",
       "Ask Kumul for full customer files on each of the 30 FX dealers and MVTS operators before processing any further payments",
       "Keep the current rating and controls, because the FATF statement does not call for enhanced due diligence on the country"
     ],
@@ -69,9 +69,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "FATF grey list: Kuwait added February 2026",
     q: "Al-Fanar Trading WLL, a Kuwaiti company, opens an account with a London bank to import building materials. In February 2026 the FATF placed Kuwait under increased monitoring. During onboarding the analyst notes several facts. Which TWO facts are MOST directly linked to the deficiencies in Kuwait's FATF action plan and so deserve the closest attention? (Choose two.)",
     options: [
-      "The beneficial owner was verified only from a Kuwaiti beneficial ownership registry extract supplied by the company",
-      "The company pays a Kuwaiti ministry its annual import licence fees by bank transfer",
-      "Some of the company's shares are held by a fund listed on Boursa Kuwait",
+      "The beneficial owner was verified only from a Kuwaiti registry extract supplied by the company",
+      "The company pays a Kuwaiti ministry its annual import licence fees by bank transfer from its own account",
+      "Some of the company's shares are held by an investment fund listed on Boursa Kuwait",
       "The company plans to deposit US dollar banknotes that its director brings back from regional trips",
       "The company invoices in Kuwaiti dinar and converts the proceeds through a major Kuwaiti bank"
     ],
@@ -104,7 +104,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     options: [
       "Keep the account unchanged until STRO responds, since acting earlier on the account could amount to tipping off",
       "Tell Mr Lin about the discrepancies and ask him to explain them before the bank decides on the relationship",
-      "Promptly reassess the relationship and apply risk mitigation, such as senior review, restrictions or exit, without tipping off",
+      "Promptly reassess the relationship and apply mitigation, such as senior review, restrictions or exit, without tipping off",
       "Close the account the same day and transfer the balance to whichever account Mr Lin nominates"
     ],
     answer: [2],
@@ -118,7 +118,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "Singapore Companies Act: nominee information filed with ACRA from 16 June 2025",
     q: "In October 2026, Merlion Trade Finance is onboarding Orchid Logistics Pte Ltd. On Orchid's ACRA business profile, its sole director, Mr Tan, is marked 'ND'. Orchid's register of registrable controllers lists a Hong Kong holding company as its only shareholder. Its website lists offices in three countries, and a mid-sized firm audits its accounts. The analyst wants to buy the nominator's details from ACRA. What is the BEST course of action?",
     options: [
-      "Ask Orchid for Mr Tan's nominator, as recorded in its register of nominee directors, and assess whether that person controls the company",
+      "Ask Orchid who nominated Mr Tan, as recorded in its register of nominee directors, and assess whether that person controls it",
       "Buy the nominator's particulars from ACRA, since the central register of nominee directors is open to the public for a fee",
       "Ignore the 'ND' marker, because nominee status matters only for companies listed on the Singapore Exchange",
       "Reject Orchid, because Singapore law prohibits private companies from appointing nominee directors"
@@ -134,10 +134,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "Singapore FSMA Part 9 DTSP framework in force 30 June 2025",
     q: "In October 2026, Zenith Ledger Pte Ltd, a company incorporated in Singapore, asks a Singapore bank for an operating account. It runs a crypto exchange serving only customers in Latin America and Africa, has no Singapore customers and holds no MAS licence. Its founders say a licence is unnecessary because 'nothing is offered in Singapore'. Zenith has strong venture-capital backing and no adverse media. What should the bank's compliance officer conclude?",
     options: [
-      "No MAS licence is needed, because Singapore regulates digital token services only when the customers are in Singapore",
+      "No MAS licence is needed, because Singapore regulates digital token services only when the customers themselves are located in Singapore",
       "Zenith needs a Payment Services Act licence only if it later serves Singapore customers, so onboarding can go ahead now",
-      "Licensing is for the host countries' supervisors alone, so the bank should rely only on Zenith's registrations abroad",
-      "Since 30 June 2025, Singapore-incorporated firms offering digital token services abroad fall under FSMA Part 9, so the missing licence is a serious red flag"
+      "Licensing is a matter for the host countries' supervisors alone, so the bank should rely only on Zenith's registrations abroad",
+      "Since June 2025, FSMA Part 9 covers Singapore-incorporated firms offering digital token services abroad, so the missing licence is a red flag"
     ],
     answer: [3],
     explanation: "Phase 3 of the Financial Services and Markets Act 2022 began on 30 June 2025. Under Part 9, it regulates digital token service providers that are incorporated or established in Singapore and provide services outside Singapore. A Singapore company running an exchange only for overseas customers is the target of that framework, so operating without a licence is a regulatory red flag the bank must resolve before onboarding. The runner-up, relying on foreign registrations, is wrong: host-country licensing matters under FATF R.15, but it does not displace the Singapore requirement.",
@@ -150,7 +150,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     q: "Victoria Harbour Bank is onboarding Jadeline Ltd, a private company incorporated in Hong Kong. The relationship manager plans to search Jadeline's significant controllers register at the Companies Registry, as she would a UK company's PSC register. Jadeline's articles show three shareholders holding 40%, 35% and 25% of the shares, with votes in proportion and no special rights. Its registered office is a serviced office in Wan Chai, and its designated representative is its company secretary, a licensed TCSP. Which statement is accurate?",
     options: [
       "The register is filed with the Companies Registry and open to public search, so a registry extract is sufficient verification",
-      "The company keeps the register for law enforcement officers to inspect, so the bank should get a copy from Jadeline and verify the controllers itself",
+      "The company keeps it for inspection by law enforcement officers, so the bank should get a copy from Jadeline and verify the controllers",
       "Only listed companies must keep a significant controllers register, so Jadeline does not need one",
       "All three shareholders are significant controllers, because each of them holds 25% or more of the shares"
     ],
@@ -196,10 +196,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "RGN-013", domain: 2, topic: "Cayman Islands: legitimate-interest access to beneficial ownership information", hy: false, difficulty: "medium",
     q: "Rheinwerk Bank in Frankfurt is negotiating a EUR 40 million credit facility with Coral Reef Holdings, a Cayman Islands exempted company. Coral Reef's lawyers provided an organisational chart, but two layers above the company sit in a Cayman fund vehicle. In March 2026 the credit officer asks whether the bank can obtain beneficial ownership information from the Cayman authorities. Coral Reef's sponsors are well known in shipping, and the facility will be secured on vessels. What is the BEST answer?",
     options: [
-      "No; Cayman beneficial ownership information is available only to Cayman law enforcement and the tax authority",
+      "No; Cayman beneficial ownership information is available only to Cayman law enforcement, the FIU and the tax authority",
       "Yes; the Cayman beneficial ownership register has been fully public since 2023 and can be searched online free of charge",
-      "No; access needs an order from a Cayman court, which would be disproportionate for a credit facility",
-      "Yes; as a party to a potential business relationship, the bank can apply for legitimate-interest access with evidence and a fee, but must still do its own CDD"
+      "No; access requires an order from the Grand Court of the Cayman Islands, which would be disproportionate for a credit facility",
+      "Yes; as a party to a potential business relationship it can seek legitimate-interest access, with evidence and a fee, alongside its own CDD"
     ],
     answer: [3],
     explanation: "The Beneficial Ownership Transparency (Legitimate Interest Access) Regulations, 2024 came into force on 28 February 2025. Members of the public may apply for access to the search platform if they are journalists or academic researchers, act for an anti-money-laundering civil society organisation, or seek the information in connection with a potential or actual business relationship or transaction with the legal person. They must also show a legitimate interest in preventing or combating ML, its predicates or TF. The application needs evidence and a fee, and the competent authority decides case by case. Register data supplements the bank's own CDD; it does not replace it.",
@@ -212,10 +212,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "Swiss Act on the Transparency of Legal Entities and revised AMLA in force 1 October 2026",
     q: "Alpenrose Bank in Zurich holds an account for Cordillera Holdings Inc., a Panamanian company whose only asset is a chalet in Verbier. Ms Reyes owns 60% of its shares and her brother 40%. In October 2026, after the Swiss Federal Act on the Transparency of Legal Entities came into force, the client's lawyer tells the relationship manager that the new register 'does not concern foreign companies' and is 'public, so the bank can just look it up'. Which statement is accurate?",
     options: [
-      "Cordillera is outside the register because it is foreign, but the bank may search the public register for Ms Reyes",
-      "Cordillera is covered because it owns Swiss real estate; the register is not public, but financial intermediaries may consult it for their legal duties",
+      "Cordillera is outside the register because it is a foreign company, but the bank may still search the public register for Ms Reyes",
+      "Cordillera is covered as it owns Swiss real estate; the register is not public, but financial intermediaries may consult it for legal duties",
       "Cordillera is covered, and anyone may search the register online once the transition periods have ended",
-      "Only Swiss companies entered in the commercial register are covered, so the bank must report Cordillera's owners itself"
+      "Only Swiss companies entered in the commercial register are covered, so the bank must report Cordillera's owners to the register itself"
     ],
     answer: [1],
     explanation: "The new Act and the revised Anti-Money Laundering Act entered into force on 1 October 2026. The register covers Swiss companies and also foreign entities with a registered Swiss branch, effective administration in Switzerland, or Swiss real estate, so Cordillera is in scope. The register is not public: only the control unit, listed authorities, and financial intermediaries and advisers subject to the AMLA may consult it, for their legal tasks. Control generally means at least 25% of capital or votes, so both siblings are beneficial owners. The same reform also extends due diligence duties to certain high-risk advisory activities.",
@@ -261,10 +261,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "Mexico LFPIORPI reform, DOF 16 July 2025",
     q: "Inmobiliaria Sierra Alta, a property developer in Monterrey that sells new apartments, carries out a 'vulnerable activity' under Mexico's anti-money laundering law (LFPIORPI). In September 2026 its new compliance officer reviews the manual, last updated in 2024. It says client files are kept for five years, and that a corporate buyer's beneficial owner (beneficiario controlador) is recorded only if someone holds more than 50% of the votes. Sierra Alta makes about 400 sales a year, 15% of them to foreign buyers paying by wire. Which update reflects the July 2025 reform?",
     options: [
-      "Keep the five-year retention period, but lower the beneficial ownership test to 10% of the votes",
-      "Keep identification and transaction records for at least ten years, and treat anyone able to vote more than 25% of the capital as a controller",
+      "Keep the five-year retention period, but lower the beneficial ownership test from more than 50% to 10% of the votes",
+      "Keep identification and transaction records for at least ten years, and treat anyone with over 25% of the votes as a controller",
       "Keep records for ten years only for foreign buyers, and keep the 50% test for buyers that are Mexican companies",
-      "Leave the manual unchanged, because the reform applies only to banks and other financial entities"
+      "Leave the manual unchanged, because the reform applies only to banks and other entities in the regulated financial sector"
     ],
     answer: [1],
     explanation: "The decree published on 16 July 2025 amended Article 18: those carrying out vulnerable activities must keep the information and documents for at least ten years from the date of the activity. Under the amended definition of beneficiario controlador, control includes holding rights to vote more than 25% of the capital, imposing decisions at shareholder meetings, appointing most of the board, or directing management. The reform also added a definition of property development and a new chapter requiring commercial companies to identify their beneficial owner and register it in a Ministry of Economy system. It is not limited to financial entities.",
@@ -310,9 +310,9 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "RGN-020", domain: 2, topic: "Citizenship by investment after CJEU C-181/23 (Commission v Malta, 2025)", hy: false, difficulty: "hard",
     q: "Mr Petrov applies to a Dutch private bank to open an account with EUR 3 million. He presents a Maltese passport obtained in 2021 under Malta's 2020 investor citizenship scheme. He also holds the passport of a non-EU country where he built a fertiliser business. A relationship manager says that in April 2025 the EU Court of Justice 'cancelled all Maltese investor passports', so the bank must refuse the document. The client's lawyer adds that Mr Petrov pays tax only in Malta. What is the BEST approach?",
     options: [
-      "Refuse the Maltese passport as identification, because the Court annulled every citizenship granted under the scheme",
-      "Treat Mr Petrov purely as a Maltese citizen, because EU citizenship removes any need to consider his other nationality",
-      "Accept the passport as identification, but treat the investment route as a risk factor: establish source of wealth and all citizenships and tax residences",
+      "Refuse the Maltese passport as an identity document, because the Court annulled every citizenship granted under the 2020 scheme",
+      "Treat Mr Petrov purely as a Maltese citizen, because holding EU citizenship removes any need to consider his other nationality",
+      "Accept the passport as identification, but treat the investment route as a risk factor and establish source of wealth and tax residences",
       "File a suspicious transaction report, because obtaining citizenship by investment is in itself evidence of money laundering"
     ],
     answer: [2],
@@ -326,10 +326,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "Australian AML/CTF reforms: expanded travel rule from 31 March 2026",
     q: "Wattle Pay, an Australian remittance provider that also runs a digital currency exchange, is the beneficiary institution for two incoming transfers in May 2026. The first is 3.2 BTC from an overseas exchange: the transfer message has the payee's full name but no payer information. The second is an AUD 9,800 remittance whose message lacks part of the payer's address. The customer receiving the bitcoin, a long-standing verified client, demands immediate access. What must Wattle Pay do under AUSTRAC's travel rule guidance?",
     options: [
-      "Make both transfers available, then ask the ordering institutions for the missing data within three business days",
-      "Decline to make the bitcoin available while payer information is missing (unless a narrow documented exception applies), and handle the AUD remittance under its risk-based policy",
-      "Decline both transfers, because a beneficiary institution must reject every transfer message with missing information",
-      "Make the bitcoin available because the customer is verified, but decline the AUD remittance until the address arrives"
+      "Make both transfers available now, then ask the ordering institutions to send the missing information within three business days",
+      "Withhold the bitcoin until payer data arrives (save narrow documented exceptions), and treat the AUD remittance under its risk policy",
+      "Decline both transfers, because a beneficiary institution must reject every transfer message that has any missing information",
+      "Make the bitcoin available because the customer is fully verified, but decline the AUD remittance until the full address arrives"
     ],
     answer: [1],
     explanation: "Under AUSTRAC's travel rule guidance, a beneficiary institution may decline to make value available when a transfer message is missing information or contains inaccurate information. It must decline when the value is virtual assets or when releasing it would breach targeted financial sanctions. For virtual assets, payer information, tracing information and the payee's full name are generally needed first, with narrow exceptions that require reasonable grounds and a documented risk assessment. The runner-up, declining both, wrongly applies the mandatory rule to the AUD remittance, where Wattle Pay has a risk-based choice. The customer's verified status does not change the virtual asset rule.",
@@ -359,7 +359,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "FATF grey list: Bolivia added June 2025",
     q: "Bayside Bank in Miami provides US dollar correspondent services to Banco Altiplano in La Paz. In June 2025 the FATF placed Bolivia under increased monitoring. A review of Altiplano's flows shows regular payments from state-owned utilities to foreign suppliers and USD 6 million over four months from the client accounts of two La Paz law firms to sellers of Miami condominiums. It also shows payroll for a mining cooperative and payments for vehicles imported from Japan. Altiplano's AML officer has just been replaced, and its CBDDQ is current. Given Bolivia's FATF action plan, which flow deserves the MOST scrutiny?",
     options: [
-      "The law-firm client-account payments for Miami property, since Bolivia must still supervise lawyers and real estate agents and sanction BO breaches",
+      "The law-firm client-account payments for Miami property, since Bolivia must improve supervision of lawyers and sanction BO breaches",
       "The utility payments to foreign suppliers, since state-owned entities are the main corruption channel named in the action plan",
       "The mining cooperative payroll, since the action plan names illegal mining as the predicate offence to prioritise",
       "The vehicle import payments, since trade-based money laundering is the only typology named in the action plan"
@@ -374,10 +374,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     id: "RGN-024", domain: 2, topic: "FSRB mutual evaluations: same Standards, Universal Procedures and joint evaluations", hy: true, difficulty: "medium",
     q: "At a credit committee, a senior banker argues that a respondent's mutual evaluation report should carry little weight because it was produced by an FSRB, the APG, and 'FSRB reports are lighter than FATF reports'. He adds that the respondent's country, which belongs to both the FATF and the APG, will be assessed twice in the next round, once by each body. Which statement BEST corrects him?",
     options: [
-      "FSRB reports apply regional standards set by each FSRB, so they should be weighted below FATF reports",
-      "FSRB reports are only drafts until the FATF Plenary re-rates them, so analysts should use the FATF version",
-      "He is wrong about weight, but right that a country belonging to both bodies is assessed separately by each",
-      "FSRBs assess against the FATF Standards and Methodology under common procedures with quality checks, and a country in both bodies has one joint evaluation"
+      "FSRB reports apply regional standards adopted by each FSRB's own plenary, so analysts should weight them below FATF reports",
+      "FSRB reports remain drafts until the FATF Plenary re-rates them, so analysts should always use the FATF version of a report",
+      "He is wrong about the weight, but right that a country belonging to both bodies is assessed separately by each of them",
+      "FSRBs apply the FATF Standards and Methodology under common procedures with quality checks, and dual members get one joint evaluation"
     ],
     answer: [3],
     explanation: "The APG's procedures apply the FATF Standards and Methodology. They rest on the Universal Procedures that all assessment bodies share, with the aim that evaluations by the FATF, FSRBs, the IMF and the World Bank are equivalent and of a high standard. Draft reports go through quality and consistency review across the Global Network. APG members that are also FATF members undergo a single joint evaluation by the FATF and the APG.",
@@ -390,10 +390,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     changed: "Brazil Pix rules: precautionary block extended to legal entities (Sept 2025); MED tracing beyond the first account (2026)",
     q: "In November 2026 an investigator at Banco Ipê in São Paulo sees that a two-month-old company account (CNPJ) has just received BRL 180,000 through 37 Pix transfers from individuals. Most of the payers reported a 'fake investment' scam to their banks within hours. The funds are already being split and sent on to accounts at three other banks. The company's declared activity is software consulting, and its sole partner is 19 years old. Which tool do the Pix rules give Banco Ipê for the incoming funds?",
     options: [
-      "None for this account, because the precautionary block can be used only on accounts of natural persons",
-      "None without a court order, because Pix rules let banks block funds only on instruction from the Central Bank",
-      "A precautionary block of up to 72 hours while it assesses the fraud, returning funds if confirmed; MED tracing can also reach later accounts",
-      "A permanent freeze of the balance until the payers obtain a judgment, with no deadline for assessing the fraud"
+      "None for this account, because the precautionary block can be used only on accounts held by natural persons",
+      "None without a court order, because Pix rules let banks block funds only on a specific instruction from the Central Bank",
+      "A block of up to 72 hours while it assesses the fraud, returning funds if confirmed; MED tracing can also reach onward accounts",
+      "A permanent freeze of the balance until the payers obtain a court judgment, with no deadline for assessing the fraud"
     ],
     answer: [2],
     explanation: "The Central Bank's Pix management report says the receiving institution may block funds from a suspected fraudulent Pix for up to 72 hours. During that time it must assess the suspicion and return the funds to the payer if fraud is confirmed, or release them otherwise. The tool was limited to natural persons from 2021, but since September 2025 it can also be used on legal-entity accounts. The runner-up reflects only the old rule. The return mechanism (MED) was also improved so that, from 2026, funds can be traced, blocked and returned beyond the first receiving account.",

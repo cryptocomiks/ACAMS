@@ -118,7 +118,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       { label: "FinCEN Alert FIN-2023-Alert001 (Jan 2023) – human smuggling along the southwest border: red flags and funnel accounts", url: "https://www.fincen.gov/sites/default/files/shared/FinCEN%20Alert%20Human%20Smuggling%20FINAL_508.pdf" }
     ] },
 
-  { id: "OCRM-010", domain: 2, topic: "SAR filing when smuggling debt turns into forced labor (FIN-2023-Alert001)", hy: true, difficulty: "hard",
+  { id: "OCRM-010", domain: 4, topic: "SAR filing when smuggling debt turns into forced labor (FIN-2023-Alert001)", hy: true, difficulty: "hard",
     q: "In 2025 Hector Ruiz, a construction worker, opened an account at Pinewood Bank three weeks after arriving in the United States. His aunt paid part of his smuggling fee in advance, and he still owes the balance to the smuggling network. Since then, about 60% of each weekly payroll deposit has been sent, on the day it arrives, to the account of a 'labor broker' linked to the smugglers, who also keeps Hector's passport and decides where he works and lives. Hector tells a teller he cannot leave until 'the debt is paid', although the debt keeps growing because of 'fees'. Pinewood decides to file a SAR. Following FinCEN's 2023 human smuggling alert, how should the SAR be completed?",
     options: [
       "Include the key term FIN-2023-HUMANSMUGGLING in field 2 and the narrative, select human smuggling in field 38(g), and also select human trafficking in field 38(h)",
