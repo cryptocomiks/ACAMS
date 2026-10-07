@@ -926,3 +926,15 @@ kbd { font: inherit; font-size: 11px; padding: 1px 6px; border-radius: 5px; back
   .cert-frame { position: fixed; inset: 0; box-shadow: none; border-radius: 0; }
   @page { size: A4 landscape; margin: 0; }
 }
+
+/* Learning loop: second chances and mistake replay */
+.tag.retry { background: rgba(10, 132, 255, .12); color: var(--blue); }
+.retry-note { font-size: 14px; line-height: 1.45; padding: 9px 12px; margin: 4px 0 10px; border-radius: 12px; background: var(--bg-alt); }
+.navgrid button.retry { font-weight: 700; }
+.learn-loop { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 22px; padding: 18px; border-radius: 18px;
+  background: linear-gradient(135deg, rgba(10,132,255,.12), rgba(191,90,242,.12)); }
+.learn-loop .ll-ic { font-size: 30px; }
+.learn-loop .ll-body { flex: 1; min-width: 220px; }
+.learn-loop .ll-body b { display: block; font-size: 17px; }
+.learn-loop .ll-body span { font-size: 14px; color: var(--muted); }
+.learn-loop .ll-actions { display: flex; gap: 8px; flex-wrap: wrap; }

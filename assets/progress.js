@@ -270,7 +270,8 @@
   // ---------- Spaced repetition ----------
   function srsNext(c, ok) {
     var now = Date.now();
-    var box = !c ? (ok ? 2 : 1) : (ok ? Math.min(INTERVALS.length - 1, c.box + 1) : 1);
+    // A miss drops to box 0 (back in 10 minutes); getting it right then climbs 1, 3, 7, 16, 35 days.
+    var box = !c ? (ok ? 2 : 0) : (ok ? Math.min(INTERVALS.length - 1, c.box + 1) : 0);
     var due = ok ? now + INTERVALS[box] * 864e5 - 36e5 : now + 10 * 6e4;
     return { box: box, due: due, last: now };
   }

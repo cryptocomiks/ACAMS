@@ -21,6 +21,7 @@
     daily: { label: "Daily challenge", icon: "📅", instant: true, n: 10 }
   };
   var LETTERS = "ABCDEFGH";
+  var RETRY_GAP = 3;   // other questions shown before a missed one comes back
   var KEYS = { session: "cams.session.v1", history: "cams.history.v1", stats: "cams.stats.v1", prefs: "cams.prefs.v1" };
 
   var BANK = (window.CAMS_QUESTIONS || []).filter(function (q) {
@@ -144,6 +145,17 @@
     if (mode === "survival") return ranked(pool, stats);
     var n = Math.min((MODES[mode] || MODES.practice).n, opts.limit || Infinity, pool.length);
     var chosen = [];
+    // Practice: up to a quarter of the set are missed questions due again, so mistakes keep coming back until learnt.
+    var dueSet = {};
+    if (mode === "practice" && PG && !opts.ids && opts.source !== "mistakes") {
+      var inPool = {};
+      pool.forEach(function (q) { inPool[q.id] = 1; });
+      PG.dueIds(BY_ID).filter(function (id) { return inPool[id] && stats[id] && stats[id].last === false; })
+        .slice(0, Math.floor(n / 4)).forEach(function (id) { dueSet[id] = 1; chosen.push(BY_ID[id]); });
+      pool = pool.filter(function (q) { return !dueSet[q.id]; });
+    }
+    var target = n;
+    n -= chosen.length;
     if ((!opts.domain || opts.domain === "all") && opts.source !== "mistakes" && !opts.ids) {
       // Mirror the exam blueprint weights (30/20/30/20).
       var quotas = {}, assigned = 0;
@@ -152,14 +164,16 @@
       Object.keys(DOMAINS).forEach(function (d) {
         chosen = chosen.concat(ranked(pool.filter(function (q) { return String(q.domain) === d; }), stats).slice(0, quotas[d]));
       });
-      if (chosen.length < n) {
+      if (chosen.length < target) {
         var ids = chosen.map(function (q) { return q.id; });
-        chosen = chosen.concat(ranked(pool.filter(function (q) { return ids.indexOf(q.id) < 0; }), stats).slice(0, n - chosen.length));
+        chosen = chosen.concat(ranked(pool.filter(function (q) { return ids.indexOf(q.id) < 0; }), stats).slice(0, target - chosen.length));
       }
     } else {
-      chosen = ranked(pool, stats).slice(0, n);
+      chosen = chosen.concat(ranked(pool, stats).slice(0, n));
     }
-    return shuffle(chosen);
+    var out = shuffle(chosen);
+    out.due = dueSet;
+    return out;
   }
 
   // Asks before a new test replaces one in progress. Returns false if the user says no.
@@ -172,7 +186,7 @@
   function startSession(mode, opts) {
     opts = opts || {};
     // Free plan: some modes are Premium, Practice is capped at the questions left today.
-    var free = PL && !PL.premium();
+    var free = PL && !PL.premium() && !opts.retry;
     if (free) {
       var gate = PL.check(mode, opts);
       if (gate !== "ok") { PL.paywall(gate); return false; }
@@ -216,7 +230,7 @@
       session.pool = qs.slice(1).map(function (q) { return q.id; });
       session.items.push(makeItem(qs[0]));
     } else {
-      session.items = qs.map(makeItem);
+      session.items = qs.map(function (q) { var it = makeItem(q); if (qs.due && qs.due[q.id]) it.due = true; return it; });
     }
     if (mode === "daily") {
       session.dailyKey = PG.dayKey();
@@ -831,7 +845,7 @@
     var timed = s.mode === "lightning";
     stopQTimer();
 
-    var done = s.items.filter(function (it) { return it.submitted; });
+    var done = firstTries(s.items).filter(function (it) { return it.submitted; });
     var right = done.filter(isCorrect).length;
     if (s.mode === "exam") {
       setTopbar('<span class="tag">Mock exam</span><span class="timer" id="timer"></span>');
@@ -849,7 +863,8 @@
     var html = '<div class="card qcard' + (animate ? " fade-in" : "") + (revealed ? (isCorrect(item) ? " flash-good" : " flash-bad") : "") + '">' +
       (timed && !revealed ? '<div class="hg-wrap">' + FX.hourglass() + '<span class="hg-sec" id="hgSec"></span></div>' : "") +
       '<div class="qhead"><div class="qcount">' + countLabel + "</div>" +
-      '<div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag blue">Domain ' + q.domain + "</span>" +
+      '<div style="display:flex;gap:6px;flex-wrap:wrap">' + (item.retry ? '<span class="tag retry">🔁 Second chance</span>' : item.due ? '<span class="tag retry">🔁 Missed before</span>' : "") +
+      '<span class="tag blue">Domain ' + q.domain + "</span>" +
       (revealed && q.topic ? '<span class="tag">' + esc(q.topic) + "</span>" : "") + // topic only after answering: it can give the answer away
 
       (practice && q.hy ? '<span class="tag hy">Frequently tested</span>' : "") +
@@ -880,7 +895,7 @@
       html += '<div class="explain ' + (ok ? "good" : "bad") + '"><div class="verdict">' +
         (item.timedOut && isAnswered(item) ? (ok ? "⌛ Time's up — your selection was submitted: ✓ Correct" : "⌛ Time's up — your selection was submitted. Correct answer: " + correctLetters)
           : item.timedOut ? "⌛ Time's up — correct answer: " + correctLetters : ok ? "✓ Correct" : "✗ Incorrect — correct answer: " + correctLetters) +
-        (item.xp ? '<span class="xp-chip' + (item.fresh ? " pop" : "") + '">+' + item.xp + " XP</span>" : "") + "</div>" + esc(q.explanation) + changedHtml(q) + sourcesHtml(q) + "</div>";
+        (item.xp ? '<span class="xp-chip' + (item.fresh ? " pop" : "") + '">+' + item.xp + " XP</span>" : "") + "</div>" + retryNote(s, item, ok) + esc(q.explanation) + changedHtml(q) + sourcesHtml(q) + "</div>";
       item.fresh = false;
       s.lostAnim = false;
     }
@@ -913,7 +928,8 @@
           if (it.flagged) c.push("flagged");
           if (i === s.current) c.push("current");
           if (practice && it.submitted) c.push(isCorrect(it) ? "ok" : "ko");
-          return '<button data-go="' + i + '" class="' + c.join(" ") + '">' + (i + 1) + "</button>";
+          if (it.retry) c.push("retry");
+          return '<button data-go="' + i + '" class="' + c.join(" ") + '"' + (it.retry ? ' title="Second chance"' : "") + ">" + (it.retry ? "↻" : i + 1) + "</button>";
         }).join("") + "</div>" +
         '<div class="legend">' + (practice
           ? '<span><i style="background:var(--good)"></i>Correct</span><span><i style="background:var(--bad)"></i>Incorrect</span>'
@@ -932,6 +948,15 @@
     }
     if (s.mode === "exam") startTimer();
     if (timed && !item.submitted) startQTimer(item);
+  }
+
+  function retryNote(s, item, ok) {
+    var t = "";
+    if (item.retry) t = ok ? "<b>Fixed on your second try.</b> It stays in Smart review and comes back tomorrow, then at growing intervals, to lock it in."
+      : "<b>Still tricky.</b> Read the explanation below carefully: this one comes back in Smart review in 10 minutes.";
+    else if (!ok && item.retryAt != null) t = "<b>Second chance coming:</b> this question comes back " + (item.retryAt >= s.items.length - 1 ? "at the end of this set" : "in a few questions") + ", options reshuffled. Read why below.";
+    else if (!ok && PG) t = "<b>Added to Smart review:</b> it comes back in 10 minutes, then tomorrow, then at growing intervals.";
+    return t ? '<div class="retry-note">🔁 ' + t + "</div>" : "";
   }
 
   // Lightning: per-question hourglass
@@ -967,8 +992,12 @@
     item.combo = ok ? s.combo : 0;
     var speed = 0;
     if (ok && s.mode === "lightning" && item.endsAt) speed = Math.floor(Math.max(0, item.endsAt - Date.now()) / 5000);
-    recordStat(item, { combo: item.combo, speedBonus: speed });
-    if (s.free && PL && isAnswered(item)) PL.useFree(1);
+    if (item.retry) item.xp = 0;   // a second chance is for learning: no stats, XP or free-question cost
+    else {
+      recordStat(item, { combo: item.combo, speedBonus: speed });
+      if (s.free && PL && isAnswered(item)) PL.useFree(1);
+      if (!ok) queueRetry(s, item);
+    }
     item.fresh = true;
     if (ok) FX.play(item.combo >= 3 ? "combo" : "correct", item.combo); else FX.play("wrong");
     if (s.mode === "survival" && !ok) { s.lives = Math.max(0, s.lives - 1); s.lostAnim = true; if (s.lives <= 0) FX.play("lose"); }
@@ -977,6 +1006,18 @@
     var ex = document.querySelector(".explain");
     if (ex && ex.scrollIntoView) ex.scrollIntoView({ behavior: FX.reduced ? "auto" : "smooth", block: "nearest" });
   }
+
+  // Practice and Review: a missed question comes back once, a few questions later, with its options reshuffled.
+  function canRetry(s) { return s.mode === "practice" || s.mode === "review"; }
+  function queueRetry(s, item) {
+    if (!canRetry(s) || s.items.some(function (it) { return it.retry && it.qid === item.qid; })) return;
+    var at = Math.min(s.items.indexOf(item) + 1 + RETRY_GAP, s.items.length);
+    var r = makeItem(BY_ID[item.qid]);
+    r.retry = true;
+    s.items.splice(at, 0, r);
+    item.retryAt = at;
+  }
+  function firstTries(items) { return items.filter(function (it) { return !it.retry; }); }
 
   // A click with detail 0 comes from the keyboard (Enter/Space or a shortcut): keep focus on that control.
   function kbFocus(e, sel) { if (e && e.detail === 0) pendingFocus = sel; }
@@ -1040,7 +1081,7 @@
   function confirmFinish() {
     var s = session;
     if (instant(s)) {
-      var pending = s.items.filter(function (it) { return !it.submitted; }).length;
+      var pending = firstTries(s.items).filter(function (it) { return !it.submitted; }).length;
       if (pending && s.mode !== "survival" && !confirm(pending + " question(s) not checked yet. Selected answers will be scored as they are; blank ones count as incorrect. Finish anyway?")) return;
     } else {
       var un = s.items.filter(function (it) { return !isAnswered(it); }).length;
@@ -1075,6 +1116,8 @@
     stopTimer(); stopQTimer();
     if (!s || s.finished) return;
     if (s.mode === "survival") s.items = s.items.filter(function (it) { return it.submitted; });
+    s.retries = s.items.filter(function (it) { return it.retry && it.submitted; });
+    s.items = firstTries(s.items);
     var answered = s.items.filter(isAnswered).length;
     if (!answered && (early || !s.items.length)) {
       // Quit before answering anything: nothing to score or record.
@@ -1177,6 +1220,19 @@
       (th.length ? '<p class="small muted" style="margin:14px 0 8px">Or pick a theme (weakest first):</p>' + themeChips(th.slice(0, 6)) : "") + "</div>";
   }
 
+  // Learning loop: what was missed, what the second chances fixed, and a one-click replay of the misses.
+  function mistakesHtml(s) {
+    var missed = s.items.filter(function (it) { return !isCorrect(it); });
+    if (!missed.length) return "";
+    var r = s.retries || [], fixed = r.filter(isCorrect).length;
+    return '<div class="learn-loop"><div class="ll-ic" aria-hidden="true">🧠</div><div class="ll-body">' +
+      "<b>Turn " + (missed.length === 1 ? "this miss" : "these " + missed.length + " misses") + " into points</b>" +
+      "<span>" + (r.length ? "Second chances: " + fixed + "/" + r.length + " fixed. " : "") +
+      "Missed questions come back in Smart review in 10 minutes, then after 1, 3, 7, 16 and 35 days as you get them right.</span></div>" +
+      '<div class="ll-actions"><button class="btn primary sm" id="retryMissed">🔁 Retry my ' + missed.length + " mistake" + (missed.length > 1 ? "s" : "") + " now</button>" +
+      '<button class="btn sm" data-filter="wrong">Read the explanations</button></div></div>';
+  }
+
   function shareText(s) {
     var sq = s.items.map(function (it) { return isCorrect(it) ? "🟩" : "🟥"; }).join("");
     var score = s.items.filter(isCorrect).length;
@@ -1213,7 +1269,7 @@
       '<div class="result-title">' + esc(title) + "</div>" +
       '<p class="muted" style="margin:0">' + esc(sub) + "</p>" +
       (s.mode === "exam" ? '<p class="muted small" style="margin:6px 0 0">Aim for 80%+ consistently in mock exams before booking the real one.</p>' : "") +
-      "</div></div>" + rewardsHtml(s) + keepGoingHtml(s) +
+      "</div></div>" + rewardsHtml(s) + mistakesHtml(s) + keepGoingHtml(s) +
       (s.mode === "daily" && !s.replay && !s.dailyLate ? '<div class="share"><pre id="shareTxt">' + esc(shareText(s)) + '</pre><button class="btn sm" id="copyShare">Copy result</button> <a class="link-btn small" href="#/ranks">See today\'s leaderboard</a></div>' : "") +
       '<h3 style="margin-top:20px">By domain</h3>' + (function (h) { return isPremium() ? h : PL.lockOverlay(h, "stats", "Your score by domain"); })('<div class="bars">' +
       Object.keys(DOMAINS).filter(function (d) { return byDomain[d]; }).map(function (d) {
@@ -1226,7 +1282,7 @@
       '<button class="btn primary" id="again">' + (s.mode === "daily" ? "Replay" : s.mode === "survival" || s.mode === "lightning" ? "Play again" : "New " + modeLabel(s.mode).toLowerCase()) + "</button></div></div></div>";
 
     var wrongCount = total - score;
-    html += '<div class="card" style="margin-top:20px"><div class="qhead"><h2 style="margin:0">Answer review</h2>' +
+    html += '<div class="card" id="answerReview" style="margin-top:20px"><div class="qhead"><h2 style="margin:0">Answer review</h2>' +
       '<div style="display:flex;gap:6px"><button class="btn sm' + (reviewFilter === "all" ? " primary" : "") + '" data-filter="all">All (' + total + ")</button>" +
       '<button class="btn sm' + (reviewFilter === "wrong" ? " primary" : "") + '" data-filter="wrong">Incorrect (' + wrongCount + ")</button></div></div>";
     var list = s.items.map(function (it, i) { return { it: it, i: i }; }).filter(function (x) { return reviewFilter === "all" || !isCorrect(x.it); });
@@ -1258,6 +1314,11 @@
     var ns = $("nudgeSignup");
     if (ns) ns.onclick = function () { window.CAMSAccount.open("signup"); };
     $("again").onclick = function () { startSession(s.mode, s.opts); };
+    var rm = $("retryMissed");
+    if (rm) rm.onclick = function () {
+      var ids = s.items.filter(function (it) { return !isCorrect(it); }).map(function (it) { return it.qid; });
+      startSession("practice", { ids: ids.filter(function (id, i) { return ids.indexOf(id) === i; }), label: "Mistakes", retry: true });
+    };
     each("[data-next]", function (b) {
       b.onclick = function () {
         var m = b.getAttribute("data-next"), prefs = load(KEYS.prefs, {});
@@ -1274,7 +1335,14 @@
         var r = document.createRange(); r.selectNodeContents($("shareTxt")); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
       });
     };
-    each("[data-filter]", function (b) { b.onclick = function () { reviewFilter = b.getAttribute("data-filter"); renderResults(); }; });
+    each("[data-filter]", function (b) {
+      b.onclick = function () {
+        var jump = !!b.closest(".learn-loop");
+        reviewFilter = b.getAttribute("data-filter"); renderResults();
+        var t = jump && document.getElementById("answerReview");
+        if (t) t.scrollIntoView({ behavior: FX.reduced ? "auto" : "smooth" });
+      };
+    });
     FX.countUp(app);
     window.scrollTo(0, 0);
   }

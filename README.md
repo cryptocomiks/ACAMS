@@ -70,7 +70,7 @@ Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être a
 - **Gamification** (`assets/progress.js`) : XP et niveaux, série de jours 🔥 avec gels de série ❄️ (1 tous les 7 jours, max 2),
   objectif quotidien (10/20/30/50), 3 quêtes par jour + coffre bonus, records perso, calendrier d'activité, 26 badges,
   score de préparation à l'examen. Sons doux (coupés par défaut, bouton 🔊 en haut).
-- **Révision intelligente** : répétition espacée (Leitner) — une question ratée revient après 10 min, puis 1, 3, 7, 16, 35 jours
+- **Révision intelligente** : répétition espacée (Leitner) — une question ratée revient dans la même session (seconde chance, options mélangées), puis en révision après 10 min, 1, 3, 7, 16 et 35 jours ; la pratique mélange automatiquement les erreurs à revoir et la page de résultats propose « Retry my mistakes »
   à chaque bonne réponse. Mode « Review », sujets les plus faibles avec entraînement ciblé, précision par domaine.
 
 ## Design et vidéo
