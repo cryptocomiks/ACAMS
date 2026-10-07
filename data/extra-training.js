@@ -283,16 +283,16 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "TRNG-019", difficulty: "medium", domain: 3, topic: "Employee screening during employment and on a move to a higher-risk role (MLR reg. 21)", hy: false,
-    q: "Tamsin Hale joined Corbridge Bank, a UK bank, in 2019 as a mortgage administrator and passed pre-employment checks. In 2026 she applies internally for a role in payments operations, which can release high-value payments and change beneficiary details. Her manager says no new checks are needed because 'she was vetted and has seven years of good service'. The bank's vetting policy screens staff only at hire. What is the BEST approach under the UK Money Laundering Regulations and FCA guidance?",
+    id: "TRNG-019", difficulty: "medium", domain: 3, topic: "Ongoing employee screening covers competence, not only integrity (MLR reg. 21(2)(a))", hy: false,
+    q: "Corbridge Bank, a UK bank, describes its ongoing screening of relevant employees under regulation 21 of the Money Laundering Regulations 2017 as a yearly criminal record and credit check. Investigator Tamsin Hale has passed every check since she joined in 2019. Over the past year, however, second-line QA failed 30% of her sampled cases, mostly because she did not recognise common money mule patterns, and her appraisal notes that she struggles with the new case system. HR says that because her checks are clean, she has passed screening. What is the BEST assessment?",
     options: [
-      "No new checks, because the regulations require screening only before an employee is first appointed",
-      "Repeat only her criminal record check, because screening under the regulations means checking convictions",
-      "Screen her for the new role, covering her skills and her conduct and integrity, and add ongoing screening of staff to the policy",
-      "Ask her to sign a declaration that nothing has changed since 2019, which is enough for an internal move"
+      "Her screening is complete, because screening under regulation 21 is about honesty and the risk that an employee colludes with criminals",
+      "Her screening is complete, because regulation 21 requires screening only before appointment, so later checks are optional good practice",
+      "Screening is incomplete: it must also assess her skills, knowledge and expertise, so the QA and appraisal evidence calls for action such as training and closer supervision",
+      "She must be dismissed, because an employee who fails any part of screening during the appointment cannot stay in a relevant role"
     ],
     answer: [2],
-    explanation: "Regulation 21 of the MLRs 2017 requires screening of relevant employees both before appointment and during the course of the appointment, where appropriate to the firm's size and nature, and defines screening as assessing both the individual's skills, knowledge and expertise and their conduct and integrity. The FCA lists vetting as a one-off exercise as poor practice and expects higher-risk roles to get more thorough vetting (FCG 2.2.6). A criminal record check covers only part of integrity, and a self-declaration is not an assessment.",
+    explanation: "Regulation 21(2)(a) defines screening as an assessment of both the individual's skills, knowledge and expertise to carry out their functions effectively and their conduct and integrity, and regulation 21(1)(b) requires it before appointment and during the course of it, where appropriate to the firm's size and nature. The FCA expects firms to review employees' competence and take appropriate action so they remain competent, and lists staff who are not competent to carry out preventive functions as poor practice (FCG 2.2.6). The runner-up treats screening as an integrity check only and ignores the competence limb. The regulations do not require dismissal: a competence gap calls for proportionate action such as training, supervision or a change of role.",
     source: [
       { label: "Money Laundering Regulations 2017, regulation 21", url: "https://www.legislation.gov.uk/uksi/2017/692/regulation/21" },
       { label: "FCA Handbook – FCG 2.2.6 Staff recruitment, vetting, training", url: "https://www.handbook.fca.org.uk/handbook/FCG/2/2.html" }
@@ -315,7 +315,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
   },
   {
     id: "TRNG-021", difficulty: "hard", domain: 3, topic: "Risk-based compliance monitoring and testing plan", hy: false,
-    q: "Corvane Securities, a UK investment firm, inherited a second-line compliance monitoring plan that tests each of its eight business areas once a year for the same number of days. Its 2026 compliance risk assessment rates two areas high risk: a crypto-linked structured products desk launched in March, and an introducer-led private client business where QA found incomplete source-of-wealth evidence. Three back-office areas are rated low risk and have had no findings for four years. The 2027 plan will have the same resources as 2026. What is the BEST way to build the 2027 plan?",
+    changed: "SYSC 6.1.3-AR to 6.1.3-CR in force 23 October 2025, moving the compliance-function rules for common platform firms (formerly Article 22 of the UK MiFID Org Regulation) into the FCA Handbook; substance unchanged",
+    q: "Corvane Securities, a UK MiFID investment firm (a common platform firm), inherited a second-line compliance monitoring plan that tests each of its eight business areas once a year for the same number of days. Its 2026 compliance risk assessment rates two areas high risk: a crypto-linked structured products desk launched in March, and an introducer-led private client business where QA found incomplete source-of-wealth evidence. Three back-office areas are rated low risk and have had no findings for four years. The 2027 plan will have the same resources as 2026. What is the BEST way to build the 2027 plan?",
     options: [
       "Keep equal yearly coverage of every area, since a uniform cycle best shows the regulator that nothing is missed",
       "Test only the two high-risk areas and stop monitoring the low-risk areas until a problem appears there",
@@ -323,7 +324,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       "Set scope and frequency from the risk assessment: more and deeper testing of high-risk areas, lighter or less frequent cover of low-risk ones"
     ],
     answer: [3],
-    explanation: "SYSC 6.1.3-B requires the compliance function to base a risk-based monitoring programme on its compliance risk assessment, considering all areas of the business, with priorities set by that assessment. The Federal Reserve's SR 08-8 likewise says the scope and frequency of monitoring and testing should follow the assessed risk. Equal coverage, the runner-up, wastes effort on low-risk areas, while dropping them altogether fails the 'all areas' requirement; business heads cannot set the plan for the function that monitors them.",
+    explanation: "SYSC 6.1.3-B requires the compliance function to base a risk-based monitoring programme on its compliance risk assessment, considering all areas of its designated investment business, with priorities set by that assessment; under SYSC 6.1.3-C, compliance staff must not be involved in the activities they monitor. The Federal Reserve's SR 08-8 likewise says the scope and frequency of monitoring and testing should follow the assessed risk. Equal coverage, the runner-up, wastes effort on low-risk areas, while dropping them altogether fails the 'all areas' requirement; business heads cannot set the plan for the function that monitors them.",
     source: [
       { label: "FCA Handbook – SYSC 6.1 Compliance (SYSC 6.1.3-B, 6.1.3-C)", url: "https://www.handbook.fca.org.uk/handbook/SYSC/6/1.html" },
       { label: "Federal Reserve SR 08-8 – Compliance monitoring and testing", url: "https://www.federalreserve.gov/supervisionreg/srletters/sr0808.htm" }
@@ -377,17 +378,17 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     ]
   },
   {
-    id: "TRNG-025", difficulty: "medium", domain: 3, topic: "Training records: overdue training and corrective action (FFIEC)", hy: false,
-    q: "An examiner reviewing the BSA/AML training programme of Pine Ridge Bank, a US community bank, finds that 14% of staff are more than 90 days overdue on required training. HR keeps no record of who missed training or what was done about it, and the training slides are overwritten each year. Which practices does the FFIEC BSA/AML Examination Manual expect the bank to adopt? (Choose two.)",
+    id: "TRNG-025", difficulty: "medium", domain: 3, topic: "Updating training content after findings and system changes (FFIEC)", hy: false,
+    q: "Last year's independent test at Pine Ridge Bank, a US community bank, found that branch staff had failed to aggregate same-day cash deposits made at different branches, so several CTRs were never filed. In March 2026 the bank also moved to a new core banking system, which produces the daily cash aggregation report in a different format. The training manager plans to re-run last year's BSA training unchanged. Which additions to the training materials are BEST supported by the FFIEC BSA/AML Examination Manual? (Choose two.)",
     options: [
-      "Delete training records after one year, once the next annual session has been completed",
-      "Keep attendance records and records of any failures to complete required training on time, with the corrective actions taken",
-      "Record only the completion rate by department, since individual records are not expected",
-      "Keep the training and testing materials, if testing is used, and the dates of sessions, available for examiners",
-      "Leave overdue staff out of the records if they complete the training before the examination"
+      "The results of the independent test's findings of noncompliance on CTR aggregation, and what staff must do differently",
+      "The names of the employees who missed the CTRs, so that other staff understand who was accountable",
+      "How the new core system's cash aggregation report works, as a change to the systems used for BSA compliance",
+      "A longer history of the BSA since 1970, in place of the bank's own procedures, to deepen staff understanding",
+      "No additions, because the CTR rules themselves have not changed since last year's training"
     ],
-    answer: [1, 3],
-    explanation: "The FFIEC manual says banks should document their training programmes and keep training and testing materials (if testing is used) and the dates of sessions available for auditors and examiners. They should also keep attendance records and records of any failures to take required training on time, together with the corrective actions taken. Deleting, aggregating or cleaning up the records defeats that purpose.",
+    answer: [0, 2],
+    explanation: "The FFIEC examination procedures ask whether training materials address the results of previous findings of noncompliance with internal policies and regulatory requirements, and the manual says periodic training should incorporate changes to internal policies, procedures and processes, and may cover changes to the information technology sources, systems and processes used in BSA compliance. Both apply here: staff got aggregation wrong, and the report they rely on has changed. Naming individuals is a disciplinary matter, not training content; extra history does not replace the bank's procedures; and an unchanged rule does not mean unchanged training when the bank's own failures and systems have changed.",
     source: [
       { label: "FFIEC BSA/AML Examination Manual (April 2020) – BSA/AML Training", url: "https://ncua.gov/files/press-releases-news/bsa-aml-examination-manual-april-2020.pdf" }
     ]
