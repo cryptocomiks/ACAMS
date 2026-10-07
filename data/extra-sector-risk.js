@@ -247,7 +247,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       2,
       4
     ],
-    "explanation": "The Wolfsberg ABC Guidance lists as red flags an intermediary 'suggested by a Public Official, particularly one connected to the business or matter at issue', requests for advance payments or payment into a country that is not the intermediary's principal place of business, and unsupported objections to ABC due diligence or to representations and warranties. A valid licence, relevant experience, training and audit rights are mitigants the guidance recommends, not red flags.",
+    "explanation": "The Wolfsberg ABC Guidance lists as red flags an intermediary 'suggested by a Public Official, particularly one connected to the business or matter at issue', requests for advance payments or payment into a country that is not the intermediary's principal place of business, and unsupported objections to ABC due diligence or to representations and warranties. A valid licence and relevant experience are not red flags, and ABC training and audit rights over the intermediary are controls the guidance itself recommends for intermediary engagements.",
     "source": [
       {
         "label": "Wolfsberg Group ABC Compliance Programme Guidance (2023)",
@@ -324,6 +324,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       {
         "label": "FATF, INTERPOL and Egmont Group – Illicit Financial Flows from Cyber-Enabled Fraud (Nov 2023)",
         "url": "https://www.fatf-gafi.org/en/publications/Methodsandtrends/illicit-financial-flows-cyber-enabled-fraud.html"
+      },
+      {
+        "label": "Full text of the same FATF/INTERPOL/Egmont report (PDF), copy hosted by the Bank of Russia",
+        "url": "https://www.cbr.ru/Content/Document/File/156253/IFF.PDF"
       }
     ]
   },
@@ -348,6 +352,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       {
         "label": "FATF, INTERPOL and Egmont Group – Illicit Financial Flows from Cyber-Enabled Fraud (Nov 2023)",
         "url": "https://www.fatf-gafi.org/en/publications/Methodsandtrends/illicit-financial-flows-cyber-enabled-fraud.html"
+      },
+      {
+        "label": "Full text of the same FATF/INTERPOL/Egmont report (PDF), copy hosted by the Bank of Russia",
+        "url": "https://www.cbr.ru/Content/Document/File/156253/IFF.PDF"
       }
     ]
   },
@@ -372,6 +380,10 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
       {
         "label": "FATF, INTERPOL and Egmont Group – Illicit Financial Flows from Cyber-Enabled Fraud (Nov 2023)",
         "url": "https://www.fatf-gafi.org/en/publications/Methodsandtrends/illicit-financial-flows-cyber-enabled-fraud.html"
+      },
+      {
+        "label": "Full text of the same FATF/INTERPOL/Egmont report (PDF), copy hosted by the Bank of Russia",
+        "url": "https://www.cbr.ru/Content/Document/File/156253/IFF.PDF"
       }
     ]
   },
@@ -463,7 +475,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     "answer": [
       1
     ],
-    "explanation": "Section 333A(1) makes it an offence to disclose that a disclosure has been made to a nominated officer, constable or the NCA where this is likely to prejudice any investigation and the information came in the course of regulated business. Telling the accountant that the bank has reported to the NCA meets those elements; the offence is not limited to telling the customer. Section 333D(1)(a) permits disclosure to the firm's supervisory authority, which covers the MLRO's answer to the FCA. Section 333D(3) gives a defence where the person does not know or suspect the disclosure is likely to prejudice an investigation, which fits the uninformed branch employee's general remark.",
+    "explanation": "Section 333A(1) makes it an offence to disclose that a disclosure has been made to a nominated officer, constable or the NCA where this is likely to prejudice any investigation and the information came in the course of regulated business. Telling the accountant that the bank has reported to the NCA meets those elements; the offence is not limited to telling the customer. Section 333D(1)(a) permits disclosure to the firm's supervisory authority, which covers the MLRO's answer to the FCA. The branch employee's general remark does not reveal that any disclosure has been made, and in any case section 333D(3) gives a defence where the person does not know or suspect the disclosure is likely to prejudice an investigation.",
     "source": [
       {
         "label": "UK Proceeds of Crime Act 2002, s.333A (tipping off: regulated sector)",
@@ -491,7 +503,8 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     "answer": [
       3
     ],
-    "explanation": "Schedule 2, Part 1, paragraph 2 of the Data Protection Act 2018 disapplies the subject access provisions for personal data processed to prevent or detect crime 'to the extent that' complying 'would be likely to prejudice' those purposes. Disclosing the SAR could also be the section 333A POCA tipping-off offence. The bank should therefore apply the exemption to the SAR material and answer the rest of the request normally. A blanket refusal is the runner-up, but the exemption applies only to the extent of likely prejudice, not to all the customer's data. Data protection does not override POCA, and the NCA does not take over a controller's access requests.",
+    "explanation": "Schedule 2, Part 1, paragraph 2 of the Data Protection Act 2018 disapplies the subject access provisions for personal data processed for the prevention, investigation or detection of crime 'to the extent that' complying 'would be likely to prejudice' those purposes. Disclosing the SAR could also be the section 333A POCA tipping-off offence. The bank should therefore apply the exemption to the SAR material and answer the rest of the request normally. A blanket refusal is the runner-up, but the exemption applies only to the extent of likely prejudice, not to all the customer's data. Data protection does not override POCA, and the NCA does not take over a controller's access requests.",
+    "changed": "Data (Use and Access) Act 2025 inserted 'investigation' into the Sch. 2 para 2(1)(a) crime exemption from 5 Feb 2026; the exemption still applies only to the extent of likely prejudice",
     "source": [
       {
         "label": "UK Data Protection Act 2018, Sch. 2 Part 1 para 2 (crime and taxation exemption)",
@@ -571,7 +584,7 @@ window.CAMS_QUESTIONS = (window.CAMS_QUESTIONS || []).concat([
     "answer": [
       1
     ],
-    "explanation": "The FATF's 2016 correspondent banking guidance (section VI) says there is 'no obligation triggered by the FATF Recommendations' to apply CDD to an MVTS's customers. Banks should understand whether the account is used for the MVTS's own business or for its customers, consider how the MVTS's own obligations are implemented and supervised, consider separate accounts for the two flows, and flag unusual transactions and file STRs. An exit is the runner-up, but exiting because the bank cannot see each remitter rests on a requirement FATF does not impose. Licensing does not automatically make an MVTS low risk.",
+    "explanation": "The FATF's 2016 correspondent banking guidance (section VI) says there is 'no obligation triggered by the FATF Recommendations' to apply CDD to an MVTS's customers. Banks should understand whether the account is used for the MVTS's own business or for its customers, assess the MVTS case by case using the same risk factors as for other respondents (including its AML/CFT controls and supervision), consider separate accounts for the two flows, and flag unusual transactions and file STRs. An exit is the runner-up, but exiting because the bank cannot see each remitter rests on a requirement FATF does not impose. Licensing does not automatically make an MVTS low risk.",
     "source": [
       {
         "label": "FATF Guidance on Correspondent Banking Services (2016), official copy hosted by the EAG",
