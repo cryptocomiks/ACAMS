@@ -999,3 +999,5 @@ kbd { font: inherit; font-size: 11px; padding: 1px 6px; border-radius: 5px; back
 .st-sci b { display: block; margin-bottom: 4px; } .st-sci span { font-size: 14px; color: var(--muted); }
 .st-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 24px 0; }
 @media (max-width: 600px) { .st-top { gap: 14px; } .st-count b { font-size: 44px; } .st-sd { min-width: 82px; } }
+.mm-tabs { display: flex; justify-content: center; margin: -6px 0 20px; }
+.mm-ctop { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 6px 22px 16px; border-bottom: 1px solid var(--hairline); }

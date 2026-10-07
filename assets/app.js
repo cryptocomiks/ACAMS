@@ -1106,6 +1106,7 @@
     var stats = load(KEYS.stats, {});
     var st = stats[item.qid] || { seen: 0, right: 0, wrong: 0 };
     var ok = isCorrect(item);
+    if (!st.seen && isAnswered(item) && window.CAMSMistakes) window.CAMSMistakes.firstAnswer(item.qid, ok);   // community stats: first try only
     st.seen += 1;
     if (ok) st.right += 1; else st.wrong += 1;
     st.last = ok;

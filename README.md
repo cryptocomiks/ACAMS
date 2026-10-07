@@ -63,7 +63,7 @@ Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être a
 - **Sans compte** : tout marche, la progression reste dans le navigateur.
 - **Avec compte** (Supabase, email + mot de passe) : progression synchronisée entre appareils (fusion à chaque envoi :
   un onglet resté ouvert n'écrase jamais la progression faite ailleurs). Activation : voir `supabase/README.md`
-  (créer le projet, lancer `supabase/schema.sql` puis `supabase/leaderboard.sql`, coller l'URL et la clé *anon* dans `assets/config.js`).
+  (créer le projet, lancer `supabase/schema.sql`, `supabase/leaderboard.sql` puis `supabase/community.sql`, coller l'URL et la clé *anon* dans `assets/config.js`).
 - **Classements** (onglet Ranks) : XP de la semaine, défi du jour, all-time. Participation volontaire avec un nom public
   choisi, on peut quitter à tout moment. Les scores sont calculés dans le navigateur ; le serveur les garde plausibles
   (voir `supabase/leaderboard.sql`).
@@ -71,6 +71,13 @@ Changements récents intégrés (le matériel ACAMS de juillet 2025 peut être a
   objectif quotidien (10/20/30/50), 3 quêtes par jour + coffre bonus, records perso, calendrier d'activité, 26 badges,
   score de préparation à l'examen. Sons doux (coupés par défaut, bouton 🔊 en haut).
 - **Révision intelligente** : répétition espacée (Leitner) — une question ratée revient dans la même session (seconde chance, options mélangées), puis en révision après 10 min, 1, 3, 7, 16 et 35 jours ; la pratique mélange automatiquement les erreurs à revoir et la page de résultats propose « Retry my mistakes »
+- **Most missed** (`#/mistakes`) : toutes les questions ratées, classées de la plus ratée à la moins ratée, entraînement en un clic sur le top 20.
+  Onglet **Community traps** : les questions que les apprenants ratent le plus au premier essai (anonyme, une réponse par personne
+  et par question, affiché à partir de 5 apprenants). Nécessite `supabase/community.sql`.
+- **Plan 30 jours** (`#/plan`) : date d'examen, diagnostic gratuit de 40 questions (pondéré 30/20/30/20), puis une mission par jour
+  (leçon + quiz, révision espacée, flashcards, examens blancs aux jalons, dernière semaine en pratique mélangée, veille légère).
+  Les révisions sont recalées pour toutes repasser avant l'examen. Basé sur la recherche : pratique du test et espacement
+  (Dunlosky et al. 2013), écart optimal (Cepeda et al. 2008), prétest (Richland et al. 2009), réapprentissage successif (Rawson & Dunlosky).
   à chaque bonne réponse. Mode « Review », sujets les plus faibles avec entraînement ciblé, précision par domaine.
 
 ## Design et vidéo
